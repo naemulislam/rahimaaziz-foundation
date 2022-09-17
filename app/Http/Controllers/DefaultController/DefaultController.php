@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Http\Controllers\DefaultController;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+use App\Models\Category;
+use App\Models\District;
+use App\Models\Division;
+use App\Models\Country;
+use App\Models\Educlass;
+use App\Models\Section;
+use App\Models\Student;
+use App\Models\Studentadmission;
+use App\Models\Subject;
+use App\User;
+
+class DefaultController extends Controller
+{
+     public function get_class($id){
+        $data = Educlass::where('category_id',$id)->get();
+        return response()->json($data);
+    }
+    public function get_section($id){
+        $data = Section::where('class_id',$id)->get();
+        return response()->json($data);
+    }
+    public function get_subject($id){
+        $data = Subject::where('category_id',$id)->get();
+        return response()->json($data);
+    }
+    public function get_subject_att($id){
+        $data = Subject::where('class_id',$id)->get();
+        return response()->json($data);
+    }
+    public function get_student($id){
+        $data = Studentadmission::with('class','student','category')->where('class_id',$id)->get();
+        return response()->json($data);
+    }
+    
+}
