@@ -1,5 +1,5 @@
 @extends('backend.layouts.dashboard')
-@section('title','Home Work')
+@section('title','Submit list')
 @section('content')
 
 <!--begin::Content-->
@@ -12,7 +12,7 @@
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                     <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Student Home Work</h5>
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">Student Home Work Submit List</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -63,58 +63,68 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Title</th>
-                                <th>Category</th>
+                                <th>Name</th>
+                                <th>Roll</th>
                                 <th>Class</th>
-                                <th>Section</th>
+                                <th>Title</th>
                                 <th>Subject</th>
-                                <th>Desc</th>
-                                <th>Date</th>
+                                <th>Submit Date</th>
                                 <th>Action</th>
+                                <th>Comment</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($homeworks as $row)
+                            @php
+                            $get_stu = \App\Models\Studentadmission::where('student_id',$row->student_id)->first();
+                            @endphp
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$row->title}}</td>
-                                <td>{{$row->category->category_name}}</td>
+                                <td>{{$row->student->name}}</td>
+                                <td>{{ $get_stu->roll}}</td>
                                 <td>{{$row->class->class_name}}</td>
-                                <td>
-                                    @if($row->section_id)
-                                    {{$row->section->name}}
-                                    @else
-                                    N/A
-                                    @endif
-
-                                </td>
+                                <td>{{ Str::limit($row->title,20)}}</td>
                                 <td>{{$row->subject->sub_name}}</td>
-                                <td>{{ Str::limit($row->description,15)}}</td>
                                 <td>{{$row->homework_date}}</td>
+                                
 
                                 <td class="d-flex">
-                                    <a href="{{ route('teacher.homework.show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ route('teacher.homework.edit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
-
-
-                                    @php
-                                    $check1 = 0;
-
-                                    $check2 = 0;
-                                    @endphp
-
-                                    @if( $check1 > 0 || $check2 > 0)
-                                    <button type="button" class="btn btn-icon btn-warning btn-hover-primary btn-xs mx-3 delcheck"><i class="fa fa-trash"></i></button>
-                                    @else
-
-                                    <a id="delete" href="{{route('teacher.homework.destroy',$row->id)}}" class="btn btn-icon btn-danger btn-hover-primary btn-xs mx-3">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-
-                                    @endif
-
+                                    <a href="{{ route('teacher.hw.show.submit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
+                                </td>
+                                <td>
+                                    
+                                <a href="#" data-toggle="modal" data-target="#editmodal_{{$row->id}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-commenting-o"></i></a>
                                 </td>
                             </tr>
+
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editmodal_{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">HW Comment</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{route('teacher.hw.comment.update',$row->id)}}" method="post">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="">Comment</label>
+                                                    <input type="text" name="comment" placeholder="Enter your comment" class="form-control">
+                                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('comment'))?($errors->first('comment')):''}}</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -130,52 +140,4 @@
 <!--end::Content-->
 
 
-@section('customjs')
-
-
-<!-- Edit code -->
-<script>
-    $(function() {
-        $(document).on('change', '#category_id', function() {
-            var category_id = $(this).val();
-            $.ajax({
-                type: "Get",
-                url: "{{url('/admin/dashboard/get/class')}}/" + category_id,
-                dataType: "json",
-                success: function(data) {
-                    var html = '<option value="">Select Class</option>';
-                    $.each(data, function(key, val) {
-                        html += '<option value="' + val.id + '">' + val.class_name + '</option>';
-                    });
-                    $('#class_id').html(html);
-                },
-
-            });
-        });
-    });
-</script>
-
-<!-- Add code -->
-<script>
-    $(function() {
-        $(document).on('change', '#adcategory_id', function() {
-            var category_id = $(this).val();
-            $.ajax({
-                type: "Get",
-                url: "{{url('/admin/dashboard/get/class')}}/" + category_id,
-                dataType: "json",
-                success: function(data) {
-                    var html = '<option value="">Select Class</option>';
-                    $.each(data, function(key, val) {
-                        html += '<option value="' + val.id + '">' + val.class_name + '</option>';
-                    });
-                    $('#adclass_id').html(html);
-                },
-
-            });
-        });
-    });
-</script>
-
-@endsection
 @endsection

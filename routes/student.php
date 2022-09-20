@@ -1,5 +1,7 @@
 <?php
 use App\Http\Controllers\AllAuthController;
+use App\Http\Controllers\DefaultController\DefaultController;
+use App\Http\Controllers\Student\HomeworkController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +35,23 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
    
     Route::get('/edit/password/', [StudentController::class, 'cPassword'])->name('epassword');
     Route::post('/update/password/', [StudentController::class, 'upassword'])->name('upassword');
+
+
+    Route::group(['prefix'=>'/student'],function(){
+        Route::resource('homework',HomeworkController::class);
+        Route::get('completed/hw/',[HomeworkController::class,'Hwindex'])->name('hw.index');
+        Route::get('homework/create/{id}',[HomeworkController::class,'homeworkcreate'])->name('homework.hw_create');
+        Route::get('homework/show/{id}',[HomeworkController::class,'homeworkshow'])->name('homework.hw_show');
+        Route::get('homework/destroy/{id}',[HomeworkController::class,'homeworkdestroy'])->name('homework.destroy');
+    });
+
+    /////////////////////////Default routes////////////////////////////////
+//Get Data ajax
+Route::get('/get/class/{id}', [DefaultController::class,'get_class'])->name('get.class');
+Route::get('/get/section/{id}', [DefaultController::class,'get_section'])->name('get.sectoin');
+Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name('get.subject');
+Route::get('/get/student/{id}', [DefaultController::class,'get_student'])->name('get.student');
+Route::get('/get/attendance/subject/{id}', [DefaultController::class,'get_subject_att']);
+/////////////////////////Default routes////////////////////////////////
     
 });

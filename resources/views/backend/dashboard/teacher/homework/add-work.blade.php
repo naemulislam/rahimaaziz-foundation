@@ -37,14 +37,14 @@
                             <h3 class="card-title">Create Student Home Work</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{route('admin.homework.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                                <a href="{{route('teacher.homework.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
                                     < Back</a>
                                         <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{ route('admin.homework.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('teacher.homework.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="row">
@@ -116,22 +116,7 @@
 
                                 </div>
 
-                                <div class="row">
-                                <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="">Student<span class="text-danger">*</span></label>
-                                            <select name="student_id" class="form-control">
-                                                <option>Select Student</option>
-                                                @foreach($students as $student)
-                                                <option value="{{$student->student->id}}">{{ $student->student->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('student_id') ? $errors->first('student_id') : '' }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -201,7 +186,7 @@
             var category_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/class')}}/" + category_id,
+                url: "{{url('/teacher/dashboard/get/class')}}/" + category_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Class</option>';
@@ -222,7 +207,7 @@
             var class_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/attendance/subject')}}/" + class_id,
+                url: "{{url('/teacher/dashboard/get/attendance/subject')}}/" + class_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Subject</option>';
@@ -242,7 +227,7 @@
             var class_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/section')}}/" + class_id,
+                url: "{{url('/teacher/dashboard/get/section')}}/" + class_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Section</option>';

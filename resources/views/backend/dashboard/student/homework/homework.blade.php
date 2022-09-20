@@ -36,13 +36,13 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Home Work List
+                        <h3 class="card-label">All Home Work List
                             <span class="d-block text-muted pt-2 font-size-sm">All student home work here</span>
                         </h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="" data-toggle="modal" data-target="#addmodal" class="btn btn-primary font-weight-bolder">
+                        <a href="{{route('student.hw.index')}}" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -53,7 +53,7 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span>Add Home Work</a>
+                            </span>See submitted list</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -64,21 +64,29 @@
                             <tr>
                                 <th>SL</th>
                                 <th>Title</th>
-                                <th>Category</th>
                                 <th>Class</th>
                                 <th>Section</th>
                                 <th>Subject</th>
                                 <th>Desc</th>
                                 <th>Date</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            
+
                             @foreach($homeworks as $row)
+
+
+                            @php
+                            $get_stu_id = Auth('student')->user()->id;
+                            $get_submit_id = \App\Models\Submitwork::where('student_id',$get_stu_id)->where('hw_id',$row->id)->first();
+                            @endphp
+                            
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$row->title}}</td>
-                                <td>{{$row->category->category_name}}</td>
+                                <td>{{ Str::limit($row->title,20)}}</td>
                                 <td>{{$row->class->class_name}}</td>
                                 <td>
                                     @if($row->section_id)
@@ -89,30 +97,26 @@
 
                                 </td>
                                 <td>{{$row->subject->sub_name}}</td>
-                                <td>{{ Str::limit($row->description,15)}}</td>
+                                <td>{{ Str::limit($row->description,15) }}</td>
                                 <td>{{$row->homework_date}}</td>
-
-                                <td class="d-flex">
-                                    <a href="{{ route('teacher.homework.show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ route('teacher.homework.edit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
-
-
-                                    @php
-                                    $check1 = 0;
-
-                                    $check2 = 0;
-                                    @endphp
-
-                                    @if( $check1 > 0 || $check2 > 0)
-                                    <button type="button" class="btn btn-icon btn-warning btn-hover-primary btn-xs mx-3 delcheck"><i class="fa fa-trash"></i></button>
+                                <td>
+                                    @if($get_submit_id)
+                                    <a href="#" class="btn label label-lg label-light-success label-inline">Complete</a>
                                     @else
-
-                                    <a id="delete" href="{{route('teacher.homework.destroy',$row->id)}}" class="btn btn-icon btn-danger btn-hover-primary btn-xs mx-3">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-
+                                    <a href="#" class="btn label label-lg label-light-danger label-inline">Pending</a>
                                     @endif
 
+                                </td>
+
+                                <td class="d-flex">
+
+                                
+                                    <a href="{{ route('student.homework.show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
+                                    @if($get_submit_id)
+                                    Submitted
+                                    @else
+                                    <a href="{{ route('student.homework.hw_create',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -129,53 +133,4 @@
 </div>
 <!--end::Content-->
 
-
-@section('customjs')
-
-
-<!-- Edit code -->
-<script>
-    $(function() {
-        $(document).on('change', '#category_id', function() {
-            var category_id = $(this).val();
-            $.ajax({
-                type: "Get",
-                url: "{{url('/admin/dashboard/get/class')}}/" + category_id,
-                dataType: "json",
-                success: function(data) {
-                    var html = '<option value="">Select Class</option>';
-                    $.each(data, function(key, val) {
-                        html += '<option value="' + val.id + '">' + val.class_name + '</option>';
-                    });
-                    $('#class_id').html(html);
-                },
-
-            });
-        });
-    });
-</script>
-
-<!-- Add code -->
-<script>
-    $(function() {
-        $(document).on('change', '#adcategory_id', function() {
-            var category_id = $(this).val();
-            $.ajax({
-                type: "Get",
-                url: "{{url('/admin/dashboard/get/class')}}/" + category_id,
-                dataType: "json",
-                success: function(data) {
-                    var html = '<option value="">Select Class</option>';
-                    $.each(data, function(key, val) {
-                        html += '<option value="' + val.id + '">' + val.class_name + '</option>';
-                    });
-                    $('#adclass_id').html(html);
-                },
-
-            });
-        });
-    });
-</script>
-
-@endsection
 @endsection

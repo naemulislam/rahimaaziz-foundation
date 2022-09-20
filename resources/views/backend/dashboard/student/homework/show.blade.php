@@ -58,7 +58,7 @@
                             <dd class="col-sm-8">{{ $data->title}}</dd>
                             <b class="col-sm-3">Description </b>
                             <b class="col-sm-1"> : </b>
-                            <dd class="col-sm-8">{{ $data->description}}</dd>
+                            <dd class="col-sm-8">{!! $data->description !!}</dd>
         
                             <b class="col-sm-3">Category</b>
                             <b class="col-sm-1"> : </b>
@@ -80,15 +80,12 @@
                             <b class="col-sm-3">Subject</b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">{{ $data->subject->sub_name }}</dd>
-                            <b class="col-sm-3">Home Work Status</b>
+                            <b class="col-sm-3">Home Work Date</b>
                             <b class="col-sm-1"> : </b>
-                            <dd class="col-sm-8">
-                                @if($data->work_status == 1)
-                                Complete the homework.
-                                @else
-                                Not yet complete the homework.
-                                @endif
-                            </dd>
+                            <dd class="col-sm-8">{{ $data->homework_date }}</dd>
+                            <b class="col-sm-3">Submit Date</b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ $data->submission_date }}</dd>
                             <b class="col-sm-3">Home Work Photo</b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">

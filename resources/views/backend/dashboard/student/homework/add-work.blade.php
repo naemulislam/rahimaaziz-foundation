@@ -37,25 +37,25 @@
                             <h3 class="card-title">Create Student Home Work</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{route('admin.homework.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                                <a href="{{route('student.homework.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
                                     < Back</a>
                                         <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{ route('admin.homework.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('student.homework.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
 
-                                <div class="row">
+                                <input type="hidden" name="hw_id" value="{{$homework->id}}">
+
+                                <!-- <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Category<span class="text-danger">*</span></label>
                                             <select name="category_id" class="form-control" id="adcategory_id">
                                                 <option>Select Category</option>
-                                                @foreach($categorys as $category)
-                                                <option value="{{$category->id}}">{{ $category->category_name}}</option>
-                                                @endforeach
+                                                
                                             </select>
 
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('category_id'))?($errors->first('category_id')):''}}</div>
@@ -81,14 +81,18 @@
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('section_id'))?($errors->first('section_id')):''}}</div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
 
                                 <div class="row">
                                 <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Subject<span class="text-danger">*</span></label>
-                                            <select name="subject_id" class="form-control" id="adsubject_id">
+                                            <select name="subject_id" class="form-control" id="adsubject">
+                                            <option>Select Subject</option>
+                                                @foreach($subjects as $subject)
+                                                <option value="{{$subject->id}}">{{ $subject->sub_name}}</option>
+                                                @endforeach
 
                                             </select>
 
@@ -98,7 +102,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Home work Date<span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" name="homework_date" value="{{old('homework_date')}}" placeholder="Enter Homework Date">
+                                            <input type="date" class="form-control" name="homework_date" value="{{ $homework->homework_date}}" placeholder="Enter Homework Date">
                                             <div style='color:red; padding: 0 5px;'>
                                                 {{ $errors->has('homework_date') ? $errors->first('homework_date') : '' }}
                                             </div>
@@ -115,6 +119,8 @@
                                     </div>
 
                                 </div>
+
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -184,7 +190,7 @@
             var category_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/class')}}/" + category_id,
+                url: "{{url('/teacher/dashboard/get/class')}}/" + category_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Class</option>';
@@ -205,7 +211,7 @@
             var class_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/attendance/subject')}}/" + class_id,
+                url: "{{url('/teacher/dashboard/get/attendance/subject')}}/" + class_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Subject</option>';
@@ -225,7 +231,7 @@
             var class_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/section')}}/" + class_id,
+                url: "{{url('/teacher/dashboard/get/section')}}/" + class_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Section</option>';

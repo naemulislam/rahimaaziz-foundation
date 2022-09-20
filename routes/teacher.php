@@ -5,6 +5,7 @@ use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\Teacher\AdmissionController;
 use App\Http\Controllers\Teacher\CategoryController;
 use App\Http\Controllers\Teacher\ClassController;
+use App\Http\Controllers\Teacher\HomeworkController;
 use App\Http\Controllers\Teacher\ProfileController;
 use App\Http\Controllers\Teacher\RegisterController;
 use App\Http\Controllers\Teacher\SectionController;
@@ -28,7 +29,7 @@ Route::middleware('web')->group(function () {
     Route::get('/login', [AllAuthController::class, 'teacherLogin'])->name('teacher.login');
     Route::post('/login-store', [AllAuthController::class, 'teacherloginstore'])->name('teacher.login.store');
     Route::post('/teacher/store', [RegisterController::class, 'register'])->name('teacher.register');
-    Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name('gesubject');
+    // Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name('gesubject');
 });
 
 
@@ -92,7 +93,11 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
     });
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('homework',HomeworkController::class);
+        
         Route::get('homework/destroy/{id}',[HomeworkController::class,'homeworkdestroy'])->name('homework.destroy');
+        Route::get('/submitted/hw/',[HomeworkController::class,'getallwh'])->name('hw.all.submit');
+        Route::get('/submitted/hw/{id}',[HomeworkController::class,'gethwshow'])->name('hw.show.submit');
+        Route::post('/submitted/update/{id}',[HomeworkController::class,'Commentpost'])->name('hw.comment.update');
     });
 
     /////////////////////////Default routes////////////////////////////////

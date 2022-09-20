@@ -308,6 +308,16 @@
 												</a>
 											
 											</li>
+											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('teacher.hw.all.submit')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Submitted by student</span>
+													<i class="menu-arrow"></i>
+												</a>
+											
+											</li>
 										</ul>
 									</div>
 								</li>

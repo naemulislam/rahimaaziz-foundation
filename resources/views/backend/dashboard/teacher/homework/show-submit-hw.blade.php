@@ -1,5 +1,5 @@
 @extends('backend.layouts.dashboard')
-@section('title', 'Homework Details')
+@section('title', 'HW Details')
 @section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -80,13 +80,19 @@
                             <b class="col-sm-3">Subject</b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">{{ $data->subject->sub_name }}</dd>
-                            <b class="col-sm-3">Home Work Status</b>
+                            <b class="col-sm-3">Home Work Date</b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ $data->homework_date }}</dd>
+                            <b class="col-sm-3">Submit Date</b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ $data->submission_date }}</dd>
+                            <b class="col-sm-3">Comment</b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">
-                                @if($data->work_status == 1)
-                                Complete the homework.
+                                @if($data->comment)
+                               {{ $data->comment }}
                                 @else
-                                Not yet complete the homework.
+                                Comment not added yet.
                                 @endif
                             </dd>
                             <b class="col-sm-3">Home Work Photo</b>
