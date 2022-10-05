@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Homework;
 use App\Models\Student;
 use App\Models\Studentadmission;
+use App\Models\Submitwork;
 use Illuminate\Http\Request;
 
 class HomeworkController extends Controller
@@ -77,39 +78,21 @@ class HomeworkController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $data = Homework::find($id);
         return view('backend.dashboard.admin.homework.show',compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $data["categorys"] = Category::where('status', 1)->get();
-        //$data["students"] = Studentadmission::where('status', 1)->get();
+        $data["students"] = Studentadmission::where('status', 1)->get();
         $data['homework'] = Homework::find($id);
         return view('backend.dashboard.admin.homework.edit',$data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -150,12 +133,6 @@ class HomeworkController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function homeworkdestroy($id)
     {
         $data = Homework::find($id);
@@ -166,5 +143,38 @@ class HomeworkController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    }
+
+
+    public function getallwh()
+    {
+        $data['homeworks'] = Submitwork::latest()->get();
+        return view('backend.dashboard.admin.homework.submit-list', $data);
+        
+    }
+    public function gethwshow($id)
+    {
+        $data= Submitwork::find($id);
+        return view('backend.dashboard.admin.homework.show-submit-hw',compact('data'));
+        
+    }
+
+    public function Commentpost(Request $request, $id){
+
+        $this->validate($request,[
+            'comment' => 'required',
+
+        ]);
+
+        $data = Submitwork::find($id);
+        $data->comment = $request->comment;
+        $data->save();
+        $notification = array(
+            'message' => 'Comment Saved successfully!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
     }
 }

@@ -58,7 +58,7 @@
                             <dd class="col-sm-8">{{ $data->title}}</dd>
                             <b class="col-sm-3">Description </b>
                             <b class="col-sm-1"> : </b>
-                            <dd class="col-sm-8">{{ $data->description}}</dd>
+                            <dd class="col-sm-8">{!! $data->description !!}</dd>
         
                             <b class="col-sm-3">Category</b>
                             <b class="col-sm-1"> : </b>

@@ -18,10 +18,9 @@ class HomeworkController extends Controller
     }
     
 
-        public function create()
+    public function create()
     {
         $data["categorys"] = Category::where('status', 1)->get();
-        //$data["students"] = Studentadmission::where('status', 1)->get();
         return view('backend.dashboard.teacher.homework.add-work', $data);
     }
 

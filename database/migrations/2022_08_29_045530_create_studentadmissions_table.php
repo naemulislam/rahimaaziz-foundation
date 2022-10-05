@@ -26,6 +26,13 @@ class CreateStudentadmissionsTable extends Migration
             $table->string('section_id')->nullable();
             $table->string('admi_phone')->nullable();
             $table->string('admi_photo')->nullable();
+            $table->string('b_cirti')->nullable();
+            $table->string('immu_record')->nullable();
+            $table->string('proof_address')->nullable();
+            $table->string('guard_pic')->nullable();
+            $table->string('physical_health')->nullable();
+            $table->string('mrrcfps')->nullable();
+            $table->string('hsral')->nullable();
             $table->string('payment_id')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('payment_method')->nullable();

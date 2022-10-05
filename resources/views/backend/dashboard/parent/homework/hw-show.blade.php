@@ -11,7 +11,7 @@
                     <!--begin::Page Heading-->
                     <div class="d-flex align-items-baseline flex-wrap mr-5">
                         <!--begin::Page Title-->
-                        <h5 class="text-dark font-weight-bold my-1 mr-5">Student home work details</h5>
+                        <h5 class="text-dark font-weight-bold my-1 mr-5">Submitted Home Work Details</h5>
                         <!--end::Page Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -35,7 +35,7 @@
                 <div class="card card-custom">
                     <div class="card-header flex-wrap py-5">
                         <div class="card-title">
-                            <h3 class="card-label">Student Home Work Details
+                            <h3 class="card-label">Student Submitted Home Work Details
                                 <span class="d-block text-muted pt-2 font-size-sm">All details here</span>
                             </h3>
                         </div>
@@ -58,7 +58,7 @@
                             <dd class="col-sm-8">{{ $data->title}}</dd>
                             <b class="col-sm-3">Description </b>
                             <b class="col-sm-1"> : </b>
-                            <dd class="col-sm-8">{{ $data->description}}</dd>
+                            <dd class="col-sm-8">{!! $data->description !!}</dd>
         
                             <b class="col-sm-3">Category</b>
                             <b class="col-sm-1"> : </b>
@@ -86,6 +86,16 @@
                             <b class="col-sm-3">Submit Date</b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">{{ $data->submission_date }}</dd>
+                            <b class="col-sm-3">Comment</b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">
+                                @if($data->comment)
+                               {{ $data->comment }}
+                                @else
+                                Comment not added yet.
+                                @endif
+                            </dd>
+                            
                             <b class="col-sm-3">Home Work Photo</b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">

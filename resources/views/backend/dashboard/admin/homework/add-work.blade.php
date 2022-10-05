@@ -115,6 +115,8 @@
                                     </div>
 
                                 </div>
+
+                                
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -184,7 +186,7 @@
             var category_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/class')}}/" + category_id,
+                url: "{{url('/teacher/dashboard/get/class')}}/" + category_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Class</option>';
@@ -205,7 +207,7 @@
             var class_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/attendance/subject')}}/" + class_id,
+                url: "{{url('/teacher/dashboard/get/attendance/subject')}}/" + class_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Subject</option>';
@@ -225,7 +227,7 @@
             var class_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/section')}}/" + class_id,
+                url: "{{url('/teacher/dashboard/get/section')}}/" + class_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Section</option>';

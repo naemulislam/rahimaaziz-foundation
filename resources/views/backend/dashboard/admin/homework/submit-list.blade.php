@@ -1,5 +1,5 @@
 @extends('backend.layouts.dashboard')
-@section('title','Request list')
+@section('title','Submit list')
 @section('content')
 
 <!--begin::Content-->
@@ -12,12 +12,12 @@
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                     <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Request List</h5>
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">Student Home Work Submit List</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                         <li class="breadcrumb-item text-muted">
-                            <a href="javascript:;" class="text-muted">student admission request</a>
+                            <a href="javascript:;" class="text-muted">Work List</a>
                         </li>
                     </ul>
                     <!--end::Breadcrumb-->
@@ -36,8 +36,8 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Request List
-                            <span class="d-block text-muted pt-2 font-size-sm">All student admission request here</span>
+                        <h3 class="card-label">Home Work List
+                            <span class="d-block text-muted pt-2 font-size-sm">All student home work here</span>
                         </h3>
                     </div>
                     
@@ -45,75 +45,66 @@
                 <div class="card-body">
                     <!--begin: Datatable-->
                     <table class="table table-separate table-head-custom table-checkable" id="kt_datatable">
-                    <thead>
+                        <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Photo</th>
                                 <th>Name</th>
-                                <th>Category</th>
+                                <th>Roll</th>
                                 <th>Class</th>
-                                <th>payment</th>
-                                <th>Status</th>
+                                <th>Title</th>
+                                <th>Subject</th>
+                                <th>Submit Date</th>
                                 <th>Action</th>
+                                <th>Comment</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $row)
+                            @foreach($homeworks as $row)
+                            @php
+                            $get_stu = \App\Models\Studentadmission::where('student_id',$row->student_id)->first();
+                            @endphp
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>
-                                    <img style="width:70px ;" src="@if(!empty($row->admi_photo)){{asset($row->admi_photo)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="">
-                                </td>
                                 <td>{{$row->student->name}}</td>
-                                <td>{{$row->category->category_name}}</td>
+                                <td>{{ $get_stu->roll}}</td>
                                 <td>{{$row->class->class_name}}</td>
-                               
-                                <td>
-                                    @if($row->payment_status == 1)
-                                    <a href="#" class="btn label label-lg label-light-success label-inline"> Paid</a>
-                                    @else
-                                    <a href="#" class="btn label label-lg label-light-danger label-inline"> Unpaid</a>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($row->status == 1)
-                                    <a href="#" class="btn label label-lg label-light-success label-inline" data-toggle="modal" data-target="#row_status_{{$row->id}}"> Active</a>
-                                    @elseif($row->status == 0)
-                                    <a href="#" class="btn label label-lg label-light-danger label-inline" data-toggle="modal" data-target="#row_status_{{$row->id}}"> Panding</a>
-                                    @endif
-                                </td>
+                                <td>{{ Str::limit($row->title,20)}}</td>
+                                <td>{{$row->subject->sub_name}}</td>
+                                <td>{{$row->homework_date}}</td>
+                                
+
                                 <td class="d-flex">
-                                    <a href="{{route('admin.panding.show',$row->student->slug)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ route('admin.hw.show.submit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
+                                </td>
+                                <td>
+                                    
+                                <a href="#" data-toggle="modal" data-target="#editmodal_{{$row->id}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-commenting-o"></i></a>
                                 </td>
                             </tr>
 
-                            <!--Row Status -->
-                            <div class="modal fade" id="row_status_{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editmodal_{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Status</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">HW Comment</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{ route('admin.admission.status',$row->id)}}" method="post">
+                                        <form action="{{route('admin.hw.comment.update',$row->id)}}" method="post">
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="form-group">
-                                                    <label for="">Status</label>
-                                                    <select name="status" class="form-control">
-                                                        <option value="1" @if( $row->status == 1 ) selected @endif >Active</option>
-                                                        <option value="2" @if( $row->status == 0 ) selected @endif >Inactive</option>
-                                                    </select>
-
-                                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('status'))?($errors->first('status')):''}}</div>
+                                                    <label for="">Comment</label>
+                                                    <input type="text" name="comment" placeholder="Enter your comment" class="form-control">
+                                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('comment'))?($errors->first('comment')):''}}</div>
                                                 </div>
                                             </div>
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
                                             </div>
                                         </form>
                                     </div>
@@ -132,5 +123,6 @@
     <!--end::Entry-->
 </div>
 <!--end::Content-->
+
 
 @endsection

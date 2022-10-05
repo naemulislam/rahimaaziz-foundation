@@ -292,6 +292,83 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <h4 class="card-title">Documents Details</h4>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Birth Cirtificate<span class="text-danger">*</span></label>
+                                            <input type="file" class="form-control-file" name="b_cirti" value="{{old('b_cirti')}}">
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('b_cirti'))?($errors->first('b_cirti')):''}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Immunization record<span class="text-danger">*</span></label>
+                                            <input type="file" class="form-control-file" name="immu_record" value="{{old('immu_record')}}">
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('immu_record'))?($errors->first('immu_record')):''}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Proof of address<span class="text-danger">*</span></label><br>
+                                            <small>proof of address (electricity bill or bank statement or any official letter with the address)</small>
+                                            <input type="file" class="form-control-file" name="proof_address" value="{{old('proof_address')}}">
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('proof_address'))?($errors->first('proof_address')):''}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Guardians picture<span class="text-danger">*</span></label><br>
+
+                                            <input type="file" name="guard_pic" value="{{old('guard_pic')}}" class="demo2" data-jpreview-container="#demo-2-container">
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('guard_pic'))?($errors->first('guard_pic')):''}}</div>
+                                            <div id="demo-2-container" class="jpreview-container"></div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">physical health report from the doctor</label>
+
+                                            <input type="file" class="form-control-file" name="physical_health" value="{{old('physical_health')}}">
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('physical_health'))?($errors->first('physical_health')):''}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">most recent report card from previous school</label>
+
+                                            <input type="file" class="form-control-file" name="mrrcfps" value="{{old('mrrcfps')}}">
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('mrrcfps'))?($errors->first('mrrcfps')):''}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Homeschooling registration acceptance letter</label>
+
+                                            <input type="file" class="form-control-file" name="hsral" value="{{old('hsral')}}">
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('hsral'))?($errors->first('hsral')):''}}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
                                     <h4 class="card-title">Emergency Contact</h4>
 
                                 </div>
@@ -330,6 +407,18 @@
                                         </span>
                                     </div>
                                     <div style='color:red; padding: 0 5px;'>{{($errors->has('image'))?($errors->first('image')):''}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3>Birth Cirtificate:</h3>
+                                    </div>
+                                    <div class="col-md-8">
+                                        @if($admission->b_cirti)
+                                        <img style="width:100%" src="{{asset($admission->b_cirti)}}" alt="">
+                                        @else
+                                        Not added yet.
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">

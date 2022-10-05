@@ -2,8 +2,7 @@
 @section('title','Admission form')
 @section('content')
 <style>
-
-.cart-collapse {
+    .cart-collapse {
         text-decoration: none !important;
         color: #000;
     }
@@ -65,6 +64,22 @@
         background: #0062cc;
         color: #fff;
     }
+
+    aks-file-upload {
+        width: 310px;
+        display: block;
+        margin: 0 auto;
+        margin-top: 4rem;
+    }
+
+    #uploadfile {
+        width: 80%;
+        margin: 0 auto;
+        color: #002c7b;
+        line-height: 1.5;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
 </style>
 
 <div class="container register-form">
@@ -104,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                
+
                             </div>
 
                         </div>
@@ -112,7 +127,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Admission Date<span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" placeholder="Enter admission date" name="admission_date" value="{{old('admission_date')}}"/>
+                                    <input type="date" class="form-control" placeholder="Enter admission date" name="admission_date" value="{{old('admission_date')}}" />
                                     <div style='color:red; padding: 0 5px;'>{{($errors->has('admission_date'))?($errors->first('admission_date')):''}}</div>
                                 </div>
 
@@ -120,14 +135,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Date of Birth<span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" placeholder="Enter your date of birth" name="date_of_birth" value="{{old('date_of_birth')}}"/>
+                                    <input type="date" class="form-control" placeholder="Enter your date of birth" name="date_of_birth" value="{{old('date_of_birth')}}" />
                                     <div style='color:red; padding: 0 5px;'>{{($errors->has('date_of_birth'))?($errors->first('date_of_birth')):''}}</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">place of Birth<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter your place of birth" name="place_of_birth" value="{{old('place_of_birth')}}"/>
+                                    <input type="text" class="form-control" placeholder="Enter your place of birth" name="place_of_birth" value="{{old('place_of_birth')}}" />
                                     <div style='color:red; padding: 0 5px;'>{{($errors->has('place_of_birth'))?($errors->first('place_of_birth')):''}}</div>
                                 </div>
                             </div>
@@ -136,7 +151,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Phone Number</label>
-                                    <input type="number" class="form-control" placeholder="Enter phone number" name="admi_phone" value="{{old('admi_phone')}}"/>
+                                    <input type="number" class="form-control" placeholder="Enter phone number" name="admi_phone" value="{{old('admi_phone')}}" />
                                     <div style='color:red; padding: 0 5px;'>{{($errors->has('admi_phone'))?($errors->first('admi_phone')):''}}</div>
                                 </div>
 
@@ -155,10 +170,14 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="">Photo<span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control-file" placeholder="Enter your picture" name="admi_photo" value="{{old('admi_photo')}}"/>
+                            <div class="form-group">
+                                    <label for="">picture<span class="text-danger">*</span></label><br>
+
+                                    <input type="file" name="admi_photo" value="{{old('admi_photo')}}" class="demo1" data-jpreview-container="#demo-1-container">
+
                                     <div style='color:red; padding: 0 5px;'>{{($errors->has('admi_photo'))?($errors->first('admi_photo')):''}}</div>
+                                    <div id="demo-1-container" class="jpreview-container"></div>
+
                                 </div>
                             </div>
                         </div>
@@ -166,7 +185,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Home Address<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter home address" name="h_address" value="{{old('h_address')}}"/>
+                                    <input type="text" class="form-control" placeholder="Enter home address" name="h_address" value="{{old('h_address')}}" />
                                     <div style='color:red; padding: 0 5px;'>{{($errors->has('h_address'))?($errors->first('h_address')):''}}</div>
                                 </div>
 
@@ -198,6 +217,84 @@
                                     <div style='color:red; padding: 0 5px;'>{{($errors->has('zip_code'))?($errors->first('zip_code')):''}}</div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header">Documents Details</div>
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Birth Cirtificate<span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control-file" name="b_cirti" value="{{old('b_cirti')}}">
+
+                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('b_cirti'))?($errors->first('b_cirti')):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Immunization record<span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control-file" name="immu_record" value="{{old('immu_record')}}">
+
+                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('immu_record'))?($errors->first('immu_record')):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Proof of address<span class="text-danger">*</span></label><br>
+                                    <small>proof of address (electricity bill or bank statement or any official letter with the address)</small>
+                                    <input type="file" class="form-control-file" name="proof_address" value="{{old('proof_address')}}">
+
+                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('proof_address'))?($errors->first('proof_address')):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Guardians picture<span class="text-danger">*</span></label><br>
+
+                                    <input type="file" name="guard_pic" value="{{old('guard_pic')}}" class="demo2" data-jpreview-container="#demo-2-container">
+
+                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('guard_pic'))?($errors->first('guard_pic')):''}}</div>
+                                    <div id="demo-2-container" class="jpreview-container"></div>
+
+                                </div> 
+                                
+                                
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">physical health report from the doctor</label>
+
+                                    <input type="file" class="form-control-file" name="physical_health" value="{{old('physical_health')}}">
+
+                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('physical_health'))?($errors->first('physical_health')):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">most recent report card from previous school</label>
+
+                                    <input type="file" class="form-control-file" name="mrrcfps" value="{{old('mrrcfps')}}">
+
+                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('mrrcfps'))?($errors->first('mrrcfps')):''}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Homeschooling registration acceptance letter</label>
+
+                                    <input type="file" class="form-control-file" name="hsral" value="{{old('hsral')}}">
+
+                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('hsral'))?($errors->first('hsral')):''}}</div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -249,32 +346,32 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-5">
-                            <div class="subs-body mt-3">
-                            <div class="subs-payment">
-                                <div class="subs-step">
-                                    <p class="mb-2">Enter your cart number</p>
+                                <div class="subs-body mt-3">
+                                    <div class="subs-payment">
+                                        <div class="subs-step">
+                                            <p class="mb-2">Enter your cart number</p>
 
-                                </div>
-
-                                <div class="subs-payment-form">
-                                    <div class="form-row">
-                                        <label for="card-element">
-                                            Credit or debit card
-                                        </label>
-                                        <div id="card-element">
-                                            <!-- A Stripe Element will be inserted here. -->
                                         </div>
 
-                                        <!-- Used to display form errors. -->
-                                        <div id="card-errors" role="alert"></div>
+                                        <div class="subs-payment-form">
+                                            <div class="form-row">
+                                                <label for="card-element">
+                                                    Credit or debit card
+                                                </label>
+                                                <div id="card-element">
+                                                    <!-- A Stripe Element will be inserted here. -->
+                                                </div>
+
+                                                <!-- Used to display form errors. -->
+                                                <div id="card-errors" role="alert"></div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
+                                    <hr>
 
                                 </div>
-
-                            </div>
-                            <hr>
-
-                        </div>
                             </div>
                         </div>
                     </div>
@@ -375,6 +472,29 @@
         form.submit();
     }
 </script>
+
+
+<script>
+    $(function() {
+        $("aks-file-upload").aksFileUpload({
+            fileUpload: "#uploadfile",
+            dragDrop: true,
+            maxSize: "90 GB",
+            multiple: true,
+            maxFile: 50
+        });
+    });
+</script>
+<script>
+    $('input[type="file"]').prettyFile();
+    $('.demo1').jPreview();
+</script>
+<script>
+  
+    $('.demo2').jPreview();
+</script>
+
+
 
 @endsection
 @endsection

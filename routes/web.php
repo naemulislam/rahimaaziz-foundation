@@ -11,6 +11,8 @@ use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\RegisterController;
+use App\Http\Controllers\User\HomeworkController;
+use App\Http\Controllers\User\StudentActivityController;
 use Illuminate\Support\Facades\Route;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as MediaAlias;
 
@@ -32,7 +34,7 @@ Route::middleware('web')->group(function () {
     Route::get('/parent/login', [FrontendController::class, 'Userlogin'])->name('site.userlogin');
     Route::post('/parent/register', [RegisterController::class, 'UserRegister'])->name('site.userregister');
     ///Ajax route
-    Route::get('/admission/get/class/{id}', [DefaultController::class,'get_class'])->name('get.class');
+    Route::get('/admission/get/class/{id}', [DefaultController::class, 'get_class'])->name('get.class');
     /////End
 
 });
@@ -46,26 +48,32 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::post('/user/update/{id}', [ProfileController::class, 'update'])->name('user.update');
     Route::get('/edit/password/', [ProfileController::class, 'cPassword'])->name('user.epassword');
     Route::post('/update/password/', [ProfileController::class, 'upassword'])->name('user.upassword');
-    //  Route::post('/logout', [AllAuthController::class, 'userlogout'])->name('logout');
 
-    // Route::resource('user', UserController::class);
+    // Student Home Work route section
+    Route::group(['prefix'=>'/student'],function(){
+        Route::resource('homework',HomeworkController::class);
+        Route::get('completed/hw/',[HomeworkController::class,'Hwindex'])->name('hw.index');
+       
+        Route::get('homework/show/{id}',[HomeworkController::class,'homeworkshow'])->name('homework.hw_show');
+        Route::post('find/homework',[HomeworkController::class,'findHomework'])->name('find.homework');
+    });
 
-    // Route::get('edit-profile', [UserController::class, 'editProfile'])->name('edit.profile');
-    // Route::get('change_password', [UserController::class, 'change_password'])->name('change_password');
-    // Route::get('settings/company_settings', [SettingController::class, 'editCompanySetting'])->name('company.edit');
-    // Route::post('settings/company_setting', [SettingController::class, 'updateCompanySetting'])->name('company.update');
+    // Student Activity route
 
+    Route::group(['prefix' => '/student'], function () {
+        Route::resource('activity', StudentActivityController::class);
+        Route::get('/activity/create/{id}', [StudentActivityController::class, 'activityCreate'])->name('activity.activityCreate');
+        Route::post('/activity/store', [StudentActivityController::class, 'activityStore'])->name('activity.activityStore');
+        Route::get('/activity/delete/{id}', [StudentActivityController::class, 'actidelete'])->name('activity.delete');
+        Route::post('/find/activity', [StudentActivityController::class, 'findActivity'])->name('find.activity');
+    });
 
-
-
-    // // Role Permission
-    // Route::resource('developer/permission', PermissionController::class)->only('index', 'store');
-    // Route::get('role/assign', [RoleController::class, 'roleAssign'])->name('role.assign');
-    // Route::post('role/assign', [RoleController::class, 'storeAssign'])->name('store.assign');
-    // Route::resource('role', RoleController::class);
-
-    // Route::delete('remove-media/{media}', function (MediaAlias $media) {
-    //     $media->delete();
-    //     return back()->with('success', 'Media successfully deleted.');
-    // })->name('remove-media');
+    /////////////////////////Default routes////////////////////////////////
+//Get Data ajax
+Route::get('/get/class/{id}', [DefaultController::class,'get_class'])->name('get.class');
+Route::get('/get/section/{id}', [DefaultController::class,'get_section'])->name('get.sectoin');
+Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name('get.subject');
+Route::get('/get/student/{id}', [DefaultController::class,'get_student'])->name('get.student');
+Route::get('/get/attendance/subject/{id}', [DefaultController::class,'get_subject_att']);
+/////////////////////////Default routes////////////////////////////////
 });

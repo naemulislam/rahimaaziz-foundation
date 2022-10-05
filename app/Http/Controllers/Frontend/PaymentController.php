@@ -24,6 +24,7 @@ class PaymentController extends Controller
       'place_of_birth' => 'required',
       'gender' => 'required',
       'admi_photo' => 'required',
+      'b_cirti' => 'required',
       'h_address' => 'required',
       'city' => 'required',
       'state' => 'required',
@@ -71,7 +72,7 @@ class PaymentController extends Controller
       $payment->class_id              = $request->class_id;
       $payment->admission_date        = $request->admission_date;
 
-      $payment->admi_photo            = $request->admi_photo;
+      // $payment->admi_photo            = $request->admi_photo;
       $payment->admi_phone            = $request->admi_phone;
 
       $payment->payment_id            = $charge->id;
@@ -85,8 +86,57 @@ class PaymentController extends Controller
       $image = $request->file('admi_photo');
       if ($image) {
         $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('uploaded/student'), $imageName);
-        $payment->admi_photo = '/uploaded/student/' . $imageName;
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $payment->admi_photo = '/uploaded/student/admission/' . $imageName;
+      }
+      // Birth Cirtificate
+      $image = $request->file('b_cirti');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $payment->b_cirti = '/uploaded/student/admission/' . $imageName;
+      }
+      //Immunization record*
+      $image = $request->file('immu_record');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $payment->immu_record = '/uploaded/student/admission/' . $imageName;
+      }
+      //Proof of address*
+      $image = $request->file('proof_address');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $payment->proof_address = '/uploaded/student/admission/' . $imageName;
+      }
+      //Guardians picture
+      $image = $request->file('guard_pic');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $payment->guard_pic = '/uploaded/student/admission/' . $imageName;
+      }
+      //physical health report from the
+      $image = $request->file('physical_health');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $payment->physical_health = '/uploaded/student/admission/' . $imageName;
+      }
+      //most recent report card from previous school*
+      $image = $request->file('mrrcfps');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $payment->mrrcfps = '/uploaded/student/admission/' . $imageName;
+      }
+      //Homeschooling registration acceptance letter*
+      $image = $request->file('hsral');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $payment->hsral = '/uploaded/student/admission/' . $imageName;
       }
 
       $payment->save();
@@ -95,7 +145,7 @@ class PaymentController extends Controller
 
       //$studentcount = StudentInfo::wehre('id',Auth('student')->user()->id)->first();
       $rowcount = StudentInfo::where('student_id', Auth('student')->user()->id)->count();
-      if ($rowcount == 0) {
+      if ($rowcount == 0){
         $data = new StudentInfo();
         $data->student_id            = Auth('student')->user()->id;
         $data->date_of_birth         = $request->date_of_birth;

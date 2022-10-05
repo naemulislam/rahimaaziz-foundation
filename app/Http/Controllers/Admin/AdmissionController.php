@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\Category;
 use App\Models\Student;
 use App\Models\Studentadmission;
@@ -107,6 +108,55 @@ class AdmissionController extends Controller
         $image->move(public_path('uploaded/student/admission'), $imageName);
         $data->admi_photo = '/uploaded/student/admission/' . $imageName;
       }
+      // Birth Cirtificate
+      $image = $request->file('b_cirti');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->b_cirti = '/uploaded/student/admission/' . $imageName;
+      }
+      //Immunization record*
+      $image = $request->file('immu_record');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->immu_record = '/uploaded/student/admission/' . $imageName;
+      }
+      //Proof of address*
+      $image = $request->file('proof_address');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->proof_address = '/uploaded/student/admission/' . $imageName;
+      }
+      //Guardians picture
+      $image = $request->file('guard_pic');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->guard_pic = '/uploaded/student/admission/' . $imageName;
+      }
+      //physical health report from the
+      $image = $request->file('physical_health');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->physical_health = '/uploaded/student/admission/' . $imageName;
+      }
+      //most recent report card from previous school*
+      $image = $request->file('mrrcfps');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->mrrcfps = '/uploaded/student/admission/' . $imageName;
+      }
+      //Homeschooling registration acceptance letter*
+      $image = $request->file('hsral');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->hsral = '/uploaded/student/admission/' . $imageName;
+      }
 
       $data->save();
 
@@ -178,6 +228,16 @@ class AdmissionController extends Controller
    */
   public function show($slug)
   {
+    $data['student'] = Student::where('slug', $slug)->first();
+    $student_id = $data['student']->id;
+    $data['admission'] = Studentadmission::where('student_id', $student_id)->first();
+    $activity_id = $data['admission']->id;
+    $data['activity'] = Activity::where('admission_id', $activity_id)->first();
+    $data['studentinfo'] = StudentInfo::where('student_id', $student_id)->first();
+    return view('backend.dashboard.admin.admission.admission-dtls',$data);
+  }
+  public function pandingshow($slug)
+  {
     $data = Student::where('slug', $slug)->first();
     return view('backend.dashboard.admin.admission.request-dtls', compact('data'));
   }
@@ -240,6 +300,69 @@ class AdmissionController extends Controller
         @unlink(public_path($image_path));
         $image->move(public_path('uploaded/student/admission'), $imageName);
         $data->admi_photo = '/uploaded/student/admission/' . $imageName;
+      }
+      // Birth Cirtificate
+      $image = $request->file('b_cirti');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image_path = $data->b_cirti;
+        @unlink(public_path($image_path));
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->b_cirti = '/uploaded/student/admission/' . $imageName;
+      }
+      //Immunization record*
+      $image = $request->file('immu_record');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image_path = $data->immu_record;
+        @unlink(public_path($image_path));
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->immu_record = '/uploaded/student/admission/' . $imageName;
+      }
+      //Proof of address*
+      $image = $request->file('proof_address');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image_path = $data->proof_address;
+        @unlink(public_path($image_path));
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->proof_address = '/uploaded/student/admission/' . $imageName;
+      }
+      //Guardians picture
+      $image = $request->file('guard_pic');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image_path = $data->guard_pic;
+        @unlink(public_path($image_path));
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->guard_pic = '/uploaded/student/admission/' . $imageName;
+      }
+      //physical health report from the
+      $image = $request->file('physical_health');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image_path = $data->physical_health;
+        @unlink(public_path($image_path));
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->physical_health = '/uploaded/student/admission/' . $imageName;
+      }
+      //most recent report card from previous school*
+      $image = $request->file('mrrcfps');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image_path = $data->mrrcfps;
+        @unlink(public_path($image_path));
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->mrrcfps = '/uploaded/student/admission/' . $imageName;
+      }
+      //Homeschooling registration acceptance letter*
+      $image = $request->file('hsral');
+      if ($image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image_path = $data->hsral;
+        @unlink(public_path($image_path));
+        $image->move(public_path('uploaded/student/admission'), $imageName);
+        $data->hsral = '/uploaded/student/admission/' . $imageName;
       }
     $data->save();
 

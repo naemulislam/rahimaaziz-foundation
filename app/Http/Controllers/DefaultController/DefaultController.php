@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\DefaultController;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
@@ -35,8 +36,15 @@ class DefaultController extends Controller
         return response()->json($data);
     }
     public function get_student($id){
-        $data = Studentadmission::with('class','student','category')->where('class_id',$id)->get();
+        $data['student'] = Studentadmission::with('class','student','category')->where('class_id',$id)->where('status',1)->get();
+        $get_id = $data['student']->id;
+        $data = Activity::where('admission_id',$get_id)->first();
         return response()->json($data);
+    }
+    public function get_activity($id){
+        $data = Activity::with('class','student','category')->where('class_id',$id)->get();
+        return response()->json($data);
+        
     }
     
 }

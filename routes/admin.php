@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\HomeworkController;
 use App\Http\Controllers\Admin\HrController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Admin\StudentActivity;
+use App\Http\Controllers\Admin\StudentActivityController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TeacherController;
@@ -92,11 +94,25 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
     });
     Route::group(['prefix' => '/admission'], function () {
         Route::get('/panding', [AdmissionController::class, 'pandingindex'])->name('panding.admission');
+        Route::get('/panding/details/{slug}', [AdmissionController::class, 'pandingshow'])->name('panding.show');
         Route::post('/status/{id}', [AdmissionController::class, 'status'])->name('admission.status');
     });
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('homework',HomeworkController::class);
+        
         Route::get('homework/destroy/{id}',[HomeworkController::class,'homeworkdestroy'])->name('homework.destroy');
+        Route::get('/submitted/hw/',[HomeworkController::class,'getallwh'])->name('hw.all.submit');
+        Route::get('/submitted/hw/{id}',[HomeworkController::class,'gethwshow'])->name('hw.show.submit');
+        Route::post('/submitted/update/{id}',[HomeworkController::class,'Commentpost'])->name('hw.comment.update');
+    });
+
+    Route::group(['prefix'=>'/student'],function(){
+        Route::resource('activity',StudentActivityController::class);
+        Route::get('/activity/create/{id}',[StudentActivityController::class,'activityCreate'])->name('activity.activityCreate');
+        Route::post('/activity/store',[StudentActivityController::class,'activityStore'])->name('activity.activityStore');
+        Route::get('/activity/delete/{id}',[StudentActivityController::class,'actidelete'])->name('activity.delete');
+        Route::post('/find/activity',[StudentActivityController::class,'findActivity'])->name('find.activity');
+
     });
 
     /////////////////////////Default routes////////////////////////////////

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\StudentActivity;
 
 class Studentadmission extends Model
 {
@@ -18,5 +19,8 @@ class Studentadmission extends Model
     }
     public function class(){
         return $this->belongsTo(Educlass::class,'class_id','id');
+    }
+    public function activity(){
+        return $this->belongsTo(Activity::class,'id','id');
     }
 }

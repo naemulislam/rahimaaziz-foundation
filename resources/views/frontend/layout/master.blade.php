@@ -9,6 +9,8 @@
     <!-- Font Awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <!-- Owl-carosul css cdn link -->
+    <link type="text/css" rel="stylesheet" href="{{ asset('frontend')}}/assets/css/aksFileUpload.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ asset('frontend')}}/assets/css/jpreview.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" />
@@ -198,10 +200,14 @@
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="{{ asset('frontend')}}/assets/js/bootstrap-prettyfile.js"></script>
+        <script src="{{ asset('frontend')}}/assets/js/jpreview.js"></script>
+        <script src="{{ asset('frontend')}}/assets/js/aksFileUpload.min.js"></script>
+        
         <script src="{{ asset('defaults/toastr/toastr.min.js') }}"></script>
         <!-- Owl-carosul js file cdn link -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>

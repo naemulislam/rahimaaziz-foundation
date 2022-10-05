@@ -1,5 +1,5 @@
 @extends('backend.layouts.dashboard')
-@section('title', 'Edit Home Work')
+@section('title', 'Add Home Work')
 @section('content')
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -34,29 +34,28 @@
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Student Home Work</h3>
+                            <h3 class="card-title">Create Student Home Work</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{route('admin.homework.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                                <a href="{{route('student.homework.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
                                     < Back</a>
                                         <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{ route('admin.homework.update',$homework->id)}}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('student.homework.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
 
-                                <div class="row">
+                                <input type="hidden" name="hw_id" value="{{$homework->id}}">
+
+                                <!-- <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Category<span class="text-danger">*</span></label>
                                             <select name="category_id" class="form-control" id="adcategory_id">
                                                 <option>Select Category</option>
-                                                @foreach($categorys as $category)
-                                                <option value="{{$category->id}}">{{ $category->category_name}}</option>
-                                                @endforeach
+                                                
                                             </select>
 
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('category_id'))?($errors->first('category_id')):''}}</div>
@@ -82,14 +81,18 @@
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('section_id'))?($errors->first('section_id')):''}}</div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
 
                                 <div class="row">
                                 <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Subject<span class="text-danger">*</span></label>
-                                            <select name="subject_id" class="form-control" id="adsubject_id">
+                                            <select name="subject_id" class="form-control" id="adsubject">
+                                            <option>Select Subject</option>
+                                                @foreach($subjects as $subject)
+                                                <option value="{{$subject->id}}">{{ $subject->sub_name}}</option>
+                                                @endforeach
 
                                             </select>
 
@@ -108,7 +111,7 @@
                                     <div class="col-sm-4">
                                     <div class="form-group">
                                             <label for="">Submission Date<span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" name="submission_date" value="{{ $homework->submission_date}}" placeholder="Enter Submission Date">
+                                            <input type="date" class="form-control" name="submission_date" value="{{old('submission_date')}}" placeholder="Enter Submission Date">
                                             <div style='color:red; padding: 0 5px;'>
                                                 {{ $errors->has('submission_date') ? $errors->first('submission_date') : '' }}
                                             </div>
@@ -122,7 +125,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Title<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="title" value="{{ $homework->title}}">
+                                            <input type="text" class="form-control" name="title" value="{{old('title')}}">
                                             <div style="color: red; padding:0 5px;">{{$errors->has('title') ? $errors->first('title'): ''}}</div>
                                         </div>
                                     </div>
@@ -132,7 +135,6 @@
                                         <div class="form-group">
                                             <label>Desciption<span class="text-danger">*</span></label>
                                             <textarea id="summernote" class="" name="description">
-                                                {!! $homework->description !!}
 
                                             </textarea>
                                             <div style="color: red; padding:0 5px;">{{$errors->has('description') ? $errors->first('description'): ''}}</div>
@@ -141,10 +143,7 @@
                                 </div>
 
                                
-                                
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                    <div class="form-group row">
+                                <div class="form-group row">
                                     <label class="col-xl-3 col-lg-3 col-form-label text-right">Home Work Image</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <div class="image-input image-input-outline" id="kt_image_1">
@@ -159,11 +158,6 @@
                                             </span>
                                         </div>
                                         <span class="form-text text-muted">Allowed file types: png, jpg, jpeg.</span>
-                                    </div>
-                                </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <img style="width: 100%;" src="@if(!empty($homework->image)) {{asset($homework->image)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="">
                                     </div>
                                 </div>
                                 <div class="row">

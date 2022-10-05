@@ -9,6 +9,7 @@ use App\Http\Controllers\Teacher\HomeworkController;
 use App\Http\Controllers\Teacher\ProfileController;
 use App\Http\Controllers\Teacher\RegisterController;
 use App\Http\Controllers\Teacher\SectionController;
+use App\Http\Controllers\Teacher\StudentActivityController;
 use App\Http\Controllers\Teacher\StudentController;
 use App\Http\Controllers\Teacher\SubjectController;
 use App\Http\Controllers\Teacher\TeacherController;
@@ -98,6 +99,15 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
         Route::get('/submitted/hw/',[HomeworkController::class,'getallwh'])->name('hw.all.submit');
         Route::get('/submitted/hw/{id}',[HomeworkController::class,'gethwshow'])->name('hw.show.submit');
         Route::post('/submitted/update/{id}',[HomeworkController::class,'Commentpost'])->name('hw.comment.update');
+    });
+
+    Route::group(['prefix'=>'/student'],function(){
+        Route::resource('activity',StudentActivityController::class);
+        Route::get('/activity/create/{id}',[StudentActivityController::class,'activityCreate'])->name('activity.activityCreate');
+        Route::post('/activity/store',[StudentActivityController::class,'activityStore'])->name('activity.activityStore');
+        Route::get('/activity/delete/{id}',[StudentActivityController::class,'actidelete'])->name('activity.delete');
+        Route::post('/find/activity',[StudentActivityController::class,'findActivity'])->name('find.activity');
+
     });
 
     /////////////////////////Default routes////////////////////////////////

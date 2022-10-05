@@ -37,14 +37,14 @@
                             <h3 class="card-title">Edit Student Home Work</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{route('admin.homework.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                                <a href="{{route('teacher.homework.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
                                     < Back</a>
                                         <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{ route('admin.homework.update',$homework->id)}}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('teacher.homework.update',$homework->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
