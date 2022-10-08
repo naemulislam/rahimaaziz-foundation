@@ -314,7 +314,7 @@
                             <b class="col-sm-3">Immunization record</b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">
-                            <img style="width:300px ;" src="@if(!empty($admission->immu_record)){{asset($admission->immu_record)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="">
+                            <img style="width:300px;" src="@if(!empty($admission->immu_record)){{asset($admission->immu_record)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="">
                             </dd>
                             <b class="col-sm-3">Proof of address</b>
                             <b class="col-sm-1"> : </b>

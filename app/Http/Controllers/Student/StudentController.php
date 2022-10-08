@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
-    public function getProfile(){
-        return view('backend.dashboard.student.profile.profile');
+    public function accountInfo(){
+        return view('backend.dashboard.student.profile.account-info');
     }
     public function index()
     {
@@ -40,31 +40,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation' => 'required|min:6'
-        ]);
 
-        $data = new Admin();
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->mobile = $request->mobile;
-        $data->password = Hash::make($request->password);
-        $image = $request->file('image');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploaded/admin'), $imageName);
-            $data->profile_photo_path = '/uploaded/admin/' . $imageName;
-        }
-        $data->save();
-
-        $notification = array(
-            'message' => 'Admin created successfully!',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('admin.index')->with($notification);
     }
 
     /**
@@ -102,14 +78,14 @@ class StudentController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|unique:admins,email,' . $id,
+            'email' => 'required|unique:students,email,' . $id,
             'phone' => 'required'
             
         ]);
 
         $data = Student::find($id);
        
-        $data->name            = $request->email;
+        $data->name            = $request->name;
         $data->email            = $request->email;
         $data->phone            = $request->phone;
       
@@ -124,6 +100,14 @@ class StudentController extends Controller
 
         $data->save();
 
+        $notification = array(
+            'message' => 'Student updated successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+        
+    }
+    public function studenUpdate(Request $request, $id){
         $studentcount = StudentInfo::wehre('id',$id)->first();
         $rowcount = StudentInfo::wehre('id',$id)->count();
 
@@ -134,9 +118,9 @@ class StudentController extends Controller
         $data->student_id      = $data->id;
         $data->gender          = $request->gender;
         $data->date_of_birth   = $request->date_of_birth;
-        // $data->category        = $request->category;
-        // $data->religion        = $request->religion;
-        // $data->admission_date  = $request->admission_date;
+        $data->category        = $request->category;
+        $data->religion        = $request->religion;
+        $data->admission_date  = $request->admission_date;
         $data->blood           = $request->blood;
         $data->height          = $request->height;
         $data->weight          = $request->weight;
@@ -238,7 +222,7 @@ class StudentController extends Controller
         return redirect()->route('student.profile')->with($notification);
 
         }
-        
+
     }
 
     /**

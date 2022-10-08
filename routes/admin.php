@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HomeworkController;
 use App\Http\Controllers\Admin\HrController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StudentActivity;
 use App\Http\Controllers\Admin\StudentActivityController;
 use App\Http\Controllers\Admin\StudentController;
@@ -113,6 +114,10 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('/activity/delete/{id}',[StudentActivityController::class,'actidelete'])->name('activity.delete');
         Route::post('/find/activity',[StudentActivityController::class,'findActivity'])->name('find.activity');
 
+    });
+    Route::group(['prefix'=> '/site'],function(){
+        Route::resource('setting',SettingController::class);
+        Route::post('setting/update/{id}',[SettingController::class,'updateid'])->name('setting.update.data');
     });
 
     /////////////////////////Default routes////////////////////////////////

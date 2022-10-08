@@ -20,7 +20,7 @@ class CreateAttendancesTable extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('class_id')->constrained('educlasses')->onDelete('cascade');
             $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
-            $table->foreignId('section_id')->constrained('sections')->onDelete('cascade')->nullable();
+            $table->string('section_id')->nullable();
             $table->date('attendance_date');
             $table->time('attendance_time');
             $table->timestamps();

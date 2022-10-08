@@ -29,9 +29,9 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
     Route::post('/logout', [AllAuthController::class, 'studentlogout'])->name('logout');
 
  
-    Route::get('/profile', [StudentController::class, 'getProfile'])->name('profile');
-    Route::get('/student/edit/{id}', [StudentController::class, 'edit'])->name('edit');
-    Route::post('/student/update/{id}', [StudentController::class, 'update'])->name('update');
+    Route::get('/student/account-info/', [StudentController::class, 'accountInfo'])->name('account.info');
+    //Route::get('/profile', [StudentController::class, 'getProfile'])->name('profile');
+    Route::post('/student/personal-info/update/{id}', [StudentController::class, 'update'])->name('personal.update');
    
     Route::get('/edit/password/', [StudentController::class, 'cPassword'])->name('epassword');
     Route::post('/update/password/', [StudentController::class, 'upassword'])->name('upassword');

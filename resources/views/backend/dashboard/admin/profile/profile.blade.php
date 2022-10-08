@@ -132,8 +132,10 @@
                                                     <dd class="col-sm-8">
                                                         @if(Auth('admin')->user()->gender == 1 )
                                                         Mail
-                                                        @else
+                                                        @elseif(Auth('admin')->user()->gender == 2 )
                                                         Femail
+                                                        @else
+                                                        Not added yet.
                                                         @endif
                                                     </dd>
                                                     <b class="col-sm-3">Date of Birth</b>

@@ -20,8 +20,8 @@ class CreateTeachersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
+            $table->string('category_id')->nullable();
+            $table->string('subject_id')->nullable();
             $table->string('phone')->nullable();
             $table->string('ec_number')->nullable();
             $table->string('gender')->nullable();

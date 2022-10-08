@@ -61,31 +61,19 @@
                          @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
                         <h4>student</h4>
                     </div>
-<?php
-$studata = \App\Models\StudentInfo::where('student_id',Auth('student')->user()->id);
-?>
+                    <?php
+                    $stuinfo_data = \App\Models\StudentInfo::where('student_id', Auth('student')->user()->id)->first();
+                    $admission_data = \App\Models\StudentInfo::where('student_id', Auth('student')->user()->id)->first();
+                    ?>
 
                     <div class="profile-dtls">
                         <div class="dtls-box">
                             <p>Role</p>
                             <p>student</p>
                         </div>
-                        
-                        <div class="dtls-box">
-                            <p>Department</p>
-                            <p></p>
-                        </div>
-
-                        
-                        
-                        <div class="dtls-box">
-                            <p>Shift</p>
-                            <p></p>
-                        </div>
-                        
                         <div class="dtls-box">
                             <p>Admission Date</p>
-                            <p></p>
+                            <p>{{@$admission_data->admission_date}}</p>
                         </div>
                     </div>
                 </div>
@@ -112,35 +100,35 @@ $studata = \App\Models\StudentInfo::where('student_id',Auth('student')->user()->
                                                 <div class="row">
                                                     <b class="col-sm-3">Full Name</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
+                                                    <dd class="col-sm-8">{{auth('student')->user()->name}}</dd>
                                                     <b class="col-sm-3">Phone</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
-                                                  
+                                                    <dd class="col-sm-8">{{auth('student')->user()->phone}}</dd>
+
                                                     <b class="col-sm-3">Email</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
+                                                    <dd class="col-sm-8">{{auth('student')->user()->email}}</dd>
                                                     <b class="col-sm-3">Gender</b>
                                                     <b class="col-sm-1">:</b>
                                                     <dd class="col-sm-8">
-                                                       
+                                                        @if(@$stuinfo_data->gender == 1)
+                                                        Mail
+                                                        @elseif(@$stuinfo_data->gender == 2)
+                                                        else
+                                                        Not added yet.
+                                                        @endif
                                                     </dd>
                                                     <b class="col-sm-3">Date of Birth</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
-                                                    
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->date_of_birth}}</dd>
+
                                                     <b class="col-sm-3">Father Name</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->father_name}}</dd>
                                                     <b class="col-sm-3">Mother Name</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
-                                                    <b class="col-sm-3">Qualification</b>
-                                                    <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
-                                                    <b class="col-sm-3">Work Exprince</b>
-                                                    <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->mother_name}}</dd>
+
 
                                                 </div>
                                             </div>
@@ -153,15 +141,15 @@ $studata = \App\Models\StudentInfo::where('student_id',Auth('student')->user()->
                                                 <div class="row">
                                                     <b class="col-sm-3">Current Address</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->date_of_birth}}</dd>
                                                     <b class="col-sm-3">Permanent Address</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8"></dd>
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->date_of_birth}}</dd>
 
                                                 </div>
                                             </div>
                                         </div>
-                                       
+
                                         <div class="btn-edit float-right mt-3">
                                             <a href="{{ route('student.edit',auth('student')->user()->id) }}" class="btn btn-primary">Edit Profile</a>
                                         </div>

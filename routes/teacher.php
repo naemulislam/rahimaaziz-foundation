@@ -3,6 +3,7 @@
 use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\Teacher\AdmissionController;
+use App\Http\Controllers\Teacher\AttendanceController;
 use App\Http\Controllers\Teacher\CategoryController;
 use App\Http\Controllers\Teacher\ClassController;
 use App\Http\Controllers\Teacher\HomeworkController;
