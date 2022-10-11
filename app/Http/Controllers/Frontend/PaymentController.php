@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\Studentadmission;
 use App\Models\StudentInfo;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Mail;
 use PDF;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -38,7 +39,8 @@ class PaymentController extends Controller
     $rowcount = Studentadmission::where('student_id', Auth('student')->user()->id)->count();
     if ($rowcount == 0) {
 
-      $total_amount = 25;
+      $setting = Setting::latest()->first();
+      $total_amount = $setting->admission_fee;
 
       // Set your secret key. Remember to switch to your live secret key in production.
       // See your keys here: https://dashboard.stripe.com/apikeys
@@ -175,6 +177,28 @@ class PaymentController extends Controller
         $data->mother_call           = $request->mother_call;
         $data->save();
       }
+
+      $data = array(
+        'student_id' => $payment->student_id,
+        'name' => Auth('student')->user()->name,
+        'email' => Auth('student')->user()->email,
+        'address' => Auth('student')->user()->h_address,
+        'payment_method' => $payment->payment_method,
+        'admission_date' => \Carbon\Carbon::parse($payment->created_at)->format('d M Y'),
+        'date' => $payment->admission_date,
+        'total_amount' => $payment->amount,
+        'transaction_id' => $payment->balance_transaction,
+
+    );
+
+      // $pdf = pdf::loadView('frontend.email.payment-invoice', $data)->setOptions(['defaultFont' => 'sans-serif',]);
+      //   $pdfname = 'rahimaaziz_' . uniqid() . '.pdf';
+
+        Mail::send('frontend.email.blank', $data, function ($message) use ($data) {
+            $message->to($data['email']);
+            $message->subject('Thanks for admission!');
+            // $message->attachData($pdf->output(), $pdfname);
+        });
 
       $notification = array(
         'message' => 'Admission Successfully.',

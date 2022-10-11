@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\DefaultController\DefaultController;
+use App\Http\Controllers\Student\ActivityController;
 use App\Http\Controllers\Student\HomeworkController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\RegisterController;
@@ -43,6 +44,15 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
         Route::get('homework/create/{id}',[HomeworkController::class,'homeworkcreate'])->name('homework.hw_create');
         Route::get('homework/show/{id}',[HomeworkController::class,'homeworkshow'])->name('homework.hw_show');
         Route::get('homework/destroy/{id}',[HomeworkController::class,'homeworkdestroy'])->name('homework.destroy');
+    });
+
+    Route::group(['prefix'=>'/student'],function(){
+        Route::resource('activity',ActivityController::class);
+        Route::get('/activity/create/{id}',[StudentActivityController::class,'activityCreate'])->name('activity.activityCreate');
+        Route::post('/activity/store',[StudentActivityController::class,'activityStore'])->name('activity.activityStore');
+        Route::get('/activity/delete/{id}',[StudentActivityController::class,'actidelete'])->name('activity.delete');
+        Route::post('/find/activity',[StudentActivityController::class,'findActivity'])->name('find.activity');
+
     });
 
     /////////////////////////Default routes////////////////////////////////

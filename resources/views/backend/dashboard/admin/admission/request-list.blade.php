@@ -70,9 +70,9 @@
                                
                                 <td>
                                     @if($row->payment_status == 1)
-                                    <a href="#" class="btn label label-lg label-light-success label-inline"> Paid</a>
-                                    @else
-                                    <a href="#" class="btn label label-lg label-light-danger label-inline"> Unpaid</a>
+                                    <a href="#" class="btn label label-lg label-light-success label-inline"> Payment by stripe</a>
+                                    @elseif($row->payment_status == 2)
+                                    <a href="#" class="btn label label-lg label-light-success label-inline">Payment by hand cash</a>
                                     @endif
                                 </td>
                                 <td>

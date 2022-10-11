@@ -96,8 +96,10 @@
                             <dd class="col-sm-8">
                                 @if($studentinfo->gender == 1)
                                 Mail
+                                @elseif($studentinfo->gender == 2)
+                                Femail
                                 @else
-                               Femail
+                               Not added yet.
                                 @endif
                             </dd>
                             

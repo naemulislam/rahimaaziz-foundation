@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdmissionController;
 use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ClassController;
+use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Admin\HomeworkController;
 use App\Http\Controllers\Admin\HrController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -48,6 +49,8 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
     Route::get('/admin/destroy/{id}', [ProfileController::class, 'destroy'])->name('destroy');
     Route::get('/edit/password/', [ProfileController::class, 'cPassword'])->name('epassword');
     Route::post('/update/password/', [ProfileController::class, 'upassword'])->name('upassword');
+
+    Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager.index');
 
     Route::group(['prefix'=>'/user'], function(){
         Route::resource('hr',HrController::class);

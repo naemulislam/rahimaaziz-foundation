@@ -22,6 +22,7 @@
 	<link href="{{asset('backend')}}/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="{{asset('backend')}}/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="{{asset('backend')}}/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('vendor/file-manager/css/file-manager.css') }}" rel="stylesheet">
 	<!-- include summernote css/ -->
 <link href="{{asset('backend')}}/assets/css/summernote.min.css" rel="stylesheet">
 	<!--end::Global Theme Styles-->
@@ -1407,6 +1408,7 @@
 	<!--begin::Page Scripts(used by this page)-->
 	<script src="{{asset('backend')}}/assets/js/pages/widgets.js"></script>
 	<!--end::Page Scripts-->
+	<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 	<!-- include summernote/js -->
 <script src="{{asset('backend')}}/assets/js/summernote.min.js"></script>
 	<!-- Sweetalert -->
