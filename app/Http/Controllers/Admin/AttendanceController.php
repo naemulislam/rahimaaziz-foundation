@@ -59,7 +59,7 @@ class AttendanceController extends Controller
                 'category_id' => $request->category_id,
                 'class_id' => $request->class_id,
                 'subject_id' => $request->subject_id,
-                'section_id' => 1,
+                'section_id' => $request->subject_id,
                 'attendance_date' => $request->attendance_date,
                 'attendance_time' => $request->attendance_time,
                 'p_a' => $data['pa'][$key],
