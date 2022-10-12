@@ -235,24 +235,24 @@
         $.ajax({
             type: "get",
             url: "{{url('/admin/dashboard/get/student')}}/" + class_id,
-            dataType: 'json',
+            dataType: 'html',
             success: function(res) {
-                console.log(res);
-                $.each(res, function(key, value) {
-                    res +=
-                        '<tr>' +
-                        '<input type="hidden" name="admi_id[]" value='+value.id +'>'+
-                        '<td>' + key + 1 + '</td>' +
-                        '<td>' + value.student.name + '</td>' +
-                        '<td>' + value.category.category_name + '</td>' +
-                        '<td>' + value.class.class_name + '</td>' +
-                        '<td>' + value.roll + '</td>' +
-                        '<td>' +'<select class="form-control" name="pa[]">'
-                        +'<option value="1">'+'Present'+'</option>'+
-                        '<option value="0">'+'Absent'+'</option>'+
-                        '</select>' + '</td>' +
-                        '</tr>';
-                });
+                // var data = '';
+                // $.each(res, function(key, value) {
+                //     data +=
+                //         '<tr>' +
+                //         '<input type="hidden" name="admi_id[]" value='+value.id +'>'+
+                //         '<td>' + key + 1 + '</td>' +
+                //         '<td>' + value.student + '</td>' +
+                //         '<td>' + value.category + '</td>' +
+                //         '<td>' + value.class + '</td>' +
+                //         '<td>' + value.roll + '</td>' +
+                //         '<td>' +'<select class="form-control" name="pa[]">'
+                //         +'<option value="1">'+'Present'+'</option>'+
+                //         '<option value="0">'+'Absent'+'</option>'+
+                //         '</select>' + '</td>' +
+                //         '</tr>';
+                // });
                 $('#table').html(res);
             }
         });

@@ -36,10 +36,26 @@ class DefaultController extends Controller
         return response()->json($data);
     }
     public function get_student($id){
+    
+        $html = '';
         $data['student'] = Studentadmission::with('class','student','category')->where('class_id',$id)->where('status',1)->get();
-        $get_id = $data['student']->id;
-        $data = Activity::where('admission_id',$get_id)->first();
-        return response()->json($data);
+        // $get_id = $data['student']->id;
+       
+        foreach($data['student'] as $key=> $data){
+            $html .= '<tr>
+                    <input type="hidden" name="admi_id[]" value= "  '. $data->id .'" >
+                    <td> '. $key + 1 . ' </td>
+                    <td> '.$data->student->name.'  </td>
+                    <td> '.$data->category->category_name.'  </td> 
+                    <td> '.$data->class->class_name.' </td> 
+                    <td> '.$data->roll.'  </td> 
+                    <td><select class="form-control" name="pa[]">
+                    <option value="1"> Present </option>
+                    <option value="0"> Absent</option>
+                    </select> </td> 
+                    </tr>';
+        }
+         return $html;
     }
     public function get_activity($id){
         $data = Activity::with('class','student','category')->where('class_id',$id)->get();

@@ -43,6 +43,7 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
         // $this->validate($request, [
         //     'category_id' => 'required',
         //     'class_id' => 'required',
@@ -51,36 +52,21 @@ class AttendanceController extends Controller
         //     'attendance_time' => 'required'
         // ]);
 
-        $admi_ids = $request->admi_id;
-        foreach ($admi_ids as $key => $service) {
+
+        foreach ($data['admi_id'] as $key => $service) {
             Attendance::create([
                 'admission_id' => $service,
                 'category_id' => $request->category_id,
                 'class_id' => $request->class_id,
                 'subject_id' => $request->subject_id,
-                'section_id' => $request->section_id,
+                'section_id' => 1,
                 'attendance_date' => $request->attendance_date,
                 'attendance_time' => $request->attendance_time,
-                'p_a' => $request->pa,
+                'p_a' => $data['pa'][$key],
             ]);
         }
 
-
-        // foreach ($admi_ids as $key => $data) {
-        //     $attdata = new Attendance();
-        //     $attdata->admission_id = $data;
-        //     $attdata->category_id = $request->category_id;
-        //     $attdata->class_id = $request->class_id;
-        //     $attdata->subject_id = $request->subject_id;
-        //     $attdata->section_id = $request->section_id;
-        //     $attdata->attendance_date = $request->attendance_date;
-        //     $attdata->attendance_time = $request->attendance_time;
-        //     $present_values = $request->pa;
-        //     foreach ($present_values as $key => $data) {
-        //         $attdata->p_a = $data;
-        //     }
-        // }
-        // $attdata->save();
+      
         $notification = array(
             'message' => 'Attendance Inserted successfully!',
             'alert-type' => 'success'
