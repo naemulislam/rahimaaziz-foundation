@@ -894,41 +894,62 @@
 									<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{auth()->user()->name}}</span>
 									@endif
 
+									<?php
 
+use Illuminate\Support\Facades\Auth;
+
+
+?>
 
 
 									<span class="symbol symbol-lg-35 symbol-25">
 										<span class="symbol-label font-size-h1 font-weight-bold">
-											<style>
-												.profile-icon {
-													width: 50px;
-													height: 50px;
-													border-radius: 100%;
-												}
-											</style>
+										@if(auth('admin')->user())
+											<?php
+											$get_admin = Auth('admin')->user()->name;
+											$admin = mb_substr($get_admin, 0, 1);
+											?>
 
+											{{$admin}}
 
-											@if(auth('admin')->user())
-											<img class="profile-icon" src="@if(!empty(Auth('admin')->user()->profile_photo_path)) {{ asset(Auth('admin')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
 											@elseif(auth('teacher')->user())
-											<img class="profile-icon" src="@if(!empty(Auth('teacher')->user()->profile_photo_path)) {{ asset(Auth('teacher')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-											@elseif(auth('principle')->user())
-											<img class="profile-icon" src="@if(!empty(Auth('principle')->user()->profile_photo_path)) {{ asset(Auth('principle')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-											@elseif(auth('hr')->user())
-											<img class="profile-icon" src="@if(!empty(Auth('hr')->user()->profile_photo_path)) {{ asset(Auth('hr')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
+											<?php
+											$get_teacher = Auth('teacher')->user()->name;
+											$teacher = mb_substr($get_teacher, 0, 1);
+											?>
+											{{$teacher}}
 											@elseif(auth('student')->user())
-											<img class="profile-icon" src="@if(!empty(Auth('student')->user()->profile_photo_path)) {{ asset(Auth('student')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
+											<?php
+											$get_student = Auth('student')->user()->name;
+											$student = mb_substr($get_student, 0, 1);
+											?>
+											{{$student}}
+
+											@elseif(auth('principle')->user())
+											<?php
+											$get_principle = Auth('principle')->user()->name;
+											$principle = mb_substr($get_principle, 0, 1);
+											?>
+											{{$principle}}
+											@elseif(auth('hr')->user())
+											<?php
+											$get_hr = Auth('hr')->user()->name;
+											$hr = mb_substr($get_hr, 0, 1);
+											?>
+											{{$hr}}
 											@elseif(auth('accountant')->user())
-											<img class="profile-icon" src="@if(!empty(Auth('accountant')->user()->profile_photo_path)) {{ asset(Auth('accountant')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-											@elseif(auth()->user())
-											<img class="profile-icon" src="@if(!empty(Auth()->user()->profile_photo_path)) {{ asset(Auth()->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
+											<?php
+											$get_account = Auth('accountant')->user()->name;
+											$account = mb_substr($get_account, 0, 1);
+											?>
+											{{$account}}
+											@elseif(Auth::user())
+											<?php
+											$get_parent = Auth::user()->name;
+											$parent = mb_substr($get_parent, 0, 1);
+											?>
+											{{$parent}}
+
 											@endif
 										</span>
 									</span>
@@ -989,37 +1010,25 @@
 			<!--begin::Header-->
 			<div class="d-flex align-items-center mt-5">
 				<div class="symbol symbol-100 mr-5">
-					<div class="symbol-label" style="">
-						<style>
-							.profilebg {
-								width: 100%;
-							}
-						</style>
 
+				@if(auth('admin')->user())
+				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('admin')->user()->profile_photo_path)) {{ asset(Auth('admin')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
+				@elseif(auth('teacher')->user())
+				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('teacher')->user()->profile_photo_path)) {{ asset(Auth('teacher')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
+				@elseif(auth('principle')->user())
+				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('principle')->user()->profile_photo_path)) {{ asset(Auth('principle')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
+				@elseif(auth('hr')->user())
+				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('hr')->user()->profile_photo_path)) {{ asset(Auth('hr')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
+				@elseif(auth('student')->user())
+				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('student')->user()->profile_photo_path)) {{ asset(Auth('student')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
+				@elseif(auth('accountant')->user()) 
+				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('accountant')->user()->profile_photo_path)) {{ asset(Auth('accountant')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
+				
+				@elseif(Auth::user())
 
-						@if(auth('admin')->user())
-						<img class="profilebg" src="@if(!empty(Auth('admin')->user()->profile_photo_path)) {{ asset(Auth('admin')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-						@elseif(auth('teacher')->user())
-						<img class="profile-icon" src="@if(!empty(Auth('teacher')->user()->profile_photo_path)) {{ asset(Auth('teacher')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-						@elseif(auth('principle')->user())
-						<img class="profile-icon" src="@if(!empty(Auth('principle')->user()->profile_photo_path)) {{ asset(Auth('principle')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-						@elseif(auth('hr')->user())
-						<img class="profile-icon" src="@if(!empty(Auth('hr')->user()->profile_photo_path)) {{ asset(Auth('hr')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-						@elseif(auth('student')->user())
-						<img class="profile-icon" src="@if(!empty(Auth('student')->user()->profile_photo_path)) {{ asset(Auth('student')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-						@elseif(auth('accountant')->user())
-						<img class="profile-icon" src="@if(!empty(Auth('accountant')->user()->profile_photo_path)) {{ asset(Auth('accountant')->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-						@elseif(auth()->user())
-						<img class="profile-icon" src="@if(!empty(Auth()->user()->profile_photo_path)) {{ asset(Auth()->user()->profile_photo_path)}}
-                         @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-						@endif
-					</div>
+				<div class="symbol-label" style="background-image:url(@if(!empty(Auth::user()->profile_photo_path)) {{ asset(Auth::user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
+
+				@endif
 					<i class="symbol-badge bg-success"></i>
 				</div>
 				<div class="d-flex flex-column">
@@ -1050,8 +1059,8 @@
 					<a href="{{ route('accountant.profile')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth('accountant')->user()->name}}</a>
 					<div class="text-muted mt-1">Accountant</div>
 
-					@elseif(auth()->user())
-					<a href="{{ route('user.profile')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth()->user()->name}}</a>
+					@elseif(Auth::user())
+					<a href="{{ route('dashboard')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth()->user()->name}}</a>
 					<div class="text-muted mt-1">Parent</div>
 					@endif
 					<div class="navi mt-2">
@@ -1122,7 +1131,7 @@
 				@elseif(auth('accountant')->user())
 				{{ route('accountant.profile')}}
 				@elseif(auth()->user())
-				{{ route('user.profile')}}
+				{{ route('dashboard')}}
 				@endif
 				" class="navi-item">
 					<div class="navi-link">

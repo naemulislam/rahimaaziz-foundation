@@ -27,4 +27,17 @@ class StudentActivityController extends Controller
         $data['activity']= Activity::where('admission_id',$get_id)->first();
         return view('backend.dashboard.parent.activity.show-activity', $data);
     }
+
+    public function findActivity(Request $request){
+        $this->validate($request,[
+            'category_id'=>'required',
+            'class_id'=>'required',
+        ]);
+
+        $data['categorys'] = Category::where('status',1)->get();
+        $data['students'] = Studentadmission::where('class_id',$request->class_id)->where('status',1)->get();
+    
+        return view('backend.dashboard.parent.activity.index-activity', $data);
+
+    }
 }

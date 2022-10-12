@@ -57,40 +57,23 @@
             <div class="col-md-3">
                 <div class="left-sec">
                     <div class="profile-pic text-center">
-                        <img width="100px" class="mb-4" src="@if(!empty(Auth('teacher')->user()->profile_photo_path)) {{ asset(Auth('teacher')->user()->profile_photo_path)}}
+                        <img width="100px" class="mb-4" src="@if(!empty(Auth('student')->user()->profile_photo_path)) {{ asset(Auth('student')->user()->profile_photo_path)}}
                          @else{{ asset('defaults')}}/avatar/avatar.png @endif" alt="">
-                        <h4>Teacher</h4>
+                        <h4>student</h4>
                     </div>
+                    <?php
+                    $stuinfo_data = \App\Models\StudentInfo::where('student_id', Auth('student')->user()->id)->first();
+                    $admission_data = \App\Models\StudentInfo::where('student_id', Auth('student')->user()->id)->first();
+                    ?>
+
                     <div class="profile-dtls">
                         <div class="dtls-box">
                             <p>Role</p>
-                            <p>Teacher</p>
+                            <p>student</p>
                         </div>
                         <div class="dtls-box">
-                            <p>Designation</p>
-                            <p>{{ Auth('teacher')->user()->designation }}</p>
-                        </div>
-                        <div class="dtls-box">
-                            <p>Department</p>
-                            <p>{{ Auth('teacher')->user()->department }}</p>
-                        </div>
-
-                        <div class="dtls-box">
-                            <p>Basic Salary</p>
-                            <p>{{ Auth('teacher')->user()->basic_salary }}</p>
-                        </div>
-                        <div class="dtls-box">
-                            <p>Contract Type</p>
-                            <p>Permanent</p>
-                        </div>
-                        <div class="dtls-box">
-                            <p>Work Shift</p>
-                            <p>{{ Auth('teacher')->user()->work_shift }}</p>
-                        </div>
-                        
-                        <div class="dtls-box">
-                            <p>Data of Joining</p>
-                            <p>{{ Auth('teacher')->user()->date_of_joining }}</p>
+                            <p>Admission Date</p>
+                            <p>{{@$admission_data->admission_date}}</p>
                         </div>
                     </div>
                 </div>
@@ -117,45 +100,35 @@
                                                 <div class="row">
                                                     <b class="col-sm-3">Full Name</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->name }}</dd>
+                                                    <dd class="col-sm-8">{{auth('student')->user()->name}}</dd>
                                                     <b class="col-sm-3">Phone</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->phone }}</dd>
-                                                    <b class="col-sm-3">Emergency Contact Number</b>
-                                                    <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->ec_number }}</dd>
+                                                    <dd class="col-sm-8">{{auth('student')->user()->phone}}</dd>
+
                                                     <b class="col-sm-3">Email</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->email }}</dd>
+                                                    <dd class="col-sm-8">{{auth('student')->user()->email}}</dd>
                                                     <b class="col-sm-3">Gender</b>
                                                     <b class="col-sm-1">:</b>
                                                     <dd class="col-sm-8">
-                                                        @if(Auth('teacher')->user()->gender == 1 )
+                                                        @if(@$stuinfo_data->gender == 1)
                                                         Mail
-                                                        @elseif(Auth('teacher')->user()->gender == 2 )
-                                                        Femail
-                                                        @else
+                                                        @elseif(@$stuinfo_data->gender == 2)
+                                                        else
                                                         Not added yet.
                                                         @endif
                                                     </dd>
                                                     <b class="col-sm-3">Date of Birth</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->date_of_birth }}</dd>
-                                                    <b class="col-sm-3">Marital Status</b>
-                                                    <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->marital_status }}</dd>
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->date_of_birth}}</dd>
+
                                                     <b class="col-sm-3">Father Name</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->father_name }}</dd>
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->father_name}}</dd>
                                                     <b class="col-sm-3">Mother Name</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->mother_name }}</dd>
-                                                    <b class="col-sm-3">Qualification</b>
-                                                    <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->qualification }}</dd>
-                                                    <b class="col-sm-3">Work Exprince</b>
-                                                    <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->work_exprince }}</dd>
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->mother_name}}</dd>
+
 
                                                 </div>
                                             </div>
@@ -168,17 +141,17 @@
                                                 <div class="row">
                                                     <b class="col-sm-3">Current Address</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->c_address }}</dd>
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->date_of_birth}}</dd>
                                                     <b class="col-sm-3">Permanent Address</b>
                                                     <b class="col-sm-1">:</b>
-                                                    <dd class="col-sm-8">{{ Auth('teacher')->user()->p_address }}</dd>
+                                                    <dd class="col-sm-8">{{@$stuinfo_data->date_of_birth}}</dd>
 
                                                 </div>
                                             </div>
                                         </div>
-                                       
+
                                         <div class="btn-edit float-right mt-3">
-                                            <a href="{{ route('teacher.edit',auth('teacher')->user()->id) }}" class="btn btn-primary">Edit Profile</a>
+                                            <a href="{{ route('student.edit',auth('student')->user()->id) }}" class="btn btn-primary">Edit Profile</a>
                                         </div>
 
                                     </div>

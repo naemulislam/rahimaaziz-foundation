@@ -74,6 +74,15 @@
                             <b class="col-sm-3">Admission Date</b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">{{ @$admission->admission_date }}</dd>
+                            <b class="col-sm-3">Admission No</b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ @$admission->admission_no }}</dd>
+                            <b class="col-sm-3">Roll No</b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ @$admission->roll }}</dd>
+                            <b class="col-sm-3">Registration No</b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ @$admission->registration_no }}</dd>
         
                             <b class="col-sm-3">Category</b>
                             <b class="col-sm-1"> : </b>

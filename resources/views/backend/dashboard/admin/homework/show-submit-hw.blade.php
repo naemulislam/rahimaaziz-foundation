@@ -49,16 +49,21 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-
-                       
-
-
                             <b class="col-sm-3">Title </b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">{{ $data->title}}</dd>
                             <b class="col-sm-3">Description </b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">{{ $data->description}}</dd>
+                            <b class="col-sm-3">Student Name</b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ $data->student->name }}</dd>
+                            @php
+                            $get_roll = \App\Models\Studentadmission::where('student_id',$data->student_id)->first();
+                            @endphp
+                            <b class="col-sm-3">Student Roll</b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ $get_roll->roll }}</dd>
         
                             <b class="col-sm-3">Category</b>
                             <b class="col-sm-1"> : </b>

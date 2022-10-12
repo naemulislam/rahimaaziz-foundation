@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\StudentMail;
 use App\Models\Activity;
 use App\Models\Category;
 use App\Models\Student;
 use App\Models\Studentadmission;
 use App\Models\StudentInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdmissionController extends Controller
 {
@@ -205,7 +207,14 @@ class AdmissionController extends Controller
         $info->student_type          = $request->student_type;
         $info->save();
       }
+      $get_id = Student::find( $request->student_id);
+      $data = array(
+        'name' => $get_id->name,
+        'email' => $get_id->email
 
+    );
+
+      Mail::to($data['email'])->send(new StudentMail($data));
       $notification = array(
         'message' => 'Admission Successfully.',
         'alert-type' => 'success'
@@ -279,8 +288,6 @@ class AdmissionController extends Controller
       'city' => 'required',
       'state' => 'required',
       'zip_code' => 'required',
-      'father_name' => 'required',
-      'father_call' => 'required',
     ]);
 
     $data = Studentadmission::find($id);
@@ -289,9 +296,6 @@ class AdmissionController extends Controller
     $data->admission_date       = $request->admission_date;
     $data->roll                 = $request->roll;
     $data->registration_no      = $request->registration_no;
-    $data->category_id           = $request->category_id;
-    $data->class_id              = $request->class_id;
-    $data->section_id              = $request->section_id;
     $data->admi_phone            = $request->admi_phone;
     $image = $request->file('image');
       if ($image) {

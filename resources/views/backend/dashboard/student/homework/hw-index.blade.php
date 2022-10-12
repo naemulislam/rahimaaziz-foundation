@@ -77,12 +77,6 @@
                             
 
                             @foreach($hws as $row)
-
-
-                            @php
-                            $get_stu_id = Auth('student')->user()->id;
-                            $get_submit_id = \App\Models\Submitwork::where('student_id',$get_stu_id)->where('hw_id',$row->id)->first();
-                            @endphp
                             
                             <tr>
                                 <td>{{$loop->iteration}}</td>
@@ -100,11 +94,8 @@
                                 <td>{{ Str::limit($row->description,15) }}</td>
                                 <td>{{$row->homework_date}}</td>
                                 <td>
-                                    @if($get_submit_id)
                                     <a href="#" class="btn label label-lg label-light-success label-inline">Complete</a>
-                                    @else
-                                    <a href="#" class="btn label label-lg label-light-danger label-inline">Pending</a>
-                                    @endif
+                                   
 
                                 </td>
 
@@ -123,7 +114,7 @@
                                     <button type="button" class="btn btn-icon btn-warning btn-hover-primary btn-xs mx-3 delcheck"><i class="fa fa-trash"></i></button>
                                     @else
 
-                                    <a id="delete" href="{{route('teacher.homework.destroy',$row->id)}}" class="btn btn-icon btn-danger btn-hover-primary btn-xs mx-3">
+                                    <a id="delete" href="{{route('student.homework.destroy',$row->id)}}" class="btn btn-icon btn-danger btn-hover-primary btn-xs mx-3">
                                         <i class="fa fa-trash"></i>
                                     </a>
 

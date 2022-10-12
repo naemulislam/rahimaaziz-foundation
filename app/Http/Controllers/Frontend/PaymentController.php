@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\StudentMail;
 use App\Models\Setting;
 use App\Models\Studentadmission;
 use App\Models\StudentInfo;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Mail;
 use PDF;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -194,12 +195,8 @@ class PaymentController extends Controller
       // $pdf = pdf::loadView('frontend.email.payment-invoice', $data)->setOptions(['defaultFont' => 'sans-serif',]);
       //   $pdfname = 'rahimaaziz_' . uniqid() . '.pdf';
 
-        Mail::send('frontend.email.blank', $data, function ($message) use ($data) {
-            $message->to($data['email']);
-            $message->subject('Thanks for admission!');
-            // $message->attachData($pdf->output(), $pdfname);
-        });
-
+      Mail::to($data['email'])->send(new StudentMail($data));
+      
       $notification = array(
         'message' => 'Admission Successfully.',
         'alert-type' => 'success'

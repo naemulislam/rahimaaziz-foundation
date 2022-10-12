@@ -63,11 +63,11 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Name</th>
+                                <th>image</th>
+                                <th>Subject Name</th>
                                 <th>Code</th>
                                 <th>Class</th>
                                 <th>Category</th>
-                                <th>Teacher</th>
                                 <th>Order</th>
                                 <th>Status</th>
                                 <th>Action</th>

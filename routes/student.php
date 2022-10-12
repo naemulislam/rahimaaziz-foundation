@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\DefaultController\DefaultController;
+use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Student\ActivityController;
 use App\Http\Controllers\Student\HomeworkController;
 use App\Http\Controllers\Student\StudentController;

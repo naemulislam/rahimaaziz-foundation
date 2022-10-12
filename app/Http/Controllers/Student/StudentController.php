@@ -62,8 +62,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $data = Student::find($id);
-        return view('backend.dashboard.student.profile.edit-profile',compact('data'));
+        // $data = Student::find($id);
+        // return view('backend.dashboard.student.profile.edit-profile',compact('data'));
        
     }
 
@@ -245,8 +245,8 @@ class StudentController extends Controller
     {
         $this->validate($request, [
             'current_password' => 'required',
-            'new_password' => 'min:9|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation' => 'min:9'
+            'new_password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:8'
         ]);
         
         if (Auth::attempt(['id' => Auth('student')->user()->id, 'password' => $request->current_password])){

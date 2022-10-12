@@ -31,7 +31,7 @@ Route::middleware('web')->group(function () {
     Route::get('/login', [AllAuthController::class, 'teacherLogin'])->name('teacher.login');
     Route::post('/login-store', [AllAuthController::class, 'teacherloginstore'])->name('teacher.login.store');
     Route::post('/teacher/store', [RegisterController::class, 'register'])->name('teacher.register');
-    // Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name('gesubject');
+     Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name('gesubject');
 });
 
 

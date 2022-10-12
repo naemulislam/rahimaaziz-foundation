@@ -16,32 +16,32 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email|unique:teachers,email',
-            'password' => 'required|min:8|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation' => 'required|min:8'
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required',
+        //     'phone' => 'required',
+        //     'email' => 'required|email|unique:teachers,email',
+        //     'password' => 'required|min:8|required_with:password_confirmation|same:password_confirmation',
+        //     'password_confirmation' => 'required|min:8'
+        // ]);
 
-        $data = new Admin();
-        $data->name = $request->name;
-        $data->email = $request->email;
-        $data->mobile = $request->mobile;
-        $data->password = Hash::make($request->password);
-        $image = $request->file('image');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploaded/admin'), $imageName);
-            $data->profile_photo_path = '/uploaded/admin/' . $imageName;
-        }
-        $data->save();
+        // $data = new Admin();
+        // $data->name = $request->name;
+        // $data->email = $request->email;
+        // $data->mobile = $request->mobile;
+        // $data->password = Hash::make($request->password);
+        // $image = $request->file('image');
+        // if ($image) {
+        //     $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('uploaded/admin'), $imageName);
+        //     $data->profile_photo_path = '/uploaded/admin/' . $imageName;
+        // }
+        // $data->save();
 
-        $notification = array(
-            'message' => 'Admin created successfully!',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('admin.index')->with($notification);
+        // $notification = array(
+        //     'message' => 'Admin created successfully!',
+        //     'alert-type' => 'success'
+        // );
+        // return redirect()->route('admin.index')->with($notification);
     }
 
     public function edit($id)
@@ -55,7 +55,7 @@ class ProfileController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|unique:admins,email,' . $id,
+            'email' => 'required',
             'phone' => 'required'
             
         ]);
@@ -108,11 +108,11 @@ class ProfileController extends Controller
     {
         $this->validate($request, [
             'current_password' => 'required',
-            'new_password' => 'min:9|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation' => 'min:9'
+            'new_password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:8'
         ]);
         
-        if (Auth::attempt(['id' => Auth('teacher')->user()->id, 'password' => $request->current_password])){
+        if (Auth::attempt(['id' => auth('teacher')->user()->id, 'password' => $request->current_password])){
             $user = Teacher::find(Auth('teacher')->user()->id);
             $user->password = Hash::make($request->new_password);
             $user->save();

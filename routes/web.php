@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\RegisterController;
 use App\Http\Controllers\User\HomeworkController;
 use App\Http\Controllers\User\StudentActivityController;
+use App\Http\Controllers\User\UserController as UserUserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as MediaAlias;
 
@@ -43,16 +44,16 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::view('/', 'backend.dashboard.dashboard')->name('dashboard');
 
 
-    Route::get('/profile', [ProfileController::class, 'getProfile'])->name('user.profile');
-    Route::get('/user/edit/{id}', [ProfileController::class, 'edit'])->name('user.edit');
-    Route::post('/user/update/{id}', [ProfileController::class, 'update'])->name('user.update');
-    Route::get('/edit/password/', [ProfileController::class, 'cPassword'])->name('user.epassword');
-    Route::post('/update/password/', [ProfileController::class, 'upassword'])->name('user.upassword');
+    // Route::get('/student/account-info/', [StudentController::class, 'accountInfo'])->name('account.info');
+    
+    Route::post('/parent/personal-info/update/{id}', [UserUserController::class, 'update'])->name('personal.update');
+    Route::get('/edit/password/', [UserUserController::class, 'cPassword'])->name('user.epassword');
+    Route::post('/update/password/', [UserUserController::class, 'upassword'])->name('user.upassword');
 
     // Student Home Work route section
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('homework',HomeworkController::class);
-        Route::get('completed/hw/',[HomeworkController::class,'Hwindex'])->name('hw.index');
+        Route::get('completed/hw/',[HomeworkController::class,'Complate_Hwindex'])->name('complete_hw.index');
        
         Route::get('homework/show/{id}',[HomeworkController::class,'homeworkshow'])->name('homework.hw_show');
         Route::post('find/homework',[HomeworkController::class,'findHomework'])->name('find.homework');
@@ -62,9 +63,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
 
     Route::group(['prefix' => '/student'], function () {
         Route::resource('activity', StudentActivityController::class);
-        Route::get('/activity/create/{id}', [StudentActivityController::class, 'activityCreate'])->name('activity.activityCreate');
-        Route::post('/activity/store', [StudentActivityController::class, 'activityStore'])->name('activity.activityStore');
-        Route::get('/activity/delete/{id}', [StudentActivityController::class, 'actidelete'])->name('activity.delete');
+    
         Route::post('/find/activity', [StudentActivityController::class, 'findActivity'])->name('find.activity');
     });
 

@@ -123,8 +123,11 @@
                                                 <option>Select gender</option>
                                                 @if($studentinfo->gender == 1)
                                                 <option selected value="1">Mail</option>
-                                                @else
+                                                @elseif($studentinfo->gender == 2)
                                                 <option selected value="2">Femail</option>
+                                                @else
+                                                <option value="1">Mail</option>
+                                                <option value="2">Femail</option>
                                                 @endif
                                             </select>
 
@@ -268,7 +271,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="">Father Email</label>
-                                            <input type="text" name="father_email" placeholder="Father email" class="form-control" value="{{$studentinfo->father_email}}">
+                                            <input type="email" name="father_email" placeholder="Father email" class="form-control" value="{{$studentinfo->father_email}}">
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('father_email'))?($errors->first('father_email')):''}}</div>
                                         </div>
                                     </div>
@@ -286,7 +289,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="">Mother Email</label>
-                                            <input type="text" name="mother_email" placeholder="Mother email" class="form-control" value="{{$studentinfo->mother_email}}">
+                                            <input type="email" name="mother_email" placeholder="Mother email" class="form-control" value="{{$studentinfo->mother_email}}">
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('mother_email'))?($errors->first('mother_email')):''}}</div>
                                         </div>
                                     </div>

@@ -22,7 +22,7 @@ class HomeworkController extends Controller
 
 
     public function findHomework(Request $request){
-        // muktopaath93 01726736693 Abul Hasan Md. FAruk Talukdar 20/06/1971 - 100298279
+       
         $this->validate($request,[
             'category_id'=>'required',
             'class_id'=>'required',
@@ -36,10 +36,10 @@ class HomeworkController extends Controller
     }
 
 
-    public function Hwindex()
+    public function Complate_Hwindex()
     {
       
-        $get_student_id = auth('student')->user()->id;
+        // $get_student_id = auth('student')->user()->id;
         $data['hws'] = Submitwork::latest()->get();
         return view('backend.dashboard.parent.homework.hw-index', $data);
     }

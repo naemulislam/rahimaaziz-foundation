@@ -42,7 +42,7 @@
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="{{ route('student.homework.index')}}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ route('homework.index')}}" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -63,12 +63,12 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Title</th>
+                                <th>Name</th>
+                                <th>Roll</th>
                                 <th>Class</th>
-                                <th>Section</th>
+                                <th>Title</th>
                                 <th>Subject</th>
-                                <th>Desc</th>
-                                <th>Date</th>
+                                <th>Submit Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -77,57 +77,26 @@
                             
 
                             @foreach($hws as $row)
-
-
                             @php
-                            $get_stu_id = Auth('student')->user()->id;
-                            $get_submit_id = \App\Models\Submitwork::where('student_id',$get_stu_id)->where('hw_id',$row->id)->first();
+                            $get_stu = \App\Models\Studentadmission::where('student_id',$row->student_id)->first();
                             @endphp
-                            
+
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{ Str::limit($row->title,20)}}</td>
+                                <td>{{$row->student->name}}</td>
+                                <td>{{ $get_stu->roll}}</td>
                                 <td>{{$row->class->class_name}}</td>
-                                <td>
-                                    @if($row->section_id)
-                                    {{$row->section->name}}
-                                    @else
-                                    N/A
-                                    @endif
-
-                                </td>
+                                <td>{{ Str::limit($row->title,20)}}</td>
                                 <td>{{$row->subject->sub_name}}</td>
-                                <td>{{ Str::limit($row->description,15) }}</td>
-                                <td>{{$row->homework_date}}</td>
+                                <td>{{$row->submission_date}}</td>
                                 <td>
-                                    @if($get_submit_id)
                                     <a href="#" class="btn label label-lg label-light-success label-inline">Complete</a>
-                                    @else
-                                    <a href="#" class="btn label label-lg label-light-danger label-inline">Pending</a>
-                                    @endif
+                                    
 
                                 </td>
 
                                 <td class="d-flex">
-                                    <a href="{{ route('student.homework.hw_show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ route('student.homework.edit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
-
-
-                                    @php
-                                    $check1 = 0;
-
-                                    $check2 = 0;
-                                    @endphp
-
-                                    @if( $check1 > 0 || $check2 > 0)
-                                    <button type="button" class="btn btn-icon btn-warning btn-hover-primary btn-xs mx-3 delcheck"><i class="fa fa-trash"></i></button>
-                                    @else
-
-                                    <a id="delete" href="{{route('teacher.homework.destroy',$row->id)}}" class="btn btn-icon btn-danger btn-hover-primary btn-xs mx-3">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-
-                                    @endif
+                                    <a href="{{ route('homework.hw_show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
 
                                 </td>
                             </tr>

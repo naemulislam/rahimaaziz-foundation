@@ -49,16 +49,18 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-
-                       
-
-
                             <b class="col-sm-3">Title </b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">{{ $data->title}}</dd>
                             <b class="col-sm-3">Description </b>
                             <b class="col-sm-1"> : </b>
                             <dd class="col-sm-8">{{ $data->description}}</dd>
+                            <b class="col-sm-3">Home work date </b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ $data->homework_date}}</dd>
+                            <b class="col-sm-3">Submit date </b>
+                            <b class="col-sm-1"> : </b>
+                            <dd class="col-sm-8">{{ $data->submission_date}}</dd>
         
                             <b class="col-sm-3">Category</b>
                             <b class="col-sm-1"> : </b>
