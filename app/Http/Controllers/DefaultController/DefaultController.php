@@ -59,5 +59,7 @@ class DefaultController extends Controller
         return response()->json($data);
         
     }
+
+  
     
 }

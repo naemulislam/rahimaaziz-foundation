@@ -44,7 +44,7 @@
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{ route('admin.student.find')}}" method="post">
+                            <form action="{{ route('admin.attendance.store')}}" method="post">
                                 @csrf
 
 
@@ -74,6 +74,20 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
+                                            <label for="">Subject<span class="text-danger">*</span></label>
+                                            <select name="subject_id" class="form-control" id="adsubject_id">
+
+                                            </select>
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('subject_id'))?($errors->first('subject_id')):''}}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
                                             <label for="">Section</label>
                                             <select name="sectoin_id" class="form-control" id="adsection_id">
 
@@ -81,12 +95,58 @@
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('sectoin_id'))?($errors->first('sectoin_id')):''}}</div>
                                         </div>
                                     </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="">Date<span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" name="attendance_date">
 
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('attendance_date'))?($errors->first('attendance_date')):''}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="">Time<span class="text-danger">*</span></label>
+                                            <input type="time" class="form-control" name="attendance_time">
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('attendance_time')) ?($errors->first('attendance_time')):''}}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <!--begin: Datatable-->
+                                    <table class="table table-separate table-head-custom table-checkable" id="">
+                                        <thead>
+                                            <tr>
+                                                <th>SL</th>
+                                                <th>Name</th>
+                                                <th>Category</th>
+                                                <th>Class</th>
+                                                <th>Roll</th>
+                                                <th>Present/Absent</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table">
+
+
+                                           <span class="switch">
+                                                <label>
+                                                    <input type="checkbox" name=""/>
+                                                    <span></span>
+                                                </label>
+                                            </span> 
+
+
+
+                                        </tbody>
+                                    </table>
+                                    <!--end: Datatable-->
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <input type="submit" value="Create Attendance" class="btn btn-success">
+                                            <input type="submit" value="Submit" class="btn btn-success">
                                         </div>
                                     </div>
                                 </div>

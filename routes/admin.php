@@ -89,9 +89,7 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
     // attendance route
     Route::group(['prefix' => '/attendance'], function () {
         Route::resource('attendance', AttendanceController::class);
-        Route::post('/create', [AttendanceController::class,'FindStudent'])->name('student.find');
-        Route::post('/store', [AttendanceController::class,'StoreAttend'])->name('student.attendance.store');
-        Route::post('/att/status/{id}', [AttendanceController::class, 'status'])->name('att.status');
+        
     });
     // admission route
     Route::group(['prefix' => '/student'], function () {
