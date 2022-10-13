@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Category;
 use App\Models\Educlass;
+use App\Models\Studentadmission;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
@@ -29,9 +30,23 @@ class AttendanceController extends Controller
     public function create()
     {
         $data['categorys'] = Category::where('status', 1)->get();
-        // $data['classes'] = Educlass::where('status',1)->get();
-        // $data['subjects'] = Subject::where('status',1)->get();
-        // $data['subjects'] = Subject::where('status',1)->get();
+        return view('backend.dashboard.admin.attendance.atten', $data);
+    }
+
+    public function FindStudent(Request $request){
+        $this->validate($request,[
+            'category_id'=>'required',
+            'class_id'=>'required',
+        ]);
+
+        $data['category_id'] = $request->category_id;
+        $data['class_id'] = $request->class_id;
+        $data['section_id'] = $request->section_id;
+
+        $data['subjects'] = Subject::where('class_id',$request->class_id)->get();
+
+        $data['students'] = Studentadmission::where('class_id',$request->class_id)->where('status',1)->get();
+    
         return view('backend.dashboard.admin.attendance.create', $data);
     }
 
@@ -41,8 +56,11 @@ class AttendanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function StoreAttend(Request $request)
     {
+        
+        
+
         $data = $request->all();
         // $this->validate($request, [
         //     'category_id' => 'required',

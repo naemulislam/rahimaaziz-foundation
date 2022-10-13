@@ -44,96 +44,49 @@
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{ route('admin.student.attendance.store')}}" method="post">
+                            <form action="{{ route('admin.student.find')}}" method="post">
                                 @csrf
+
+
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label for="">Subject<span class="text-danger">*</span></label>
-                                            <select name="subject_id" class="form-control" id="adcategory_id">
-                                                <option>Select subject</option>
-                                                @foreach($subjects as $subject)
-                                                <option value="{{$subject->id}}">{{ $subject->sub_name}}</option>
+                                            <label for="">Category<span class="text-danger">*</span></label>
+                                            <select name="category_id" class="form-control" id="adcategory_id">
+                                                <option>Select Category</option>
+                                                @foreach($categorys as $category)
+                                                <option value="{{$category->id}}">{{ $category->category_name}}</option>
                                                 @endforeach
                                             </select>
 
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('subject_id'))?($errors->first('subject_id')):''}}</div>
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('category_id'))?($errors->first('category_id')):''}}</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <?php
-                                            $date = date('Y-m-d');
-                                            ?>
-                                            <label for="">Date<span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" name="attendance_date" value="{{$date}}">
+                                            <label for="">Class<span class="text-danger">*</span></label>
+                                            <select name="class_id" class="form-control" id="adclass_id">
 
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('attendance_date'))?($errors->first('attendance_date')):''}}</div>
+                                            </select>
+
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('class_id'))?($errors->first('class_id')):''}}</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label for="">Time<span class="text-danger">*</span></label>
+                                            <label for="">Section</label>
+                                            <select name="sectoin_id" class="form-control" id="adsection_id">
 
-
-                                            <input type="time" class="form-control" name="attendance_time">
-
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('attendance_time')) ?($errors->first('attendance_time')):''}}</div>
+                                            </select>
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('sectoin_id'))?($errors->first('sectoin_id')):''}}</div>
                                         </div>
                                     </div>
 
-                                </div>
-
-                                <div class="card-body">
-                                    <!--begin: Datatable-->
-                                    <table class="table table-separate table-head-custom table-checkable" id="">
-                                        <thead>
-                                            <tr>
-                                                <th>SL</th>
-                                                <th>Name</th>
-                                                <th>Category</th>
-                                                <th>Class</th>
-                                                <th>Roll</th>
-                                                <th>Present/Absent</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="table">
-                                            <input type="hidden" name="category_id" value="{{$category_id}}">
-                                            <input type="hidden" name="class_id" value="{{$class_id}}">
-                                            <input type="hidden" name="section_id" value="{{$section_id}}">
-
-                                            @foreach($students as $row)
-                                            <input type="hidden" name="admi_id[]" value="{{$row->id}}">
-
-                                            <tr>
-                                                <td>{{ $loop->iteration}}</td>
-                                                <td>{{ $row->student->name}}</td>
-                                                <td>{{ $row->category->category_name}}</td>
-                                                <td>{{ $row->class->class_name}}</td>
-                                                <td>{{ $row->roll}}</td>
-                                                <td>
-                                            <select class="form-control" name="pa[]">
-                                                        <option value="1">Present </option>
-                                                        <option value="0">Absent</option>
-                                                    </select>
-                                                    <!-- <span class="switch">
-                                                <label>
-                                                    <input value="1" type="checkbox" name="pa[{{$row->id}}]"/>
-                                                    <span></span>
-                                                </label>
-                                            </span>  -->
-                                                </td>
-
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <!--end: Datatable-->
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <input type="submit" value="Submit" class="btn btn-success">
+                                            <input type="submit" value="Create Attendance" class="btn btn-success">
                                         </div>
                                     </div>
                                 </div>

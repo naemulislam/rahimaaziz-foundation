@@ -7,9 +7,6 @@ use App\Models\Activity;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
-use App\Models\District;
-use App\Models\Division;
-use App\Models\Country;
 use App\Models\Educlass;
 use App\Models\Section;
 use App\Models\Student;
