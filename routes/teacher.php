@@ -80,9 +80,10 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
         // Route::post('/teacher/status/{id}', [TeacherController::class, 'status'])->name('teacher.status');
     });
     // attendance route
-    Route::group(['prefix' => '/attendance'], function () {
+    Route::group(['prefix' => '/student'], function () {
         Route::resource('attendance', AttendanceController::class);
-        Route::post('/att/status/{id}', [AttendanceController::class, 'status'])->name('att.status');
+        Route::get('attendance/sheet/{class}/{date}', [AttendanceController::class,'atten_show'])->name('atten.show');
+        Route::get('attendance/delete/{class}/{date}', [AttendanceController::class,'atten_delete'])->name('atten.delete');
     });
     // admission route
     Route::group(['prefix' => '/student'], function () {

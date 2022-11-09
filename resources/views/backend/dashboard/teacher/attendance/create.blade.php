@@ -37,39 +37,30 @@
                             <h3 class="card-title">Crate a Attendance</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{route('admin.attendance.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                                <a href="{{route('teacher.attendance.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
                                     < Back</a>
                                         <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{ route('admin.attendance.store')}}" method="post">
+                            <form action="{{ route('teacher.attendance.store')}}" method="post">
                                 @csrf
 
 
                                 <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="">Category<span class="text-danger">*</span></label>
-                                            <select name="category_id" class="form-control" id="adcategory_id">
-                                                <option>Select Category</option>
-                                                @foreach($categorys as $category)
-                                                <option value="{{$category->id}}">{{ $category->category_name}}</option>
-                                                @endforeach
-                                            </select>
-
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('category_id'))?($errors->first('category_id')):''}}</div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Class<span class="text-danger">*</span></label>
                                             <select name="class_id" class="form-control" id="adclass_id">
-
+                                                <option>Select Class</option>
+                                                @foreach($classes as $class)
+                                                <option value="{{$class->id}}">{{ $class->class_name}}</option>
+                                                @endforeach
                                             </select>
 
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('class_id'))?($errors->first('class_id')):''}}</div>
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('category_id'))?($errors->first('category_id')):''}}</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -82,10 +73,6 @@
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('subject_id'))?($errors->first('subject_id')):''}}</div>
                                         </div>
                                     </div>
-
-                                </div>
-                                <div class="row">
-
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Section</label>
@@ -95,10 +82,13 @@
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('sectoin_id'))?($errors->first('sectoin_id')):''}}</div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Date<span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" name="attendance_date">
+                                            <input type="date" class="form-control" name="attendance_date" value="<?php echo date('Y-m-d'); ?>">
 
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('attendance_date'))?($errors->first('attendance_date')):''}}</div>
                                         </div>
@@ -128,17 +118,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="table">
-
-
-                                           <span class="switch">
-                                                <label>
-                                                    <input type="checkbox" name=""/>
-                                                    <span></span>
-                                                </label>
-                                            </span> 
-
-
-
+                                            
                                         </tbody>
                                     </table>
                                     <!--end: Datatable-->
@@ -170,32 +150,11 @@
 <!-- Add code -->
 <script>
     $(function() {
-        $(document).on('change', '#adcategory_id', function() {
-            var category_id = $(this).val();
-            $.ajax({
-                type: "Get",
-                url: "{{url('/admin/dashboard/get/class')}}/" + category_id,
-                dataType: "json",
-                success: function(data) {
-                    var html = '<option value="">Select Class</option>';
-                    $.each(data, function(key, val) {
-                        html += '<option value="' + val.id + '">' + val.class_name + '</option>';
-                    });
-                    $('#adclass_id').html(html);
-                },
-
-            });
-        });
-    });
-</script>
-<!-- Add code -->
-<script>
-    $(function() {
         $(document).on('change', '#adclass_id', function() {
             var class_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/attendance/subject')}}/" + class_id,
+                url: "{{url('/teacher/dashboard/get/attendance/subject')}}/" + class_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Subject</option>';
@@ -215,7 +174,7 @@
             var class_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/section')}}/" + class_id,
+                url: "{{url('/teacher/dashboard/get/section')}}/" + class_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Section</option>';
@@ -234,25 +193,25 @@
         var class_id = $(this).val();
         $.ajax({
             type: "get",
-            url: "{{url('/admin/dashboard/get/student')}}/" + class_id,
-            dataType: 'json',
+            url: "{{url('/teacher/dashboard/get/student')}}/" + class_id,
+            dataType: 'html',
             success: function(res) {
-                console.log(res);
-                $.each(res, function(key, value) {
-                    res +=
-                        '<tr>' +
-                        '<input type="hidden" name="admi_id[]" value='+value.id +'>'+
-                        '<td>' + key + 1 + '</td>' +
-                        '<td>' + value.student.name + '</td>' +
-                        '<td>' + value.category.category_name + '</td>' +
-                        '<td>' + value.class.class_name + '</td>' +
-                        '<td>' + value.roll + '</td>' +
-                        '<td>' +'<select class="form-control" name="pa[]">'
-                        +'<option value="1">'+'Present'+'</option>'+
-                        '<option value="0">'+'Absent'+'</option>'+
-                        '</select>' + '</td>' +
-                        '</tr>';
-                });
+                // console.log(res);
+                // $.each(res, function(key, value) {
+                //     res +=
+                //         '<tr>' +
+                //         '<input type="hidden" name="admi_id[]" value='+value.id +'>'+
+                //         '<td>' + key + 1 + '</td>' +
+                //         '<td>' + value.student.name + '</td>' +
+                //         '<td>' + value.category.category_name + '</td>' +
+                //         '<td>' + value.class.class_name + '</td>' +
+                //         '<td>' + value.roll + '</td>' +
+                //         '<td>' +'<select class="form-control" name="pa[]">'
+                //         +'<option value="1">'+'Present'+'</option>'+
+                //         '<option value="0">'+'Absent'+'</option>'+
+                //         '</select>' + '</td>' +
+                //         '</tr>';
+                // });
                 $('#table').html(res);
             }
         });

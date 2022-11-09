@@ -19,7 +19,10 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        return view('backend.dashboard.admin.attendance.index');
+        $data['get_dates'] = Attendance::select('attendance_date','category_id','class_id')->distinct()->get();
+
+        //return $$date['get_dates'];
+        return view('backend.dashboard.admin.attendance.index-list',$data);
     }
 
     /**
@@ -33,30 +36,13 @@ class AttendanceController extends Controller
         return view('backend.dashboard.admin.attendance.create', $data);
     }
 
-    // public function FindStudent(Request $request){
-    //     $this->validate($request,[
-    //         'category_id'=>'required',
-    //         'class_id'=>'required',
-    //     ]);
-
-    //     $data['category_id'] = $request->category_id;
-    //     $data['class_id'] = $request->class_id;
-    //     $data['section_id'] = $request->section_id;
-
-    //     $data['subjects'] = Subject::where('class_id',$request->class_id)->get();
-
-    //     $data['students'] = Studentadmission::where('class_id',$request->class_id)->where('status',1)->get();
-    
-    //     return view('backend.dashboard.admin.attendance.create', $data);
-    // }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function StoreAttend(Request $request)
+    public function store(Request $request)
     {
         
         
@@ -77,7 +63,7 @@ class AttendanceController extends Controller
                 'category_id' => $request->category_id,
                 'class_id' => $request->class_id,
                 'subject_id' => $request->subject_id,
-                'section_id' => $request->subject_id,
+                'section_id' => $request->sectoin_id,
                 'attendance_date' => $request->attendance_date,
                 'attendance_time' => $request->attendance_time,
                 'p_a' => $data['pa'][$key],
@@ -102,6 +88,14 @@ class AttendanceController extends Controller
     public function show($id)
     {
         //
+        // $get_students = Attendance::where('attendance_date',$id)->get();
+        // return $get_students;
+    }
+    public function atten_show($class, $date)
+    {
+        //
+        $get_students = Attendance::where('attendance_date',$date)->where('class_id',$class)->get();
+        return view('backend.dashboard.admin.attendance.index-atten',compact('get_students'));
     }
 
     /**
@@ -124,7 +118,30 @@ class AttendanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $id;
+        // $data = $request->all();
+  
+
+        // foreach ($data['admi_id'] as $key => $service) {
+        //     Attendance::create([
+        //         'admission_id' => $service,
+        //         'category_id' => $request->category_id,
+        //         'class_id' => $request->class_id,
+        //         'subject_id' => $request->subject_id,
+        //         'section_id' => $request->subject_id,
+        //         'attendance_date' => $request->attendance_date,
+        //         'attendance_time' => $request->attendance_time,
+        //         'p_a' => $data['pa'][$key],
+        //     ]);
+        // }
+
+      
+        // $notification = array(
+        //     'message' => 'Attendance Inserted successfully!',
+        //     'alert-type' => 'success'
+        // );
+
+        // return redirect()->back()->with($notification);
     }
 
     /**
@@ -133,8 +150,17 @@ class AttendanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function atten_delete($class, $date)
     {
-        //
+        $get_students = Attendance::where('attendance_date',$date)->where('class_id',$class)->get();
+
+        $get_students->each->delete();
+        $notification = array(
+            'message' => 'Attendance delete successfully!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
     }
 }

@@ -20,4 +20,11 @@ class Attendance extends Model
         'p_a'
 
     ];
+
+    public function category(){
+        return $this->belongsTo(Category::class,'category_id','id');
+    }
+    public function class(){
+        return $this->belongsTo(Educlass::class,'class_id','id');
+    }
 }

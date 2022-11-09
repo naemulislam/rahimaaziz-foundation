@@ -6,36 +6,23 @@
             <div class="menu-area ml-auto">
                 <ul>
                     <li><a href="{{ route('home')}}"><i class="fa fa-home"></i> Home</a></li>
-                    <li class="dd-btn1"><a href="#!"> Masjid <i class="fa fa-angle-down"></i></a>
-
-                        <div class="dropdown-menu1">
-                            <ul>
-                                <li><a href="{{ route('nikah')}}"><i class="fa fa-long-arrow-right"></i> Nikah/Marriage Services</a></li>
-                                <li><a href="{{ route('daily')}}"><i class="fa fa-long-arrow-right"></i> Friday Prayers</a></li>
-                                <li><a href="{{ route('quran')}}"><i class="fa fa-long-arrow-right"></i> Qur’an Tafsir</a></li>
-                                <li><a href="{{ route('ramadan')}}"><i class="fa fa-long-arrow-right"></i> Ramadan</a></li>
-                                </ul>
-                        </div>
-
-                    </li>
-                        <li class="dd-btn1"><a href="#!"> RA Foundation Program <i class="fa fa-angle-down"></i></a>
-
-                        <div class="dropdown-menu1">
-                            <ul>
-                                <li><a href="{{ route('aims')}}"><i class="fa fa-long-arrow-right"></i> Aims and objectives</a></li>
-                                <li><a href="{{ route('nazirah')}}"><i class="fa fa-long-arrow-right"></i> Nazirah Program</a></li>
-                                <li><a href="{{ route('alim')}}"><i class="fa fa-long-arrow-right"></i>Alim Program</a></li>
-                                <li><a href="{{ route('afterschool')}}"><i class="fa fa-long-arrow-right"></i> After School Maktab</a></li><li><a href="{{ route('weekendmaktab')}}"><i class="fa fa-long-arrow-right"></i> Weekend Maktab</a></li>
-                                </ul>
-                        </div>
-
-                    </li>
-
                     
+                    
+                    <li class="dd-btn1"><a href="{{route('about')}}">About Us </a></li>
 
-                    <li class="dd-btn1"><a href="events.html">RA Foundation Events </a></li>
+                   <li class="dd-btn1"><a href="#!"> Media <i class="fa fa-angle-down"></i></a>
 
-                    <li class="dd-btn1"><a href="generous_donation.html"> Generous Donation</a></li>
+                        <div class="dropdown-menu1">
+                            <ul>
+                                <li><a href=""><i class="fa fa-long-arrow-right"></i> Video</a></li>
+                                <li><a href=""><i class="fa fa-long-arrow-right"></i>Gallery</a></li>
+                                <li><a href=""><i class="fa fa-long-arrow-right"></i>Audio</a></li>
+                                
+                                </ul>
+                        </div>
+
+                    </li>
+                    <li class="dd-btn1"><a href="{{ route('contact')}}">Contact Us</a></li>
 
                     <li class="dd-btn1"><a target="_blank" href="{{ route('admission')}}"> Online Admission</a></li>
                     @if(auth('admin')->user())
@@ -68,7 +55,7 @@
 <div class="mobile-menu">
     <div class="mm-logo" style="background: #fff; padding: 11px 18px;">
         <a href="{{ route('home')}}">
-            <img style="width: 55px;" src="{{ asset('frontend')}}/assets/images/logo/logo.png" alt="logo">
+            <img style="width: 55px;" src="{{ asset('frontend')}}/assets/images/logo/logo-light1.png" alt="logo">
         </a>
         <div class="mm-cross-icon">
             <i class="fa fa-times mm-ci"></i>
@@ -82,16 +69,22 @@
                 </div>
             </div>
             <div class="menu-box">
+                <div class="menu-link" id="headingFour">
+                    <a href="{{route('about')}}" class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseFour">About Us</a>
+                </div>
+               
+            </div>
+            <div class="menu-box">
                 <div class="menu-link" id="headingTwo">
-                    <a class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseTwo"> Masjid<i class="fa fa-plus"></i></a>
+                    <a class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseTwo"> Media<i class="fa fa-plus"></i></a>
                 </div>
                 <div id="collapseTwo" class="collapse menu-body" aria-labelledby="headingTwo" data-parent="#accordionExample">
                     <div class="card-body">
                         <ul>
-                            <li><a href="{{ route('nikah')}}"><i class="fa fa-long-arrow-right"></i>Nikah/Marriage Services</a></li>
-                            <li><a href="{{ route('daily')}}"><i class="fa fa-long-arrow-right"></i> Friday Prayers</a></li>
-                            <li><a href="{{ route('quran')}}"><i class="fa fa-long-arrow-right"></i> Qur’an Tafsir</a>
-                        </li><li><a href="{{ route('ramadan')}}"><i class="fa fa-long-arrow-right"></i> Ramadan</a></li>
+                            <li><a href=""><i class="fa fa-long-arrow-right"></i>Video</a></li>
+                            <li><a href=""><i class="fa fa-long-arrow-right"></i>Gallery</a></li>
+                            <li><a href=""><i class="fa fa-long-arrow-right"></i>Audio</a>
+                        </li>
 
                         </ul>
                     </div>
@@ -103,45 +96,11 @@
                 }
 
             </style>
-           <div class="menu-box">
-                <div class="menu-link" id="headingThree">
-                    <a class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseThree"> RA Foundation Program <i class="fa fa-plus"></i></a>
-                </div>
-                <div id="collapseThree" class="collapse menu-body" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                    <div class="card-body">
-                        <ul>
-                            <li>
-                            <a href="{{ route('aims')}}"><i class="fa fa-long-arrow-right"></i> Aims and objectives</a>
-                            </li>
-                            <li>
-                            <a href="{{ route('nazirah')}}"><i class="fa fa-long-arrow-right"></i> Nazirah Program</a>
-                            </li>
-                            <li>
-                            <a href="{{ route('alim')}}l"><i class="fa fa-long-arrow-right"></i>Alim Program</a>
-                            </li>
-                            <li>
-                            <a href="{{ route('afterschool')}}"><i class="fa fa-long-arrow-right"></i> After School Matab</a>
-                            
-                            </li>
-                            <li>
-                            <a href="{{ route('weekendmaktab')}}"><i class="fa fa-long-arrow-right"></i> Weekend Maktab</a>
-                            
-                            </li>
-                           
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-box">
-                <div class="menu-link" id="headingFour">
-                    <a class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseFour"> RA Foundation Events</a>
-                </div>
-               
-            </div>
+          
+            
             <div class="menu-box">
                 <div class="menu-link" id="headingFive">
-                    <a class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseFive"> Generous Donation</a>
+                    <a href="{{ route('contact')}}" class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseFive">Contact Us</a>
                 </div>
                
             </div>
@@ -151,12 +110,65 @@
                 </div>
                
             </div>
+            @if(auth('admin')->user())
+            <div class="menu-box">
+                <div class="menu-link">
+                    
+                    <a href="{{ route('admin.dashboard')}}"> Dashboard</a>
+                </div>
+            </div>
+            @elseif(auth('teacher')->user())
+            <div class="menu-box">
+                <div class="menu-link">
+                    
+                    <a href="{{ route('teacher.dashboard')}}">Dashboard</a>
+                </div>
+            </div>
+            @elseif(auth('student')->user())
+            <div class="menu-box">
+                <div class="menu-link">
+                    
+                    <a href="{{ route('student.dashboard')}}"> Dashboard</a>
+                </div>
+            </div>
+            @elseif(auth('principle')->user())
+            <div class="menu-box">
+                <div class="menu-link">
+                    
+                    <a href="{{ route('principle.dashboard')}}"> Dashboard</a>
+                </div>
+            </div>
+            @elseif(auth('accountant')->user())
+            <div class="menu-box">
+                <div class="menu-link">
+                    
+                    <a href="{{ route('accountant.dashboard')}}"> Dashboard</a>
+                </div>
+            </div>
+            @elseif(auth('hr')->user())
+            <div class="menu-box">
+                <div class="menu-link">
+                    
+                    <a href="{{ route('hr.dashboard')}}"> Dashboard</a>
+                </div>
+            </div>
+            @elseif(auth()->user())
+            <div class="menu-box">
+                <div class="menu-link">
+                    
+                    <a href="{{ route('dashboard')}}"> Dashboard</a>
+                </div>
+            </div>
+            @else
             <div class="menu-box">
                 <div class="menu-link">
                     
                     <a href="{{ route('schoolportal')}}"> School Portal</a>
                 </div>
             </div>
+            @endif
+
+            
         </div>
     </div>
 </div>

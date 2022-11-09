@@ -85,7 +85,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="" class="d-block">Picture</label>
+                                            <label for="" class="d-block">White Logo</label>
                                             <div class="image-input image-input-outline" id="kt_profile_avatar" style="background-image: url({{asset('backend')}}/assets/media/users/blank.png)">
                                                 <div class="image-input-wrapper" style="background-image: url({{asset($data->white_logo)}})"></div>
                                                 <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
@@ -196,7 +196,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="">Phone</label>
-                                            <input type="number" name="phone" placeholder="Enter phone number" value="{{ $data->phone}}" class="form-control">
+                                            <input type="text" name="phone" placeholder="Enter phone number" value="{{ $data->phone}}" class="form-control">
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('phone'))?($errors->first('phone')):''}}</div>
                                         </div>
                                     </div>

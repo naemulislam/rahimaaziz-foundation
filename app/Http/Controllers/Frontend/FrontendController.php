@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Educlass;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -13,35 +15,17 @@ class FrontendController extends Controller
 {
     //
     public function index(){
+       
         return view('frontend.home');
     }
-    public function nikah(){
-        return view('frontend.nikah-service');
+    public function contact(){
+       
+        return view('frontend.contact');
     }
-    public function daily(){
-        return view('frontend.daily-jumuah');
+    public function aboutUs(){
+        return view('frontend.aboutus');
     }
-    public function quran(){
-        return view('frontend.quran-tafsir');
-    }
-    public function ramadan(){
-        return view('frontend.ramadan');
-    }
-    public function aims(){
-        return view('frontend.aims');
-    }
-    public function nazirah(){
-        return view('frontend.nazirah');
-    }
-    public function alim(){
-        return view('frontend.alim');
-    }
-    public function afterSchool(){
-        return view('frontend.after-School');
-    }
-    public function weekendMaktab(){
-        return view('frontend.weekend');
-    }
+    
     public function admission(){
         if(auth('student')->user()){
             $data["categorys"] = Category::where('status',1)->get();

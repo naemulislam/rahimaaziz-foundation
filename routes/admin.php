@@ -4,12 +4,14 @@ use App\Http\Controllers\Admin\AdmissionController;
 use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ClassController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Admin\HomeworkController;
 use App\Http\Controllers\Admin\HrController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StudentActivity;
 use App\Http\Controllers\Admin\StudentActivityController;
 use App\Http\Controllers\Admin\StudentController;
@@ -87,8 +89,10 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::post('/teacher/status/{id}', [TeacherController::class, 'status'])->name('teacher.status');
     });
     // attendance route
-    Route::group(['prefix' => '/attendance'], function () {
+    Route::group(['prefix' => '/student'], function () {
         Route::resource('attendance', AttendanceController::class);
+        Route::get('attendance/sheet/{class}/{date}', [AttendanceController::class,'atten_show'])->name('atten.show');
+        Route::get('attendance/delete/{class}/{date}', [AttendanceController::class,'atten_delete'])->name('atten.delete');
         
     });
     // admission route
@@ -121,6 +125,14 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
     Route::group(['prefix'=> '/site'],function(){
         Route::resource('setting',SettingController::class);
         Route::post('setting/update/{id}',[SettingController::class,'updateid'])->name('setting.update.data');
+    });
+    Route::group(['prefix'=> '/about-us'],function(){
+        Route::resource('staff',StaffController::class);
+        Route::post('staff/status/{id}',[StaffController::class,'status'])->name('staff.status');
+    });
+    Route::group(['prefix'=> '/contact'],function(){
+        Route::resource('message',ContactController::class);
+        Route::post('massage/status/{id}',[ContactController::class,'status'])->name('massage.status');
     });
 
     /////////////////////////Default routes////////////////////////////////

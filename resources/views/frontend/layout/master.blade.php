@@ -9,7 +9,7 @@
     <!-- Font Awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <!-- Owl-carosul css cdn link -->
-    <link type="text/css" rel="stylesheet" href="{{ asset('frontend')}}/assets/css/aksFileUpload.min.css">
+    
     <link type="text/css" rel="stylesheet" href="{{ asset('frontend')}}/assets/css/jpreview.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
@@ -20,11 +20,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend')}}/assets/css/themify-icons.css">
+    <!--Social icon css link-->
+    <link rel="stylesheet" href="{{ asset('frontend')}}/assets/css/social.css">
     <!-- theme style css -->
     <link rel="stylesheet" href="{{ asset('frontend')}}/assets/css/custome.css">
     <link rel="stylesheet" href="{{ asset('frontend')}}/assets/css/responsive.css">
 
-    <title>RAHIMA AZIZ FOUNDATION</title>
+    <title>@yield('title')</title>
 </head>
 
 <body>
@@ -32,26 +34,26 @@
     <section class="topbar">
         <div class="container">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="contact-info">
 
                         <li>
                             <i class="fa fa-phone"></i>
-                            <span>Call us: (718) 475-0904 | (518) 891-7436 | (646) 545-7924 |</span>
+                            <span>Call us: {{$setting->phone}}</span>
                         </li>
                         <li>
                             <i class="fa fa-envelope"></i>
-                            <a href="mailto:mail@example.com">info@rafaundation.org</a>
+                            <a href="mailto:{{$setting->email}}">{{$setting->email}}</a>
                         </li>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <ul class="social-icons">
-                        <li><a target="_blank" href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a target="_blank" href="{{$setting->facebook_link}}"><i class="fa fa-facebook"></i></a></li>
+                        <li><a target="_blank" href="{{$setting->twitter_link}}"><i class="fa fa-twitter"></i></a></li>
 
-                        <li><a target="_blank" href="#"><i class="fa fa-youtube"></i></a></li>
-                        <li><a target="_blank" href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a target="_blank" href="{{$setting->youtube_link}}"><i class="fa fa-youtube"></i></a></li>
+                        <li><a target="_blank" href="{{$setting->linkedin_link}}"><i class="fa fa-linkedin"></i></a></li>
 
                     </ul>
                 </div>
@@ -66,16 +68,16 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="logoheader">
-                        <img src="{{ asset('frontend')}}/assets/images/logo/logo-light.png" alt="">
+                        <img src="{{asset($setting->white_logo)}}" alt="">
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 ">
+                <!-- <div class="col-lg-6 col-md-6 ">
                     <div class="button-section">
                         <a href="#">Donate to Madrasha</a>
                         <a href="#">Donate to Masjid</a>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -101,7 +103,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="ft-para">
                             <div class="ft-logo">
-                                <img src="{{ asset('frontend')}}/assets/images/logo/logo-light.png" alt="">
+                                <img style="width:126px;" src="{{asset($setting->black_logo)}}" alt="">
                             </div>
                             <h5>RA FOUNDATION New York For a peaceful and prosperous community, it is vital that we have a good relationship with people of all faiths and beliefs. We are heavily invested with keeping up with local interfaith movements as well as taking part in local interfaith programs.</h5>
                         </div>
@@ -125,22 +127,18 @@
                                 <h2> Contact Info</h2>
                             </div>
                             <ul>
-                                <li><span style="color: green; font-style: italic;">P:</span> (718) 475-0904</li>
-                                <li><span style="color: green; font-style: italic;">E: </span> info@rafoundation.org</li>
+                                <li><span style="color: green; font-style: italic;">P:</span>{{$setting->phone}}</li>
+            
                                 <li>Our Blog</li>
                                 <li>Our Events</li>
                                 <li>171 Knox Ave,, West Seneca, NY 14224</li>
-
-
-
-
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="ft-para">
                             <div class="ft-title">
-                                <h2> Contact Info</h2>
+                                <h2> More Info</h2>
                             </div>
                             <!--Start Child row-->
                             <div class="row">
@@ -188,7 +186,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="copyright-text text-center">
-                            <p><a href="#">RA Foundation</a> - Copyright 2021.</p>
+                            <p>Copyright © <?php echo date('Y');?> <a href="#">{{$setting->site_name}}</a>- All Rights Reserved. Developed by <a href="#">Ek Technology group</a></p>
                         </div>
                     </div>
                 </div>
@@ -200,19 +198,20 @@
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
+        <script src="{{ asset('frontend')}}/assets/js/jquery.min.js"></script>
         <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="{{ asset('frontend')}}/assets/js/bootstrap-prettyfile.js"></script>
-        <script src="{{ asset('frontend')}}/assets/js/jpreview.js"></script>
-        <script src="{{ asset('frontend')}}/assets/js/aksFileUpload.min.js"></script>
+        <script src="{{ asset('frontend')}}/assets/js/jpreview.j"></script>
         
         <script src="{{ asset('defaults/toastr/toastr.min.js') }}"></script>
         <!-- Owl-carosul js file cdn link -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
         <script src="{{ asset('frontend')}}/assets/js/owl-extra-code.js"></script>
-
+       
 
     <!-- Toastr -->
     

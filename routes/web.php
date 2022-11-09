@@ -5,9 +5,10 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\Website\ContactController;
+// use App\Http\Controllers\Website\ContactController;
 use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\DefaultController\DefaultController;
+use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\RegisterController;
@@ -19,21 +20,16 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as MediaAlias;
 
 Route::middleware('web')->group(function () {
     Route::get('/', [FrontendController::class, 'index'])->name('home');
-    Route::get('/nikah-service', [FrontendController::class, 'nikah'])->name('nikah');
-    Route::get('/daily-jumuah', [FrontendController::class, 'daily'])->name('daily');
-    Route::get('/quran-tafsir', [FrontendController::class, 'quran'])->name('quran');
-    Route::get('/ramadan', [FrontendController::class, 'ramadan'])->name('ramadan');
-    Route::get('/aims-and-objectives', [FrontendController::class, 'aims'])->name('aims');
-    Route::get('/nazirah-program', [FrontendController::class, 'nazirah'])->name('nazirah');
-    Route::get('/alim-program', [FrontendController::class, 'alim'])->name('alim');
-    Route::get('/after-school-maktab', [FrontendController::class, 'afterSchool'])->name('afterschool');
-    Route::get('/weekend-maktab', [FrontendController::class, 'weekendMaktab'])->name('weekendmaktab');
+    Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+    Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about');
+    
     Route::get('/online/admission', [FrontendController::class, 'admission'])->name('admission');
     Route::post('/online/payment', [FrontendController::class, 'paymentPage'])->name('payment.page');
     Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
     Route::get('/Student/login', [FrontendController::class, 'SchoolPortal'])->name('schoolportal');
     Route::get('/parent/login', [FrontendController::class, 'Userlogin'])->name('site.userlogin');
     Route::post('/parent/register', [RegisterController::class, 'UserRegister'])->name('site.userregister');
+    Route::post('/user/contact', [ContactController::class, 'store'])->name('contact.store');
     ///Ajax route
     Route::get('/admission/get/class/{id}', [DefaultController::class, 'get_class'])->name('get.class');
     /////End

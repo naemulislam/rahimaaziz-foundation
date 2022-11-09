@@ -98,7 +98,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Date<span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" name="attendance_date">
+                                            <input type="date" class="form-control" name="attendance_date" value="<?php echo date('Y-m-d'); ?>">
 
                                             <div style='color:red; padding: 0 5px;'>{{($errors->has('attendance_date'))?($errors->first('attendance_date')):''}}</div>
                                         </div>

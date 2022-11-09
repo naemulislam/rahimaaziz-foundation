@@ -32,16 +32,17 @@ class DefaultController extends Controller
         $data = Subject::where('class_id',$id)->get();
         return response()->json($data);
     }
-    public function get_student($id){
+     public function get_student($id){
     
         $html = '';
-        $data['student'] = Studentadmission::with('class','student','category')->where('class_id',$id)->where('status',1)->get();
+        $stu['student'] = Studentadmission::with('class','student','category')->where('class_id',$id)->where('status',1)->get();
         // $get_id = $data['student']->id;
        
-        foreach($data['student'] as $key=> $data){
+        foreach($stu['student'] as $key=> $data){
+            $sl_num = $key+1;
             $html .= '<tr>
                     <input type="hidden" name="admi_id[]" value= "  '. $data->id .'" >
-                    <td> '. $key + 1 . ' </td>
+                    <td> '. $sl_num. ' </td>
                     <td> '.$data->student->name.'  </td>
                     <td> '.$data->category->category_name.'  </td> 
                     <td> '.$data->class->class_name.' </td> 
