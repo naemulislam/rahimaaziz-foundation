@@ -56,7 +56,7 @@ class DefaultController extends Controller
          return $html;
     }
     public function get_activity($id){
-        $data = Activity::with('class','student','category')->where('class_id',$id)->get();
+        $data = Studentadmission::with('class','student','category')->where('class_id',$id)->where('status',1)->get();
         return response()->json($data);
         
     }

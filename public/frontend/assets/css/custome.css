@@ -1626,5 +1626,33 @@ label{color: #fff;}
   font-size: 26px;
 
 }
+/* Start About page desing */
+.staff-title-box::before{
+    content: '';
+    position: absolute;
+    height:138;
+    width: 4px;
+    background-color: #FF9822;
+}
+.staff-title-box h3 {
+  font-size: 20px;
+  color: #000338;
+  padding: 0px 20px;
+}
+.staff-title-box p {
+  font-size: 14px;
+  color: #000;
+  padding: 0px 20px;
+  margin: 0;
+}
+
+.staff-details p{
+    font-size: 18px;
+    color: #000;
+    text-align: justify;
+}
+
+.prayer-box{}
+/* End About page desing */
 
 

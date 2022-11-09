@@ -166,6 +166,14 @@ margin-bottom: 20px;
     .ft-para{
         margin-bottom: 30px;
     }
+    /* Start About page desing */
+.staff-title-box::before{
+  content: '';
+  position: absolute;
+  height:80;
+  width: 4px;
+  background-color: #FF9822;
+}
 }
 @media (max-width: 480px) {
   .button-section a {

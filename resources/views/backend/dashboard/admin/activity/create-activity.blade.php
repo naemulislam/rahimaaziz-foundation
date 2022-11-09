@@ -357,7 +357,7 @@
             var class_id = $(this).val();
             $.ajax({
                 type: "Get",
-                url: "{{url('/admin/dashboard/get/student')}}/" + class_id,
+                url: "{{url('/admin/dashboard/get/activity/student')}}/" + class_id,
                 dataType: "json",
                 success: function(data) {
                     var html = '<option value="">Select Student</option>';

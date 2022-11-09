@@ -4,6 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('frontend')}}/assets/images/logo/favicon-32x32.png" type="image/x-icon">
 
     <!-- Font Awesome cdn link -->
@@ -25,8 +26,8 @@
     <!-- theme style css -->
     <link rel="stylesheet" href="{{ asset('frontend')}}/assets/css/custome.css">
     <link rel="stylesheet" href="{{ asset('frontend')}}/assets/css/responsive.css">
-
-    <title>@yield('title')</title>
+@yield('customcss')
+    
 </head>
 
 <body>

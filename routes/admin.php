@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Admin\HomeworkController;
 use App\Http\Controllers\Admin\HrController;
+use App\Http\Controllers\Admin\PrayerController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\SettingController;
@@ -134,6 +135,10 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::resource('message',ContactController::class);
         Route::post('massage/status/{id}',[ContactController::class,'status'])->name('massage.status');
     });
+    Route::group(['prefix'=>'/daily'],function(){
+        Route::resource('prayer',PrayerController::class);
+        Route::post('prayer/status/{id}',[PrayerController::class,'status'])->name('prayer.status');
+    });
 
     /////////////////////////Default routes////////////////////////////////
 //Get Data ajax
@@ -141,6 +146,7 @@ Route::get('/get/class/{id}', [DefaultController::class,'get_class'])->name('get
 Route::get('/get/section/{id}', [DefaultController::class,'get_section'])->name('get.sectoin');
 Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name('get.subject');
 Route::get('/get/student/{id}', [DefaultController::class,'get_student'])->name('get.student');
+Route::get('/get/activity/student/{id}', [DefaultController::class,'get_activity']);
 Route::get('/get/attendance/subject/{id}', [DefaultController::class,'get_subject_att']);
 /////////////////////////Default routes////////////////////////////////
 });

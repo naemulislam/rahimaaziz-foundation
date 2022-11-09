@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Educlass;
+use App\Models\Prayer;
 use App\Models\Setting;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -23,7 +25,9 @@ class FrontendController extends Controller
         return view('frontend.contact');
     }
     public function aboutUs(){
-        return view('frontend.aboutus');
+        $data['staffs'] = Staff::where('status',1)->latest()->get();
+        $data['prayers'] = Prayer::where('status',1)->Orderby('order','asc')->get();
+        return view('frontend.aboutus',$data);
     }
     
     public function admission(){
