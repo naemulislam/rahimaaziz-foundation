@@ -23,7 +23,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $data['teachers'] = Teacher::where('status',1)->latest()->get();
+        $data['teachers'] = Teacher::latest()->get();
         return view('backend.dashboard.admin.teacher-info.list-teacher',$data);
     }
 
@@ -35,7 +35,7 @@ class TeacherController extends Controller
     public function create()
     {
         $data['class'] = Educlass::where('status',1)->get();
-   
+
         return view('backend.dashboard.admin.teacher-info.create-teacher',$data);
     }
 
@@ -56,15 +56,7 @@ class TeacherController extends Controller
             'password_confirmation' => 'required|min:8'
         ]);
 
-        $id_date  = date('ymd');
-      $id_number = Teacher::latest()->first();
-      if ($id_number) {
-        $removed1char = substr($id_number->id_number, 6);
-        $generate_id = $stpad = $id_date . str_pad($removed1char + 1, 2, "1", STR_PAD_LEFT);
-      } else {
-        $generate_id = $id_date . str_pad(1, 2, "1", STR_PAD_LEFT);
-      }
-
+        $generate_id  = random_int(10000000, 99999999);
         $data = new Teacher();
         $data->id_number            = $generate_id;
         $data->name                 = $request->name;
@@ -75,7 +67,7 @@ class TeacherController extends Controller
         $data->class_id             = $request->class_id;
         $data->gender               = $request->gender;
         $data->password             = Hash::make($request->password);
-      
+
 
         $image = $request->file('image');
         if ($image) {
@@ -134,11 +126,11 @@ class TeacherController extends Controller
             'phone' => 'required',
             'class_id' => 'required',
             'gender' => 'required',
-            
+
         ]);
         if($request->password){
             $this->validate($request, [
-                
+
                 'password' => 'required|min:8|required_with:password_confirmation|same:password_confirmation',
                 'password_confirmation' => 'required|min:8'
             ]);
@@ -157,7 +149,7 @@ class TeacherController extends Controller
 
             $data->password         = Hash::make($request->password);
         }
-      
+
 
         $image = $request->file('image');
         if ($image) {
@@ -191,7 +183,7 @@ class TeacherController extends Controller
         );
         return redirect()->back()->with($notification);
     }
-    
+
     public function status(Request $request, $id)
     {
         $data = Teacher::find($id);

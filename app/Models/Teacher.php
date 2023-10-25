@@ -20,9 +20,9 @@ class Teacher extends Authenticatable
     use TwoFactorAuthenticatable;
 
     public function class(){
-      return $this->belongsTo(Educlass::class,'class_id','id');
+      return $this->belongsTo(Educlass::class,'class_id');
     }
-    
+
 
 
 

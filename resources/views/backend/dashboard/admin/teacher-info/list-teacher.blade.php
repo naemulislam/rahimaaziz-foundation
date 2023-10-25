@@ -74,8 +74,6 @@
                         </thead>
                         <tbody>
                             @foreach($teachers as $row)
-
-                           
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>
@@ -83,7 +81,7 @@
                                 </td>
                                 <td>{{ $row->name }}</td>
                                 <td>{{ $row->email }}</td>
-                                <td>{{ $row->class->class_name }}</td>
+                                <td>{{ $row->class->class_name ?? 'N/A'}}</td>
                                 <td>
                                     @if($row->status == 1)
                                     <a href="#" class="btn label label-lg label-light-success label-inline" data-toggle="modal" data-target="#row_status_{{$row->id}}"> Active</a>

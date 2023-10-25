@@ -35,8 +35,7 @@
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
                     <div class="card-title">
-                        <h3 class="card-label">Ttudent Details
-                            <span class="d-block text-muted pt-2 font-size-sm">All details here</span>
+                        <h3 class="card-label">Teacher <span class="d-block text-muted pt-2 font-size-sm">All details here</span>
                         </h3>
                     </div>
                     <div class="card-toolbar">
@@ -54,30 +53,30 @@
                         <b class="col-sm-1"> : </b>
                         <dd class="col-sm-8">
                             @php
-                           
+
                             $id_number = $teacher->id_number;
-                            
+
                             $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
                             @endphp
 
                             {!! $generator->getBarcode('Teacher Id: '.$id_number, $generator::TYPE_CODE_128) !!}
-                            
+
                         </dd>
                         <b class="col-sm-3">Teacher id number </b>
                         <b class="col-sm-1"> : </b>
                         <dd class="col-sm-8">#{{ $teacher->id_number }}</dd>
                         <b class="col-sm-3">Teacher Name </b>
                         <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$teacher->name }}</dd>
+                        <dd class="col-sm-8">{{ $teacher->name }}</dd>
                         <b class="col-sm-3">Teacher Email </b>
                         <b class="col-sm-1"> : </b>
                         <dd class="col-sm-8">{{$teacher->email}}</dd>
                         <b class="col-sm-3">Group</b>
                         <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$teacher->class->class_name }}</dd>
+                        <dd class="col-sm-8">{{ $teacher->class->class_name ?? 'N/A' }}</dd>
                         <b class="col-sm-3">Phone</b>
                         <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$teacher->phone }}</dd>
+                        <dd class="col-sm-8">{{ $teacher->phone }}</dd>
                         <b class="col-sm-3">Gender</b>
                         <b class="col-sm-1"> : </b>
                         <dd class="col-sm-8">
@@ -148,10 +147,9 @@
                             $name = $teacher->name;
                             $email = $teacher->email;
                             $id_number = $teacher->id_number;
-                            $class = $teacher->class->class_name;
+                            $class = $teacher->class->class_name ?? 'N/A';
                             $varri = QrCode::size(100)->generate('Teacher Id: '.$id_number.', Teacher Name: '.$name.', Email: '.$email.', Class: '.$class);
                             @endphp
-
 
                             {{$varri}}
 

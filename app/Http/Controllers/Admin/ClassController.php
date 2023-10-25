@@ -43,7 +43,7 @@ class ClassController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'class_name' => 'required|unique:educlasses,class_name'
-            
+
         ]);
         if ($validator->fails()) {
             $notification = array(
@@ -68,40 +68,11 @@ class ClassController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'class_name' => 'required|unique:educlasses,class_name',
-            
+            'class_name' => 'required',
+
         ]);
         if ($validator->fails()) {
             $notification = array(
@@ -116,7 +87,7 @@ class ClassController extends Controller
         $data->order = $request->order;
 
         $data->slug = Str::slug($request->class_name);
-       
+
         $data->save();
 
         $notification = array(
