@@ -21,7 +21,7 @@ class CreateStaffTable extends Migration
             $table->string("phone")->nullable();
             $table->longText("description")->nullable();
             $table->string("image")->nullable();
-            $table->string("status")->default(1);
+            $table->boolean("status")->default(true);
             $table->timestamps();
         });
     }

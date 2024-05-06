@@ -35,7 +35,7 @@ class CreateHrsTable extends Migration
             $table->string('work_shift')->nullable();
             $table->string('work_exprince')->nullable();
             $table->string('data_of_joining')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('image', 2048)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

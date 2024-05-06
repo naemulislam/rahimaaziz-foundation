@@ -23,8 +23,8 @@ class CreateStudentsTable extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('gender')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
-            $table->string('status')->default(1)->comment('1=active,0=inactive');
+            $table->string('image', 2048)->nullable();
+            $table->boolean('status')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

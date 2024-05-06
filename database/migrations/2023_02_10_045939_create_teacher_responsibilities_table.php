@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Teacher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ class CreateTeacherResponsibilitiesTable extends Migration
     {
         Schema::create('teacher_responsibilities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
+            $table->foreignIdFor(Teacher::class)->constrained();
             $table->date('respons_date');
             $table->longText('responsibility');
             $table->timestamps();

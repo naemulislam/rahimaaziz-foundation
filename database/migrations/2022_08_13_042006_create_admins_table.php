@@ -29,9 +29,9 @@ class CreateAdminsTable extends Migration
             $table->string('designation')->nullable();
             $table->longText('address')->nullable();
             $table->string('data_of_joining')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('image', 2048)->nullable();
             $table->rememberToken();
-           
+
             $table->timestamps();
         });
     }

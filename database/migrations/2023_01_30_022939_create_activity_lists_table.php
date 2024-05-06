@@ -17,7 +17,7 @@ class CreateActivityListsTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('order')->nullable();
-            $table->string('status')->default(1);
+            $table->boolean('status')->default(true);
             $table->string('author')->nullable();
             $table->timestamps();
         });

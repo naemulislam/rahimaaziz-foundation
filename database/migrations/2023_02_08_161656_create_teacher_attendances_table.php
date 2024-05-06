@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Teacher;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ class CreateTeacherAttendancesTable extends Migration
     {
         Schema::create('teacher_attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
+            $table->foreignIdFor(Teacher::class)->constrained();
             $table->string('attendence_status');
             $table->date('attendance_date');
             $table->time('attendance_time');

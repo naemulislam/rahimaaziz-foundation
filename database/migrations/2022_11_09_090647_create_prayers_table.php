@@ -19,7 +19,7 @@ class CreatePrayersTable extends Migration
             $table->string("start_time");
             $table->string("end_time");
             $table->string("order")->nullable();
-            $table->string("status")->default(1);
+            $table->boolean("status")->default(true);
             $table->timestamps();
         });
     }

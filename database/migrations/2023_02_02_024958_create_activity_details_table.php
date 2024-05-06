@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ActivityList;
+use App\Models\StudentActivity;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,8 @@ class CreateActivityDetailsTable extends Migration
     {
         Schema::create('activity_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('list_id')->constrained('activity_lists')->onDelete('cascade');
-            $table->foreignId('activity_id')->constrained('student_activities')->onDelete('cascade');
+            $table->foreignId('list_id')->constrained((new ActivityList())->getTable());
+            $table->foreignId('activity_id')->constrained((new StudentActivity())->getTable());
             $table->string('name')->nullable();
             $table->timestamps();
         });

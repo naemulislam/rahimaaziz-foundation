@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Studentadmission;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,8 @@ class CreateChildrensTable extends Migration
     {
         Schema::create('childrens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('student_id')->constrained('studentadmissions')->onDelete('cascade');
+            $table->foreignId('parent_id')->constrained((new User())->getTable());
+            $table->foreignId('student_id')->constrained((new Studentadmission())->getTable());
             $table->timestamps();
         });
     }

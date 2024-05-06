@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Educlass;
+use App\Models\Studentadmission;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,8 @@ class CreateDailyReportsTable extends Migration
     {
         Schema::create('daily_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('admission_id')->constrained('studentadmissions')->onDelete('cascade');
-            $table->foreignId('class_id')->constrained('educlasses')->onDelete('cascade');
+            $table->foreignId('admission_id')->constrained((new Studentadmission())->getTable());
+            $table->foreignId('class_id')->constrained((new Educlass())->getTable());
             $table->string('subject_name');
             $table->string('page');
             $table->string('para');

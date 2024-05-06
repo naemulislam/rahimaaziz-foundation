@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\DefaultController\DefaultController;
+use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Teacher\AdmissionController;
 use App\Http\Controllers\Teacher\AttendanceController;
 use App\Http\Controllers\Teacher\CategoryController;
@@ -27,17 +28,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('web')->group(function () {
-    Route::get('/login', [AllAuthController::class, 'teacherLogin'])->name('teacher.login');
-    Route::post('/login-store', [AllAuthController::class, 'teacherloginstore'])->name('teacher.login.store');
-    Route::post('/teacher/store', [RegisterController::class, 'register'])->name('teacher.register');
-     Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name('gesubject');
-});
-
-
 Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(function () {
     Route::view('/', 'backend.dashboard.dashboard')->name('dashboard');
-    Route::post('/logout', [AllAuthController::class, 'teacherlogout'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'teacherLogout'])->name('logout');
 
     Route::get('/profile', [ProfileController::class, 'getProfile'])->name('profile');
     Route::get('/teacher/store', [ProfileController::class, 'store'])->name('store');
@@ -47,7 +40,7 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
     Route::post('/update/password/', [ProfileController::class, 'upassword'])->name('upassword');
 
 
-  
+
     //Category
     Route::group(['prefix' => '/academic'], function () {
         Route::resource('category', CategoryController::class);
@@ -88,9 +81,9 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
     });
     // teacher attendance route
     Route::group(['prefix' => '/teacher'], function () {
-       
+
         Route::get('attendance/sheet/index/', [AttendanceController::class,'myAttenIndex'])->name('my.atten.index');
-       
+
     });
     // admission route
     Route::group(['prefix' => '/student'], function () {
@@ -103,20 +96,20 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
     });
     Route::group(['prefix'=>'/student'],function(){
         // Route::resource('homework',HomeworkController::class);
-        
+
         Route::get('submit/report/index',[StudentActivityController::class,'reportIndex'])->name('report.index');
         Route::get('/report/show/{id}',[StudentActivityController::class,'reportShow'])->name('report.show');
         Route::get('submit/report/complete',[StudentActivityController::class,'reportComplete'])->name('report.complete');
 
         Route::post('/report/status/{id}',[StudentActivityController::class,'reportStatus'])->name('report.status');
-        
+
     });
 
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('activity',StudentActivityController::class);
         Route::get('/activity/delete/{id}',[StudentActivityController::class,'actidelete'])->name('activity.delete');
         Route::get('/average/activity/',[StudentActivityController::class,'averageActivity'])->name('average.activity');
-       
+
 
         Route::get('activity/sheet/{class}/{date}', [StudentActivityController::class,'activity_show'])->name('activity_show');
         Route::get('activity/delete/{class}/{date}', [StudentActivityController::class,'activity_delete'])->name('activity_delete');
@@ -124,11 +117,11 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
     });
 
     Route::group(['prefix'=>'/teacher'],function(){
-        
+
         Route::get('responsibility/index/',[TeacherController::class,'responsIndex'])->name('respons.index');
         Route::get('responsibility/create/',[TeacherController::class,'responsCreate'])->name('respons.create');
-        
-        
+
+
     });
 
     /////////////////////////Default routes////////////////////////////////
@@ -139,5 +132,5 @@ Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name(
 Route::get('/get/student/{id}', [DefaultController::class,'get_student'])->name('get.student');
 Route::get('/get/attendance/subject/{id}', [DefaultController::class,'get_subject_att']);
 /////////////////////////Default routes////////////////////////////////
-    
+
 });

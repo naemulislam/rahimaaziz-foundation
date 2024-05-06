@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\DefaultController\DefaultController;
+use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Student\ActivityController;
 use App\Http\Controllers\Student\AttendanceController;
@@ -22,23 +23,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::middleware('web')->group(function () {
-    Route::get('/login', [AllAuthController::class, 'studentLogin'])->name('student.login');
-    Route::post('/login-store', [AllAuthController::class, 'studentloginstore'])->name('student.login.store');
-    Route::post('/store', [RegisterController::class, 'register'])->name('student.register');
-});
-
-
 Route::prefix('dashboard')->middleware('student')->name('student.')->group(function () {
     Route::view('/', 'backend.dashboard.dashboard')->name('dashboard');
-    Route::post('/logout', [AllAuthController::class, 'studentlogout'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'studentLogout'])->name('logout');
 
- 
+
     Route::get('/student/account-info/', [StudentController::class, 'accountInfo'])->name('account.info');
     //Route::get('/profile', [StudentController::class, 'getProfile'])->name('profile');
     Route::post('/student/personal-info/update/{id}', [StudentController::class, 'update'])->name('personal.update');
-   
+
     Route::get('/edit/password/', [StudentController::class, 'cPassword'])->name('epassword');
     Route::post('/update/password/', [StudentController::class, 'upassword'])->name('upassword');
 
@@ -49,12 +42,12 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
         Route::get('/jug/index',[JugController::class,'jugIndex'])->name('jug.index');
 
         Route::get('/report/complete/index',[JugController::class,'completeIndex'])->name('complete.index');
-      
+
         Route::get('homework/destroy/{id}',[HomeworkController::class,'homeworkdestroy'])->name('homework.destroy');
     });
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('attendance',AttendanceController::class);
-      
+
     });
     //Monthly fees payment route
     Route::group(['prefix'=>'/student'],function(){
@@ -62,14 +55,14 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
         Route::get('/fees/payment/invoice/{id}',[FeesController::class,'feesPaymentInvoice'])->name('fees.payment.invoice');
         Route::get('/fees/partial/edit/{id}',[FeesController::class,'partialEdit'])->name('fees.partial.edit');
         Route::post('/fees/partial/update/{id}',[FeesController::class,'partialUpdate'])->name('fees.partial.update');
-      
+
     });
 
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('activity',ActivityController::class);
 
         Route::get('/activity/average',[ActivityController::class,'activityCreate'])->name('activity.activityCreate');
-        
+
 
     });
 
@@ -81,5 +74,5 @@ Route::get('/get/subject/{id}', [DefaultController::class,'get_subject'])->name(
 Route::get('/get/student/{id}', [DefaultController::class,'get_student'])->name('get.student');
 Route::get('/get/attendance/subject/{id}', [DefaultController::class,'get_subject_att']);
 /////////////////////////Default routes////////////////////////////////
-    
+
 });

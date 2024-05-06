@@ -14,15 +14,12 @@
             <div class="carousel-item carousel-img-1 active p-bg"></div>
             <div class="carousel-item carousel-img-2 p-bg"></div>
             <div class="carousel-item carousel-img-3 p-bg"></div>
-
         </div>
         <a href="#myslider" class="carousel-control-prev" role="button" data-slide="prev">
             <i class="fa fa-angle-left slider-control"></i>
-
         </a>
         <a href="#myslider" class="carousel-control-next" data-slide="next">
             <i class="fa fa-angle-right slider-control"></i>
-
         </a>
     </div>
 </section>
@@ -297,7 +294,7 @@
                 </div>
                 <div class="item">
                     <img src="{{ asset('frontend')}}/assets/images/campas/campus-3.jpg" alt="">
-                </div> 
+                </div>
                 <div class="item">
                     <img src="{{ asset('frontend')}}/assets/images/campas/campus-4.jpg" alt="">
                 </div>

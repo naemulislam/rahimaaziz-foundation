@@ -18,7 +18,7 @@ class CreateEduclassesTable extends Migration
             $table->string('class_name');
             $table->string('slug');
             $table->string('order')->nullable();
-            $table->string('status')->default(1)->comment('1=active,0=inactive');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

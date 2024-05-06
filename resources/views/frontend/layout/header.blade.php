@@ -1,13 +1,13 @@
 <header class="header-sec" data-wow-duration="1s">
     <nav class="navbar">
         <div class="container">
-           
+
 
             <div class="menu-area ml-auto">
                 <ul>
                     <li><a href="{{ route('home')}}"><i class="fa fa-home"></i> Home</a></li>
-                    
-                    
+
+
                     <li class="dd-btn1"><a href="{{route('about')}}">About Us </a></li>
 
                    <li class="dd-btn1"><a href="#!"> Media <i class="fa fa-angle-down"></i></a>
@@ -17,7 +17,7 @@
                                 <li><a href=""><i class="fa fa-long-arrow-right"></i> Video</a></li>
                                 <li><a href=""><i class="fa fa-long-arrow-right"></i>Gallery</a></li>
                                 <li><a href=""><i class="fa fa-long-arrow-right"></i>Audio</a></li>
-                                
+
                                 </ul>
                         </div>
 
@@ -41,7 +41,7 @@
                     <li><a href="{{ route('dashboard')}}">Dashboard</a></li>
                     @else
 
-                    <li><a href="{{ route('schoolportal')}}"> School Portal</a></li>
+                    <li><a href="{{ route('signin.portal')}}">Signin</a></li>
                     @endif
                 </ul>
             </div>
@@ -72,7 +72,7 @@
                 <div class="menu-link" id="headingFour">
                     <a href="{{route('about')}}" class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseFour">About Us</a>
                 </div>
-               
+
             </div>
             <div class="menu-box">
                 <div class="menu-link" id="headingTwo">
@@ -96,79 +96,58 @@
                 }
 
             </style>
-          
-            
+
+
             <div class="menu-box">
                 <div class="menu-link" id="headingFive">
                     <a href="{{ route('contact')}}" class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseFive">Contact Us</a>
                 </div>
-               
+
             </div>
             <div class="menu-box">
                 <div class="menu-link" id="headingSix">
                     <a href="{{ route('admission')}}" class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseSix"> Admission</a>
                 </div>
-               
+
             </div>
             @if(auth('admin')->user())
             <div class="menu-box">
                 <div class="menu-link">
-                    
+
                     <a href="{{ route('admin.dashboard')}}"> Dashboard</a>
                 </div>
             </div>
             @elseif(auth('teacher')->user())
             <div class="menu-box">
                 <div class="menu-link">
-                    
+
                     <a href="{{ route('teacher.dashboard')}}">Dashboard</a>
                 </div>
             </div>
             @elseif(auth('student')->user())
             <div class="menu-box">
                 <div class="menu-link">
-                    
+
                     <a href="{{ route('student.dashboard')}}"> Dashboard</a>
-                </div>
-            </div>
-            @elseif(auth('principle')->user())
-            <div class="menu-box">
-                <div class="menu-link">
-                    
-                    <a href="{{ route('principle.dashboard')}}"> Dashboard</a>
-                </div>
-            </div>
-            @elseif(auth('accountant')->user())
-            <div class="menu-box">
-                <div class="menu-link">
-                    
-                    <a href="{{ route('accountant.dashboard')}}"> Dashboard</a>
-                </div>
-            </div>
-            @elseif(auth('hr')->user())
-            <div class="menu-box">
-                <div class="menu-link">
-                    
-                    <a href="{{ route('hr.dashboard')}}"> Dashboard</a>
                 </div>
             </div>
             @elseif(auth()->user())
             <div class="menu-box">
                 <div class="menu-link">
-                    
+
                     <a href="{{ route('dashboard')}}"> Dashboard</a>
                 </div>
             </div>
             @else
             <div class="menu-box">
                 <div class="menu-link">
-                    
-                    <a href="{{ route('schoolportal')}}"> School Portal</a>
+
+                    <a href="{{ route('signin.portal')}}"> School Portal</a>
                 </div>
             </div>
             @endif
 
-            
+
         </div>
     </div>
 </div>

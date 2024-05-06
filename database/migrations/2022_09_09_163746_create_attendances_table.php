@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Educlass;
+use App\Models\Studentadmission;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,9 +17,9 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('admission_id')->constrained('studentadmissions')->onDelete('cascade');
+            $table->foreignId('admission_id')->constrained((new Studentadmission())->getTable());
             $table->string('attendence_status');
-            $table->foreignId('class_id')->constrained('educlasses')->onDelete('cascade');
+            $table->foreignId('class_id')->constrained((new Educlass())->getTable());
             $table->date('attendance_date');
             $table->time('attendance_time');
             $table->timestamps();

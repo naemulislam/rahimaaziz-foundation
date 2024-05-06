@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\TeacherAttenController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\AllAuthController;
+use App\Http\Controllers\Frontend\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,15 +40,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('web')->group(function () {
-    Route::get('/login', [AllAuthController::class, 'adminLogin'])->name('admin.login');
-    Route::post('/login-store', [AllAuthController::class, 'adminloginstore'])->name('admin.login.store');
-});
-
-
 Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function () {
     Route::view('/', 'backend.dashboard.dashboard')->name('dashboard');
-    Route::post('/logout', [AllAuthController::class, 'adminlogout'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'AdminLogout'])->name('logout');
 
     Route::get('/admin', [ProfileController::class, 'index'])->name('index');
     Route::post('/admin/store', [ProfileController::class, 'store'])->name('store');
@@ -71,7 +66,7 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::resource('class', ClassController::class);
         Route::post('/class/status/{id}', [ClassController::class, 'status'])->name('class.status');
     });
-  
+
     // Student management route
     Route::group(['prefix' => '/student-info'], function () {
         Route::resource('student', StudentController::class);
@@ -94,7 +89,7 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('attendance/sheet/{class}/{date}', [AttendanceController::class,'atten_show'])->name('atten.show');
         Route::get('attendance/delete/{class}/{date}', [AttendanceController::class,'atten_delete'])->name('atten.delete');
         Route::post('attendance/update', [AttendanceController::class,'atten_update'])->name('attenUpdate');
-        
+
     });
     // attendance route
     Route::group(['prefix' => '/teacher'], function () {
@@ -108,7 +103,7 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('/teacher/attendance/export/pdf', [TeacherAttenController::class,'exportPdf'])->name('teacher.export.attendance');
         Route::get('/teacher/attendance/list/{id}', [TeacherAttenController::class,'oneTeacherlist'])->name('oneteacher.atten.export.show');
 
-        
+
     });
     // admission route
     Route::group(['prefix' => '/student'], function () {
@@ -122,35 +117,35 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
     });
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('improve',ImproveStudentsController::class);
-        
+
         // Route::get('homework/destroy/{id}',[ImproveStudentsController::class,'homeworkdestroy'])->name('homework.destroy');
-        
+
     });
     Route::group(['prefix'=>'/teacher'],function(){
         Route::resource('imteacher',ImproveTeacherController::class);
-        
+
         // Route::get('homework/destroy/{id}',[ImproveStudentsController::class,'homeworkdestroy'])->name('homework.destroy');
-        
+
     });
     Route::group(['prefix'=>'/teacher'],function(){
-        
+
         Route::get('responsibility/index/',[TeacherController::class,'responsIndex'])->name('respons.index');
         Route::get('responsibility/create/',[TeacherController::class,'responsCreate'])->name('respons.create');
         Route::post('responsibility/store/',[TeacherController::class,'responsStore'])->name('respons.store');
         Route::get('responsibility/edit/{id}',[TeacherController::class,'responsEdit'])->name('respons.edit');
         Route::post('responsibility/update/{id}',[TeacherController::class,'responsUpdate'])->name('respons.update');
         Route::get('responsibility/delete/{id}',[TeacherController::class,'responsDelete'])->name('respons.delete');
-        
+
     });
 //Daily Report route
     Route::group(['prefix'=>'/student'],function(){
-      
+
         Route::get('submit/report/index',[StudentActivityController::class,'reportIndex'])->name('report.index');
         Route::get('/report/show/{id}',[StudentActivityController::class,'reportShow'])->name('report.show');
         Route::get('submit/report/complete',[StudentActivityController::class,'reportComplete'])->name('report.complete');
 
         Route::post('/report/status/{id}',[StudentActivityController::class,'reportStatus'])->name('report.status');
-        
+
     });
 //Student Activity route
     Route::group(['prefix'=>'/student'],function(){
