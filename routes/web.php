@@ -55,7 +55,7 @@ Route::get('/admission/get/class/{id}', [DefaultController::class, 'get_class'])
 Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
 
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
-    Route::view('/', 'backend.dashboard.dashboard')->name('dashboard');
+    Route::view('/', 'backend.parent.dashboard.dashboard')->name('dashboard');
     Route::post('/logout', [LoginController::class, 'parentLogout'])->name('logout');
 
     // Route::get('/student/account-info/', [StudentController::class, 'accountInfo'])->name('account.info');

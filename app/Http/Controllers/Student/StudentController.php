@@ -13,82 +13,28 @@ use Illuminate\Support\Facades\Auth;
 class StudentController extends Controller
 {
     public function accountInfo(){
-        return view('backend.dashboard.student.profile.account-info');
+        return view('backend.student.dashboard.profile.account-info');
     }
-    public function index()
+    public function profile()
     {
-        // $data['datas'] = Student::latest()->get();
-        // return view('backend.dashboard.admin.profile.index-admin',$data);
-       
+        return view('backend.student.dashboard.profile.profile');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // return view('backend.dashboard.admin.profile.create-admin');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        // $data = Student::find($id);
-        // return view('backend.dashboard.student.profile.edit-profile',compact('data'));
-       
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:students,email,' . $id,
             'phone' => 'required'
-            
+
         ]);
 
         $data = Student::find($id);
-       
+
         $data->name            = $request->name;
         $data->email            = $request->email;
         $data->phone            = $request->phone;
-      
+
         $image = $request->file('image');
         if ($image) {
             $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
@@ -105,7 +51,7 @@ class StudentController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
-        
+
     }
     public function studenUpdate(Request $request, $id){
         $studentcount = StudentInfo::wehre('id',$id)->first();
@@ -158,7 +104,7 @@ class StudentController extends Controller
             $image->move(public_path('uploaded/student/mother'), $imageName);
             $data->mother_photo = '/uploaded/student/mother/' . $imageName;
         }
-   
+
 
         $notification = array(
             'message' => 'Student updated successfully!',
@@ -213,7 +159,7 @@ class StudentController extends Controller
             $image->move(public_path('uploaded/student/mother'), $imageName);
             $data->mother_photo = '/uploaded/student/mother/' . $imageName;
         }
-   
+
 
         $notification = array(
             'message' => 'Student updated successfully!',
@@ -225,20 +171,9 @@ class StudentController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function cPassword()
     {
-        return view('backend.dashboard.student.profile.edit-password');
+        return view('backend.student.dashboard.profile.edit-password');
     }
 
     public function upassword(Request $request)
@@ -248,7 +183,7 @@ class StudentController extends Controller
             'new_password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8'
         ]);
-        
+
         if (Auth::attempt(['id' => Auth('student')->user()->id, 'password' => $request->current_password])){
             $user = Student::find(Auth('student')->user()->id);
             $user->password = Hash::make($request->new_password);

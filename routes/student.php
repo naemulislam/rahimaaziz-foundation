@@ -24,10 +24,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('dashboard')->middleware('student')->name('student.')->group(function () {
-    Route::view('/', 'backend.dashboard.dashboard')->name('dashboard');
+    Route::view('/', 'backend.student.dashboard.dashboard')->name('dashboard');
     Route::post('/logout', [LoginController::class, 'studentLogout'])->name('logout');
 
 
+    Route::get('/student/profile/', [StudentController::class, 'profile'])->name('profile');
     Route::get('/student/account-info/', [StudentController::class, 'accountInfo'])->name('account.info');
     //Route::get('/profile', [StudentController::class, 'getProfile'])->name('profile');
     Route::post('/student/personal-info/update/{id}', [StudentController::class, 'update'])->name('personal.update');
