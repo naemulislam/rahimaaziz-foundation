@@ -20,6 +20,6 @@ class TeacherAuthenticate
         if (Auth::guard('teacher')->check()) {
             return $next($request);
         }
-        return redirect(url('/teacher/login'));
+        return redirect()->route('signin.portal');
     }
 }

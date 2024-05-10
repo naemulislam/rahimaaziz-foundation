@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ClassController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FeesController;
 use App\Http\Controllers\Admin\FileManagerController;
+use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\HomeworkController;
 use App\Http\Controllers\Admin\HrController;
 use App\Http\Controllers\Admin\ImproveStudentsController;
@@ -43,40 +44,40 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function () {
     Route::view('/', 'backend.dashboard.dashboard')->name('dashboard');
     Route::post('/logout', [LoginController::class, 'AdminLogout'])->name('logout');
-
-    Route::get('/admin', [ProfileController::class, 'index'])->name('index');
-    Route::post('/admin/store', [ProfileController::class, 'store'])->name('store');
-    Route::get('/create', [ProfileController::class, 'create'])->name('create');
-    Route::get('/profile', [ProfileController::class, 'getProfile'])->name('profile');
-    Route::get('/admin/edit/{id}', [ProfileController::class, 'edit'])->name('edit');
-    Route::post('/admin/update/{id}', [ProfileController::class, 'update'])->name('update');
-    Route::get('/admin/destroy/{id}', [ProfileController::class, 'destroy'])->name('destroy');
-    Route::get('/edit/password/', [ProfileController::class, 'cPassword'])->name('epassword');
-    Route::post('/update/password/', [ProfileController::class, 'upassword'])->name('upassword');
+    Route::controller(ProfileController::class)->group(function(){
+        Route::get('/admin', 'index')->name('index');
+        Route::post('/admin/store', 'store')->name('store');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/profile', 'getProfile')->name('profile');
+        Route::get('/admin/edit/{id}', 'edit')->name('edit');
+        Route::post('/admin/update/{id}', 'update')->name('update');
+        Route::get('/admin/destroy/{id}', 'destroy')->name('destroy');
+        Route::get('/edit/password/', 'cPassword')->name('epassword');
+        Route::post('/update/password/', 'upassword')->name('upassword');
+    });
 
     Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager.index');
 
-    Route::group(['prefix'=>'/user'], function(){
-        Route::resource('hr',HrController::class);
-        Route::get('hr/destroy/{id}',[HrController::class,'deleteHr'])->name('hr.delete');
-    });
-
     // Class route here
-    Route::group(['prefix' => '/academic'], function () {
-        Route::resource('class', ClassController::class);
-        Route::post('/class/status/{id}', [ClassController::class, 'status'])->name('class.status');
+    Route::prefix('/academic')->controller(GroupController::class)->group(function () {
+        Route::get('group/index','index')->name('group.index');
+        Route::post('group/store','store')->name('group.store');
+        Route::put('group/update/{group}','update')->name('group.update');
+        Route::get('group/destroy/{group}','destroy')->name('group.destroy');
+        Route::post('group/status/{group}','status')->name('group.status');
     });
 
     // Student management route
-    Route::group(['prefix' => '/student-info'], function () {
-        Route::resource('student', StudentController::class);
-        Route::post('/student/status/{id}', [StudentController::class, 'status'])->name('student.status');
+    Route::controller(StudentController::class)->prefix('/student')->group(function () {
+        Route::get('registration/index', 'registerIndex')->name('register.index');
+        Route::get('registration/destroy/{student}', 'registerDestroy')->name('register.destroy');
+
         /////////////////////Student Activity LIst/////////////////////////
-        Route::get('/student/activity/index', [StudentController::class, 'activityIndex'])->name('activity_index');
-        Route::post('/student/activity/store', [StudentController::class, 'activityStore'])->name('activity_store');
-        Route::post('/student/activity/update/{id}', [StudentController::class, 'activityUpdate'])->name('activity.update');
-        Route::post('/student/activity/destroy/{id}', [StudentController::class, 'activityDelete'])->name('activity.delete');
-        Route::post('/student/activity/status/{id}', [StudentController::class, 'activityStatus'])->name('activity.status');
+        Route::get('daily-activity/index', 'activityIndex')->name('daily_activity.index');
+        Route::post('daily-activity/store', 'activityStore')->name('daily_activity.store');
+        Route::put('daily-activity/update/{activityList}', 'activityUpdate')->name('daily_activity.update');
+        Route::get('daily-activity/destroy/{activityList}', 'activityDelete')->name('daily_activity.destroy');
+        Route::post('daily-activity/status/{activityList}', 'activityStatus')->name('daily_activity.status');
     });
     // Student management route
     Route::group(['prefix' => '/teacher-info'], function () {
@@ -106,9 +107,14 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
 
     });
     // admission route
-    Route::group(['prefix' => '/student'], function () {
-        Route::resource('admission', AdmissionController::class);
-        Route::post('/admission/status/{id}', [AdmissionController::class, 'status'])->name('admission.status');
+    Route::controller(AdmissionController::class)->prefix('/student')->group( function () {
+        Route::get('admission/index','index')->name('admission.index');
+        Route::get('admission/create','create')->name('admission.create');
+        Route::post('admission/store','store')->name('admission.store');
+        Route::post('admission/edit/{id}','edit')->name('admission.edit');
+        Route::put('admission/update/{id}','update')->name('admission.update');
+        Route::get('admission/destroy/{id}','destroy')->name('admission.destroy');
+        Route::post('/admission/status/{id}', 'status')->name('admission.status');
     });
     Route::group(['prefix' => '/admission'], function () {
         Route::get('/panding', [AdmissionController::class, 'pandingindex'])->name('panding.admission');

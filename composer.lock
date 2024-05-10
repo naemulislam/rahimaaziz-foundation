@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "40ac0f50e8a46b3cceadbbe5025e3686",
+    "content-hash": "eb2352a738cdf540a69cafcb2a886e9d",
     "packages": [
         {
             "name": "alexusmai/laravel-file-manager",
@@ -65,6 +65,60 @@
                 "source": "https://github.com/alexusmai/laravel-file-manager/tree/v2.5.4"
             },
             "time": "2021-03-31T17:42:31+00:00"
+        },
+        {
+            "name": "arafat69/laravel-repository",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arafat69/laravel-repository.git",
+                "reference": "91367e5cb6422c5f0bed8075794b2cc0d80015bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arafat69/laravel-repository/zipball/91367e5cb6422c5f0bed8075794b2cc0d80015bd",
+                "reference": "91367e5cb6422c5f0bed8075794b2cc0d80015bd",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Arafat\\LaravelRepository\\RepositoryServiceProvider"
+                    ],
+                    "aliases": {
+                        "Repository": "Arafat\\LaravelRepository\\RepositoryFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Arafat\\LaravelRepository\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "arafat69",
+                    "email": "arafataliar69@gmail.com"
+                }
+            ],
+            "description": "simple laravel repository pattern",
+            "homepage": "https://github.com/arafat69/laravel-repository",
+            "keywords": [
+                "arafat",
+                "laravel",
+                "laravel-repository",
+                "repository"
+            ],
+            "support": {
+                "issues": "https://github.com/arafat69/laravel-repository/issues",
+                "source": "https://github.com/arafat69/laravel-repository/tree/v1.1.0"
+            },
+            "time": "2023-11-24T16:46:24+00:00"
         },
         {
             "name": "asm89/stack-cors",

@@ -29,23 +29,7 @@
 		<div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500">
 			<!--begin::Menu Nav-->
 			<ul class="menu-nav">
-				@if(auth('admin')->user())
-				@include('backend.layouts.includes.dashboard.aside.admin')
-				@elseif(auth('teacher')->user())
-				@include('backend.layouts.includes.dashboard.aside.teacher')
-				@elseif(auth('principle')->user())
-				@include('backend.layouts.includes.dashboard.aside.principle')
-				@elseif(auth('hr')->user())
-				@include('backend.layouts.includes.dashboard.aside.hr')
-				@elseif(auth('student')->user())
-				@include('backend.layouts.includes.dashboard.aside.student')
-				@elseif(auth('accountant')->user())
-				@include('backend.layouts.includes.dashboard.aside.accountant')
-				@elseif(auth()->user())
-				@include('backend.layouts.includes.dashboard.aside.user')
-				@endif
-
-
+				@include('backend.layouts.includes.aside.admin')
 			</ul>
 			<!--end::Menu Nav-->
 		</div>

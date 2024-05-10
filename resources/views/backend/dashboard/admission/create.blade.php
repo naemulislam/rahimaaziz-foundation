@@ -1,0 +1,435 @@
+@extends('backend.layouts.master')
+@section('title', 'Student Admission')
+@section('content')
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container-fluid">
+            <!--begin::Card-->
+            <div class="card card-custom gutter-b example example-compact">
+                <div class="card-header">
+                    <h3 class="card-title">Student Information</h3>
+                    <div class="card-toolbar">
+                        <!--begin::Button-->
+                        <a href="{{ route('admin.admission.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                            < Back</a>
+                                <!--end::Button-->
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <div class="card-body">
+                    <form action="{{ route('admin.admission.store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Admission No<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="Enter admission number"
+                                        name="admission_no" value="{{ old('admission_no') }}">
+                                    @error('admission_no')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Roll No<span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="roll"
+                                        placeholder="Enter roll number" value="{{ old('roll') }}">
+                                    @error('roll')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Registration No<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="registration_no"
+                                        placeholder="Enter registration number" value="{{ old('registration_no') }}">
+                                    @error('registration_no')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Group<span class="text-danger">*</span></label>
+                                    <select name="group_id" class="form-control js-select-result" id="">
+                                        <option>Select class group</option>
+                                        @foreach ($class_group as $group)
+                                            <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('group_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Admission Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="student_name"
+                                        placeholder="Enter admission name" value="{{ old('student_name') }}">
+                                    @error('student_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Student Type<span class="text-danger">*</span></label>
+                                    <select class="form-control" name="student_type">
+                                        <option selected disabled>Select type</option>
+                                        <option value="0">New Student</option>
+                                        <option value="1">Return Student</option>
+                                    </select>
+
+                                    @error('student_type')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Date of Birth<span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth"
+                                        value="{{ old('date_of_birth') }}">
+                                    @error('date_of_birth')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Admission Date<span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="admission_date"
+                                        value="{{ old('admission_date') }}" placeholder="Enter Admission Date">
+                                    @error('admission_date')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Phone<span class="text-danger">*</span></label>
+
+                                    <input type="text" class="form-control" name="admission_phone"
+                                        placeholder="Enter phone number" value="{{ old('admission_phone') }}">
+                                    @error('admission_phone')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Place of Birth<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="place_of_birth"
+                                        placeholder="Place of Birth" value="{{ old('place_of_birth') }}">
+                                    @error('place_of_birth')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Bloog Group</label>
+                                    <input type="text" class="form-control" name="blood"
+                                        placeholder="Enter blood group" value="{{ old('blood') }}">
+                                    @error('blood')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="">Home Address<span class="text-danger">*</span></label>
+                                    <input type="text" name="h_address" placeholder="Enter home addrss"
+                                        value="{{ old('h_address') }}" class="form-control">
+                                    @error('h_address')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">City<span class="text-danger">*</span></label>
+                                    <input type="text" name="city" placeholder="Enter Student city"
+                                        value="{{ old('city') }}" class="form-control">
+                                    @error('city')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">State<span class="text-danger">*</span></label>
+                                    <input type="text" name="state" placeholder="Enter Student State"
+                                        value="{{ old('state') }}" class="form-control">
+                                    @error('state')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Zip Code<span class="text-danger">*</span></label>
+                                    <input type="text" name="zip_code" placeholder="Enter Student Zip code"
+                                        value="{{ old('zip_code') }}" class="form-control">
+                                    @error('zip_code')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <h4 class="card-title">Guardian Information</h4>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Father Name<span class="text-danger">*</span></label>
+                                    <input type="text" name="father_name" placeholder="Enter father name"
+                                        value="{{ old('father_name') }}" class="form-control">
+                                    @error('father_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Father Call<span class="text-danger">*</span></label>
+                                    <input type="text" name="father_call" placeholder="Enter father call"
+                                        value="{{ old('father_call') }}" class="form-control">
+                                    @error('father_call')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Father Email</label>
+                                    <input type="text" name="father_email" placeholder="Enter father email"
+                                        value="{{ old('father_email') }}" class="form-control">
+                                    @error('father_email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Mother Name<span class="text-danger">*</span></label>
+                                    <input type="text" name="mother_name" placeholder="Enter mother name"
+                                        value="{{ old('mother_name') }}" class="form-control">
+                                    @error('mother_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Mother Call<span class="text-danger">*</span></label>
+                                    <input type="text" name="mother_call" placeholder="Enter mother call"
+                                        value="{{ old('mother_call') }}" class="form-control">
+                                    @error('mother_call')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <h4 class="card-title">Documents Details</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Birth Cirtificate<span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control-file" name="b_cirti"
+                                        value="{{ old('b_cirti') }}" accept=".jpg,.jpeg,.pdf">
+
+                                    @error('b_cirti')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Immunization record<span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control-file" name="immu_record"
+                                        value="{{ old('immu_record') }}" accept=".jpg,.jpeg,.pdf">
+
+                                    @error('immu_record')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Proof of address<span class="text-danger">*</span></label><br>
+                                    <small>proof of address (electricity bill or bank statement or any official letter with
+                                        the address)</small>
+                                    <input type="file" class="form-control-file" name="proof_address"
+                                        value="{{ old('proof_address') }}" accept=".jpg,.jpeg,.pdf">
+
+                                    @error('proof_address')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Guardians picture<span class="text-danger">*</span></label><br>
+
+                                    <input type="file" name="guard_pic" value="{{ old('guard_pic') }}"
+                                        class="demo2" data-jpreview-container="#demo-2-container">
+
+                                    @error('guard_pic')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    <div id="demo-2-container" class="jpreview-container"></div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">physical health report from the doctor</label>
+
+                                    <input type="file" class="form-control-file" name="physical_health"
+                                        value="{{ old('physical_health') }}">
+
+                                    @error('physical_health')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">most recent report card from previous school</label>
+                                    <input type="file" class="form-control-file" name="mrrcfps"
+                                        value="{{ old('mrrcfps') }}">
+
+                                    @error('mrrcfps')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Homeschooling registration acceptance letter</label>
+
+                                    <input type="file" class="form-control-file" name="hsral"
+                                        value="{{ old('hsral') }}">
+
+                                    @error('hsral')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <h4 class="card-title">Emergency Contact(Optional)</h4>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Name</label>
+                                    <input type="text" name="e_name" placeholder="Emergency name"
+                                        value="{{ old('e_name') }}" class="form-control">
+                                    @error('e_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Phone</label>
+                                    <input type="number" name="e_call" placeholder="Phone"
+                                        value="{{ old('e_call') }}" class="form-control">
+                                    @error('e_call')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="">Student Image</label>
+                            <input type="file" name="student_image" id="">
+                            @error('student_image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Submit" class="btn btn-success">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--end::Form-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+@endsection
+@push('scripts')
+    <!-- Edit code -->
+    <script>
+        $(function() {
+            $(document).on('change', '#category_id', function() {
+                var category_id = $(this).val();
+                $.ajax({
+                    type: "Get",
+                    url: "{{ url('/admin/dashboard/get/class') }}/" + category_id,
+                    dataType: "json",
+                    success: function(data) {
+                        var html = '<option value="">Select Class</option>';
+                        $.each(data, function(key, val) {
+                            html += '<option value="' + val.id + '">' + val.class_name +
+                                '</option>';
+                        });
+                        $('#class_id').html(html);
+                    },
+
+                });
+            });
+        });
+    </script>
+
+    <!-- Add code -->
+
+    <script>
+        var $disabledResults = $(".js-select-result");
+        $disabledResults.select2();
+    </script>
+@endpush

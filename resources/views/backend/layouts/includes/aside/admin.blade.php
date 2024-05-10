@@ -1,4 +1,7 @@
-<li class="menu-item menu-item-active" aria-haspopup="true">
+@php
+    $routeName = request()->route()->getName();
+@endphp
+<li class="menu-item {{$routeName == 'admin.dashboard'? 'menu-item-active':''}}" aria-haspopup="true">
 									<a href="{{ route('admin.dashboard')}}" class="menu-link">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -18,9 +21,11 @@
 									<h4 class="menu-text">Custom</h4>
 									<i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 								</li>
-								
+
 								<!--Category-->
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+								<li class="menu-item menu-item-submenu
+                                {{$routeName == 'admin.group.index'? 'menu-item-open':''}}
+                                " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -44,17 +49,15 @@
 													<span class="menu-text">Academic</span>
 												</span>
 											</li>
-											
-											
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.class.index')}}" class="menu-link menu-toggle">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.group.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.group.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
-													<span class="menu-text">Calss</span>
+													<span class="menu-text">Group</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -74,7 +77,7 @@
 											</svg>
 											<!--end::Svg Icon-->
 										</span>
-										<span class="menu-text">Student</span>
+										<span class="menu-text">Student Management</span>
 										<i class="menu-arrow"></i>
 									</a>
 									<div class="menu-submenu">
@@ -86,35 +89,57 @@
 												</span>
 											</li>
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.student.index')}}" class="menu-link menu-toggle">
+												<a href="{{ route('admin.register.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
-													<span class="menu-text">registration list</span>
+                                                    @php
+                                                        $register = \App\Models\Student::where('admission_status',false)->count();
+                                                    @endphp
+													<span class="menu-text">Registration<span class=" ml-3 text-white text-center" style="background-color:red; height:20px; width:20px; border-radius:50%">{{$register}}</span></span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.student.create')}}" class="menu-link menu-toggle">
+                                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.admission.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
-													<span class="menu-text">Student register</span>
+													<span class="menu-text">Admission List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
 											</li>
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.activity_index')}}" class="menu-link menu-toggle">
+												<a href="{{ route('admin.admission.create')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
-													<span class="menu-text">Student Activity</span>
+													<span class="menu-text">Admission</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
+											</li>
+
+											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.panding.admission')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Request List <span class=" ml-3 text-white text-center" style="background-color:red; height:20px; width:20px; border-radius:50%">9</span></span>
+													<i class="menu-arrow"></i>
+												</a>
+
+											</li>
+											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.daily_activity.index')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Daily Activity</span>
+													<i class="menu-arrow"></i>
+												</a>
+
 											</li>
 										</ul>
 									</div>
@@ -153,9 +178,9 @@
 													<span class="menu-text">Teacher List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
+
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.teacher.create')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
@@ -164,7 +189,7 @@
 													<span class="menu-text">Add Teacher</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -203,9 +228,9 @@
 													<span class="menu-text">Attendance</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
+
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.teacheratten.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
@@ -214,7 +239,7 @@
 													<span class="menu-text">Attendance List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.teacher.atten.export.class')}}" class="menu-link menu-toggle">
@@ -224,7 +249,7 @@
 													<span class="menu-text">Export Attendance</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -263,9 +288,9 @@
 													<span class="menu-text">Attendance</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
+
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.attendance.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
@@ -274,76 +299,12 @@
 													<span class="menu-text">Attendance List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
 								</li>
 								<!--End Student Attendance-->
-								<!--Student Admission-->
-						@php
-                        $rowcount = \App\Models\Studentadmission::where('status',0)->count();
-                        
-                        @endphp
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-									<a href="javascript:;" class="menu-link menu-toggle">
-										<span class="svg-icon menu-icon">
-											<!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
-											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-													<rect x="0" y="0" width="24" height="24" />
-													<rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5" />
-													<path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z" fill="#000000" opacity="0.3" />
-												</g>
-											</svg>
-											<!--end::Svg Icon-->
-										</span>
-										<span class="menu-text">Admission</span>
-										<i class="menu-arrow"></i>
-									</a>
-									<div class="menu-submenu">
-										<i class="menu-arrow"></i>
-										<ul class="menu-subnav">
-											<li class="menu-item menu-item-parent" aria-haspopup="true">
-												<span class="menu-link">
-													<span class="menu-text">Admission</span>
-												</span>
-											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.admission.index')}}" class="menu-link menu-toggle">
-													<i class="menu-bullet menu-bullet-line">
-														<span></span>
-													</i>
-													<span class="menu-text">Admission List</span>
-													<i class="menu-arrow"></i>
-												</a>
-											
-											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.admission.create')}}" class="menu-link menu-toggle">
-													<i class="menu-bullet menu-bullet-line">
-														<span></span>
-													</i>
-													<span class="menu-text">Admission</span>
-													<i class="menu-arrow"></i>
-												</a>
-											
-											</li>
-											
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.panding.admission')}}" class="menu-link menu-toggle">
-													<i class="menu-bullet menu-bullet-line">
-														<span></span>
-													</i>
-													<span class="menu-text">Request List <span class=" ml-3 text-white text-center" style="background-color:red; height:20px; width:20px; border-radius:50%">{{ $rowcount}}</span></span>
-													<i class="menu-arrow"></i>
-												</a>
-											
-											</li>
-										</ul>
-									</div>
-								</li>
-								<!--End Admission-->
 								<!--Start fees collection-->
 								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
@@ -377,10 +338,10 @@
 													<span class="menu-text">Student Fees</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
-											
+
+
 										</ul>
 									</div>
 								</li>
@@ -418,7 +379,7 @@
 													<span class="menu-text">Improve</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -457,7 +418,7 @@
 													<span class="menu-text">Improve</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -496,7 +457,7 @@
 													<span class="menu-text">Responsibility List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -535,7 +496,7 @@
 													<span class="menu-text">Create Activity</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{route('admin.activity.index')}}" class="menu-link menu-toggle">
@@ -545,9 +506,9 @@
 													<span class="menu-text">Activity List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
+
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{route('admin.average.activity')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
@@ -556,10 +517,10 @@
 													<span class="menu-text">Average Activity</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
-											
+
+
 										</ul>
 									</div>
 								</li>
@@ -597,9 +558,9 @@
 													<span class="menu-text">Inbox</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
+
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="#" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
@@ -608,7 +569,7 @@
 													<span class="menu-text">Blog List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -647,7 +608,7 @@
 													<span class="menu-text">Setting</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -686,7 +647,7 @@
 													<span class="menu-text">Parent</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -724,7 +685,7 @@
 													<span class="menu-text">Our Staff</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.prayer.index')}}" class="menu-link menu-toggle">
@@ -734,7 +695,7 @@
 													<span class="menu-text">Prayers</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
@@ -772,13 +733,12 @@
 													<span class="menu-text">file manager</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 										</ul>
 									</div>
 								</li>
 								<!--End blog-->
-								
-								
-								
-								
+
+
+

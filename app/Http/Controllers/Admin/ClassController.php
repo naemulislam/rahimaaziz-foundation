@@ -20,7 +20,7 @@ class ClassController extends Controller
     public function index()
     {
         $data = Educlass::latest()->get();
-        return view('backend.dashboard.admin.academic.class.index-class',compact('data'));
+        return view('backend.dashboard.academic.class.index',compact('data'));
     }
 
     /**

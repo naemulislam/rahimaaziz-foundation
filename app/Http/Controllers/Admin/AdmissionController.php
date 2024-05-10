@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdmissionRequest;
 use App\Models\Educlass;
 use App\Models\Student;
 use App\Models\Studentadmission;
 use App\Models\StudentInfo;
+use App\Repositories\GroupRepository;
 use Illuminate\Http\Request;
 
 class AdmissionController extends Controller
@@ -24,35 +26,12 @@ class AdmissionController extends Controller
 
     public function create()
     {
-        $data["class_group"] = Educlass::where('status', 1)->get();
-        $data["students"] = Student::where('status', 1)->get();
-        return view('backend.dashboard.admin.admission.admission', $data);
+        $data["class_group"] = GroupRepository::query()->where('status', true)->get();
+        return view('backend.dashboard.admission.create', $data);
     }
 
-    public function store(Request $request)
+    public function store(AdmissionRequest $request)
     {
-        $this->validate($request, [
-            'admission_no' => 'required',
-            'roll' => 'required',
-            'registration_no' => 'required',
-            'class_id' => 'required',
-            'admi_name' => 'required',
-            'student_type' => 'required',
-            'student_id' => 'required',
-            'admission_date' => 'required',
-            'admi_phone' => 'required',
-            'date_of_birth' => 'required',
-            'place_of_birth' => 'required',
-            'h_address' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip_code' => 'required',
-            'father_name' => 'required',
-            'father_call' => 'required',
-            'mother_name' => 'required',
-            'mother_call' => 'required',
-            'admi_photo' => 'required'
-        ]);
 
 
         $rowcount = Studentadmission::where('student_id', $request->student_id)->count();

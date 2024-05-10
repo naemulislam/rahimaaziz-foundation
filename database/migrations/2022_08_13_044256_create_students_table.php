@@ -25,6 +25,7 @@ class CreateStudentsTable extends Migration
             $table->string('gender')->nullable();
             $table->string('image', 2048)->nullable();
             $table->boolean('status')->default(true);
+            $table->boolean('admission_status')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -20,6 +20,6 @@ class StudentAuthenticate
         if (Auth::guard('student')->check()) {
             return $next($request);
         }
-        return redirect(url('/student/login'));
+        return redirect()->route('signin.portal');
     }
 }

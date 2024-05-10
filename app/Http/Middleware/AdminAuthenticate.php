@@ -20,6 +20,6 @@ class AdminAuthenticate
         if (Auth::guard('admin')->check()) {
             return $next($request);
         }
-        return redirect(url('/admin/login'));
+        return redirect()->route('signin.portal');
     }
 }
