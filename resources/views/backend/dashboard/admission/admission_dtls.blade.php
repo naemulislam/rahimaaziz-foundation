@@ -1,4 +1,4 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.layouts.master')
 @section('title', 'Student Details')
 @section('content')
 <style>
@@ -14,52 +14,27 @@
         margin: 7px 0px;
     }
 
-    .card-header {
-        padding: 0rem 0rem;
-        margin-bottom: 0;
-        background-color: #ffffff;
-        border-bottom: 1px solid #EBEDF3;
-        color: #000;
-    }
-
     .btn-link {
         font-weight: 600;
         color: #000000;
         text-decoration: none;
         font-size: 16px;
     }
+    .imageBox >img {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    height: 164px;
+    width: 162px;
+    border: 3px solid #3699ff;
+}
+b {
+    border: 1px solid #d9d9d9 !important;
+    padding: 6px;
+}
 </style>
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Student admission details</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Breadcrumb-->
-                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                        <li class="breadcrumb-item text-muted">
-                            <a href="javascript:;" class="text-muted">Student</a>
-                        </li>
-                    </ul>
-                    <!--end::Breadcrumb-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container">
-
             <!--begin::Card-->
             <div class="card card-custom">
                 <div class="card-header flex-wrap py-5">
@@ -70,165 +45,156 @@
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="{{ url(URL::previous()) }}" class="btn btn-primary btn-sm font-weight-bolder">
+                        <a href="{{ route('admin.admission.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
                             < Back</a>
                                 <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3 mx-auto">
+                            <div class="imageBox">
+                                <img src="@if(!empty($student->image)){{asset($student->image)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="">
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                     <b class="col-sm-3">Student BarCode</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
+                        <b class="col-sm-9">
                             @php
-                            $name = $admission->student->name;
-                            $email = $admission->student->email;
-                            $id_number = $admission->id_number;
-                            $class = $admission->class->class_name;
+                            $name = $student->name;
+                            $email = $student->email;
+                            $id_number = $student->admission->id_number;
+                            $class = $student->admission->group->name;
                             $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
                             @endphp
 
                             {!! $generator->getBarcode('Student Id: '.$id_number, $generator::TYPE_CODE_128) !!}
-                            
-                        </dd>
+
+                        </b>
 
                         <b class="col-sm-3">Student id number </b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">#{{ $admission->id_number }}</dd>
+                        <b class="col-sm-9">#{{ $student->admission->id_number }}</b>
 
                         <b class="col-sm-3">Student Name </b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$admission->student->name }}</dd>
+                        <b class="col-sm-9">{{ $student->name }}</b>
                         <b class="col-sm-3">Student Email </b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{$admission->student->email}}</dd>
+                        <b class="col-sm-9">{{$student->email}}</b>
 
                         <b class="col-sm-3">Admission Date</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$admission->admission_date }}</dd>
+                        <b class="col-sm-9">{{ $student->admission->admission_date }}</b>
                         <b class="col-sm-3">Admission No</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$admission->admission_no }}</dd>
+                        <b class="col-sm-9">{{ $student->admission->admission_no }}</b>
                         <b class="col-sm-3">Roll No</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$admission->roll }}</dd>
+                        <b class="col-sm-9">{{ $student->admission->roll }}</b>
                         <b class="col-sm-3">Registration No</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$admission->registration_no }}</dd>
+                        <b class="col-sm-9">{{ $student->admission->registration_no }}</b>
                         <b class="col-sm-3">Class</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$admission->class->class_name }}</dd>
+                        <b class="col-sm-9">{{ $student->admission->group->name }}</b>
 
                         <b class="col-sm-3">Phone</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$admission->admi_phone }}</dd>
+                        <b class="col-sm-9">{{ @$student->phone }}</b>
 
 
                         <b class="col-sm-3">Date of birth</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$studentinfo->date_of_birth }}</dd>
+                        <b class="col-sm-9">{{ $student->studentinfo->date_of_birth }}</b>
                         <b class="col-sm-3">Place of birth</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            {{ @$studentinfo->place_of_birth }}
-
-                        </dd>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->place_of_birth }}
+                        </b>
+                        <b class="col-sm-3">Blood Group</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->blood }}
+                        </b>
                         <b class="col-sm-3">Gender</b>
-                        <b class="col-sm-1">:</b>
-                        <dd class="col-sm-8">
-                            @if($admission->gender == 1)
+                        <b class="col-sm-9">
+                            @if($student->gender == 'male')
                             Mail
-                            @elseif($admission->gender == 2)
+                            @elseif($student->gender == 'female')
                             Femail
                             @else
-                            Not added yet.
+                            Not abed yet.
                             @endif
-                        </dd>
+                        </b>
+                        <b class="col-sm-3">Student Type</b>
+                        <b class="col-sm-9">
+                            @if($student->studentinfo->student_type == 0)
+                            New Student
+                            @elseif($student->studentinfo->student_type == 1)
+                            Return Student
+                            @else
+                            Not abed yet.
+                            @endif
+                        </b>
+                        <b class="col-sm-3">Home Abress</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->address }}
 
-                        <b class="col-sm-3">Father Name</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$studentinfo->father_name }}</dd>
-
-                        <b class="col-sm-3">Mother Name</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">{{ @$studentinfo->mother_name }}</dd>
-
-
-                        <b class="col-sm-3">Home Address</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            {{ $studentinfo->h_address }}
-
-                        </dd>
+                        </b>
 
                         <b class="col-sm-3">City</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            {{ $studentinfo->city }}
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->city }}
 
-                        </dd>
+                        </b>
                         <b class="col-sm-3">State</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            {{ $studentinfo->state }}
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->state }}
 
-                        </dd>
+                        </b>
                         <b class="col-sm-3">Zip Code</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            {{ $studentinfo->zip_code }}
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->zip_code }}
 
-                        </dd>
+                        </b>
+                        <b class="col-sm-3">Father Name</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->father_name }}</b>
                         <b class="col-sm-3">Father Call</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            {{ $studentinfo->father_call }}
-
-                        </dd>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->father_call }}</b>
+                        <b class="col-sm-3">Father Email</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->father_email ?? 'N/A' }}</b>
+                        <b class="col-sm-3">Mother Name</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->mother_name }}
+                        </b>
                         <b class="col-sm-3">Mother Call</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            {{ $studentinfo->mother_call }}
-
-                        </dd>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->mother_call }}
+                        </b>
+                        <b class="col-sm-3">Emergency Persone Name</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->e_name ?? 'N/A' }}</b>
+                        <b class="col-sm-3">Emergency Persone Call</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->e_call ?? 'N/A' }}</b>
                         <b class="col-sm-3">Payment type</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            {{ $admission->payment_type }}
+                        <b class="col-sm-9">
+                            {{ $student->admission->payment_type ?? 'N/A' }}
 
-                        </dd>
+                        </b>
                         <b class="col-sm-3">Payment method</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            {{ $admission->payment_method }}
+                        <b class="col-sm-9">
+                            {{ $student->admission->payment_method ?? 'N/A' }}
 
-                        </dd>
+                        </b>
                         <b class="col-sm-3">Payment Status</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            @if($admission->payment_status == 1)
+                        <b class="col-sm-9">
+                            @if($student->admission->payment_status == 1)
                             Paid
                             @else
                             Unpaid
                             @endif
-                        </dd>
-                        <b class="col-sm-3">Status</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            @if($admission->status == 1)
-                            Active
-                            @else
-                            Panding
-                            @endif
-                        </dd>
-                        <b class="col-sm-3">Student Activity Bellow</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
+                        </b>
 
-                        </dd>
+                        <b class="col-sm-3">Student Activity Bellow</b>
+                        <b class="col-sm-9">
+
+                        </b>
                         <b class="col-sm-3">Education Rating</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
+                        <b class="col-sm-9">
                             @if (@$activity->edurating == 1)
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star none"></i>
@@ -270,10 +236,9 @@
                             <i class="fa fa-star none"></i>
                             <i class="fa fa-star none"></i>
                             @endif
-                        </dd>
+                        </b>
                         <b class="col-sm-3">Bihavior Rating</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
+                        <b class="col-sm-9">
                             @if (@$activity->biharating == 1)
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star none"></i>
@@ -315,53 +280,63 @@
                             <i class="fa fa-star none"></i>
                             <i class="fa fa-star none"></i>
                             @endif
-                        </dd>
+                        </b>
                         <b class="col-sm-3">Education Comment</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
+                        <b class="col-sm-9">
                             @if(@$activity->educomment)
                             {{$activity->educomment}}
                             @else
                             Not added yet
                             @endif
-                        </dd>
+                        </b>
                         <b class="col-sm-3">Bihavior Comment</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
+                        <b class="col-sm-9">
                             @if(@$activity->bihacomment)
                             {{$activity->bihacomment}}
                             @else
                             Not added yet
                             @endif
-                        </dd>
-                        
+                        </b>
+
                         <b class="col-sm-3">Student Qr Code</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
+                        <b class="col-sm-9">
                             @php
 
-                            $name = $admission->student->name;
-                            $email = $admission->student->email;
-                            $id_number = $admission->id_number;
-                            $class = $admission->class->class_name;
+                            $name = $student->name;
+                            $email = $student->email;
+                            $id_number = $student->admission->id_number;
+                            $class = $student->admission->group->name;
                             $varri = QrCode::size(100)->generate('Student Id: '.$id_number.', Student Name: '.$name.', Email: '.$email.', Class: '.$class);
                             @endphp
 
 
                             {{$varri}}
 
-                        </dd>
-                        <b class="col-sm-3">Student Photo</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-                            <img style="width:150px ;" src="@if(!empty($admission->admi_photo)){{asset($admission->admi_photo)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="">
-                        </dd>
-                        <b class="col-sm-3">Guardian Photo</b>
-                        <b class="col-sm-1"> : </b>
-                        <dd class="col-sm-8">
-
-                            <img style="width:150px ;" src="@if(!empty($admission->guard_pic)){{asset($admission->guard_pic)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="">
-                        </dd>
+                        </b>
+                        <b class="col-sm-3">Account Status</b>
+                        <b class="col-sm-9">
+                            @if($student->status == 1)
+                            Active
+                            @else
+                            Inactive
+                            @endif
+                        </b>
+                        <b class="col-sm-3">Study Status</b>
+                        <b class="col-sm-9">
+                            @if($student->admission->study_status == 1)
+                            Study Running
+                            @else
+                            Study Pending
+                            @endif
+                        </b>
+                        <b class="col-sm-3">Course Status</b>
+                        <b class="col-sm-9">
+                            @if($student->admission->course_status == 0)
+                            Pending
+                            @else
+                            Complete
+                            @endif
+                        </b>
 
                     </div>
                     <div class="row">
@@ -378,10 +353,10 @@
 
                                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                                         <div class="card-body">
-                                            @if($admission->b_cirti)
-                                            <embed src="{{asset($admission->b_cirti)}}" width="100%" height="400px" />
+                                            @if($student->admission->b_certificate)
+                                            <embed src="{{asset($student->admission->b_certificate)}}" width="100%" height="400px" />
                                             @else
-                                            Not added yet.
+                                            Not abed yet.
                                             @endif
                                         </div>
                                     </div>
@@ -396,10 +371,10 @@
                                     </div>
                                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                                         <div class="card-body">
-                                            @if($admission->immu_record)
-                                            <embed src="{{asset($admission->immu_record)}}" width="100%" height="400px" />
+                                            @if($student->admission->immu_record)
+                                            <embed src="{{asset($student->admission->immu_record)}}" width="100%" height="400px" />
                                             @else
-                                            Not added yet.
+                                            Not abed yet.
                                             @endif
                                         </div>
                                     </div>
@@ -408,16 +383,16 @@
                                     <div class="card-header" id="headingThree">
                                         <h5 class="mb-0">
                                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                Proof of address
+                                                Proof of abress
                                             </button>
                                         </h5>
                                     </div>
                                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                                         <div class="card-body">
-                                            @if($admission->proof_address)
-                                            <embed src="{{asset($admission->proof_address)}}" width="100%" height="400px" />
+                                            @if($student->admission->proof_abress)
+                                            <embed src="{{asset($student->admission->proof_abress)}}" width="100%" height="400px" />
                                             @else
-                                            Not added yet.
+                                            Not abed yet.
                                             @endif
                                         </div>
                                     </div>
@@ -432,10 +407,10 @@
                                     </div>
                                     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                                         <div class="card-body">
-                                            @if($admission->mrrcfps)
-                                            <embed src="{{asset($admission->mrrcfps)}}" width="100%" height="400px" />
+                                            @if($student->admission->mrrcfps)
+                                            <embed src="{{asset($student->admission->mrrcfps)}}" width="100%" height="400px" />
                                             @else
-                                            Not added yet.
+                                            Not abed yet.
                                             @endif
                                         </div>
                                     </div>
@@ -450,10 +425,10 @@
                                     </div>
                                     <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
                                         <div class="card-body">
-                                            @if($admission->physical_health)
-                                            <embed src="{{asset($admission->physical_health)}}" width="100%" height="400px" />
+                                            @if($student->admission->physical_health)
+                                            <embed src="{{asset($student->admission->physical_health)}}" width="100%" height="400px" />
                                             @else
-                                            Not added yet.
+                                            Not abed yet.
                                             @endif
                                         </div>
                                     </div>
@@ -468,10 +443,10 @@
                                     </div>
                                     <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
                                         <div class="card-body">
-                                            @if($admission->mrrcfps)
-                                            <embed src="{{asset($admission->mrrcfps)}}" width="100%" height="400px" />
+                                            @if($student->admission->mrrcfps)
+                                            <embed src="{{asset($student->admission->mrrcfps)}}" width="100%" height="400px" />
                                             @else
-                                            Not added yet.
+                                            Not abed yet.
                                             @endif
                                         </div>
                                     </div>
@@ -487,14 +462,4 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
-
-@section('customjs')
-<script>
-    function bigimg() {
-
-    }
-</script>
-@endsection
 @endsection

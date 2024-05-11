@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Educlass;
+use App\Models\Group;
 use App\Models\Studentadmission;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,7 +18,7 @@ class CreateFeesTable extends Migration
         Schema::create('fees', function (Blueprint $table) {
             $table->id();
             $table->foreignId('admission_id')->constrained((new Studentadmission())->getTable());
-            $table->foreignId('class_id')->constrained((new Educlass())->getTable());
+            $table->foreignId('group_id')->constrained((new Group())->getTable());
             $table->string('amount');
             $table->string('blance')->nullable();
             $table->string('discount')->nullable();

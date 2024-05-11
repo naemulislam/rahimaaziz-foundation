@@ -111,10 +111,11 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('admission/index','index')->name('admission.index');
         Route::get('admission/create','create')->name('admission.create');
         Route::post('admission/store','store')->name('admission.store');
-        Route::post('admission/edit/{id}','edit')->name('admission.edit');
-        Route::put('admission/update/{id}','update')->name('admission.update');
-        Route::get('admission/destroy/{id}','destroy')->name('admission.destroy');
-        Route::post('/admission/status/{id}', 'status')->name('admission.status');
+        Route::get('admission/show/{slug}','show')->name('admission.show');
+        Route::get('admission/edit/{slug}','edit')->name('admission.edit');
+        Route::put('admission/update/{student}','update')->name('admission.update');
+        Route::get('admission/destroy/{student}','destroy')->name('admission.destroy');
+        Route::post('/admission/status/{student}', 'status')->name('admission.status');
     });
     Route::group(['prefix' => '/admission'], function () {
         Route::get('/panding', [AdmissionController::class, 'pandingindex'])->name('panding.admission');

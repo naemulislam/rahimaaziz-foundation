@@ -40,7 +40,7 @@ class LoginController extends Controller
         } else {
             //Admin
             if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
-                return redirect()->route('admin.dashboard')->with('success', 'You are Logged in as Teacher!');
+                return redirect()->route('admin.dashboard')->with('success', 'You are Logged in as Admin!');
             }else{
                 return back()->with('error', 'Oppes! You have entered invalid credentials!');
             }

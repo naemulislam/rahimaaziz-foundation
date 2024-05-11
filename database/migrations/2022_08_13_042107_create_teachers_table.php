@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Group;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +22,7 @@ class CreateTeachersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('class_id')->nullable();
+            $table->string('group_id')->nullable();
             $table->string('phone')->nullable();
             $table->string('gender')->nullable();
             $table->string('date_of_birth')->nullable();
@@ -32,8 +33,8 @@ class CreateTeachersTable extends Migration
             $table->string('designation')->nullable();
             $table->longText('c_address')->nullable();
             $table->string('data_of_joining')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
-            $table->string('status')->default(1)->comment('1=active,0=inactive');
+            $table->string('image', 2048)->nullable();
+            $table->boolean('status')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

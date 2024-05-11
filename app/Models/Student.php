@@ -17,22 +17,17 @@ class Student extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    protected $guarded =['id'];
 
-
-    public function category(){
-      return $this->belongsTo(Category::class,'category_id','id');
+  public function group(){
+      return $this->belongsTo(Group::class);
   }
-  public function class(){
-      return $this->belongsTo(Educlass::class,'class_id','id');
+  public function admission(){
+      return $this->hasOne(Studentadmission::class);
   }
-  public function section(){
-    return $this->belongsTo(Section::class,'section_id','id');
-}
-public function studentinfo(){
-    return $this->belongsTo(StudentInfo::class,'student_id','id');
-}
-
-
+  public function studentinfo(){
+      return $this->hasOne(StudentInfo::class);
+  }
 
     protected $guard_name = 'student';
     /**
@@ -40,14 +35,14 @@ public function studentinfo(){
      *
      * @var array
      */
-    protected $fillable = [
-      'name',
-      'email',
-      'phone',
-      'website',
-      'telegram',
-      'password',
-    ];
+    // protected $fillable = [
+    //   'name',
+    //   'email',
+    //   'phone',
+    //   'website',
+    //   'telegram',
+    //   'password',
+    // ];
 
     /**
      * The attributes that should be hidden for arrays.

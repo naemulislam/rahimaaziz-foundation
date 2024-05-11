@@ -1,33 +1,6 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.layouts.master')
 @section('title','Student list')
 @section('content')
-
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Student Active List</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Breadcrumb-->
-                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                        <li class="breadcrumb-item text-muted">
-                            <a href="javascript:;" class="text-muted">student admission Active</a>
-                        </li>
-                    </ul>
-                    <!--end::Breadcrumb-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -53,7 +26,7 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span>Student Admission</a>
+                            </span>New Admission</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -66,25 +39,27 @@
                                 <th>Photo</th>
                                 <th>Name</th>
                                 <th>Class</th>
+                                <th>Roll</th>
                                 <th>payment</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $row)
+                            @foreach($admissionStudent as $row)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>
-                                    <img style="width:70px ;" src="@if(!empty($row->admi_photo)){{asset($row->admi_photo)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="">
+                                    <img style="width:70px ;" src="@if(!empty($row->image)){{asset($row->image)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="">
                                 </td>
-                                <td>{{$row->student->name}}</td>
-                                <td>{{$row->class->class_name}}</td>
-                               
+                                <td>{{$row->name}}</td>
+                                <td>{{$row->admission->group->name}}</td>
+                                <td>{{$row->admission->roll}}</td>
+
                                 <td>
-                                    @if($row->payment_status == 1)
+                                    @if($row->admission->payment_status == 1)
                                     <a href="#" class="btn label label-lg label-light-success label-inline"> Paid by stripe</a>
-                                    @elseif($row->payment_status == 2)
+                                    @elseif($row->admission->payment_status == 2)
                                     <a href="#" class="btn label label-lg label-light-danger label-inline">Paid by cash</a>
                                     @endif
                                 </td>
@@ -96,19 +71,20 @@
                                     @endif
                                 </td>
                                 <td class="d-flex">
-                                    <a href="{{route('admin.admission.show',$row->student->slug)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
-                                    <a href="{{route('admin.admission.edit',$row->student->slug)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
+                                    <a href="{{route('admin.admission.show',$row->slug)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
+                                    <a href="{{route('admin.admission.edit',$row->slug)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
+                                    <a href="{{route('admin.admission.destroy',$row->slug)}}" class="btn btn-icon btn-info btn-hover-danger btn-xs mx-3"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
 
                             <!--Row Status -->
-                            <div class="modal fade" id="row_status_{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                            <div class="modal fade" id="row_status_{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Status</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
+                                                <i class="fa fa-close"></i>
                                             </button>
                                         </div>
                                         <form action="{{ route('admin.admission.status',$row->id)}}" method="post">
@@ -144,13 +120,4 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
-@section('customjs')
-<script>
-    $(document).ready(function () {
-    $('#datatable').DataTable();
-});
-</script>
-@endsection
 @endsection

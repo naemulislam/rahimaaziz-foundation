@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\Teacher;
+use App\Repositories\GroupRepository;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +25,7 @@ class UserDataSeeder extends Seeder
             'name'              => 'Admin',
             'email'             => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'password'          => Hash::make('123123123'),
+            'password'          => Hash::make('admin123'),
             'remember_token'    => Str::random(10),
 
         ]);
@@ -49,7 +50,7 @@ class UserDataSeeder extends Seeder
             'slug'              => 'teacher',
             'email'             => 'teacher@gmail.com',
             'email_verified_at' => now(),
-            'password'          => Hash::make('123123123'),
+            'password'          => Hash::make('teacher123'),
             'remember_token'    => Str::random(10),
 
         ]);
@@ -58,7 +59,7 @@ class UserDataSeeder extends Seeder
             'slug'              => 'student',
             'email'             => 'student@gmail.com',
             'email_verified_at' => now(),
-            'password'          => Hash::make('123123123'),
+            'password'          => Hash::make('student123'),
             'remember_token'    => Str::random(10),
 
         ]);
@@ -74,7 +75,7 @@ class UserDataSeeder extends Seeder
             'name'              => 'user',
             'email'             => 'user@gmail.com',
             'email_verified_at' => now(),
-            'password'          => Hash::make('123123123'),
+            'password'          => Hash::make('user1234'),
             'remember_token'    => Str::random(10),
 
         ]);

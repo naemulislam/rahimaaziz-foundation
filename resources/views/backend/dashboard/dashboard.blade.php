@@ -5,7 +5,7 @@
 	@php
 	$countadmin = \App\Models\Admin::count();
 	$counthr = \App\Models\Hr::count();
-	$countclass = \App\Models\Educlass::count();
+	$countclass = \App\Models\Group::count();
 	$countaccountant = \App\Models\Accountant::count();
 	$countteacher = \App\Models\Teacher::where('status',1)->count();
 	$countstudent = \App\Models\Studentadmission::where('status',1)->count();

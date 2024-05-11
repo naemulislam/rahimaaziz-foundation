@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Educlass;
+use App\Models\Group;
 use App\Models\Studentadmission;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,7 +20,7 @@ class CreateAttendancesTable extends Migration
             $table->id();
             $table->foreignId('admission_id')->constrained((new Studentadmission())->getTable());
             $table->string('attendence_status');
-            $table->foreignId('class_id')->constrained((new Educlass())->getTable());
+            $table->foreignId('group_id')->constrained((new Group())->getTable());
             $table->date('attendance_date');
             $table->time('attendance_time');
             $table->timestamps();

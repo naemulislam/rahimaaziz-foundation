@@ -59,7 +59,7 @@
                                 <div class="form-group">
                                     <label for="">Group<span class="text-danger">*</span></label>
                                     <select name="group_id" class="form-control js-select-result" id="">
-                                        <option>Select class group</option>
+                                        <option selected disabled>Select class group</option>
                                         @foreach ($class_group as $group)
                                             <option value="{{ $group->id }}">{{ $group->name }}</option>
                                         @endforeach
@@ -74,9 +74,9 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Admission Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="student_name"
-                                        placeholder="Enter admission name" value="{{ old('student_name') }}">
-                                    @error('student_name')
+                                    <input type="text" class="form-control" name="applicant_name"
+                                        placeholder="Enter admission name" value="{{ old('applicant_name') }}">
+                                    @error('applicant_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -121,9 +121,9 @@
                                 <div class="form-group">
                                     <label for="">Phone<span class="text-danger">*</span></label>
 
-                                    <input type="text" class="form-control" name="admission_phone"
-                                        placeholder="Enter phone number" value="{{ old('admission_phone') }}">
-                                    @error('admission_phone')
+                                    <input type="text" class="form-control" name="phone"
+                                        placeholder="Enter phone number" value="{{ old('phone') }}">
+                                    @error('phone')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -153,14 +153,40 @@
 
                                 </div>
                             </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" name="email"
+                                        placeholder="Enter student email" value="{{ old('email') }}">
+                                    @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Gender <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="gender">
+                                        <option selected disabled>Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    @error('gender')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Home Address<span class="text-danger">*</span></label>
-                                    <input type="text" name="h_address" placeholder="Enter home addrss"
-                                        value="{{ old('h_address') }}" class="form-control">
-                                    @error('h_address')
+                                    <input type="text" name="address" placeholder="Enter home addrss"
+                                        value="{{ old('address') }}" class="form-control">
+                                    @error('address')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -266,10 +292,10 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Birth Cirtificate<span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control-file" name="b_cirti"
-                                        value="{{ old('b_cirti') }}" accept=".jpg,.jpeg,.pdf">
+                                    <input type="file" class="form-control-file" name="b_certificate"
+                                        value="{{ old('b_certificate') }}" accept=".jpg,.jpeg,.pdf">
 
-                                    @error('b_cirti')
+                                    @error('b_certificate')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -296,20 +322,6 @@
                                     @error('proof_address')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="">Guardians picture<span class="text-danger">*</span></label><br>
-
-                                    <input type="file" name="guard_pic" value="{{ old('guard_pic') }}"
-                                        class="demo2" data-jpreview-container="#demo-2-container">
-
-                                    @error('guard_pic')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                    <div id="demo-2-container" class="jpreview-container"></div>
-
                                 </div>
                             </div>
 
@@ -403,31 +415,6 @@
     <!--end::Entry-->
 @endsection
 @push('scripts')
-    <!-- Edit code -->
-    <script>
-        $(function() {
-            $(document).on('change', '#category_id', function() {
-                var category_id = $(this).val();
-                $.ajax({
-                    type: "Get",
-                    url: "{{ url('/admin/dashboard/get/class') }}/" + category_id,
-                    dataType: "json",
-                    success: function(data) {
-                        var html = '<option value="">Select Class</option>';
-                        $.each(data, function(key, val) {
-                            html += '<option value="' + val.id + '">' + val.class_name +
-                                '</option>';
-                        });
-                        $('#class_id').html(html);
-                    },
-
-                });
-            });
-        });
-    </script>
-
-    <!-- Add code -->
-
     <script>
         var $disabledResults = $(".js-select-result");
         $disabledResults.select2();
