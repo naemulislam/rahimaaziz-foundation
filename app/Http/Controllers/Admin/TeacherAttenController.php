@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Educlass;
 use App\Models\Teacher;
 use App\Models\TeacherAttendance;
+use App\Repositories\GroupRepository;
+use App\Repositories\TeacherRepository;
 use PDF;
 use Illuminate\Http\Request;
 
@@ -14,48 +16,30 @@ class TeacherAttenController extends Controller
     public function index()
     {
         $data['get_dates'] = TeacherAttendance::select('attendance_date')->distinct()->get();
-
-        //return $$date['get_dates'];
-        return view('backend.dashboard.admin.teacher-atten.index-list', $data);
+        return view('backend.dashboard.teacher-atten.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $data['class_group'] = Educlass::where('status', 1)->get();
-        $data['teachers'] = Teacher::where('status', 1)->get();
-        return view('backend.dashboard.admin.teacher-atten.create', $data);
+        $data['teachers'] = TeacherRepository::query()->where('status', 1)->get();
+        return view('backend.dashboard.teacher-atten.create', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //return $request->all();
         if (!empty($request->attendance)) {
 
-            $count_teacher = Teacher::where('status', 1)->count();
+            $countTeacher = TeacherRepository::query()->where('status', true)->count();
 
-            $count_atten = count($request->attendance);
+            $countAtten = count($request->attendance);
 
-            if ($count_teacher == $count_atten) {
+            if ($countTeacher == $countAtten) {
 
-                $check_date = TeacherAttendance::where('attendance_date', $request->attendance_date)->first();
-                if ($check_date) {
-                    $notification = array(
-                        'message' => 'Attendance already taken!',
-                        'alert-type' => 'info'
-                    );
+                $checkDate = TeacherAttendance::where('attendance_date', $request->attendance_date)->first();
+                if ($checkDate) {
 
-                    return redirect()->back()->with($notification);
+                    return back()->with('info', 'Today\'s Attendance already taken!');
                 } else {
                     $this->validate($request, [
                         'attendance_date' => 'required',
@@ -64,8 +48,6 @@ class TeacherAttenController extends Controller
 
 
                     foreach ($request->attendance as $teacherid => $attendence) {
-
-
 
                         TeacherAttendance::create([
                             'teacher_id'        => $teacherid,
@@ -76,111 +58,53 @@ class TeacherAttenController extends Controller
                     }
                 }
             } else {
-                $notification = array(
-                    'message' => 'Teacher attendance missing!',
-                    'alert-type' => 'info'
-                );
 
-                return redirect()->back()->with($notification);
+                return back()->with('warning', 'Teacher are missing!');
             }
         } else {
-            $notification = array(
-                'message' => 'Please select teacher attendance!',
-                'alert-type' => 'info'
-            );
 
-            return redirect()->back()->with($notification);
+            return back()->with('warning', 'Please select teacher attendance!');
         }
 
-        $notification = array(
-            'message' => 'Attendance inserted successfully!',
-            'alert-type' => 'success'
-        );
 
-        return redirect()->back()->with($notification);
+        return back()->with('success', 'Attendance is created successfully!');
     }
 
-
-    public function show($id)
-    {
-        //
-        // $get_students = Attendance::where('attendance_date',$id)->get();
-        // return $get_students;
-    }
-    public function atten_show($date)
+    public function show($date)
     {
         //
         $get_teachers = TeacherAttendance::where('attendance_date', $date)->get();
-        return view('backend.dashboard.admin.teacher-atten.index-atten', compact('get_teachers'));
+        return view('backend.dashboard.teacher-atten.edit', compact('get_teachers'));
     }
 
 
-    public function edit($id)
+    public function update(Request $request)
     {
-        //
-    }
-
-
-    public function atten_update(Request $request)
-    {
-        //return $request->atten_id;
         if (!empty($request->attendance)) {
 
             foreach ($request->attendance as $attenId => $attendence) {
-                //foreach ($request->atten_id as $studentid => $attend_id) {
 
                 $data = TeacherAttendance::where('id', $attenId)->first();
                 $data->attendence_status = $attendence;
                 $data->save();
-                //}
             }
         } else {
-            $notification = array(
-                'message' => 'Please select student attendance!',
-                'alert-type' => 'info'
-            );
 
-            return redirect()->back()->with($notification);
+            return back()->with('warning', 'Please select student attendance!');
         }
 
-        $notification = array(
-            'message' => 'Attendance updated successfully!',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($notification);
+        return back()->with('success', 'Attendance is updated successfully!');
     }
 
 
-    public function atten_delete($date)
+    public function destroy($date)
     {
-        $get_teachers = TeacherAttendance::where('attendance_date', $date)->get();
+        $getTeachers = TeacherAttendance::where('attendance_date', $date)->get();
+        $getTeachers->each->delete();
 
-        $get_teachers->each->delete();
-        $notification = array(
-            'message' => 'Attendance delete successfully!',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($notification);
+        return back()->with('success', 'Attendance is deleted successfully!');
     }
 
-    // Teacher Attendance Export function
-    //In this function for all class sheet
-    public function allClass()
-    {
-        $data['allclass'] = Educlass::all();
-        return view('backend.dashboard.admin.teacher-atten.all-class', $data);
-    }
-    //In this function for teacher sheet
-    public function allTeacherSheet($class)
-    {
-        $data['allteachers'] = Teacher::where('class_id', $class)->where('status', 1)->get();
-        // $get_id = $data['allteachers']->id;
-        // $data['getAtten'] = TeacherAttendance::
-        //return $data['allteachers'];
-        return view('backend.dashboard.admin.teacher-atten.all-teacher', $data);
-    }
     //In this function for teacher sheet export data in pdf.
     public function exportPdf()
     {

@@ -20,16 +20,6 @@
         text-decoration: none;
         font-size: 16px;
     }
-    .imageBox >img {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    height: 164px;
-    width: 162px;
-    border: 3px solid #3699ff;
-}
-b {
-    border: 1px solid #d9d9d9 !important;
-    padding: 6px;
-}
 </style>
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">

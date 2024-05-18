@@ -20,8 +20,9 @@ class StudentRepository extends Repository
         return Student::class;
     }
 
-    public static function storeByRequest(AdmissionRequest $request): Student
+    public static function storeByRequest(AdmissionRequest $request)
     {
+
         $slug = Str::Slug($request->applicant_name);
         $file = $request->file('student_image');
         $image = null;
@@ -40,16 +41,55 @@ class StudentRepository extends Repository
             'gender' => $request->gender,
             'image' => $image,
             'status' => true,
-            'admission_status' => true
+            'admission_status' => true,
+            'status_type' => 1
         ]);
         return $studentCreate;
     }
 
-    public static function updateByRequest(Request $request, Student $student): Student
+    public static function updateByRequest(AdmissionRequest $request, Student $student)
     {
-        $student->update([
-            //
+        $slug = Str::Slug($request->applicant_name);
+        $file = $request->file('student_image');
+        $image = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = $slug . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $student->image;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/image'), $fileName);
+            $image = '/uploaded/student/image/' . $fileName;
+        }
+        $studentUpdate = self::update($student, [
+            'name' => $request->applicant_name,
+            'slug' => $slug,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'image' => $image ?? $student->image,
         ]);
-        return $student;
+        return $studentUpdate;
+    }
+    public static function registrationAdmissionUpdate(AdmissionRequest $request)
+    {
+        $student = self::query()->where('id', $request->student_id)->first();
+
+        $slug = $student->slug;
+        $file = $request->file('student_image');
+        $image = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = $slug . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $student->image;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/image'), $fileName);
+            $image = '/uploaded/student/image/' . $fileName;
+        }
+        $studentUpdate = self::update($student, [
+            'image' => $image ?? $student->image,
+            'admission_status' => true,
+            'status_type' => 1
+        ]);
+        return $studentUpdate;
     }
 }

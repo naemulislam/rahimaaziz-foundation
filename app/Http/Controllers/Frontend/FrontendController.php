@@ -174,6 +174,7 @@ class FrontendController extends Controller
             $data->email_verified_at = Carbon::now();
             $data->phone = $request->phone;
             $data->gender = $request->gender;
+            $data->status_type = 0;
             $data->password = Hash::make($request->password);
 
             $data->save();

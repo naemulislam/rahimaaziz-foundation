@@ -19,12 +19,11 @@ class Teacher extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    public function class(){
-      return $this->belongsTo(Educlass::class,'class_id');
+    protected $guarded = ['id'];
+
+    public function group(){
+      return $this->belongsTo(Group::class);
     }
-
-
-
 
     protected $guard_name = 'teacher';
     /**
@@ -32,14 +31,6 @@ class Teacher extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-      'name',
-      'email',
-      'phone',
-      'website',
-      'telegram',
-      'password',
-    ];
 
     /**
      * The attributes that should be hidden for arrays.

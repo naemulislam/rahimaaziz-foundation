@@ -8,15 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TeacherAttendance extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'teacher_id',
-        'attendance_date',
-        'attendance_time',
-        'attendence_status'
-
-    ];
+    protected $guarded = ['id'];
     public function teacher(){
-        return $this->belongsTo(Teacher::class,'teacher_id','id');
+        return $this->belongsTo(Teacher::class);
     }
     protected $table = 'teacher_attendances';
     public static function getTeacherAttendance(){

@@ -64,7 +64,16 @@
 								</li>
 								<!--End blog-->
 								<!--student management-->
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+								<li class="menu-item menu-item-submenu
+                                {{
+                                $routeName == 'admin.register.index' ||
+                                $routeName == 'admin.daily_activity.index' ||
+                                $routeName == 'admin.registerAdmission.create' ||
+                                $routeName == 'admin.admission.index' ||
+                                $routeName == 'admin.admission.create' ||
+                                $routeName == 'admin.admission.show' ||
+                                $routeName == 'admin.admission.edit' ? 'menu-item-open':''}}
+                                " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -88,7 +97,7 @@
 													<span class="menu-text">Student</span>
 												</span>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.register.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.register.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -101,7 +110,7 @@
 												</a>
 
 											</li>
-                                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                            <li class="menu-item menu-item-submenu {{$routeName == 'admin.admission.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.admission.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -110,7 +119,7 @@
 													<i class="menu-arrow"></i>
 												</a>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.admission.create'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.admission.create')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -122,7 +131,7 @@
 											</li>
 
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.panding.admission')}}" class="menu-link menu-toggle">
+												<a href="{{ route('admin.admission.pending')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
@@ -131,7 +140,7 @@
 												</a>
 
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.daily_activity.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.daily_activity.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -146,7 +155,13 @@
 								</li>
 								<!--End student management-->
 								<!--teacher management-->
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+								<li class="menu-item menu-item-submenu
+                                {{
+                                $routeName == 'admin.teacher.index' ||
+                                $routeName == 'admin.teacher.create'||
+                                $routeName == 'admin.teacher.edit'||
+                                $routeName == 'admin.teacher.show' ? 'menu-item-open':''}}
+                                " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -159,7 +174,7 @@
 											</svg>
 											<!--end::Svg Icon-->
 										</span>
-										<span class="menu-text">Teacher</span>
+										<span class="menu-text">Teacher Management</span>
 										<i class="menu-arrow"></i>
 									</a>
 									<div class="menu-submenu">
@@ -170,7 +185,7 @@
 													<span class="menu-text">Teacher</span>
 												</span>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.teacher.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.teacher.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -181,12 +196,12 @@
 
 											</li>
 
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.teacher.create'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.teacher.create')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
-													<span class="menu-text">Add Teacher</span>
+													<span class="menu-text">Teacher Create</span>
 													<i class="menu-arrow"></i>
 												</a>
 
@@ -196,7 +211,12 @@
 								</li>
 								<!--End teacher management-->
 								<!-- Teacher Attendance-->
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+								<li class="menu-item menu-item-submenu
+                                {{
+                                    $routeName == 'admin.teacher.atten.index' ||
+                                    $routeName == 'admin.teacher.atten.create'||
+                                    $routeName == 'admin.teacher.atten.show' ? 'menu-item-open':''}}
+                                " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -220,19 +240,19 @@
 													<span class="menu-text">Attendance</span>
 												</span>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.teacheratten.create')}}" class="menu-link menu-toggle">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.teacher.atten.create'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.teacher.atten.create')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
-													<span class="menu-text">Attendance</span>
+													<span class="menu-text">Attendance Create</span>
 													<i class="menu-arrow"></i>
 												</a>
 
 											</li>
 
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.teacheratten.index')}}" class="menu-link menu-toggle">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.teacher.atten.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.teacher.atten.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
@@ -241,8 +261,8 @@
 												</a>
 
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.teacher.atten.export.class')}}" class="menu-link menu-toggle">
+											{{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
@@ -250,7 +270,7 @@
 													<i class="menu-arrow"></i>
 												</a>
 
-											</li>
+											</li> --}}
 										</ul>
 									</div>
 								</li>

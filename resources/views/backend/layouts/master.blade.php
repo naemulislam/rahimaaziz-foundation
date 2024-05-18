@@ -58,6 +58,18 @@
             color: #ffffff;
             font-size: 16px;
         }
+
+        .imageBox>img {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            height: 164px;
+            width: 162px;
+            border: 3px solid #3699ff;
+        }
+
+        b {
+            border: 1px solid #d9d9d9 !important;
+            padding: 6px;
+        }
     </style>
 </head>
 <!--end::Head-->
@@ -520,8 +532,23 @@
             toastr.info("{{ Session::get('info') }}");
         </script>
     @endif
+    @if (Session::has('warning'))
+        <script>
+            toastr.warning("{{ Session::get('warning') }}");
+        </script>
+    @endif
 
     @stack('scripts')
+    {{-- jQuery image upload preview js code --}}
+    <script>
+        var loadFile = function(event) {
+          var output = document.getElementById('output');
+          output.src = URL.createObjectURL(event.target.files[0]);
+          output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+          }
+        };
+      </script>
 </body>
 <!--end::Body-->
 

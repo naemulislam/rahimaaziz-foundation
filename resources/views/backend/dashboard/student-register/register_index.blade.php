@@ -2,7 +2,6 @@
 @section('title', 'Registration list')
 @section('content')
 
-
         <!--begin::Entry-->
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
@@ -18,7 +17,7 @@
                     </div>
                     <div class="card-body">
                         <!--begin: Datatable-->
-                        <table class="table table-separate table-head-custom table-checkable" id="datatable">
+                        <table class="table" id="datatable">
                             <thead>
                                 <tr>
                                     <th>SL</th>
@@ -39,7 +38,7 @@
                                         <td>{{ $row->phone }}</td>
                                         <td>{{$row->gender =='male'? 'Male':'Female'}}</td>
                                         <td>
-                                            <a href="#"
+                                            <a href="{{ route('admin.registerAdmission.create',$row->slug)}}"
                                                 class="btn label label-lg label-light-success label-inline">Apply</a>
                                         </td>
                                         <td class="d-flex">
@@ -59,60 +58,4 @@
             <!--end::Container-->
         </div>
         <!--end::Entry-->
-
-    <!--end::Content-->
-
-
-    <!-- Add Modal -->
-
-
-@section('customjs')
-    <script>
-        $(function() {
-            $(document).on('change', '#category_id', function() {
-                var category_id = $(this).val();
-                $.ajax({
-                    type: "Get",
-                    url: "{{ url('/admin/dashboard/get/class') }}/" + category_id,
-                    dataType: "json",
-                    success: function(data) {
-                        var html = '<option value="">Select Class</option>';
-                        $.each(data, function(key, val) {
-                            html += '<option value="' + val.id + '">' + val.class_name +
-                                '</option>';
-                        });
-                        $('#class_id').html(html);
-                    },
-
-                });
-            });
-        });
-    </script>
-    <script>
-        $(function() {
-            $(document).on('change', '#adcategory_id', function() {
-                var category_id = $(this).val();
-                $.ajax({
-                    type: "Get",
-                    url: "{{ url('/admin/dashboard/get/class') }}/" + category_id,
-                    dataType: "json",
-                    success: function(data) {
-                        var html = '<option value="">Select Class</option>';
-                        $.each(data, function(key, val) {
-                            html += '<option value="' + val.id + '">' + val.class_name +
-                                '</option>';
-                        });
-                        $('#adclass_id').html(html);
-                    },
-
-                });
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#datatable').DataTable();
-        });
-    </script>
-@endsection
 @endsection

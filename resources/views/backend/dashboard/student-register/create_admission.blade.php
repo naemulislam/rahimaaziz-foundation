@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Edit Student Admission')
+@section('title', 'Student Admission')
 @section('content')
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
@@ -8,25 +8,25 @@
             <!--begin::Card-->
             <div class="card card-custom gutter-b example example-compact">
                 <div class="card-header">
-                    <h3 class="card-title">Edit Student Information</h3>
+                    <h3 class="card-title">Student Information</h3>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="{{ route('admin.admission.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                        <a href="{{ route('admin.register.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
                             < Back</a>
                                 <!--end::Button-->
                     </div>
                 </div>
                 <!--begin::Form-->
                 <div class="card-body">
-                    <form action="{{ route('admin.admission.update',$student->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.registerAdmission.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('put')
+                        <input type="hidden" value="{{$student->id}}" name="student_id">
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Admission No<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" placeholder="Enter admission number"
-                                        name="admission_no" value="{{ $student->admission->admission_no }}">
+                                        name="admission_no" value="{{ old('admission_no') }}">
                                     @error('admission_no')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -36,7 +36,7 @@
                                 <div class="form-group">
                                     <label for="">Roll No<span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" name="roll"
-                                        placeholder="Enter roll number" value="{{ $student->admission->roll }}">
+                                        placeholder="Enter roll number" value="{{ old('roll') }}">
                                     @error('roll')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label for="">Registration No<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="registration_no"
-                                        placeholder="Enter registration number" value="{{ $student->admission->registration_no }}">
+                                        placeholder="Enter registration number" value="{{ old('registration_no') }}">
                                     @error('registration_no')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -61,7 +61,7 @@
                                     <select name="group_id" class="form-control js-select-result" id="">
                                         <option selected disabled>Select class group</option>
                                         @foreach ($groups as $group)
-                                            <option {{$student->admission->group_id == $group->id?'selected':'' }} value="{{ $group->id }}">{{ $group->name }}</option>
+                                            <option value="{{ $group->id }}">{{ $group->name }}</option>
                                         @endforeach
                                     </select>
 
@@ -71,23 +71,23 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
+                            {{-- <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Admission Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="applicant_name"
-                                        placeholder="Enter admission name" value="{{ $student->name }}">
+                                        placeholder="Enter admission name" value="{{ old('applicant_name') }}">
                                     @error('applicant_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Student Type<span class="text-danger">*</span></label>
                                     <select class="form-control" name="student_type">
                                         <option selected disabled>Select type</option>
-                                        <option {{ $student->studentinfo->student_type == 0? 'selected':''}} value="0">New Student</option>
-                                        <option {{ $student->studentinfo->student_type == 1? 'selected':''}} value="1">Return Student</option>
+                                        <option value="0">New Student</option>
+                                        <option value="1">Return Student</option>
                                     </select>
 
                                     @error('student_type')
@@ -95,23 +95,23 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Date of Birth<span class="text-danger">*</span></label>
                                     <input type="date" class="form-control" name="date_of_birth"
-                                        value="{{ $student->studentinfo->date_of_birth }}">
+                                        value="{{ old('date_of_birth') }}">
                                     @error('date_of_birth')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Admission Date<span class="text-danger">*</span></label>
                                     <input type="date" class="form-control" name="admission_date"
-                                        value="{{ $student->admission->admission_date }}" placeholder="Enter Admission Date">
+                                        value="{{ old('admission_date') }}" placeholder="Enter Admission Date">
                                     @error('admission_date')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -119,24 +119,9 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="">Phone<span class="text-danger">*</span></label>
-
-                                    <input type="text" class="form-control" name="phone"
-                                        placeholder="Enter phone number" value="{{ $student->phone }}">
-                                    @error('phone')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
                                     <label for="">Place of Birth<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="place_of_birth"
-                                        placeholder="Place of Birth" value="{{ $student->studentinfo->place_of_birth }}">
+                                        placeholder="Place of Birth" value="{{ old('place_of_birth') }}">
                                     @error('place_of_birth')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -146,46 +131,60 @@
                                 <div class="form-group">
                                     <label for="">Bloog Group</label>
                                     <input type="text" class="form-control" name="blood"
-                                        placeholder="Enter blood group" value="{{ $student->studentinfo->blood }}">
+                                        placeholder="Enter blood group" value="{{ old('blood') }}">
                                     @error('blood')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
 
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            {{-- <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Phone<span class="text-danger">*</span></label>
+
+                                    <input type="text" class="form-control" name="phone"
+                                        placeholder="Enter phone number" value="{{ old('phone') }}">
+                                    @error('phone')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div> --}}
+
+                        </div>
+                        <div class="row">
+                            {{-- <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Email <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" name="email"
-                                        placeholder="Enter student email" value="{{ $student->email }}">
+                                        placeholder="Enter student email" value="{{ old('email') }}">
                                     @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
 
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row">
-                            <div class="col-sm-4">
+                            {{-- <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Gender <span class="text-danger">*</span></label>
                                     <select class="form-control" name="gender">
                                         <option selected disabled>Select gender</option>
-                                        <option {{$student->gender == 'male'? 'selected':''}} value="male">Male</option>
-                                        <option {{$student->gender == 'female'? 'selected':''}} value="female">Female</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
                                     </select>
                                     @error('gender')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Home Address<span class="text-danger">*</span></label>
                                     <input type="text" name="address" placeholder="Enter home addrss"
-                                        value="{{ $student->studentinfo->address }}" class="form-control">
+                                        value="{{ old('address') }}" class="form-control">
                                     @error('address')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -197,7 +196,7 @@
                                 <div class="form-group">
                                     <label for="">City<span class="text-danger">*</span></label>
                                     <input type="text" name="city" placeholder="Enter Student city"
-                                        value="{{ $student->studentinfo->city }}" class="form-control">
+                                        value="{{ old('city') }}" class="form-control">
                                     @error('city')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -207,7 +206,7 @@
                                 <div class="form-group">
                                     <label for="">State<span class="text-danger">*</span></label>
                                     <input type="text" name="state" placeholder="Enter Student State"
-                                        value="{{ $student->studentinfo->state }}" class="form-control">
+                                        value="{{ old('state') }}" class="form-control">
                                     @error('state')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -218,7 +217,7 @@
                                 <div class="form-group">
                                     <label for="">Zip Code<span class="text-danger">*</span></label>
                                     <input type="text" name="zip_code" placeholder="Enter Student Zip code"
-                                        value="{{ $student->studentinfo->zip_code }}" class="form-control">
+                                        value="{{ old('zip_code') }}" class="form-control">
                                     @error('zip_code')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -235,7 +234,7 @@
                                 <div class="form-group">
                                     <label for="">Father Name<span class="text-danger">*</span></label>
                                     <input type="text" name="father_name" placeholder="Enter father name"
-                                        value="{{ $student->studentinfo->father_name }}" class="form-control">
+                                        value="{{ old('father_name') }}" class="form-control">
                                     @error('father_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -245,7 +244,7 @@
                                 <div class="form-group">
                                     <label for="">Father Call<span class="text-danger">*</span></label>
                                     <input type="text" name="father_call" placeholder="Enter father call"
-                                        value="{{ $student->studentinfo->father_call }}" class="form-control">
+                                        value="{{ old('father_call') }}" class="form-control">
                                     @error('father_call')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -255,7 +254,7 @@
                                 <div class="form-group">
                                     <label for="">Father Email</label>
                                     <input type="text" name="father_email" placeholder="Enter father email"
-                                        value="{{ $student->studentinfo->father_email }}" class="form-control">
+                                        value="{{ old('father_email') }}" class="form-control">
                                     @error('father_email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -267,7 +266,7 @@
                                 <div class="form-group">
                                     <label for="">Mother Name<span class="text-danger">*</span></label>
                                     <input type="text" name="mother_name" placeholder="Enter mother name"
-                                        value="{{ $student->studentinfo->mother_name }}" class="form-control">
+                                        value="{{ old('mother_name') }}" class="form-control">
                                     @error('mother_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -277,7 +276,7 @@
                                 <div class="form-group">
                                     <label for="">Mother Call<span class="text-danger">*</span></label>
                                     <input type="text" name="mother_call" placeholder="Enter mother call"
-                                        value="{{ $student->studentinfo->mother_call }}" class="form-control">
+                                        value="{{ old('mother_call') }}" class="form-control">
                                     @error('mother_call')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -299,11 +298,6 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                @if ($student->admission->b_certificate)
-                                <span class="text-success">File Exists</span>
-                                @else
-                                <span class="text-danger">File Not Exists</span>
-                                @endif
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -315,11 +309,6 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                @if ($student->admission->immu_record)
-                                <span class="text-success">File Exists</span>
-                                @else
-                                <span class="text-danger">File Not Exists</span>
-                                @endif
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -333,11 +322,6 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                @if ($student->admission->proof_address)
-                                <span class="text-success">File Exists</span>
-                                @else
-                                <span class="text-danger">File Not Exists</span>
-                                @endif
                             </div>
 
                             <div class="col-sm-4">
@@ -351,11 +335,6 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                @if ($student->admission->physical_health)
-                                <span class="text-success">File Exists</span>
-                                @else
-                                <span class="text-danger">File Not Exists</span>
-                                @endif
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -367,11 +346,6 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                @if ($student->admission->mrrcfps)
-                                <span class="text-success">File Exists</span>
-                                @else
-                                <span class="text-danger">File Not Exists</span>
-                                @endif
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -384,24 +358,18 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                @if ($student->admission->hsral)
-                                <span class="text-success">File Exists</span>
-                                @else
-                                <span class="text-danger">File Not Exists</span>
-                                @endif
                             </div>
 
                         </div>
                         <div class="row">
                             <h4 class="card-title">Emergency Contact(Optional)</h4>
-
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Name</label>
                                     <input type="text" name="e_name" placeholder="Emergency name"
-                                        value="{{ $student->studentinfo->e_name }}" class="form-control">
+                                        value="{{ old('e_name') }}" class="form-control">
                                     @error('e_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -411,14 +379,13 @@
                                 <div class="form-group">
                                     <label for="">Phone</label>
                                     <input type="number" name="e_call" placeholder="Phone"
-                                        value="{{ $student->studentinfo->e_call }}" class="form-control">
+                                        value="{{ old('e_call') }}" class="form-control">
                                     @error('e_call')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -431,7 +398,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="imageBox">
-                                    <img src="@if(!empty($student->image)){{asset($student->image)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="" id="output">
+                                    <img src=" {{asset('defaults/noimage/no_img.jpg')}}" alt="" id="output">
                                 </div>
                             </div>
                         </div>

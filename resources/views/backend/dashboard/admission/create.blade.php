@@ -362,11 +362,8 @@
                             </div>
 
                         </div>
-
-
                         <div class="row">
                             <h4 class="card-title">Emergency Contact(Optional)</h4>
-
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
@@ -390,12 +387,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="">Student Image</label>
-                            <input type="file" name="student_image" id="">
-                            @error('student_image')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="">Student Image</label>
+                                    <input type="file" name="student_image" onchange="loadFile(event)">
+                                    @error('student_image')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="imageBox">
+                                    <img src=" {{asset('defaults/noimage/no_img.jpg')}}" alt="" id="output">
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-12">

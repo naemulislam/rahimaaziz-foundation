@@ -23,20 +23,38 @@ class AdmissionRequest extends FormRequest
      */
     public function rules()
     {
+        $applicantName = 'required|string';
+        $phone = 'required';
+        $email = 'required|email';
+        $gender = 'required|in:male,female';
+        if(request()->student_id){
+            $applicantName = 'nullable|string';
+            $phone = 'nullable';
+            $email = 'nullable|email';
+            $gender = 'nullable|in:male,female';
+        }
+        $b_certificate = 'required|mimes:jpg,jpeg,pdf|max:5120';
+        $immu_record = 'required|mimes:jpg,jpeg,pdf|max:5120';
+        $proof_address = 'required|mimes:jpg,jpeg,pdf|max:5120';
+        if (request()->isMethod('put')) {
+            $b_certificate = 'nullable|mimes:jpg,jpeg,pdf|max:5120';
+            $immu_record = 'nullable|mimes:jpg,jpeg,pdf|max:5120';
+            $proof_address = 'nullable|mimes:jpg,jpeg,pdf|max:5120';
+        }
         return [
             'admission_no' => 'required|string',
             'roll' => 'required|integer',
             'registration_no' => 'required|string',
             'group_id' => 'required',
-            'applicant_name' => 'required|string',
-            'phone' => 'required',
+            'applicant_name' => $applicantName,
+            'phone' => $phone,
             'student_type' => 'required|string|in:0,1',
             'admission_date' => 'required',
             'date_of_birth' => 'required',
             'place_of_birth' => 'required',
             'blood' => 'nullable',
-            'email' => 'required|email',
-            'gender' => 'required|in:male,female',
+            'email' => $email,
+            'gender' => $gender,
             'address' => 'required|string',
             'city' => 'required',
             'state' => 'required',
@@ -48,9 +66,9 @@ class AdmissionRequest extends FormRequest
             'mother_call' => 'required',
             'e_name' => 'nullable|string',
             'e_call' => 'nullable',
-            'b_certificate' => 'required|mimes:jpg,jpeg,pdf|max:5120',
-            'immu_record' => 'required|mimes:jpg,jpeg,pdf|max:5120',
-            'proof_address' => 'required|mimes:jpg,jpeg,pdf|max:5120',
+            'b_certificate' => $b_certificate,
+            'immu_record' => $immu_record,
+            'proof_address' => $proof_address,
             'physical_health' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
             'mrrcfps' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
             'hsral' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',

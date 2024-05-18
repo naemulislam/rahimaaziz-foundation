@@ -99,4 +99,90 @@ class AdmissionRepository extends Repository
         ]);
         return $admissionCreate;
     }
+    public static function updateByRequest(AdmissionRequest $request, $studentId)
+    {
+        $studentAdmission = self::query()->where('student_id',$studentId)->first();
+        // Birth Cirtificate
+        $file = $request->file('b_certificate');
+        $birthCertificat = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = 'b_certificate' . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $studentAdmission->b_certificate;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/documents'), $fileName);
+            $birthCertificat = '/uploaded/student/documents/' . $fileName;
+        }
+        //Immunization record*
+        $file = $request->file('immu_record');
+        $immuRecord = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = 'immu_record' . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $studentAdmission->immu_record;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/documents'), $fileName);
+            $immuRecord = '/uploaded/student/documents/' . $fileName;
+        }
+        //Proof of address*
+        $file = $request->file('proof_address');
+        $proofAddress = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = 'proof_address' . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $studentAdmission->proof_address;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/documents'), $fileName);
+            $proofAddress = '/uploaded/student/documents/' . $fileName;
+        }
+        //physical health report from the
+        $file = $request->file('physical_health');
+        $physicalHealth = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = 'physical_health' . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $studentAdmission->physical_health;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/documents'), $fileName);
+            $physicalHealth = '/uploaded/student/documents/' . $fileName;
+        }
+        //most recent report card from previous school*
+        $file = $request->file('mrrcfps');
+        $mrrcfps = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = 'mrrcfps' . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $studentAdmission->mrrcfps;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/documents'), $fileName);
+            $mrrcfps = '/uploaded/student/documents/' . $fileName;
+        }
+        //Homeschooling registration acceptance letter*
+        $file = $request->file('hsral');
+        $hsral = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = 'hsral' . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $studentAdmission->hsral;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/documents'), $fileName);
+            $hsral = '/uploaded/student/documents/' . $fileName;
+        }
+        $admissionUpdate = self::update($studentAdmission,[
+            'admission_no' => $request->admission_no,
+            'admission_date' => $request->admission_date,
+            'roll' => $request->roll,
+            'registration_no' => $request->registration_no,
+            'group_id' => $request->group_id,
+
+            //Student Documents
+            'b_certificate' => $birthCertificat ?? $studentAdmission->b_certificate,
+            'immu_record' => $immuRecord ?? $studentAdmission->immu_record,
+            'proof_address' => $proofAddress ?? $studentAdmission->proof_address,
+            'physical_health' => $physicalHealth ?? $studentAdmission->physical_health,
+            'mrrcfps' => $mrrcfps ?? $studentAdmission->mrrcfps,
+            'hsral' => $hsral ?? $studentAdmission->hsral,
+        ]);
+        return $admissionUpdate;
+    }
 }

@@ -4,29 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdmissionRequest;
-use App\Models\Educlass;
-use App\Models\Group;
 use App\Models\Student;
-use App\Models\Studentadmission;
-use App\Models\StudentInfo;
 use App\Repositories\AdmissionRepository;
 use App\Repositories\GroupRepository;
 use App\Repositories\StudentInfoRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class AdmissionController extends Controller
 {
     public function index()
     {
-        $admissionStudent = StudentRepository::query()->where('admission_status',true)->get();
+        $admissionStudent = StudentRepository::query()
+        ->where('status',true)
+        ->where('admission_status',true)
+        ->where('status_type',1)->get();
         return view('backend.dashboard.admission.student_list', compact('admissionStudent'));
-    }
-    public function pandingindex()
-    {
-        $data = Studentadmission::where('status', 0)->get();
-        return view('backend.dashboard.admin.admission.request-list', compact('data'));
     }
 
     public function create()
@@ -56,11 +49,6 @@ class AdmissionController extends Controller
         $data['student'] = StudentRepository::query()->where('slug', $slug)->first();
         return view('backend.dashboard.admission.admission_dtls', $data);
     }
-    public function pandingshow($slug)
-    {
-        $data = Student::where('slug', $slug)->first();
-        return view('backend.dashboard.admin.admission.request-dtls', compact('data'));
-    }
 
     public function edit($slug)
     {
@@ -70,162 +58,68 @@ class AdmissionController extends Controller
         return view('backend.dashboard.admission.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(AdmissionRequest $request, Student $student)
     {
-        $this->validate($request, [
-            'admission_no' => 'required',
-            'class_id' => 'required',
-            'roll' => 'required',
-            'registration_no' => 'required',
-            'admission_date' => 'required',
-            'date_of_birth' => 'required',
-            'place_of_birth' => 'required',
-            'h_address' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip_code' => 'required',
-        ]);
+        $studentId = StudentRepository::updateByRequest($request,$student);
+        AdmissionRepository::updateByRequest($request, $student->id);
+        StudentInfoRepository::updateByRequest($request,$student->id);
 
-        $data = Studentadmission::find($id);
-        $data->id_number             = $request->id_number;
-        $data->admission_no         = $request->admission_no;
-        $data->admission_date       = $request->admission_date;
-        $data->roll                 = $request->roll;
-        $data->registration_no      = $request->registration_no;
-        $data->admi_name            = $request->admi_name;
-        $data->class_id            = $request->class_id;
-        $data->admi_phone            = $request->admi_phone;
-        $image = $request->file('image');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->admi_photo;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/admission'), $imageName);
-            $data->admi_photo = '/uploaded/student/admission/' . $imageName;
-        }
-        // Birth Cirtificate
-        $image = $request->file('b_cirti');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->b_cirti;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/admission'), $imageName);
-            $data->b_cirti = '/uploaded/student/admission/' . $imageName;
-        }
-        //Immunization record*
-        $image = $request->file('immu_record');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->immu_record;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/admission'), $imageName);
-            $data->immu_record = '/uploaded/student/admission/' . $imageName;
-        }
-        //Proof of address*
-        $image = $request->file('proof_address');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->proof_address;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/admission'), $imageName);
-            $data->proof_address = '/uploaded/student/admission/' . $imageName;
-        }
-        //Guardians picture
-        $image = $request->file('guard_pic');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->guard_pic;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/admission'), $imageName);
-            $data->guard_pic = '/uploaded/student/admission/' . $imageName;
-        }
-        //physical health report from the
-        $image = $request->file('physical_health');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->physical_health;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/admission'), $imageName);
-            $data->physical_health = '/uploaded/student/admission/' . $imageName;
-        }
-        //most recent report card from previous school*
-        $image = $request->file('mrrcfps');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->mrrcfps;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/admission'), $imageName);
-            $data->mrrcfps = '/uploaded/student/admission/' . $imageName;
-        }
-        //Homeschooling registration acceptance letter*
-        $image = $request->file('hsral');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->hsral;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/admission'), $imageName);
-            $data->hsral = '/uploaded/student/admission/' . $imageName;
-        }
-        $data->save();
-
-        $info = StudentInfo::find($request->studentinfo_id);
-        $info->date_of_birth         = $request->date_of_birth;
-        $info->place_of_birth        = $request->place_of_birth;
-        $info->address             = $request->h_address;
-        $info->city                  = $request->city;
-        $info->state                 = $request->state;
-        $info->zip_code              = $request->zip_code;
-        $info->blood                  = $request->blood;
-        $info->father_name           = $request->father_name;
-        $info->father_email           = $request->father_email;
-        $info->father_call           = $request->father_call;
-        $info->mother_name           = $request->mother_name;
-        $info->mother_email           = $request->mother_email;
-        $info->mother_call           = $request->mother_call;
-        $info->e_name                = $request->e_name;
-        $info->e_call                = $request->e_call;
-        $info->student_type          = $request->student_type;
-
-        $info->save();
-        $notification = array(
-            'message' => 'Updated successfully!',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        return back()->with('success', 'Student is updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        //
+        $studentAdmission = AdmissionRepository::query()->where('student_id',$student->id)->first();
+        if($studentAdmission->b_certificate){
+            @unlink(public_path($studentAdmission->b_certificate));
+        }
+        if($studentAdmission->immu_record){
+            @unlink(public_path($studentAdmission->immu_record));
+        }
+        if($studentAdmission->proof_address){
+            @unlink(public_path($studentAdmission->proof_address));
+        }
+        if($studentAdmission->physical_health){
+            @unlink(public_path($studentAdmission->physical_health));
+        }
+        if($studentAdmission->mrrcfps){
+            @unlink(public_path($studentAdmission->mrrcfps));
+        }
+        if($studentAdmission->hsral){
+            @unlink(public_path($studentAdmission->hsral));
+        }
+        $studentAdmission->delete();
+        $studentInfo = StudentInfoRepository::query()->where('student_id',$student->id)->first();
+        $studentInfo->delete();
+        if($student->image){
+            @unlink(public_path($student->image));
+        }
+        $student->delete();
+        return back()->with('success','Student is deleted successfully!');
     }
-    public function status(Request $request, $id)
+    public function status(Request $request, Student $student)
     {
-        $data = Studentadmission::find($id);
+        $status = false;
         if ($request->status == 1) {
-            $data->status = $request->status;
-        } else {
-            $data->status = 0;
+            $status = true;
         }
-
-        $data->save();
-
-        $notification = array(
-            'message' => 'Status changed successfully!',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $student->update([
+            'status' => $status
+        ]);
+        return back()->with('success', 'Status changed successfully!');
+    }
+    //pending student method
+    public function pandingindex()
+    {
+        $data = StudentRepository::query()
+        ->where('status',true)
+        ->where('admission_status',false)
+        ->where('status_type',1)->get();
+        return view('backend.dashboard.admission.request-list', compact('data'));
+    }
+    public function pendingindex($slug)
+    {
+        $data = Student::where('slug', $slug)->first();
+        return view('backend.dashboard.admin.admission.request-dtls', compact('data'));
     }
 }

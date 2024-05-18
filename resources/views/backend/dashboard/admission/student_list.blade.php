@@ -57,9 +57,9 @@
                                 <td>{{$row->admission->roll}}</td>
 
                                 <td>
-                                    @if($row->admission->payment_status == 1)
+                                    @if($row->admission->payment_type == 'stripe')
                                     <a href="#" class="btn label label-lg label-light-success label-inline"> Paid by stripe</a>
-                                    @elseif($row->admission->payment_status == 2)
+                                    @elseif($row->admission->payment_type == 'Hand Cash')
                                     <a href="#" class="btn label label-lg label-light-danger label-inline">Paid by cash</a>
                                     @endif
                                 </td>
@@ -73,7 +73,7 @@
                                 <td class="d-flex">
                                     <a href="{{route('admin.admission.show',$row->slug)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
                                     <a href="{{route('admin.admission.edit',$row->slug)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
-                                    <a href="{{route('admin.admission.destroy',$row->slug)}}" class="btn btn-icon btn-info btn-hover-danger btn-xs mx-3"><i class="fa fa-trash"></i></a>
+                                    <a id="delete" href="{{route('admin.admission.destroy',$row->id)}}" class="btn btn-icon btn-info btn-hover-danger btn-xs mx-3"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
 
