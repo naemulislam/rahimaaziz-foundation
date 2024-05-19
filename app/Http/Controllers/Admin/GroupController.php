@@ -29,7 +29,7 @@ class GroupController extends Controller
     public function update(Request $request, Group $group)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|unique:groups,name|max:30'
+            'name' => 'required|string|max:30'
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput()->with('error', 'Data Not Inserted!');

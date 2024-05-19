@@ -276,7 +276,12 @@
 								</li>
 								<!--End Teacher Attendance-->
 								<!--Student Attendance-->
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+								<li class="menu-item menu-item-submenu
+                                {{
+                                    $routeName == 'admin.student.atten.index' ||
+                                    $routeName == 'admin.student.atten.create'||
+                                    $routeName == 'admin.student.atten.show' ? 'menu-item-open':''}}
+                                " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -300,19 +305,18 @@
 													<span class="menu-text">Attendance</span>
 												</span>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.attendance.create')}}" class="menu-link menu-toggle">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.student.atten.create'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.student.atten.create')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
 													<span class="menu-text">Attendance</span>
 													<i class="menu-arrow"></i>
 												</a>
-
 											</li>
 
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.attendance.index')}}" class="menu-link menu-toggle">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.student.atten.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.student.atten.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>

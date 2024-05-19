@@ -92,13 +92,14 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('teacher/destroy/{teacher}','destroy')->name('teacher.destroy');
         Route::post('/teacher/status/{teacher}', 'status')->name('teacher.status');
     });
-    // attendance route
-    Route::group(['prefix' => '/student'], function () {
-        Route::resource('attendance', AttendanceController::class);
-        Route::get('attendance/sheet/{class}/{date}', [AttendanceController::class,'atten_show'])->name('atten.show');
-        Route::get('attendance/delete/{class}/{date}', [AttendanceController::class,'atten_delete'])->name('atten.delete');
-        Route::post('attendance/update', [AttendanceController::class,'atten_update'])->name('attenUpdate');
-
+    // Student attendance route
+    Route::controller(AttendanceController::class)->prefix('/student')->group(function () {
+        Route::get('attendance/create', 'create')->name('student.atten.create');
+        Route::get('attendance/index', 'index')->name('student.atten.index');
+        Route::post('attendance/store', 'store')->name('student.atten.store');
+        Route::post('attendance/update', 'update')->name('student.atten.update');
+        Route::get('attendance/show/{group}/{date}', 'show')->name('student.atten.show');
+        Route::get('attendance/destroy/{group}/{date}', 'destroy')->name('student.atten.destroy');
     });
     // Teacher attendance route
     Route::controller(TeacherAttenController::class)->prefix('/teacher')->group(function () {
@@ -203,10 +204,10 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
 
     /////////////////////////Default routes////////////////////////////////
 //Get Data ajax
-Route::get('/get/class/{id}', [DefaultController::class,'get_class'])->name('get.class');
+// Route::get('/get/class/{id}', [DefaultController::class,'get_class'])->name('get.class');
 
 Route::get('/get/studentlist/{id}', [DefaultController::class,'studentGet'])->name('get.student');
-Route::get('/get/student/{id}', [DefaultController::class,'get_student'])->name('get.student');
+Route::get('/get/student/{id}', [DefaultController::class,'geStudent'])->name('get.student');
 Route::get('/get/activity/student/{id}', [DefaultController::class,'get_activity']);
 Route::get('/get/attendance/subject/{id}', [DefaultController::class,'get_subject_att']);
 /////////////////////////Default routes////////////////////////////////

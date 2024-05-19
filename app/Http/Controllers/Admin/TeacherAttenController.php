@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Educlass;
-use App\Models\Teacher;
 use App\Models\TeacherAttendance;
-use App\Repositories\GroupRepository;
 use App\Repositories\TeacherRepository;
-use PDF;
 use Illuminate\Http\Request;
 
 class TeacherAttenController extends Controller
@@ -27,7 +23,6 @@ class TeacherAttenController extends Controller
 
     public function store(Request $request)
     {
-        //return $request->all();
         if (!empty($request->attendance)) {
 
             $countTeacher = TeacherRepository::query()->where('status', true)->count();
@@ -45,7 +40,6 @@ class TeacherAttenController extends Controller
                         'attendance_date' => 'required',
                         'attendance_time' => 'required'
                     ]);
-
 
                     foreach ($request->attendance as $teacherid => $attendence) {
 
@@ -66,13 +60,11 @@ class TeacherAttenController extends Controller
             return back()->with('warning', 'Please select teacher attendance!');
         }
 
-
         return back()->with('success', 'Attendance is created successfully!');
     }
 
     public function show($date)
     {
-        //
         $get_teachers = TeacherAttendance::where('attendance_date', $date)->get();
         return view('backend.dashboard.teacher-atten.edit', compact('get_teachers'));
     }
@@ -96,20 +88,11 @@ class TeacherAttenController extends Controller
         return back()->with('success', 'Attendance is updated successfully!');
     }
 
-
     public function destroy($date)
     {
         $getTeachers = TeacherAttendance::where('attendance_date', $date)->get();
         $getTeachers->each->delete();
 
         return back()->with('success', 'Attendance is deleted successfully!');
-    }
-
-    //In this function for teacher sheet export data in pdf.
-    public function exportPdf()
-    {
-        $allteachers = Teacher::all();
-        $pdf = PDF::loadView('backend.dashboard.admin.teacher-atten.all-teacher', compact('allteachers'));
-        return $pdf->download('teacher_attendance.pdf');
     }
 }

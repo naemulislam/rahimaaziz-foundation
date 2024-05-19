@@ -3,24 +3,10 @@
 namespace App\Http\Controllers\DefaultController;
 
 use App\Http\Controllers\Controller;
-use App\Models\Activity;
-use Illuminate\Http\Request;
-
-use App\Models\Category;
-use App\Models\Educlass;
-use App\Models\Section;
-use App\Models\Student;
 use App\Models\Studentadmission;
-use App\Models\Subject;
-use App\User;
 
 class DefaultController extends Controller
 {
-    public function get_class($id)
-    {
-        $data = Educlass::where('category_id', $id)->get();
-        return response()->json($data);
-    }
     public function studentGet($id)
     {
         $data = Studentadmission::where('class_id', $id)
@@ -30,54 +16,58 @@ class DefaultController extends Controller
         return response()->json($data);
     }
 
-    public function get_student($id)
+    public function geStudent($id)
     {
 
         $html = '';
-        $stu['student'] = Studentadmission::with('class', 'student')->where('class_id', $id)->where('status', 1)->Orderby('roll','asc')->get();
-        // $get_id = $data['student']->id;
+        $stu['student'] = Studentadmission::with('group', 'student')->where('group_id', $id)->where('status', 1)->Orderby('roll','asc')->get();
 
         foreach ($stu['student'] as $key => $data) {
             $sl_num = $key + 1;
             $html .= '<tr>
-                    <input type="hidden" name="admi_id" value= "  ' . $data->id . '" >
+                    <input type="hidden" name="admission_id" value= "  ' . $data->id . '" >
                     <td> ' . $sl_num . ' </td>
                     <td> ' . $data->student->name . '  </td>
-                    <td> ' . $data->class->class_name . ' </td> 
-                    <td> ' . $data->roll . '  </td> 
+                    <td> ' . $data->group->name . ' </td>
+                    <td> ' . $data->roll . '  </td>
                     <td>
                     <span class="switch">
                         <label>
-                            <input type="checkbox" name="attendance[' . $data->id . ']" value="1"/>
+                            <input type="checkbox" name="attendance[' . $data->id . ']" value="1"  class="attendance-checkbox"
+                            data-row-id="'. $data->id .'"/>
                             <span></span>
                         </label>
                     </span>
-                    </td> 
+                    </td>
                     <td>
                     <span class="switch">
                         <label>
-                            <input type="checkbox" name="attendance[' . $data->id . ']" value="0"/>
+                            <input type="checkbox" name="attendance[' . $data->id . ']" value="0" class="attendance-checkbox"
+                            data-row-id="'. $data->id .'"/>
                             <span></span>
                         </label>
                     </span>
-                    </td> 
+                    </td>
                     <td>
                     <span class="switch">
                         <label>
-                            <input type="checkbox" name="attendance[' . $data->id . ']" value="2"/>
+                            <input type="checkbox" name="attendance[' . $data->id . ']" value="2" class="attendance-checkbox"
+                            data-row-id="'. $data->id .'"/>
                             <span></span>
                         </label>
                     </span>
-                    </td> 
+                    </td>
                     <td>
                     <span class="switch">
                         <label>
-                            <input type="checkbox" name="attendance[' . $data->id . ']" value="3"/>
+                            <input type="checkbox" name="attendance[' . $data->id . ']" value="3" class="attendance-checkbox"
+                            data-row-id="'. $data->id .'"/>
                             <span></span>
                         </label>
                     </span>
-                    </td> 
-                    </tr>';
+                    </td>
+                    </tr>
+                    ';
         }
         return $html;
     }

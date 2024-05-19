@@ -1,30 +1,6 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.layouts.master')
 @section('title', 'Attendance Sheet')
 @section('content')
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Mobile Toggle-->
-                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
-                    <span></span>
-                </button>
-                <!--end::Mobile Toggle-->
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Attendance</h5>
-                    <!--end::Page Title-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -34,23 +10,21 @@
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">Attendance Sheet</h3>
+                            <h3 class="card-title">Update Student Attendance Sheet</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{ route('admin.attendance.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                                <a href="{{ route('admin.student.atten.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
                                     < Back</a>
                                         <!--end::Button-->
                             </div>
 
                         </div>
-
                         <!--begin::Form-->
-                        <form action="{{route('admin.attenUpdate')}}" method="post">
+                        <form action="{{route('admin.student.atten.update')}}" method="post">
                             @csrf
-                           
                             <div class="card-body">
                                 <!--begin: Datatable-->
-                                <table class="table table-separate table-head-custom table-checkable" id="datatable">
+                                <table class="table" id="datatable">
                                     <thead>
                                         <tr>
                                             <th>SL</th>
@@ -65,20 +39,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($get_students as $row)
+                                        @foreach($getAllAtten as $row)
 
                                         @php
-                                        $get_admission = \App\Models\Studentadmission::where('id',$row->admission_id)->first();
+                                        $getStudent = \App\Models\Studentadmission::where('id',$row->admission_id)->first();
                                         @endphp
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>{{$get_admission->student->name}}</td>
-                                            <td>{{$get_admission->roll}}</td>
-                                            <td>{{$row->class->class_name}}</td>
+                                            <td>{{$row->admission->student->name}}</td>
+                                            <td>{{$row->admission->roll}}</td>
+                                            <td>{{$row->group->name}}</td>
                                             <td>
                                                 <span class="switch">
                                                     <label>
-                                                        <input @if($row->attendence_status == 1) checked @endif type="checkbox" name="attendance[{{$row->id}}]" value="1" />
+                                                        <input @if($row->attendence_status == 1) checked @endif type="checkbox" name="attendance[{{$row->id}}]" value="1" class="attendance-checkbox"
+                                                        data-row-id="{{$row->id}}"/>
                                                         <span></span>
                                                     </label>
                                                 </span>
@@ -86,7 +61,8 @@
                                             <td>
                                                 <span class="switch">
                                                     <label>
-                                                        <input @if($row->attendence_status == 0) checked @endif type="checkbox" name="attendance[{{$row->id}}]" value="0" />
+                                                        <input @if($row->attendence_status == 0) checked @endif type="checkbox" name="attendance[{{$row->id}}]" value="0" class="attendance-checkbox"
+                                                        data-row-id="{{$row->id}}"/>
                                                         <span></span>
                                                     </label>
                                                 </span>
@@ -94,7 +70,8 @@
                                             <td>
                                                 <span class="switch">
                                                     <label>
-                                                        <input @if($row->attendence_status == 2) checked @endif type="checkbox" name="attendance[{{$row->id}}]" value="2" />
+                                                        <input @if($row->attendence_status == 2) checked @endif type="checkbox" name="attendance[{{$row->id}}]" value="2" class="attendance-checkbox"
+                                                        data-row-id="{{$row->id}}"/>
                                                         <span></span>
                                                     </label>
                                                 </span>
@@ -102,25 +79,20 @@
                                             <td>
                                                 <span class="switch">
                                                     <label>
-                                                        <input @if($row->attendence_status == 3) checked @endif type="checkbox" name="attendance[{{$row->id}}]" value="3" />
+                                                        <input @if($row->attendence_status == 3) checked @endif type="checkbox" name="attendance[{{$row->id}}]" value="3" class="attendance-checkbox"
+                                                        data-row-id="{{$row->id}}"/>
                                                         <span></span>
                                                     </label>
                                                 </span>
                                             </td>
                                             <td>{{$row->attendance_date}}</td>
-
                                         </tr>
-                                        <input type="hidden" name="atten_id[{{$get_admission->id}}]" value="{{$row->id}}">
-
                                         @endforeach
-
-
                                     </tbody>
                                 </table>
                                 <button class="btn btn-primary" type="submit">Update</button>
                                 <!--end: Datatable-->
                             </div>
-
                         </form>
                         <!--end::Form-->
                     </div>
@@ -130,13 +102,25 @@
         </div>
         <!--end::Container-->
     </div>
-    <!--end::Entry-->
-</div>
-<!--end::Content-->
-
-@section('customjs')
-
-
-
 @endsection
-@endsection
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const checkboxes = document.querySelectorAll('.attendance-checkbox');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', (event) => {
+                const currentCheckbox = event.target;
+                const rowId = currentCheckbox.getAttribute('data-row-id');
+
+                checkboxes.forEach(cb => {
+                    if (cb.getAttribute('data-row-id') === rowId && cb !==
+                        currentCheckbox) {
+                        cb.checked = false;
+                    }
+                });
+            });
+        });
+    });
+</script>
+@endpush

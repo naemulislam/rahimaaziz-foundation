@@ -9,16 +9,12 @@ class Attendance extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'admission_id',
-        'class_id' ,
-        'attendance_date',
-        'attendance_time',
-        'attendence_status'
+    protected $guarded = ['id'];
 
-    ];
-
-    public function class(){
-        return $this->belongsTo(Educlass::class,'class_id','id');
+    public function group(){
+        return $this->belongsTo(Group::class);
+    }
+    public function admission(){
+        return $this->belongsTo(Studentadmission::class);
     }
 }

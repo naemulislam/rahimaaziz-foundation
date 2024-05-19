@@ -1,30 +1,6 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.layouts.master')
 @section('title', 'Create Attendance')
 @section('content')
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Mobile Toggle-->
-                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
-                    <span></span>
-                </button>
-                <!--end::Mobile Toggle-->
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Attendance</h5>
-                    <!--end::Page Title-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -37,40 +13,39 @@
                             <h3 class="card-title">Crate a Attendance</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{route('admin.attendance.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                                <a href="{{ route('admin.student.atten.index') }}"
+                                    class="btn btn-primary btn-sm font-weight-bolder">
                                     < Back</a>
                                         <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{ route('admin.attendance.store')}}" method="post">
+                            <form action="{{ route('admin.student.atten.store') }}" method="post">
                                 @csrf
-
-
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Class Group<span class="text-danger">*</span></label>
-                                            <select name="class_id" class="form-control js-select-result" id="adclass_id">
-                                                <option>Select Class Group</option>
-                                                @foreach($class_group as $class)
-                                                <option value="{{$class->id}}">{{ $class->class_name}}</option>
+                                            <select name="group_id" class="form-control js-select-result" id="group_id">
+                                                <option selected disabled> Select Class Group</option>
+                                                @foreach ($groups as $group)
+                                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
                                                 @endforeach
                                             </select>
-
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('class_id'))?($errors->first('class_id')):''}}</div>
+                                            <div style='color:red; padding: 0 5px;'>
+                                                {{ $errors->has('group_id') ? $errors->first('group_id') : '' }}</div>
                                         </div>
                                     </div>
-
-                                </div>
-                                <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Date<span class="text-danger">*</span></label>
-                                            <input type="date" class="form-control" name="attendance_date" value="<?php echo date('Y-m-d'); ?>">
+                                            <input type="date" class="form-control" name="attendance_date"
+                                                value="<?php echo date('Y-m-d'); ?>">
 
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('attendance_date'))?($errors->first('attendance_date')):''}}</div>
+                                            <div style='color:red; padding: 0 5px;'>
+                                                {{ $errors->has('attendance_date') ? $errors->first('attendance_date') : '' }}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -78,15 +53,16 @@
                                             <label for="">Time<span class="text-danger">*</span></label>
                                             <input type="time" class="form-control" name="attendance_time">
 
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('attendance_time')) ?($errors->first('attendance_time')):''}}</div>
+                                            @error('attendance_time')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="card-body">
                                     <!--begin: Datatable-->
-                                    <table class="table table-separate table-head-custom table-checkable" id="">
+                                    <table class="table" id="">
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
@@ -100,12 +76,6 @@
                                             </tr>
                                         </thead>
                                         <tbody id="table">
-                                            <!-- <span class="switch">
-                                                <label>
-                                                    <input type="checkbox" name="" value="1"/>
-                                                    <span></span>Present
-                                                </label>
-                                            </span>  -->
                                         </tbody>
                                     </table>
                                     <!--end: Datatable-->
@@ -128,49 +98,39 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
+@endsection
+@push('scripts')
+    <!-- Add code -->
+    <script>
+        $(document).on('change', '#group_id', function() {
+            var group_id = $(this).val();
+            $.ajax({
+                type: "get",
+                url: "{{ url('/admin/dashboard/get/student') }}/" + group_id,
+                dataType: 'html',
+                success: function(res) {
+                    $('#table').html(res);
+                }
+            });
+        })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const checkboxes = document.querySelectorAll('.attendance-checkbox');
 
-@section('customjs')
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', (event) => {
+                    const currentCheckbox = event.target;
+                    const rowId = currentCheckbox.getAttribute('data-row-id');
 
-
-
-<!-- Add code -->
-<script>
-    $(document).on('change', '#adclass_id', function() {
-        var class_id = $(this).val();
-        $.ajax({
-            type: "get",
-            url: "{{url('/admin/dashboard/get/student')}}/" + class_id,
-            dataType: 'html',
-            success: function(res) {
-                // var data = '';
-                // $.each(res, function(key, value) {
-                //     data +=
-                //         '<tr>' +
-                //         '<input type="hidden" name="admi_id[]" value='+value.id +'>'+
-                //         '<td>' + key + 1 + '</td>' +
-                //         '<td>' + value.student + '</td>' +
-                //         '<td>' + value.category + '</td>' +
-                //         '<td>' + value.class + '</td>' +
-                //         '<td>' + value.roll + '</td>' +
-                //         '<td>' +'<select class="form-control" name="pa[]">'
-                //         +'<option value="1">'+'Present'+'</option>'+
-                //         '<option value="0">'+'Absent'+'</option>'+
-                //         '</select>' + '</td>' +
-                //         '</tr>';
-                // });
-                $('#table').html(res);
-            }
+                    checkboxes.forEach(cb => {
+                        if (cb.getAttribute('data-row-id') === rowId && cb !==
+                            currentCheckbox) {
+                            cb.checked = false;
+                        }
+                    });
+                });
+            });
         });
-    })
-</script>
-
-<script>
-    var $disabledResults = $(".js-select-result");
-    $disabledResults.select2();
-</script>
-@endsection
-
-
-@endsection
+    </script>
+@endpush
