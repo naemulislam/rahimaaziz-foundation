@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Http\Requests\AdmissionRequest;
+use App\Http\Requests\OnlineAdmissionRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -86,6 +87,29 @@ class StudentRepository extends Repository
             $image = '/uploaded/student/image/' . $fileName;
         }
         $studentUpdate = self::update($student, [
+            'image' => $image ?? $student->image,
+            'admission_status' => true,
+            'status_type' => 1
+        ]);
+        return $studentUpdate;
+    }
+    public static function onlineAdmissionUpdate(OnlineAdmissionRequest $request)
+    {
+        $student = self::query()->where('id', $request->student_id)->first();
+
+        $slug = Str::Slug($request->applicant_name);
+        $file = $request->file('student_image');
+        $image = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = $slug . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $student->image;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/image'), $fileName);
+            $image = '/uploaded/student/image/' . $fileName;
+        }
+        $studentUpdate = self::update($student, [
+            'name' => $request->applicant_name,
             'image' => $image ?? $student->image,
             'admission_status' => true,
             'status_type' => 1

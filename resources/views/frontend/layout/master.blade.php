@@ -20,7 +20,7 @@
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap_v4.min.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/themify-icons.css">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/themify-icons.css"> --}}
     <!--Social icon css link-->
     <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/social.css">
     <!-- theme style css -->
@@ -213,7 +213,7 @@
             toastr.error("{{ Session::get('error') }}");
         </script>
     @endif
-    @yield('customjs')
+  @stack('scripts')
 
     <script>
         $(document).ready(function() {

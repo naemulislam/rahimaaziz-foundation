@@ -50,7 +50,7 @@ Route::middleware('web')->group(function () {
 });
 
 ///Ajax route
-Route::get('/admission/get/class/{id}', [DefaultController::class, 'get_class'])->name('get.class');
+// Route::get('/admission/get/class/{id}', [DefaultController::class, 'get_class'])->name('get.class');
 /////End
 Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
 

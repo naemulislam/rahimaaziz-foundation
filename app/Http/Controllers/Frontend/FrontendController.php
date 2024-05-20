@@ -11,11 +11,11 @@ use App\Models\Setting;
 use App\Models\Staff;
 use App\Models\Student;
 use App\Models\User;
+use App\Repositories\GroupRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Validator;
 use Illuminate\Support\Str;
 
 class FrontendController extends Controller
@@ -57,21 +57,17 @@ class FrontendController extends Controller
     public function admission()
     {
         if (auth('student')->user()) {
-            $data["classes"] = Educlass::where('status', 1)->get();
+            $data["groups"] = GroupRepository::query()->where('status', 1)->get();
 
             return view('frontend.admission', $data);
-        } elseif (auth('teacher')->user() || auth('hr')->user() || auth('accountant')->user() || auth('admin')->user() || auth('principle')->user() || auth()->user()) {
-            $notification = array(
-                'message' => 'Please at first log in as a student',
-                'alert-type' => 'info'
-            );
-            return redirect()->back()->with($notification);
+
+        } elseif (auth('teacher')->user() || auth('admin')->user() || auth()->user()) {
+
+            return redirect()->back()->with('info', 'Please at first log in as a student');
+
         } else {
-            $notification = array(
-                'message' => 'Please at first you neet to login!',
-                'alert-type' => 'info'
-            );
-            return redirect()->route('schoolportal')->with($notification);
+
+            return redirect()->route('signin.portal')->with('info', 'Please at first you neet to login as student!');
         }
     }
     public function paymentPage(Request $request)
@@ -179,6 +175,7 @@ class FrontendController extends Controller
 
             $data->save();
         }
+        Auth::login();
         return back()->with('success', 'Register successfully!');
     }
     //End signup method
