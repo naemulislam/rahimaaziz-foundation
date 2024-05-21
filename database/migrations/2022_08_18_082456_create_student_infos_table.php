@@ -28,8 +28,11 @@ class CreateStudentInfosTable extends Migration
             $table->string('father_name')->nullable();
             $table->string('father_call')->nullable();
             $table->string('father_email')->nullable();
+            $table->string('father_langu_spoken')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('mother_call')->nullable();
+            $table->string('mother_email')->nullable();
+            $table->string('mother_langu_spoken')->nullable();
             $table->string('e_name')->nullable();
             $table->string('e_call')->nullable();
             $table->timestamps();

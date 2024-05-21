@@ -362,7 +362,7 @@
                         html += '<option value="' + val.id + '">' + val.student.name + '</option>';
                     });
                     $('#adstudent_id').html(html);
-                    
+
                 },
 
             });

@@ -18,7 +18,7 @@ class OnlineAdmissionRepository extends Repository
         return Studentadmission::class;
     }
 
-    public static function storeByRequest(OnlineAdmissionRequest $request, $studentId, $pMethod, $balanceTransaction, $currency, $amount)
+    public static function storeByRequest(OnlineAdmissionRequest $request, $studentId)
     {
         $generate_id  = random_int(10000000, 99999999);
 
@@ -90,12 +90,12 @@ class OnlineAdmissionRepository extends Repository
             'mrrcfps' => $mrrcfps,
             'hsral' => $hsral,
             //payment details
-            'payment_type' => 'Stripe',
-            'payment_method' => $pMethod,
-            'balance_transaction' => $balanceTransaction,
-            'currency' => $currency,
-            'amount' => $amount,
-            'payment_status' => 1,
+            // 'payment_type' => 'Stripe',
+            // 'payment_method' => $pMethod,
+            // 'balance_transaction' => $balanceTransaction,
+            // 'currency' => $currency,
+            // 'amount' => $amount,
+            'payment_status' => 0,
             'status' => true
         ]);
         return $admissionCreate;

@@ -93,27 +93,29 @@ class StudentRepository extends Repository
         ]);
         return $studentUpdate;
     }
-    public static function onlineAdmissionUpdate(OnlineAdmissionRequest $request)
+    public static function onlineAdmissionCreate(OnlineAdmissionRequest $request)
     {
-        $student = self::query()->where('id', $request->student_id)->first();
-
         $slug = Str::Slug($request->applicant_name);
         $file = $request->file('student_image');
         $image = null;
         if ($file) {
             $extenstion = $file->getClientOriginalExtension();
             $fileName = $slug . '_' . uniqid() . '.' . $extenstion;
-            $unlinkImage = $student->image;
-            @unlink(public_path($unlinkImage));
             $file->move(public_path('uploaded/student/image'), $fileName);
             $image = '/uploaded/student/image/' . $fileName;
         }
-        $studentUpdate = self::update($student, [
+        $studentCreate = self::create([
             'name' => $request->applicant_name,
-            'image' => $image ?? $student->image,
-            'admission_status' => true,
-            'status_type' => 1
+            'slug' => $slug,
+            'email' => $request->email,
+            'password' => Hash::make('student123'),
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'image' => $image,
+            'status' => true,
+            'admission_status' => false,
+            'status_type' => 0
         ]);
-        return $studentUpdate;
+        return $studentCreate;
     }
 }

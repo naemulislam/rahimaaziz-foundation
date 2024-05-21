@@ -80,8 +80,12 @@ class StudentInfoRepository extends Repository
         //Guardian info
         'father_name' => $request->father_name,
         'father_call' => $request->father_call,
+        'father_email' => $request->father_email,
+        'father_langu_spoken' => $request->father_langu_spoken,
         'mother_name' => $request->mother_name,
         'mother_call' => $request->mother_call,
+        'mother_email' => $request->mother_email,
+        'mother_langu_spoken' => $request->mother_langu_spoken,
        ]);
        return $studentInfoCreate;
     }

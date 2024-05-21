@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Http\Requests\OnlineAdmissionRequest;
+use App\Models\ActivityList;
 use App\Models\Contact;
-use App\Models\Educlass;
 use App\Models\Prayer;
-use App\Models\Setting;
 use App\Models\Staff;
 use App\Models\Student;
 use App\Models\User;
 use App\Repositories\GroupRepository;
+use App\Repositories\OnlineAdmissionRepository;
+use App\Repositories\StudentInfoRepository;
+use App\Repositories\StudentRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,65 +58,39 @@ class FrontendController extends Controller
 
     public function admission()
     {
-        // if (auth('student')->user()) {
-            $data["groups"] = GroupRepository::query()->where('status', 1)->get();
-            return view('frontend.admission', $data);
-
-        // } elseif (auth('teacher')->user() || auth('admin')->user() || auth()->user()) {
-
-        //     return back()->with('info', 'Please at first log in as a student');
-
-        // } else {
-        //     return redirect()->route('signin.portal')->with('info', 'Please at first you neet to login as student!');
-        // }
+        $data['activitys'] = ActivityList::orderBy('order','asc')->get();
+        $data["groups"] = GroupRepository::query()->where('status', 1)->get();
+        return view('frontend.admission', $data);
     }
-    public function paymentPage(Request $request)
+    public function onlineAdmissionStore(OnlineAdmissionRequest $request)
     {
-        // $this->validate($request,[
-        //     'category_id'=> 'required',
-        //     'class_id'=> 'required',
-        //     'name'=> 'required',
-        //     'admission_date'=> 'required',
-        //     'date_of_birth'=> 'required',
-        //     'place_of_birth'=> 'required',
-        //     'gender'=> 'required',
-        //     'admi_photo'=> 'required',
-        //     'h_address'=> 'required',
-        //     'city'=> 'required',
-        //     'state'=> 'required',
-        //     'zip_code'=> 'required',
-        //     'father_name'=> 'required',
-        //     'father_call'=> 'required',
-        //     'mother_name'=> 'required',
-        //     'mother_call'=> 'required'
-        // ]);
-        $data = [];
-        $data['category_id'] = $request->category_id;
-        $data['class_id '] = $request->class_id;
-        $data['admission_date '] = $request->admission_date;
-        $data['date_of_birth '] = $request->date_of_birth;
-        $data['place_of_birth '] = $request->place_of_birth;
-        $data['admi_phone '] = $request->admi_phone;
-        $data['gender '] = $request->gender;
-        $data['admi_photo '] = $request->admi_photo;
-        $data['h_address '] = $request->h_address;
-        $data['city '] = $request->city;
-        $data['state '] = $request->state;
-        $data['zip_code '] = $request->zip_code;
-        $data['father_name '] = $request->father_name;
-        $data['father_call '] = $request->father_call;
-        $data['mother_name '] = $request->mother_name;
-        $data['mother_call '] = $request->mother_call;
 
+            // Set your secret key. Remember to switch to your live secret key in production.
+            // See your keys here: https://dashboard.stripe.com/apikeys
 
+            // \Stripe\Stripe::setApiKey('sk_test_51KUbT6LEylh30WQ8Mlb1wvxGBMq8Sm8YGm70jQGt7mbxv0zdYrG3wMsT2SrjuJYt3g93MPGQj0DJwnFVBHN3rOdw00wlXBiHEP');
 
-        // $data = [];
-        // $data['admission_date'] = '01-09-2022';
-        // $data['date_of_birth'] = '10-10-2003';
-        // $data['place_of_birth'] = 'Bangladesh';
-        // $data['name'] = 'Naemul Islam';
+            // Token is created using Checkout or Elements!
+            // Get the payment token ID submitted by the form:
+            // $token = $_POST['stripeToken'];
 
-        return view('frontend.checkout.checkout', compact('data'));
+            // $charge = \Stripe\Charge::create([
+            //     'amount' => 10 * 100,
+            //     'currency' => 'usd',
+            //     'description' => 'Payment to Rahima Aziz',
+            //     'source' => $token,
+            //     'metadata' => ['order_id' => uniqid()],
+            // ]);
+
+            // $pMethod = $charge->payment_method;
+            // $balanceTransaction = $charge->balance_transaction;
+            // $currency = $charge->currency;
+            // $amount= $charge->amount;
+            $student = StudentRepository::onlineAdmissionCreate($request);
+            OnlineAdmissionRepository::storeByRequest($request, $student->id);
+            StudentInfoRepository::onlineAdmissionDetails($request, $student->id);
+
+            return redirect()->back()->with('success', 'Admission request is Successfully send.');
     }
     public function signinPortal()
     {

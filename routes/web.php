@@ -29,7 +29,7 @@ Route::controller(FrontendController::class)->middleware('web')->group(function 
     Route::post('/contact/store','contactStore')->name('contact.store');
     Route::get('/about-us','aboutUs')->name('about');
     Route::get('/online/admission', 'admission')->name('admission');
-    Route::post('/online/payment','paymentPage')->name('payment.page');
+    Route::post('/online/admission/store','onlineAdmissionStore')->name('online.admission.store');
     Route::get('/signin/portal','signinPortal')->name('signin.portal');
     Route::get('/signup/portal', 'signupPortal')->name('signup.portal');
     Route::post('/signup/portal/store', 'signupStore')->name('signup.store');
@@ -43,8 +43,6 @@ Route::middleware('web')->group(function () {
 ///Ajax route
 // Route::get('/admission/get/class/{id}', [DefaultController::class, 'get_class'])->name('get.class');
 /////End
-Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
-
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::view('/', 'backend.parent.dashboard.dashboard')->name('dashboard');
     Route::post('/logout', [LoginController::class, 'parentLogout'])->name('logout');

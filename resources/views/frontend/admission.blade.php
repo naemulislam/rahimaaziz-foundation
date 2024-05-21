@@ -66,65 +66,53 @@
         }
 
         .form-control {
-            border-radius: 1.5rem;
+            border-radius: 7px;
         }
 
         label {
             color: #000;
+            font-weight: 500;
+            font-size: 15px;
         }
 
         .btnSubmit {
             border: none;
-            border-radius: 1.5rem;
+            border-radius: 10px;
             padding: 1%;
             width: 20%;
             cursor: pointer;
-            background: #0062cc;
+            background: #000338;
             color: #fff;
-        }
-
-        aks-file-upload {
-            width: 310px;
-            display: block;
-            margin: 0 auto;
-            margin-top: 4rem;
-        }
-
-        #uploadfile {
-            width: 80%;
-            margin: 0 auto;
-            color: #002c7b;
-            line-height: 1.5;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
+            font-weight: 600;
         }
     </style>
 
     <div class="container register-form">
-        <form action="{{ route('payment.store') }}" method="POST" id="payment-form" enctype="multipart/form-data">
-            @csrf
-            <div class="form">
-                <div class="note">
-                    <h3 class="align-self-center">Applying for the admission.</h3>
-                </div>
-                <div class="row my-3">
-                    <div class="col-md-4">
-                        <div class="announcement">
-                            <h4>Registration Fee: $100</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="announcement">
-                            <h4>Monthly Fee: $200</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="announcement">
-                            <h4>Seats are Available: 20</h4>
-                        </div>
-                    </div>
-                </div>
 
+        <div class="form">
+            <div class="note">
+                <h3 class="align-self-center">Applying for the admission.</h3>
+            </div>
+            <div class="row my-3">
+                <div class="col-md-4">
+                    <div class="announcement">
+                        <h4>Registration Fee: $100</h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="announcement">
+                        <h4>Monthly Fee: $200</h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="announcement">
+                        <h4>Seats are Available: 20</h4>
+                    </div>
+                </div>
+            </div>
+            <form action="{{ route('online.admission.store') }}" method="POST" id="payment-form"
+                enctype="multipart/form-data">
+                @csrf
                 <div class="form-content">
                     <div class="card mb-3">
                         <div class="card-header">Basic Details</div>
@@ -240,6 +228,32 @@
                                             name="blood" value="{{ old('blood') }}" />
 
                                         @error('blood')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <lable>Gender<span class="text-danger">*</span></lable>
+                                        <select name="gender" class="form-control">
+                                            <option selected disabled>Select a gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        @error('gender')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Email<span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" placeholder="Enter your email"
+                                            name="email" value="{{ old('email') }}" />
+
+                                        @error('email')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -402,7 +416,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Father Email<span class="text-danger">*</span></label>
+                                        <label for="">Father Email</label>
                                         <input type="text" class="form-control" name="father_email"
                                             placeholder="Enter your father email" value="{{ old('father_email') }}">
 
@@ -437,7 +451,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Mother Email<span class="text-danger">*</span></label>
+                                        <label for="">Mother Email</label>
                                         <input type="text" class="form-control" name="mother_email"
                                             placeholder="Enter your mother email" value="{{ old('mother_email') }}">
 
@@ -450,9 +464,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Father Language Spoken<span class="text-danger">*</span></label>
+                                        <label for="">Father Language Spoken<span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="father_langu_spoken"
-                                            placeholder="Enter your father language spoken" value="{{ old('father_langu_spoken') }}">
+                                            placeholder="Enter your father language spoken"
+                                            value="{{ old('father_langu_spoken') }}">
                                         @error('father_langu_spoken')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -460,9 +476,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Mother Language Spoken<span class="text-danger">*</span></label>
+                                        <label for="">Mother Language Spoken<span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="mother_langu_spoken"
-                                            placeholder="Enter your mother language spoken" value="{{ old('mother_langu_spoken') }}">
+                                            placeholder="Enter your mother language spoken"
+                                            value="{{ old('mother_langu_spoken') }}">
                                         @error('mother_langu_spoken')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -476,14 +494,29 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-7">
+                                    <div class="form-check mb-3">
+                                        <input type="checkbox" class="form-check-input" onClick="toggle(this)" /><span
+                                            class="p-2">Select All</span><br />
+                                    </div>
+                                    @foreach ($activitys as $activity)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="defaultCheck1" name="activitis[]">
+                                            <label class="form-check-label" for="defaultCheck1">
+                                                {{ $activity->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <button type="submit" class="btnSubmit">Submit</button>
+                    {{-- <button type="submit" class="btnSubmit">Submit</button> --}}
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-            </div>
+            </form>
+        </div>
+
     </div>
 
     <!-- Modal -->
@@ -523,7 +556,7 @@
             </div>
         </div>
     </div>
-    </form>
+
 @endsection
 @push('scripts')
     <script src="https://js.stripe.com/v3/"></script>
@@ -601,5 +634,13 @@
     </script>
     <script>
         $('.demo2').jPreview();
+    </script>
+    <script language="JavaScript">
+        function toggle(source) {
+            checkboxes = document.getElementsByName('activitis[]');
+            for (var i = 0, n = checkboxes.length; i < n; i++) {
+                checkboxes[i].checked = source.checked;
+            }
+        }
     </script>
 @endpush
