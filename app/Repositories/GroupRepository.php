@@ -23,6 +23,9 @@ class GroupRepository extends Repository
         $createGroup = self::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
+            'reg_fee' => $request->reg_fee,
+            'monthly_fee' => $request->monthly_fee,
+            'vacant' => $request->vacant,
             'order' => $request->order,
             'status' => true
         ]);
@@ -34,6 +37,9 @@ class GroupRepository extends Repository
         $group->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
+            'reg_fee' => $request->reg_fee,
+            'monthly_fee' => $request->monthly_fee,
+            'vacant' => $request->vacant,
             'order' => $request->order,
         ]);
         return $group;

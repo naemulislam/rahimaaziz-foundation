@@ -1,24 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\UserController;
+
 use App\Http\Controllers\Frontend\FrontendController;
-// use App\Http\Controllers\Website\ContactController;
-use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\DefaultController\DefaultController;
-use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\PaymentController;
-use App\Http\Controllers\Frontend\ProfileController;
-use App\Http\Controllers\Frontend\RegisterController;
 use App\Http\Controllers\User\AttendanceController;
 use App\Http\Controllers\User\HomeworkController;
 use App\Http\Controllers\User\StudentActivityController;
 use App\Http\Controllers\User\UserController as UserUserController;
 use Illuminate\Support\Facades\Route;
-use Spatie\MediaLibrary\MediaCollections\Models\Media as MediaAlias;
 use Illuminate\Support\Facades\Artisan;
 
 // Clear cache
@@ -86,8 +77,6 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
 
         Route::get('/activity/show/{id}',[StudentActivityController::class,'activityShow'])->name('activity.dtls.show');
         Route::get('/activity/average',[ActivityController::class,'activityCreate'])->name('activity.activityCreate');
-
-
     });
 
     /////////////////////////Default routes////////////////////////////////

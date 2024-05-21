@@ -18,7 +18,11 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|unique:groups,name|max:30'
+            'name' => 'required|string|unique:groups,name|max:30',
+            'reg_fee' => 'required|integer',
+            'monthly_fee' => 'required|integer',
+            'vacant' => 'required|integer',
+            'order' => 'nullable'
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput()->with('error', 'Data Not Inserted!');
@@ -29,7 +33,11 @@ class GroupController extends Controller
     public function update(Request $request, Group $group)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:30'
+            'name' => 'required|string|max:30',
+            'reg_fee' => 'required|integer',
+            'monthly_fee' => 'required|integer',
+            'vacant' => 'required|integer',
+            'order' => 'nullable'
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput()->with('error', 'Data Not Inserted!');

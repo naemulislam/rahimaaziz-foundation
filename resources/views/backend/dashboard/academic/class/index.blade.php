@@ -144,13 +144,45 @@
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="">Order Sequence</label>
-                                                            <input type="number" name="order" placeholder="1,2,3,4,5"
-                                                                class="form-control" value="{{ $row->order }}">
-                                                            @error('order')
-                                                                <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Registration Fee <span class="text-danger">*</span> </label>
+                                                                    <input type="text" name="reg_fee" placeholder="Enter registration fee" class="form-control" value="{{ $row->reg_fee}}">
+                                                                    @error('reg_fee')
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Monthly Fee <span class="text-danger">*</span> </label>
+                                                                    <input type="text" name="monthly_fee" placeholder="Enter monthly fee" class="form-control" value="{{ $row->monthly_fee}}">
+                                                                    @error('monthly_fee')
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Seats are Available  <span class="text-danger">*</span> </label>
+                                                                    <input type="text" name="vacant" placeholder="Enter available seats" class="form-control" value="{{ $row->vacant}}">
+                                                                    @error('vacant')
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Order Sequence</label>
+                                                                    <input type="number" name="order" placeholder="1,2,3,4,5" class="form-control" value="{{ $row->order }}">
+                                                                    @error('order')
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -190,22 +222,53 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="">Group Name</label>
-                            <input type="text" name="name" placeholder="Enter group name" class="form-control">
+                            <label for="">Group Name <span class="text-danger">*</span> </label>
+                            <input type="text" name="name" placeholder="Enter group name" class="form-control" value="{{ old('name')}}">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="">Order Sequence</label>
-                            <input type="number" name="order" placeholder="1,2,3,4,5" class="form-control">
-                            @error('order')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Registration Fee <span class="text-danger">*</span> </label>
+                                    <input type="text" name="reg_fee" placeholder="Enter registration fee" class="form-control" value="{{ old('reg_fee')}}">
+                                    @error('reg_fee')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Monthly Fee <span class="text-danger">*</span> </label>
+                                    <input type="text" name="monthly_fee" placeholder="Enter monthly fee" class="form-control" value="{{ old('monthly_fee')}}">
+                                    @error('monthly_fee')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Seats are Available  <span class="text-danger">*</span> </label>
+                                    <input type="text" name="vacant" placeholder="Enter available seats" class="form-control" value="{{ old('vacant')}}">
+                                    @error('vacant')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Order Sequence</label>
+                                    <input type="number" name="order" placeholder="1,2,3,4,5" class="form-control" value="{{ old('order')}}">
+                                    @error('order')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Submit</button>

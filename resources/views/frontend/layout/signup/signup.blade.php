@@ -17,6 +17,11 @@
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
             padding: 18px 32px;
         }
+        .show-password-btn {
+            cursor: pointer;
+            text-align: right !important;
+            font-weight: 700;
+        }
     </style>
 
 </head>
@@ -100,10 +105,11 @@
                                     <div class="form-group">
                                         <label>Password <span class="text-danger">*</span></label>
                                         <input type="password" name="password" class="form-control"
-                                            placeholder="Enter password">
+                                            placeholder="Enter password" id="password">
                                             @error('password')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
+                                            <span class="toggle-btn show-password-btn" onclick="togglePasswordVisibility()">Show</span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -146,6 +152,20 @@
             toastr.error("{{ Session::get('error') }}");
         </script>
     @endif
+    <script>
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("password");
+            var toggleButton = document.querySelector(".toggle-btn");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButton.textContent = "Hide";
+            } else {
+                passwordField.type = "password";
+                toggleButton.textContent = "Show";
+            }
+        }
+    </script>
 </body>
 <!--end::Body-->
 

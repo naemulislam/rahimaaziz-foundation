@@ -56,19 +56,17 @@ class FrontendController extends Controller
 
     public function admission()
     {
-        if (auth('student')->user()) {
+        // if (auth('student')->user()) {
             $data["groups"] = GroupRepository::query()->where('status', 1)->get();
-
             return view('frontend.admission', $data);
 
-        } elseif (auth('teacher')->user() || auth('admin')->user() || auth()->user()) {
+        // } elseif (auth('teacher')->user() || auth('admin')->user() || auth()->user()) {
 
-            return redirect()->back()->with('info', 'Please at first log in as a student');
+        //     return back()->with('info', 'Please at first log in as a student');
 
-        } else {
-
-            return redirect()->route('signin.portal')->with('info', 'Please at first you neet to login as student!');
-        }
+        // } else {
+        //     return redirect()->route('signin.portal')->with('info', 'Please at first you neet to login as student!');
+        // }
     }
     public function paymentPage(Request $request)
     {
@@ -175,7 +173,7 @@ class FrontendController extends Controller
 
             $data->save();
         }
-        Auth::login();
+        // Auth::login();
         return back()->with('success', 'Register successfully!');
     }
     //End signup method

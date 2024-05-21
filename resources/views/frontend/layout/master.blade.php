@@ -213,6 +213,11 @@
             toastr.error("{{ Session::get('error') }}");
         </script>
     @endif
+    @if (Session::has('info'))
+        <script>
+            toastr.info("{{ Session::get('info') }}");
+        </script>
+    @endif
   @stack('scripts')
 
     <script>

@@ -21,6 +21,12 @@
         .login-content {
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         }
+
+        .show-password-btn {
+            cursor: pointer;
+            text-align: right !important;
+            font-weight: 700;
+        }
     </style>
 
 </head>
@@ -75,8 +81,8 @@
                                 <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
                                 <input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg"
                                     type="email" name="email" placeholder="Enter your email" />
-                                    @error('email')
-                                    <span class="text-danger">{{$message}}</span>
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <!--end::Form group-->
@@ -89,11 +95,13 @@
                                         id="kt_login_forgot">Forgot Password ?</a>
                                 </div>
                                 <input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg"
-                                    type="password" name="password" placeholder="Enter your password" />
-                                    @error('password')
-                                    <span class="text-danger">{{$message}}</span>
+                                    type="password" name="password" id="password" placeholder="Enter your password" />
+
+                                @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <span class="toggle-btn show-password-btn" onclick="togglePasswordVisibility()">Show</span>
                             <!--end::Form group-->
                             <!--begin::Action-->
                             <div class="pb-lg-0 pb-5">
@@ -178,6 +186,25 @@
             toastr.error("{{ Session::get('error') }}");
         </script>
     @endif
+    @if (Session::has('info'))
+        <script>
+            toastr.info("{{ Session::get('info') }}");
+        </script>
+    @endif
+    <script>
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("password");
+            var toggleButton = document.querySelector(".toggle-btn");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButton.textContent = "Hide";
+            } else {
+                passwordField.type = "password";
+                toggleButton.textContent = "Show";
+            }
+        }
+    </script>
 </body>
 <!--end::Body-->
 

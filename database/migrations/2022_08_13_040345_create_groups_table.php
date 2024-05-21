@@ -17,6 +17,9 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('reg_fee')->nullable();
+            $table->string('monthly_fee')->nullable();
+            $table->string('vacant')->nullable();
             $table->string('order')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
