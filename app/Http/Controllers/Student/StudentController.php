@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\StudentInfo;
+use App\Repositories\GroupRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -200,5 +201,40 @@ class StudentController extends Controller
             );
             return redirect()->back()->with($notification);
         }
+    }
+    //Admission fee payment method
+    public function admissionFeeStore(Request $request, Student $student){
+        // return $request->all();
+        $registratonFee = GroupRepository::query()->where('id', $student->admission->group_id)->first();
+
+        $fee_amount = $registratonFee->reg_fee;
+
+         \Stripe\Stripe::setApiKey('sk_test_51KUbT6LEylh30WQ8Mlb1wvxGBMq8Sm8YGm70jQGt7mbxv0zdYrG3wMsT2SrjuJYt3g93MPGQj0DJwnFVBHN3rOdw00wlXBiHEP');
+
+            $token = $_POST['stripeToken'];
+
+            $charge = \Stripe\Charge::create([
+                'amount' => $fee_amount * 100,
+                'currency' => 'usd',
+                'description' => 'Payment to Rahima Aziz',
+                'source' => $token,
+                'metadata' => ['order_id' => uniqid()],
+            ]);
+            //innovative it , inspirad solution
+            $pMethod = $charge->payment_method;
+            $balanceTransaction = $charge->balance_transaction;
+            $currency = $charge->currency;
+            $amount= $charge->amount;
+        $student->admission->update([
+            //payment details
+            'payment_type' => 'Stripe',
+            'payment_method' => $pMethod,
+            'balance_transaction' => $balanceTransaction,
+            'currency' => $currency,
+            'amount' => $amount,
+            'payment_status' => true,
+
+        ]);
+        return back()->with('success', 'Payment is successfully complete!');
     }
 }

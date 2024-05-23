@@ -89,14 +89,9 @@ class OnlineAdmissionRepository extends Repository
             'physical_health' => $physicalHealth,
             'mrrcfps' => $mrrcfps,
             'hsral' => $hsral,
-            //payment details
-            // 'payment_type' => 'Stripe',
-            // 'payment_method' => $pMethod,
-            // 'balance_transaction' => $balanceTransaction,
-            // 'currency' => $currency,
-            // 'amount' => $amount,
             'payment_status' => 0,
-            'status' => true
+            'status' => true,
+            'study_status' => false
         ]);
         return $admissionCreate;
     }

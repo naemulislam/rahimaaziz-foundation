@@ -39,7 +39,7 @@ class OnlineAdmissionRequest extends FormRequest
             'address' => 'required|string|max:200',
             'city' => 'required|string|max:50',
             'state' => 'required|string|max:50',
-            'zip_code' => 'required|integer|max:40',
+            'zip_code' => 'required',
             'father_name' => 'required|string|max:30',
             'father_call' => 'required',
             'father_langu_spoken' => 'required|string|max:100',

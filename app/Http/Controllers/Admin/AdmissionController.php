@@ -60,7 +60,16 @@ class AdmissionController extends Controller
 
     public function update(AdmissionRequest $request, Student $student)
     {
-        $studentId = StudentRepository::updateByRequest($request,$student);
+        if($student->admission_status == 0){
+            $student->update([
+                'admission_status' => true,
+                'status_type' => true,
+            ]);
+            $student->admission->update([
+                'study_status' => true,
+            ]);
+        }
+        StudentRepository::updateByRequest($request,$student);
         AdmissionRepository::updateByRequest($request, $student->id);
         StudentInfoRepository::updateByRequest($request,$student->id);
 
@@ -109,17 +118,34 @@ class AdmissionController extends Controller
         return back()->with('success', 'Status changed successfully!');
     }
     //pending student method
-    public function pandingindex()
+    public function pendingindex()
     {
         $data = StudentRepository::query()
         ->where('status',true)
         ->where('admission_status',false)
-        ->where('status_type',1)->get();
-        return view('backend.dashboard.admission.request-list', compact('data'));
+        ->where('status_type',0)->get();
+        return view('backend.dashboard.admission.online_admission_request_list', compact('data'));
     }
-    public function pendingindex($slug)
+    // public function admissionApproved(Student $student)
+    // {
+    //     $student->update([
+    //         'admission_status' => true
+    //     ]);
+    //     $data = Student::where('slug', $slug)->first();
+    //     return view('backend.dashboard.admission.request-dtls', compact('data'));
+    // }
+
+    public function admissionPaymentStatus(Request $request, Student $student)
     {
-        $data = Student::where('slug', $slug)->first();
-        return view('backend.dashboard.admin.admission.request-dtls', compact('data'));
+        // dd($request->all());
+        $admissionStudent = AdmissionRepository::query()->where('student_id', $student->id)->first();
+        $status = false;
+        if ($request->payment_status == 1) {
+            $status = true;
+        }
+        $admissionStudent->update([
+            'payment_status' => $status
+        ]);
+        return back()->with('success', 'Status changed successfully!');
     }
 }

@@ -58,39 +58,17 @@ class FrontendController extends Controller
 
     public function admission()
     {
-        $data['activitys'] = ActivityList::orderBy('order','asc')->get();
-        $data["groups"] = GroupRepository::query()->where('status', 1)->get();
+        $data['activitys'] = ActivityList::orderBy('order', 'asc')->get();
+        $data["groups"] = GroupRepository::query()->where('status', 1)->orderBy('order', 'asc')->get();
         return view('frontend.admission', $data);
     }
     public function onlineAdmissionStore(OnlineAdmissionRequest $request)
     {
+        $student = StudentRepository::onlineAdmissionCreate($request);
+        OnlineAdmissionRepository::storeByRequest($request, $student->id);
+        StudentInfoRepository::onlineAdmissionDetails($request, $student->id);
 
-            // Set your secret key. Remember to switch to your live secret key in production.
-            // See your keys here: https://dashboard.stripe.com/apikeys
-
-            // \Stripe\Stripe::setApiKey('sk_test_51KUbT6LEylh30WQ8Mlb1wvxGBMq8Sm8YGm70jQGt7mbxv0zdYrG3wMsT2SrjuJYt3g93MPGQj0DJwnFVBHN3rOdw00wlXBiHEP');
-
-            // Token is created using Checkout or Elements!
-            // Get the payment token ID submitted by the form:
-            // $token = $_POST['stripeToken'];
-
-            // $charge = \Stripe\Charge::create([
-            //     'amount' => 10 * 100,
-            //     'currency' => 'usd',
-            //     'description' => 'Payment to Rahima Aziz',
-            //     'source' => $token,
-            //     'metadata' => ['order_id' => uniqid()],
-            // ]);
-
-            // $pMethod = $charge->payment_method;
-            // $balanceTransaction = $charge->balance_transaction;
-            // $currency = $charge->currency;
-            // $amount= $charge->amount;
-            $student = StudentRepository::onlineAdmissionCreate($request);
-            OnlineAdmissionRepository::storeByRequest($request, $student->id);
-            StudentInfoRepository::onlineAdmissionDetails($request, $student->id);
-
-            return redirect()->back()->with('success', 'Admission request is Successfully send.');
+        return redirect()->back()->with('success', 'Admission request is Successfully send.');
     }
     public function signinPortal()
     {

@@ -15,13 +15,10 @@
 									</a>
 								</li>
 								<li class="menu-section">
-									<h4 class="menu-text">Custom</h4>
+									<h4 class="menu-text">Menubar</h4>
 									<i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 								</li>
-						@php
-						$get_id = \App\Models\Studentadmission::where('status',1)->where('student_id',auth('student')->user()->id)->first();
-						@endphp
-						@if($get_id)
+                                @if (auth('student')->user()->admission->payment_status == 1)
 								<!--Satart Home Work-->
 								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
@@ -55,7 +52,7 @@
 													<span class="menu-text">Submit Report</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{route('student.report.index')}}" class="menu-link menu-toggle">
@@ -65,7 +62,7 @@
 													<span class="menu-text">Report List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{route('student.jug.index')}}" class="menu-link menu-toggle">
@@ -75,9 +72,9 @@
 													<span class="menu-text">Jug List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
+
 										</ul>
 									</div>
 								</li>
@@ -107,8 +104,8 @@
 													<span class="menu-text">work</span>
 												</span>
 											</li>
-											
-											
+
+
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('student.activity.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
@@ -117,9 +114,9 @@
 													<span class="menu-text">Activity List</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
+
 										</ul>
 									</div>
 								</li>
@@ -149,8 +146,8 @@
 													<span class="menu-text">attendance</span>
 												</span>
 											</li>
-											
-											
+
+
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('student.attendance.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
@@ -159,9 +156,9 @@
 													<span class="menu-text">Attendance</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
+
 										</ul>
 									</div>
 								</li>
@@ -191,8 +188,8 @@
 													<span class="menu-text">fees</span>
 												</span>
 											</li>
-											
-											
+
+
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('student.fees.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
@@ -201,14 +198,13 @@
 													<span class="menu-text">Fees</span>
 													<i class="menu-arrow"></i>
 												</a>
-											
+
 											</li>
-											
+
 										</ul>
 									</div>
 								</li>
 								<!--End fees-->
 						@endif
-								
-								
-								
+
+

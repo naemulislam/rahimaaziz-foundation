@@ -11,7 +11,7 @@
                     <h3 class="card-title">Edit Student Information</h3>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="{{ route('admin.admission.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                        <a href="@if($student->admission_status == 1){{ route('admin.admission.index') }} @else {{ route('admin.admission.pending')}} @endif" class="btn btn-primary btn-sm font-weight-bolder">
                             < Back</a>
                                 <!--end::Button-->
                     </div>
@@ -263,7 +263,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Mother Name<span class="text-danger">*</span></label>
                                     <input type="text" name="mother_name" placeholder="Enter mother name"
@@ -273,7 +273,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Mother Call<span class="text-danger">*</span></label>
                                     <input type="text" name="mother_call" placeholder="Enter mother call"
@@ -283,7 +283,43 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Mother Email</label>
+                                    <input type="text" name="mother_email" placeholder="Enter mother email"
+                                        value="{{ $student->studentinfo->mother_email }}" class="form-control">
+                                    @error('mother_email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
 
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Father Language Spoken<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="father_langu_spoken"
+                                        placeholder="Enter your father language spoken"
+                                        value="{{ $student->studentinfo->father_langu_spoken }}">
+                                    @error('father_langu_spoken')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="">Mother Language Spoken<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="mother_langu_spoken"
+                                        placeholder="Enter your mother language spoken"
+                                        value="{{ $student->studentinfo->mother_langu_spoken }}">
+                                    @error('mother_langu_spoken')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <h4 class="card-title">Documents Details</h4>

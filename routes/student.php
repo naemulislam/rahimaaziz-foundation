@@ -35,6 +35,8 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
 
     Route::get('/edit/password/', [StudentController::class, 'cPassword'])->name('epassword');
     Route::post('/update/password/', [StudentController::class, 'upassword'])->name('upassword');
+    // Route::get('/admission/fee/', [StudentController::class, 'admissionFee'])->name('admission.fee');
+    Route::post('/admission/fee/store/{student}', [StudentController::class, 'admissionFeeStore'])->name('admission.fee.store');
 
 
     Route::group(['prefix'=>'/student'],function(){

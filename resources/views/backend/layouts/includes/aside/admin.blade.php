@@ -72,6 +72,7 @@
                                 $routeName == 'admin.admission.index' ||
                                 $routeName == 'admin.admission.create' ||
                                 $routeName == 'admin.admission.show' ||
+                                $routeName == 'admin.admission.pending' ||
                                 $routeName == 'admin.admission.edit' ? 'menu-item-open':''}}
                                 " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
@@ -103,7 +104,7 @@
 														<span></span>
 													</i>
                                                     @php
-                                                        $register = \App\Models\Student::where('admission_status',false)->count();
+                                                        $register = \App\Models\Student::where('admission_status',false)->where('status_type', false)->where('status', false)->count();
                                                     @endphp
 													<span class="menu-text">Registration<span class=" ml-3 text-white text-center" style="background-color:red; height:20px; width:20px; border-radius:50%">{{$register}}</span></span>
 													<i class="menu-arrow"></i>
@@ -124,18 +125,20 @@
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
-													<span class="menu-text">Admission</span>
+													<span class="menu-text">Admission Create</span>
 													<i class="menu-arrow"></i>
 												</a>
-
 											</li>
 
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.admission.pending'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.admission.pending')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
-													<span class="menu-text">Request List <span class=" ml-3 text-white text-center" style="background-color:red; height:20px; width:20px; border-radius:50%">9</span></span>
+                                                    @php
+                                                        $onlineRequest = \App\Models\Student::where('admission_status',false)->where('status_type', false)->where('status', true)->count();
+                                                    @endphp
+													<span class="menu-text">Admission Request <span class=" ml-3 text-white text-center" style="background-color:red; height:20px; width:20px; border-radius:50%">{{ $onlineRequest}}</span></span>
 													<i class="menu-arrow"></i>
 												</a>
 

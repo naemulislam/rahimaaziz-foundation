@@ -57,10 +57,11 @@
                                 <td>{{$row->admission->roll}}</td>
 
                                 <td>
-                                    @if($row->admission->payment_type == 'stripe')
-                                    <a href="#" class="btn label label-lg label-light-success label-inline"> Paid by stripe</a>
-                                    @elseif($row->admission->payment_type == 'Hand Cash')
-                                    <a href="#" class="btn label label-lg label-light-danger label-inline">Paid by cash</a>
+                                    @if ($row->admission->payment_status == 0)
+                                        <a href="#" class="btn label label-lg label-light-danger label-inline" data-toggle="modal" data-target="#payment_status_{{$row->id}}">
+                                            Unpaid</a>
+                                    @elseif($row->admission->payment_status == 1)
+                                        <a href="#" class="btn label label-lg label-light-success label-inline" data-toggle="modal" data-target="#payment_status_{{$row->id}}">Paid</a>
                                     @endif
                                 </td>
                                 <td>
@@ -76,6 +77,38 @@
                                     <a id="delete" href="{{route('admin.admission.destroy',$row->id)}}" class="btn btn-icon btn-info btn-hover-danger btn-xs mx-3"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
+                               <!--Payment Status -->
+                               <div class="modal fade" id="payment_status_{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Payment Status</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <i class="fa fa-close"></i>
+                                            </button>
+                                        </div>
+                                        <form action="{{ route('admin.admission.payment.status',$row->id)}}" method="post">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="">Select payment status</label>
+                                                    <select name="payment_status" class="form-control">
+                                                        <option value="1" @if( $row->admission->payment_status == 1 ) selected @endif >Paid</option>
+                                                        <option value="0" @if( $row->admission->payment_status == 0 ) selected @endif >Unpaid</option>
+                                                    </select>
+
+                                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('payment_status'))?($errors->first('payment_status')):''}}</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
 
                             <!--Row Status -->
                             <div class="modal fade" id="row_status_{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">

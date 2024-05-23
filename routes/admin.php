@@ -125,10 +125,9 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::put('admission/update/{student}','update')->name('admission.update');
         Route::get('admission/destroy/{student}','destroy')->name('admission.destroy');
         Route::post('admission/status/{student}', 'status')->name('admission.status');
-
         Route::get('admission/pending', 'pendingindex')->name('admission.pending');
-        Route::get('admission/pending/details/{slug}', 'pendingshow')->name('admission.pending.show');
-        Route::post('status/{id}','status')->name('admission.pending.status');
+        // Route::post('admission/approved/{student}', 'admissionApproved')->name('admission.approved');
+        Route::post('admission/payment/status/{student}', 'admissionPaymentStatus')->name('admission.payment.status');
     });
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('improve',ImproveStudentsController::class);
