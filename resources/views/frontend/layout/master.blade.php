@@ -28,12 +28,13 @@
     <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/responsive.css">
     @yield('customcss')
 </head>
+
 <body>
     <!-- Start Top Header Section -->
     <section class="topbar">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <div class="contact-info">
 
                         <li>
@@ -46,7 +47,7 @@
                         </li>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <ul class="social-icons">
                         <li><a target="_blank" href="{{ $setting->facebook_link ?? '' }}"><i
                                     class="fa fa-facebook"></i></a></li>
@@ -57,6 +58,8 @@
                                     class="fa fa-youtube"></i></a></li>
                         <li><a target="_blank" href="{{ $setting->linkedin_link ?? '' }}"><i
                                     class="fa fa-linkedin"></i></a></li>
+                        <li><a target="_blank" href="#" class="text-decoration-none"> Go to maszid ar rahman</a>
+                        </li>
 
                     </ul>
                 </div>
@@ -64,23 +67,6 @@
         </div>
     </section>
     <!-- End Top Header Section -->
-    <div class="logo-section">
-        <div class="container2">
-            <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="logoheader">
-                        <img src="{{ asset($setting->white_logo ?? '') }}" alt="">
-                    </div>
-                </div>
-                <!-- <div class="col-lg-6 col-md-6 ">
-                    <div class="button-section">
-                        <a href="#">Donate to Madrasha</a>
-                        <a href="#">Donate to Masjid</a>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-    </div>
     <!-- Start Header & Navigation Section -->
     @include('frontend.layout.header')
     <!--end mobile menu-->
@@ -91,8 +77,8 @@
     <section class="footer-section">
         <div class="container">
             <!--Mail Row-->
-            <div class="row ft-bg-image">
-                <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="ft-para">
                         <div class="ft-logo">
                             <img style="width:126px;" src="{{ asset($setting->black_logo ?? '') }}" alt="">
@@ -103,65 +89,27 @@
                             programs.</h5>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-6 col-sm-12">
-                    <div class="ft-para">
-                        <div class="ft-title">
-                            <h2>Information</h2>
-                        </div>
-                        <ul>
-                            <li><a href="#">Online Couses</a></li>
-                            <li><a href="#">Audio Listening</a></li>
-                            <li><a href="#">Our Blog</a></li>
-                            <li><a href="#">Our Events</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="ft-para">
                         <div class="ft-title">
                             <h2> Contact Info</h2>
                         </div>
                         <ul>
-                            <li><span style="color: green; font-style: italic;">P:</span>{{ $setting->phone ?? '' }}
-                            </li>
-
-                            <li>Our Blog</li>
-                            <li>Our Events</li>
-                            <li>171 Knox Ave,, West Seneca, NY 14224</li>
+                            <li>Email:info@rahimaazizfoundation.com</li>
+                            <li>Phone:+65745877444 </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="ft-para">
                         <div class="ft-title">
                             <h2> More Info</h2>
                         </div>
-                        <!--Start Child row-->
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <!--Child-para one-->
-                                <div class="child-para">
-                                    <ul>
-                                        <li><a href="#">About Maktab</a></li>
-                                        <li><a href="#">Urgent Donation</a></li>
-                                        <li><a href="#">Our Services</a></li>
-                                        <li><a href="#">Our Sermons</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <!--Child-para Two-->
-                                <div class="child-para">
-                                    <ul>
-                                        <li><a href="#">Our Products</a></li>
-                                        <li><a href="#">Our Scholars</a></li>
-                                        <li><a href="#">Contact Us</a></li>
-                                        <li><a href="#">Maktab Gallery</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End Child row-->
+                        <ul>
+                            <li><a href="#">About Rahima Aziz Foundation</a></li>
+                            <li><a href="#">About Maszid ar Rahman</a></li>
+                            <li><a href="#">Our Programs</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -218,7 +166,7 @@
             toastr.info("{{ Session::get('info') }}");
         </script>
     @endif
-  @stack('scripts')
+    @stack('scripts')
 
     <script>
         $(document).ready(function() {

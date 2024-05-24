@@ -1,6 +1,7 @@
 
 
-@import url('https://fonts.googleapis.com/css2?family=Philosopher:wght@700&family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 *{
     margin: 0;
@@ -10,8 +11,18 @@
 body {
   font-family: "Philosopher", sans-serif !important;
   font-weight: 400;
- 
-
+}
+:root {
+    --shadow: 0px 10px 13px -10px #ddd;
+    --shadow-hover: 0px 10px 20px 0px #ddd;
+    --border: 1px solid #f3f3f3;
+    --animate: translate(0, -2%);
+    --gradient-bg: linear-gradient(to right, rgba(255, 134, 23, 0.90), rgba(255, 135, 23, 0.90), rgba(255, 194, 37, 0.90));
+    --gradient-single: rgba(255, 134, 23, 0.90);
+    --primary-color: #6B6B6B;
+    --radius: 13px;
+    --ef: 'Philosopher', sans-serif;
+    --roboto: 'Roboto', sans-serif;
 }
 
 .container {
@@ -53,9 +64,6 @@ img {
   max-width: 100%;
   height: auto; }
 
-
-
-
 /*Topbar Section*/
 .topbar {
   background-color: #0F0F41;
@@ -84,16 +92,14 @@ ul.social-icons {
   ul.social-icons li {
     display: inline-block;
     margin: 5px 12px; }
-
-
-
 /*header area styles*/
-
-
-
 
 .navbar {
     padding: 0;
+}
+.header-logo {
+    width: 75px;
+    padding: 5px;
 }
 
 header {
@@ -162,7 +168,7 @@ header {
     transition: 0.4s;
     box-shadow: var(--shadow);
     border-top: var(--border);
-    top:45px;
+    top:75px;
 }
 
 .dm-software {
@@ -338,75 +344,60 @@ header {
 .mm-ci {
     cursor: pointer;
 }
+/*-----------------Common style--------------*/
+.heading-title> h3 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    font-family: var(--ef);
+    text-transform: capitalize;
+    color: #000338;
+    margin-bottom: 3px;
+}
+.heading-border {
+    height: 3px;
+    width: 100px;
+    background-color: #ff8339;
+    margin: 0 auto;
+}
+.common-shadow {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: var(--border);
+    transition: .4s;
+    overflow: hidden;
+    background: #fff;
+}
+.common-shadow:hover {
+    transform: var(--animate);
+}
+.btn-primary {
+    color: #fff;
+    background-color: #000338;
+    border-color: #000338;
+}
+/*-----------------end Common style--------------*/
 
 /***************** *********************
          slider area styles
 ****************** ********************/
-
-.showcase .carousel-item {
-  height: 70vh;
-}
-
-.showcase .carousel-img-1 {
-  background: url(../images/slideshow/img1.jpg);
-  background-size: cover;
-  background-position: center center;
-}
-
-.showcase .carousel-img-2 {
-  background: url(../images/slideshow/img2.jpg);
-  background-size: cover;
-  background-position: center center;
-}
-
-.showcase .carousel-img-3 {
-  background: url(../images/slideshow/Sail-Away.jpg);
-  background-size: cover;
-  background-position: center center;
-}
-
-.showcase .carousel-indicators li {
-  height: 4px;
-  width: 30px;
-  border-radius: 5px;
-  color: #E30613;
-  background: rgba(182, 15, 15, 0.568);
-  cursor: pointer;
-}
-
-.showcase .carousel-indicators .active {
-  background: #E30613;
-}
-
-.showcase .slider-control {
-  font-size: 50px;
-}
-
-
-
-.showcase .carousel-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-size: 100% 100%;
-  background-position: center;
-
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    height: 70vh;
 }
 
 /* End slider area  */
 
 .text-section h2 {
-  font-size: 45px; }
+  font-size: 45px;
+}
 .text-section h3 {
   font-size: 27px;
   line-height: 50px;
-  position: relative; 
-margin-top: -20px;
+  position: relative;
+  margin-top: -20px;
 font-family: 'Philosopher', sans-serif;
-
 }
 
 .text-section p {
@@ -418,7 +409,7 @@ font-family: 'Philosopher', sans-serif;
     font-family: open-sans;
 }
 .text-section .btn-about {
-  background: #ff8339;
+  background: #000338;
   padding: 12px 25px;
   color: #fff;
   font-size: 17px;
@@ -430,28 +421,6 @@ font-family: 'Philosopher', sans-serif;
   text-decoration: none;
 }
 
-/*Header Logo and button Section*/
-.button-section{
-    float: right;
-}
-.button-section a {
-    display: inline-block;
-    color: #fff;
-    background: #000338;
-    padding: 10px 10px;
-    margin-top: 90px;
-    font-size: 20px;
-    text-transform: uppercase;
-    transition: 0.4s;
-    font-family: normal;
-    text-decoration: none;
-}
-.button-section a:hover{
-    background: #fff;
-    border: 2px solid #000338;
-    color: #000338;
-}
-/*End Header Logo and buttton Section*/
 
 /*Start rahmania-aziz-seciton*/
 .rahmania-aziz-seciton{
@@ -460,7 +429,6 @@ font-family: 'Philosopher', sans-serif;
 }
 
 /*Start exprience-seciton*/
-.exprience-seciton {}
 
 .exprience-content {
     background: linear-gradient(rgb(247 247 247 / 47%),rgb(247 247 247 / 47%)),url(../images/patterns/pattern-bg.jpg);
@@ -473,11 +441,11 @@ font-family: 'Philosopher', sans-serif;
 }
 .exprience-content:hover{
     background: linear-gradient(rgba(21, 122, 21, 0.698),rgba(21, 122, 21, 0.698)),url(../images/patterns/pattern-bg.jpg);
-   
-    
+
+
 }
 .exprience-content:hover .fa{
-    background:#fff; 
+    background:#fff;
 }.exprience-content:hover h3{
     color: #fff;
 }.exprience-content:hover p{
@@ -507,7 +475,7 @@ font-family: 'Philosopher', sans-serif;
     transition: 0.4s;
     text-transform: capitalize;
     font-weight: 600;
-  
+
 }
 
 .exprience-content p {
@@ -524,905 +492,46 @@ font-family: 'Philosopher', sans-serif;
     font-size: 20px;
     transition: 0.4s;
     text-decoration: underline;
-    
-}
-
-
-
-/*Start Course time section------------------------------------------------*/
-
-/*----------------------------------------------------------------------- 
-Start of features section
--------------------------------------------------------------------------*/
-.features-section{
-    margin: 50px 0;
-}
-.features-icon i {
-    color: #000338;
-	font-size: 52px;
-	transition: .3s all ease-in-out;
-	position: relative;
-	z-index: 1;
 
 }
-.features-text-title h3 {
-    font-size: 19px;
-    text-transform: capitalize;
-    margin-bottom: 15px;
-}
-.features-text-title a{
-    color: #000338;
-    text-decoration: none;
-}
-.features-icon {
-	height: 120px;
-	width: 120px;
-	margin: 0 auto;
-	line-height: 160px;
-	border-radius: 100%;
-	overflow: hidden;
-	position: relative;
-	-webkit-box-shadow: 0px 5px 30px -9px rgba(238, 9, 121,0.75);
-	-moz-box-shadow: 0px 5px 30px -9px rgba(238, 9, 121,0.75);
-	box-shadow: 0px 5px 30px -9px rgba(238, 9, 121,0.75);
-    margin-bottom: 30px;
-    padding: 30px 0px;
+
+/* statr Our Program sectoin*/
+
+.program-box {
+    background-color: #fff;
+    padding: 20px;
     text-align: center;
+    border: 1px solid #000338;
 }
-.features-icon:after,
-.extra-features-section .extra-left .features-icon:after,
-.extra-features-section .extra-right .features-icon:after {
-	position: absolute;
-	content: '';
-	border-radius: 100%;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	z-index: 0;
-	opacity: 0;
-	transition: .3s all ease-in-out;
-	transform: scale(.5);
-}
-.features-icon:after,
-.extra-features-section .extra-left .features-icon:after,
-.extra-features-section .extra-right .features-icon:after  {
-    background: #FDC800;
-
-}
-.features-text-dec {
-	max-width: 350px;
-	margin: 0 auto;
-	overflow: hidden;
-    margin-bottom: 40px;
-}
-.features-text-icon:hover .features-icon:after,
-.extra-icon-text:hover .features-icon:after {
-	opacity: 1;
-	transform: scale(1);
-}
-
-.extra-icon-text {
-	position: relative;
-}
-.feature-btn-section a {
-    display: inline-block;
-    text-decoration: none;
-    border: 2px solid #FDC800;
-    padding: 6px 17px;
-    font-size: 20px;
-    color: #FDC800;
-    text-transform: uppercase;
-    transition: 0.4s;
-}
-.feature-btn-section a:hover{
-    color: #fff;
-    background: #FDC800;
-}
-/*----------------------------------------------------------------------- 
-End of features section
--------------------------------------------------------------------------*/
-/* Start Our Publications */
-.publication-section{
-   
-    margin-bottom: 20px;
-}
-.publication-section > .section-title > h2{
-    font-size: 41px;
-    font-weight: 700;
-    color: #000;
-    padding-bottom: 20px;
-}
-.publication-box > .publi-img-box{
-    position: relative;
-    margin-bottom: 10px;
-}
-.publication-box > .publi-img-box > img::before{
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgb(0 0 0 / 70%);
-}
-
-.publication-box > .publi-img-box > .pbuli-shop{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.publication-box > .publi-img-box > .pbuli-shop a {
-    padding: 3px 30px;
-    border: 2px solid #FDC800;
-    color: #fff;
-    text-decoration: none;
-    font-size: 25px;
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0);
-    transition: all 0.4s ease;
-}
-.publication-box > .publi-img-box:hover .pbuli-shop a{
-    opacity: 1;
-    visibility:visible;
-    transform: scale(1.2);
-    background-color:  #FDC800;
-    color: #fff;
-   
-}
-.publication-box > .publication-btmcontent{text-align: center;}
-.publication-box > .publication-btmcontent > a{
+  .program-box > h2 {
     font-size: 20px;
     color: #000;
-}
-.publication-box > .publication-btmcontent > a:hover{
-    color: #FDC906;
-    text-decoration: none;
-}
-.publication-box > .publication-btmcontent > h4{
-    color: #FDC906;
-}
-
-
-.publication-section .owl-nav {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-}
-.publication-section .owl-nav .owl-prev {
-    position: absolute;
-    left: 0;
-    display: block;
-    background: #FF9822 !important;
-    height: 65px;
-    width: 25px;
-    color: #f7f7f7 !important;
-    font-size: 45px !important;
-    outline: 0;
-    margin-top: -50px;
-    
-}
-.publication-section .owl-nav .owl-next{
-    position: absolute;
-    right: 0;
-    display: block;
-    background: #FF9822 !important;
-    height: 65px;
-    width: 25px;
-    color: #f7f7f7 !important;
-    font-size: 45px !important;
-    outline: 0;
-    margin-top: -50px;
-} 
-.owl-theme .owl-dots .owl-dot span {
-width: 10px;
-height: 10px;
-margin: 5px 7px;
-background: #D6D6D6;
-display: block;
--webkit-backface-visibility: visible;
-transition: opacity .2s ease;
-border-radius: 30px;
-outline: 0;
-border: 0;
-}
-.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
-background: #ffc800;
-}
-
-/* End Our Publications */
-
-
-
-/*Beautiful Campus Section*/
-.campus-section{
-    margin: 20px 0;
-}
-/*End Beautiful Campus Section*/
-
-/*Why to Choose Section*/
-.whychoose{
-    margin: 50px;
-}
-.img-text-section img {
-    margin-bottom: 25px;
-    width: 90px;
-    height: 80px;
-}
-.choose-text h3 {
-    font-size: 23px;
-    text-transform: capitalize;
-    color: #000338;
-}
-.img-text-section {
-    padding: 57px 10px;
-}
-.img-text-section:hover{
-   box-shadow: 4px 5px 20px 0px;
-}.img-text-section:hover h3{
-   
-    color: #FF9824;
-    
-}.img-text-section:hover{
-   
-    border-bottom: 3px solid #FF9824;
-}
-.whychoose{}
-/*End Why to Choose Section*/
-
-/*The Pillars of Islam Section*/
-.pillars-islam{
-    margin: 50px 0;
-    /*background:url(../images/bg/parallax-bg.png);*/
-     background:linear-gradient(rgba(23, 24, 25, 0.49), rgba(23, 24, 25, 0.49)),url(../images/bg/parallax-bg.png);
-    background-repeat:no-repeat;
-    background-size: 100% 100%;
-    
-}
-.pillars-text-section h3{
-    color: #fff;
-    font-size: 25px;
-    margin-top: 20px;
-    text-transform: capitalize;
-}
-.pillars-text-section p{
-    color: #fff;
-}
-.col-sec{
-    
-    width: 20%;
-    padding: 0 15px;
-    margin:38px 0;
-    float: left;
-    
-}
-.roted-sec{
-    height: 150px;
-    width: 150px;
-    border: 3px solid #0D7523;
-    transform: rotate(145deg);
-    position: relative;
-    transition: 0.5s;
-}
-.pillars-sec{
-     height: 150px;
-    width: 150px;
-    border: 3px solid #0D7523;
-    background: #E0E9E4;
-    position: absolute;
-   margin-top: -150px;
-    transition: 0.5s;
-    
-}
-.col-sec:hover .roted-sec{
-    transform: rotate(0deg);
-}.col-sec:hover .pillars-sec{
-    transform: rotate(145deg);
-}
-.pillars-dec {
-    margin-top: 40px;
-    margin-right: 70px;
-}
-.pillars-dec h4 {
-    color: #fff;
-    text-transform: capitalize;
-    font-size: 25px;
-}
-.pillars-dec span{color: #0D7523;text-transform: uppercase;}
-/*End The Pillars of Islam Section*/
-
-
-/*Start Audio Section*/
-.audiolaibary-section{
-    margin: 25px 0;
-    padding: 30px 0;
-}
-.audio-text{
-    margin-bottom: 10px;
-}
-.audio-text h5{color: orange;}
-.audio-text h2{}
-
-.card-detles {
-    background: #fff;
-    box-shadow: 2px 5px 12px 0px;
-}
-.cardimg-section{
-     background:rgba(49, 48, 47, 0.58);
-    position: relative;
-}
-.cardimg-section img{
-   position: relative;
-   width: 100%;
-   
-}
-
-.play-icon{
-  position: absolute;
-    left: 50%;
-	top: 42%;
-	-webkit-transform: translateX(-50%) translateY(-50%);
-	transform: translateX(-50%) translateY(-50%);
-    z-index: 1;
-    font-size: 45px;
-    transition: 0.3s;
-    color: #fff;
-    font-weight: normal;
-    
-}
-.play-icon a:hover{
-     color: #FE9723;
-}
-.card-text{
-    margin: 20px 0;
-    padding: 15px;
-}
-.card-text h3 {
-    font-size: 17px;
-    margin-bottom: 10px;
-    color: #000;
-    font-weight: 600!important;
-}
-
-.icon-left .fa,.latest-detls .fa{
-    color: #FE9723;
-}
-.icon-right{
-    float: right;
-}
-.icon-right a {
-    color: #413f3f;
-    margin-right: 8px;
-    font-size: 17px;
-}
-.icon-right a:hover{
-    color: #FE9723;
-}
-
-.view-btn {
-    margin: a auto;
-    background-color: #FE9723;
-    padding: 7px 10px;
-    width: 100px;
-    margin: 0 auto;
-    margin-top: 45px;
-    border-radius: 3px;
-   
-}
-.view-btn  a{
-    color: #fff;
-    text-decoration: none;
-}
-
-/*End Audio Section*/
-
-/*Lates News Section*/
-.card-detles{
-    overflow: hidden;
-}
-.cardnewsimg-section img{
-    transition: 0.4s;
-   
-}
-.card-detles:hover .cardnewsimg-section img{
-    transform: scale(1.2);
-}
-.latest-detls{}
-.latest-detls h3{}
-.latest-detls .fa{}
-.latest-detls p{}
-/*End Lates News Section*/
-
-
-/* Start Nikha page design */
-
-.nikha-banner{
-  background-image: url(../images/others-pase/nikah-img1.png);
-  background-size: 100% 100%;
-  height: 70vh;
-}
-
-/* nikah-dtls-one */
-
-.nikah-dtls-one{
-  margin: 30px 0;
-}
-.mb-3{margin-bottom: 30px;}
-.mb-3 h4{
-  font-style: italic;
-  margin-bottom: 10px;
-  font-family: "Philosopher", sans-serif !important;
-  color: #000;
-}
-.dtls-one-left p{
-  font-family: open-sans;
-  color: #555;
-  font-size: 18px;
-}
-
-.Procedure-title{}
-.Procedure-title h2{
-  font-size: 40px;
-  font-family: "Philosopher", sans-serif !important;
-  color: #000;
-}
-.nikah-list-left{
-  padding-left: 30px;
-}
-.nikah-list-left li{
-  font-family: open-sans;
-  color: #666;
-  font-size: 20px;
-  line-height: 30px;
-}
-.nikah-second-dtls{
-  font-family: open-sans;
-  color: #666;
-  font-size: 20px;
-  line-height: 30px;
-}
-
-/* End Nikha page design */
-
-/* Start daily-jumuah-prayar */
-.daily-jumuah{
-  background-image: url(../images/others-pase/daily-jumuah-prayar-img1.png);
-  background-size: 100% 100%;
-  height: 70vh;
-  background-repeat: no-repeat;
-}
-
-.daily-dtls{
-  margin: 80px 0;
-  padding: 20px 0;
-}
-.daily-jumuah-imgdtls{}
-.daily-jumuah-imgdtls h2{
-  font-size: 40px;
-  font-family: "Philosopher", sans-serif !important;
-  color: #000;
-}
-.daily-jumuah-imgdtls p{
-  margin: 20px 0 0;
-  direction: ltr;
-  font-size: 20px;
-  line-height: 1.5;
-  text-align: justify;
-  padding-right: 15px;
-  font-family: open-sans;
-}
-
-.listen-btn{
-  position: relative;
-  margin: 50px 0;
-}
-.btn-btn-listen {
-  padding: 10px 40px;
-  background-color: #0F0F41;
-  color: #fff !important;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  transition: all 0.4s ease;
-  border-radius: 6px;
-  font-family: open-sans;
-}
-.btn-btn-listen:hover{
-  background-color: #5E2C01;
-  color: #fff;
-}
-
-/* end daily-jumuah-prayar */
-
-/* quran-tafsir */
-.quran-tafsir-bg{
-  background-image: url(../images/others-pase/quran-tafsir-img1.png);
-  background-size: 100% 100%;
-  height: 70vh;
-  background-repeat: no-repeat;
-}
-.mt-30{
-  margin-top: 50px;
-}
-/* Ramadan */
-.ramadan-bg{
-  background-image: url(../images/others-pase/ramadan-img1.png);
-  background-size: 100% 100%;
-  height: 70vh;
-  background-repeat: no-repeat;
-}
-
-/* aims-and-objectives */
-.amis-and-objecti-bg{
-    background-image: url(../images/others-pase/aimsandobjectivesbanner-img1.png);
-    background-size: 100% 100%;
-    height: 70vh;
-    background-repeat: no-repeat;
-  }
-
-  /* nazirah-program */
-  .nazirah-program{
-    background-image: url(../images/others-pase/nazirah-program-img1.png);
-    background-size: 100% 100%;
-    height: 70vh;
-    background-repeat: no-repeat;
-  }
-
-  /* alim-program */
-  .alim-program{
-    background-image: url(../images/others-pase/alim-program-img1.png);
-    background-size: 100% 100%;
-    height: 70vh;
-    background-repeat: no-repeat;
-  }
-
-    /*after-school-maktab*/
-    .after-school-maktab{
-        background-image: url(../images/others-pase/after-school-maktab-img1.png);
-        background-size: 100% 100%;
-        height: 70vh;
-        background-repeat: no-repeat;
-      }
-      /* weekend-maktab */
-      .weekend-maktab{
-        background-image: url(../images/others-pase/weekend-maktab-img1.png);
-        background-size: 100% 100%;
-        height: 70vh;
-        background-repeat: no-repeat;
-      }
-
-
-
-      /* event-banner-section */
-      .event-banner-section{
-        background-image:linear-gradient(rgba(18, 41, 63, 0.76),rgba(18, 41, 63, 0.76)), url(../images/others-pase/events-bg.jpg);
-        background-size: 100% 100%;
-        height: 90vh;
-        background-repeat: no-repeat;
-        background-position:center center;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      .text-box{
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%,-50%);
-          width: 100%;
-      }
-      .banner-text h1{
-        color: #fff;
-        font-family: "Raleway", sans-serif;
-        font-size: 50px;
-        font-weight: 600;
-        text-transform: uppercase;
-        text-align: center;
-      }
-
-      /* Start EVENT SPEAKERS section */
-      .enent-speaker-section{margin: 40px 0;background: #fff;}
-      .title-box::before{
-        position: absolute;
-        content: '';
-        height: 5px;
-        width: 60px;
-        background: #F8234A;
-      display: block;
-      bottom: 0;
-      left: calc(50% - 25px);
-      }
-      .title-box h3{}
-      .title-box p{
-         
-      }
-
-      .speaker-box{
-          text-align: center;
-          overflow: hidden;
-          margin-bottom: 30px;
-          position: relative;
-    }
-      .speaker-box > .img-fluid{
-          max-height: 308px;
-          min-height: 308px;
-          object-fit: cover;
-          width: 100%;
-      }
-      .speaker-box > .img-dtls{
-          background: rgb(0 0 0 / 60%);
-          position: absolute;
-          left: 0;
-          bottom: -30px;
-          right: 0;
-          padding-top:10px;
-          transition: all 0.4s ease;
-      }
-      .speaker-box:hover .img-dtls{
-        bottom: 0px;
-      }
-      .speaker-box > .img-dtls a{text-decoration: none;}
-      .speaker-box > .img-dtls h2 {
-        color: #fff;
-        font-size: 22px;
-        transition: all 0.6s ease;
-    }
-    .speaker-box > .img-dtls h2:hover{color: #F8234A;}
-      
-      .speaker-box > .img-dtls > .speaker-social-icon .fa{
-          color: #fff;
-          transition: all 0.6s ease;
-      }
-      .speaker-box > .img-dtls > .speaker-social-icon .fa:hover{
-          color: #F8234A;
-      }
-      /* End EVENT SPEAKERS section */
-      /* Start EVENT SCHEDULE section */
-      .event-schedule-section{background: #F6F7FD;margin: 40px 0;padding: 30px 0;}
-
-
-nav > .nav.nav-tabs{
-
-    border: none;
-      color:#fff;
-      background:transparent;
-      border-radius:0;
-  
-  }
-  nav > div a.nav-item.nav-link, nav > div a.nav-item.nav-link.active {
-    border: none;
-    padding: 17px 30px;
-    color: #fff;
-    background: #0F1C4E;
-    border-radius: 20px;
-    margin: 0 6px;
-}
-  
-nav > div a.nav-item.nav-link.active:after {
-    content: "";
-    position: relative;
-    bottom: -54px;
-    left: -10%;
-    border: 15px solid transparent;
-    border-top-color: #e74c3c;
-}
-
-  
-  nav > div a.nav-item.nav-link:hover,
-  nav > div a.nav-item.nav-link:focus
-  {
-    border: none;
-      background: #F8234A;
-      color:#fff;
-      border-radius:20px;
-      transition:background 0.20s linear;
-      padding: 17px 30px;
-  }
-  .upcomming-box{
-      margin-bottom: 10px;
-      border-bottom: 2px solid rgb(85, 83, 83);
-      background: #fff;
-      margin: 15px 15px;
-  }
-
-  .tab-img img{
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-  }
-
-
-      /* ENd EVENT SCHEDULE section */
-
-
-      /* Start generous_donation.html */
-
-
-      /***************** *********************
-         slider area styles
-****************** ********************/
-
-.showcase .carousel-item {
-    height: 70vh;
-  }
-  
-  .showcase .carousel-generousimg-1 {
-    background: url(../images/slideshow/generousdonation1.png);
-    background-size: 100% 100%;
-    background-position: center center;
-  }
-  
-  .showcase .carousel-generousimg-2 {
-    background: url(../images/slideshow/generousdonation2.png);
-    background-size: cover;
-    background-position: center center;
-  }
-  
-  .showcase .carousel-generousimg-3 {
-    background: url(../images/slideshow/generousdonation3.png);
-    background-size: cover;
-    background-position: center center;
-  }
-  
-  .showcase .carousel-indicators li {
-    height: 4px;
-    width: 30px;
-    border-radius: 5px;
-    color: #E30613;
-    background: rgba(182, 15, 15, 0.568);
-    cursor: pointer;
-  }
-  
-  .showcase .carousel-indicators .active {
-    background: #E30613;
-  }
-  
-  .showcase .slider-control {
-    font-size: 50px;
-  }
-  
-  
-  
-  .showcase .carousel-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-size: 100% 100%;
-    background-position: center;
-  
-  }
-
-
-  .carousel-fade .carousel-item {
-    opacity: 0;
-    transition-duration: .6s;
-    transition-property: opacity;
-   }
-   
-   .carousel-fade  .carousel-item.active,
-   .carousel-fade  .carousel-item-next.carousel-item-left,
-   .carousel-fade  .carousel-item-prev.carousel-item-right {
-     opacity: 1;
-   }
-   
-   .carousel-fade .active.carousel-item-left,
-   .carousel-fade  .active.carousel-item-right {
-    opacity: 0;
-   }
-   
-   .carousel-fade  .carousel-item-next,
-   .carousel-fade .carousel-item-prev,
-   .carousel-fade .carousel-item.active,
-   .carousel-fade .active.carousel-item-left,
-   .carousel-fade  .active.carousel-item-prev {
-    transform: translateX(0);
-    transform: translate3d(0, 0, 0);
-   }
-  
-  /* End slider area  */
-
-.slider2-box{
-    top: 40%;
-    left: 30%;
-    position: absolute;
-    transform: translate(-50,-50%);
-}
-.slider-text h1{}
-.slider-text p{}
-
-
-.btn-btn-donate {
-    background: #000338;
-    padding: 10px 33px;
-    color: #fff;
-    font-size: 40px;
-    border-radius: 7px;
-    transition: all 0.4s ease;
-    
-}
-.btn-btn-donate:hover{background: #5D2B00;text-decoration: none;color: #fff;}
-
-
-
-.btn-info{
-  font-size: 25px;
-  
-}
-.donate-rightbox h3{
-  color: #292929;
-  font-size: 40px;
-}
-.donate-rightbox p{margin: 0;}
-.donate-rightbox h1{
-  text-align: center;
-}
-.rightimg{ overflow: hidden;}
-.rightimg img{
-  transition: all 0.4s ease-in-out;
- 
-}
-.rightimg img:hover{
-  transform: scale(1.2);
-}
-
-/* Start Rahima Aziz Foundation section */
-.rahima-foundationseciton{
-  background: linear-gradient(to bottom, #D8FEFC,#F4F3F7);
-  padding: 40px 0;
-}
-.rahima-title h2{
-  color: #101042;
-  text-align: center;
-}
-.foundatoin-rotedbox{
-  background: #fff;
-  min-height: 370px;
-  padding: 15px;
-  margin-bottom: 20px;
-  transform: rotate(-10deg);
-  transition: all 0.4s ease-in-out;
-}
-.foundatoin-rotedbox:hover{transform: rotate(0deg);}
-
-   /*End generous_donation.html */
-
-   /* Start Register page */
-   .register-bg{
-     background:linear-gradient(to bottom, #0f0f418c,#0f0f41),url(../images/slideshow/registerimg.jpg) ;
-     background-position: center center;
-     
-   }
-   .register-box{
-     background: #76908E;
-     padding: 10px 20px;
-     margin: 20px 0;
-   }
-   .reg-title{}
-   .reg-title h1 {
-    font-size: 30px;
-    border-bottom: 1px solid #fff;
-    text-align: center;
-}
-label{color: #fff;}
-.regsub-btn {
-  background: #0F0F41;
-  padding: 8px 40px;
-  border: none;
-  border-radius: 7px;
-  color: #fff;
-  font-size: 23px;
-  outline: none;
-  cursor: pointer;
-}
-   /* End Register page */
-
+    font-family: var(--roboto);
+}
+  .program-box > p {
+    text-align: justify;
+    font-size: 16px;
+    color: #3a3737;
+}
+/* end Our Program sectoin*/
+/* start Our achivement-box sectoin*/
+.achivement-box{}
+.achivement-box >img{}
+.achivement-detls {
+    padding: 8px 20px;
+}
+.achivement-detls >h4 {
+    font-size: 18px;
+    font-family: var(--roboto);
+}
+.achivement-detls > span{}
+.achivement-detls > p {
+    font-size: 15px;
+    text-align: justify;
+    font-family: var(--roboto);
+    font-weight: 400;
+}
+/* end Our achivement-box sectoin*/
 
 /*Start Footer Section*/
 .footer-section{
@@ -1430,44 +539,24 @@ label{color: #fff;}
     margin-top: 50px 0;
     background: #032926;
 }
-.ft-bg-image{
-     background: url(../images/bg/footer-btm-bannner.png);
-    background: linear-gradient( rgba(3, 33, 30, 0.25));
-    background-position:center;
-    background-repeat: no-repeat;
- 
-}
-.ft-bg-image{
-    
-}
-
-.ft-para{}
-.ft-para h5{
-    line-height: 20px;
-    color: #fff;
+.ft-para h5 {
+    color: #BFC7C6;
+    font-size: 16px;
+    font-weight: normal;
 }
 .ft-logo {
     margin-bottom: 55px;
 }
-
-.ft-title{}
 .ft-title h2 {
     font-size: 25px;
     color: #fff;
     margin-bottom: 15px;
 }
 .ft-para ul{margin: 0; padding: 0;}
-.child-para{
-     margin-left: 10px;
-} 
 .ft-para ul li, .child-para li {
     list-style: none;
-    border-bottom: 1px dashed;
-    border-color: #fff;
-    width: 148px;
     line-height: 30px;
     color: #BFC7C6;
-    margin-bottom: 8px;
 }
 .ft-para ul li:last-child{
     border-bottom:none;
@@ -1479,52 +568,27 @@ label{color: #fff;}
     display:block;
 }.ft-para ul li a:hover{
     color: #FF8824;
-   
-} 
+
+}
 
 /*End Footer Section*/
-
-
 /*-----------------------------------------------*/
-
-
-.text-section h4 {
-  font-size: 28px;
-  line-height: 32px; }
-.text-section h5 {
-  font-size: 18px;
-  letter-spacing: 1px; }
-
-.text-section.white {
-  color: #fff; }
-  .text-section.white h2, .text-section.white h3, .text-section.white h4, .text-section.white h5, .text-section.white a {
-    color: #fff; }
-  .text-section.white a:hover {
-    color: #fe4157; }
-.text-section h2 span, .text-section h3 span, .text-section h4 span, .text-section h5 span, .text-section p span, .text-section a span {
-  color: #FF9822; }
-
-.text-section-2 h4 {
-  margin-bottom: 20px; }
-.text-section-2 ul li i {
-  margin-right: 10px; }
-
 
 
 /*Start Footer Section*/
 .copyright-section {
   background: #003131;
   color: #dddddd;
- 
+
   padding: 20px 0px 15px 0; }
   .copyright-section .copyright-text p {
     color: #9b9b9b; }
 .copyright-text a {
     color: #9b9b9b;
-    font-weight: 600; 
+    font-weight: 600;
 }.copyright-text a:hover {
     color: #fe4157;
-    font-weight: 600; 
+    font-weight: 600;
 }
 
 .error-page {
@@ -1583,7 +647,6 @@ label{color: #fff;}
     transform: translate(-50%,-50%);
     margin-top: 180px;
     text-align: center;
-    
 }
 .abouteus-txt{
     border-bottom: 2px solid #eee;
@@ -1651,8 +714,6 @@ label{color: #fff;}
     color: #000;
     text-align: justify;
 }
-
-.prayer-box{}
 /* End About page desing */
 
 

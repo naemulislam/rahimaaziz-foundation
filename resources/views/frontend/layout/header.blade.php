@@ -1,13 +1,10 @@
-<header class="header-sec" data-wow-duration="1s">
+<header class="header-sec">
     <nav class="navbar">
         <div class="container">
-
-
+            <img class="header-logo" src="{{ asset('frontend/assets/images/logo/main-logo.png')}}" alt="">
             <div class="menu-area ml-auto">
                 <ul>
                     <li><a href="{{ route('home')}}"><i class="fa fa-home"></i> Home</a></li>
-
-
                     <li class="dd-btn1"><a href="{{route('about')}}">About Us </a></li>
 
                    <li class="dd-btn1"><a href="#!"> Media <i class="fa fa-angle-down"></i></a>
@@ -27,12 +24,6 @@
                     <li class="dd-btn1"><a target="_blank" href="{{ route('admission')}}"> Online Admission</a></li>
                     @if(auth('admin')->user())
                     <li><a href="{{ route('admin.dashboard')}}"> Dashboard</a></li>
-                    @elseif(auth('principle')->user())
-                    <li><a href="{{ route('principle.dashboard')}}"> Dashboard</a></li>
-                    @elseif(auth('accountant')->user())
-                    <li><a href="{{ route('accountant.dashboard')}}"> Dashboard</a></li>
-                    @elseif(auth('hr')->user())
-                    <li><a href="{{ route('hr.dashboard')}}"> Dashboard</a></li>
                     @elseif(auth('teacher')->user())
                     <li><a href="{{ route('teacher.dashboard')}}"> Dashboard</a></li>
                     @elseif(auth('student')->user())
@@ -40,13 +31,11 @@
                     @elseif(auth()->user())
                     <li><a href="{{ route('dashboard')}}">Dashboard</a></li>
                     @else
-
                     <li><a href="{{ route('signin.portal')}}">Signin</a></li>
                     @endif
                 </ul>
             </div>
             <i class="fa fa-bars menu-icon"></i>
-
         </div>
     </nav>
     </header>
