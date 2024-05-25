@@ -108,6 +108,60 @@
         </div>
     </section>
     <!--Start Exprience Section-->
+    <!--Start Notice board Section-->
+    <section class="notice-section">
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="heading-title">
+                        <h3 class="text-white">Notice Board</h3>
+                        <div class="heading-border"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="notice-box">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="notice-para">
+                                    <h3>Notice title</h3>
+                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
+                                        voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
+                                    <a href="#" class="btn btn-primary">Read more..</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="notice-para">
+                                    <h3>Notice title</h3>
+                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
+                                        voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
+                                        <a href="#" class="btn btn-primary">Read more..</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="notice-para">
+                                    <h3>Notice title</h3>
+                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
+                                        voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
+                                    <a href="#" class="btn btn-primary">Read more..</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="notice-para">
+                                    <h3>Notice title</h3>
+                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
+                                        voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
+                                    <a href="#" class="btn btn-primary">Read more..</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end Notice board Section-->
     <!--Start our program section-->
     <section class="my-4">
         <div class="container">

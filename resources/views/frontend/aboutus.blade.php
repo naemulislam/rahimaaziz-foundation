@@ -20,27 +20,29 @@
         margin-bottom: 30px;
     }
 </style>
-<section class="about-section">
-
+<section class="breadcrumb-section">
     <div class="container">
         <div class="row">
-            <div class="col">
-                <div class="abouteus-txt py-3">
-                    <h1>About Us</h1>
-
+            <div class="col-md-4 mx-auto text-center">
+                <div class="page-breadcrumb">
+                    <span><a href="#">Home</a> / About</span>
                 </div>
+                  <div class="page-title">
+                    <h2>About Us</h2>
+                  </div>
             </div>
         </div>
-
+    </div>
+</section>
+<section class="about-section">
+    <div class="container">
         <div class="row my-4">
             <div class="col-md-12">
                 <div class="welcome-box">
                     <h1>Welcome to Rahima Aziz Foundation</h1>
                     <p>Rahima Aziz Foundation was founded at the beginning of 2021 as an extension of the Al Mansoor Cultural Center which was established in 2016. Both RA Foundation and Al Mansoor Cultural Center were founded by Mufti Muhammad Abdullah, Mufti Muhammad Hafiz Abdullah, Maulana Nayeemullah, Umme Yousuf, and their family members. Alhamdulillah, currently, Rahima Aziz Foundation is operating a full-fledged Masjid that provides many different programs and services. Among these are daily prayers, weekly Jumuah and Taraweeh prayers in the month of Ramadhan. It also has weekly Tafsir programs. For Islamic education, there is a Maktab and Madrasa where students of all ages are learning their Arabic letters, perfecting their Tajweed in reciting the beautiful ayahs of the Holy Book, and also a Hifz program where our students memorize the Qur’an by heart. Alhamdulillah we have qualified male and female teachers on our staff so as to provide a good Islamic environment for both male and female students. As a cultural center, it functions as a place for the community to gather for functions such as Eid and Aqiqah, and Marriage. </p>
-
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -52,10 +54,8 @@
                 <div class="title">
                     <h2>About Our <Span style="color: #FF9822;">Services</Span></h2>
                     <div class="title-bb"></div>
-
                 </div>
             </div>
-
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -116,39 +116,6 @@
     </div>
 
 </section>
-
-
-<section class="faq-section py-5">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col">
-                <div class="title">
-                    <h2>Our <Span style="color: #FF9822;">Staff</Span></h2>
-                    <div class="title-bb"></div>
-
-                </div>
-            </div>
-
-        </div>
-        @foreach($staffs as $row)
-        <div class="row bg-light p-3 mb-3">
-            <div class="col-md-4">
-                <div class="staff-title-box">
-                    <h3>{{$row->name}}</h3>
-                    <p>{{$row->department}}</p>
-                    <p>{{$row->email}}</p>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="staff-details">
-                    <p>{!! $row->description !!}</p>
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
-
-</section>
 <section class="faq-section py-5">
     <div class="container">
         <div class="row mb-4">
@@ -156,10 +123,8 @@
                 <div class="title">
                     <h2>Ar-Rahman <Span style="color: #FF9822;">Academy</Span></h2>
                     <div class="title-bb"></div>
-
                 </div>
             </div>
-
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -171,7 +136,6 @@
                                 <span> <i class="fa fa-angle-down"></i> </span>
                             </div>
                         </a>
-
                         <div id="collapseacadamyOne" class="collapse" aria-labelledby="headingacadamyOne" data-parent="#accordion">
                             <div class="card-body">
                                 Our Hifz program is a full-time program dedicated to memorizing the Holy Quran in its entirety. Our aim is not only for our students to memorize, but also to make sure our students retain what they have memorized. For this, our program emphasizes memorizing and retention equally. This is integrated with academic support in math, English, social studies, and science in accordance with NYS homeschooling guidelines.
@@ -213,13 +177,10 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
-
 </section>
 <!-- end FAQ section -->
 
