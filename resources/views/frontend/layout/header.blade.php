@@ -11,16 +11,15 @@
                             <ul>
                                 <li><a href="{{ route('about') }}"><i class="fa fa-long-arrow-right"></i> About Us</a>
                                 </li>
-                                <li><a href=""><i class="fa fa-long-arrow-right"></i>Our Team</a></li>
+                                <li><a href="{{ route('team_member')}}"><i class="fa fa-long-arrow-right"></i>Our Team</a></li>
                                 <li><a href=""><i class="fa fa-long-arrow-right"></i>FAQ</a></li>
-
                             </ul>
                         </div>
                     </li>
                     <li class="dd-btn1"><a href="#!"> Media <i class="fa fa-angle-down"></i></a>
                         <div class="dropdown-menu1">
                             <ul>
-                                <li><a href=""><i class="fa fa-long-arrow-right"></i>Gallery</a></li>
+                                <li><a href="{{ route('gallery')}}"><i class="fa fa-long-arrow-right"></i>Gallery</a></li>
                                 <li><a href=""><i class="fa fa-long-arrow-right"></i> Video</a></li>
                             </ul>
                         </div>
@@ -51,7 +50,7 @@
 <div class="mobile-menu">
     <div class="mm-logo" style="background: #fff; padding: 11px 18px;">
         <a href="{{ route('home') }}">
-            <img style="width: 55px;" src="{{ asset('frontend') }}/assets/images/logo/logo-light1.png" alt="logo">
+            {{-- <img style="width: 55px;" src="{{ asset('frontend') }}/assets/images/logo/logo-light1.png" alt="logo"> --}}
         </a>
         <div class="mm-cross-icon">
             <i class="fa fa-times mm-ci"></i>
@@ -74,7 +73,7 @@
                     <div class="card-body">
                         <ul>
                             <li><a href="{{ route('about')}}"><i class="fa fa-long-arrow-right"></i>About Us</a></li>
-                            <li><a href=""><i class="fa fa-long-arrow-right"></i>Our Team</a></li>
+                            <li><a href="{{ route('team_member')}}"><i class="fa fa-long-arrow-right"></i>Our Team</a></li>
                             <li><a href=""><i class="fa fa-long-arrow-right"></i>FAZ</a></li>
                         </ul>
                     </div>
@@ -89,7 +88,7 @@
                     data-parent="#accordionExample">
                     <div class="card-body">
                         <ul>
-                            <li><a href=""><i class="fa fa-long-arrow-right"></i>Gallery</a></li>
+                            <li><a href="{{ route('gallery')}}"><i class="fa fa-long-arrow-right"></i>Gallery</a></li>
                             <li><a href=""><i class="fa fa-long-arrow-right"></i>Video</a></li>
 
                         </ul>

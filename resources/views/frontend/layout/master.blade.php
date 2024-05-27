@@ -14,10 +14,12 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('frontend') }}/assets/css/jpreview.css">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.carousel.min.css') }}" />
 
-    <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.theme.default.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.theme.default.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('defaults/toastr/toastr.min.css') }}">
 
     <!-- Bootstrap css -->
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/simple-lightbox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/dataTable.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap_v4.min.css') }}">
 
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/themify-icons.css"> --}}
@@ -28,7 +30,6 @@
     <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/responsive.css">
     @yield('customcss')
 </head>
-
 <body>
     <!-- Start Top Header Section -->
     <section class="topbar">
@@ -148,6 +149,9 @@
     <!-- Owl-carosul js file cdn link -->
     <script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend') }}/assets/js/owl-extra-code.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/simple-lightbox.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/dataTables.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/dataTables.bootstrap4.js"></script>
 
 
     <!-- Toastr -->

@@ -39,8 +39,8 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="text-section">
-                                    <h3 class="underline"><span style="color:#fe4157;">Welcome to</span>Rahima Aziz
+                                <div class="text-section mt-3">
+                                    <h3 class="underline"><span style="color:#ffa229;">Welcome to </span>Rahima Aziz
                                         Foundation</h3>
 
                                     <p class="mb-3">Rahima Aziz Foundation was established in 2021 as a place of prayer,
@@ -128,7 +128,7 @@
                                     <h3>Notice title</h3>
                                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
                                         voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
-                                    <a href="#" class="btn btn-primary">Read more..</a>
+                                    <a href="{{ route('notice') }}" class="btn btn-primary">Read more..</a>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -136,7 +136,7 @@
                                     <h3>Notice title</h3>
                                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
                                         voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
-                                        <a href="#" class="btn btn-primary">Read more..</a>
+                                    <a href="#" class="btn btn-primary">Read more..</a>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -173,33 +173,160 @@
                     </div>
                 </div>
             </div>
+            <div class="row mb-3">
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid"
+                                                src="{{ asset('frontend/assets/images/others-page/ramdan-img2.jpeg') }}"
+                                                alt="card image"></p>
+                                        <h4 class="card-title">Sunlimetech</h4>
+                                        <p class="card-text">This is basic card with image on top, title, description and
+                                            button.</p>
+                                        <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i
+                                                class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <h4 class="card-title">Sunlimetech</h4>
+                                        <p class="card-text">This is basic card with image on top, title, description and
+                                            button.This is basic card with image on top, title, description and button.This
+                                            is basic card with image on top, title, description and button.</p>
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a class="btn btn-primary text-white"
+                                                    href="{{ route('program.details') }}">
+                                                    Read more
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid"
+                                                src="{{ asset('frontend/assets/images/others-page/ramdan-img2.jpeg') }}"
+                                                alt="card image"></p>
+                                        <h4 class="card-title">Sunlimetech</h4>
+                                        <p class="card-text">This is basic card with image on top, title, description and
+                                            button.</p>
+                                        <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i
+                                                class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <h4 class="card-title">Sunlimetech</h4>
+                                        <p class="card-text">This is basic card with image on top, title, description and
+                                            button.This is basic card with image on top, title, description and button.This
+                                            is basic card with image on top, title, description and button.</p>
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a class="btn btn-primary text-white" href="#">
+                                                    Read more
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid"
+                                                src="{{ asset('frontend/assets/images/others-page/ramdan-img2.jpeg') }}"
+                                                alt="card image"></p>
+                                        <h4 class="card-title">Sunlimetech</h4>
+                                        <p class="card-text">This is basic card with image on top, title, description and
+                                            button.</p>
+                                        <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i
+                                                class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <h4 class="card-title">Sunlimetech</h4>
+                                        <p class="card-text">This is basic card with image on top, title, description and
+                                            button.This is basic card with image on top, title, description and button.This
+                                            is basic card with image on top, title, description and button.</p>
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a class="btn btn-primary text-white" href="#">
+                                                    Read more
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid"
+                                                src="{{ asset('frontend/assets/images/others-page/ramdan-img2.jpeg') }}"
+                                                alt="card image"></p>
+                                        <h4 class="card-title">Sunlimetech</h4>
+                                        <p class="card-text">This is basic card with image on top, title, description and
+                                            button.</p>
+                                        <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i
+                                                class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <h4 class="card-title">Sunlimetech</h4>
+                                        <p class="card-text">This is basic card with image on top, title, description and
+                                            button.This is basic card with image on top, title, description and button.This
+                                            is basic card with image on top, title, description and button.</p>
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a class="btn btn-primary text-white" href="#">
+                                                    Read more
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="program-box common-shadow">
-                        <h2>Program 1</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel recusandae id provident numquam
-                            accusamus aliquid eaque sapiente minus a! Quidem placeat voluptas necessitatibus laudantium nam
-                            doloribus repellat eaque fugiat vel!</p>
-                        <a href="#" class="btn btn-primary">Read More</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="program-box common-shadow">
-                        <h2>Program 2</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel recusandae id provident numquam
-                            accusamus aliquid eaque sapiente minus a! Quidem placeat voluptas necessitatibus laudantium nam
-                            doloribus repellat eaque fugiat vel!</p>
-                        <a href="#" class="btn btn-primary">Read More</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="program-box common-shadow">
-                        <h2>Program 3</h2>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel recusandae id provident numquam
-                            accusamus aliquid eaque sapiente minus a! Quidem placeat voluptas necessitatibus laudantium nam
-                            doloribus repellat eaque fugiat vel!</p>
-                        <a href="#" class="btn btn-primary">Read More</a>
-                    </div>
+                <div class="col-md-2 mx-auto">
+                    <a href="{{ route('programs') }}" class="btn btn-primary">View all programs</a>
                 </div>
             </div>
         </div>
@@ -223,22 +350,34 @@
             <div class="row">
                 <div class="campus-owl owl-carousel owl-theme">
                     <div class="item">
-                        <img src="{{ asset('frontend') }}/assets/images/campas/campus-1.jpg" alt="">
+                        <div class="campus-box">
+                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-1.jpg" alt="">
+                        </div>
                     </div>
                     <div class="item">
-                        <img src="{{ asset('frontend') }}/assets/images/campas/campus-2.jpg" alt="">
+                        <div class="campus-box">
+                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-2.jpg" alt="">
+                        </div>
                     </div>
                     <div class="item">
-                        <img src="{{ asset('frontend') }}/assets/images/campas/campus-3.jpg" alt="">
+                        <div class="campus-box">
+                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-3.jpg" alt="">
+                        </div>
                     </div>
                     <div class="item">
-                        <img src="{{ asset('frontend') }}/assets/images/campas/campus-4.jpg" alt="">
+                        <div class="campus-box">
+                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-4.jpg" alt="">
+                        </div>
                     </div>
                     <div class="item">
-                        <img src="{{ asset('frontend') }}/assets/images/campas/campus-5.jpg" alt="">
+                        <div class="campus-box">
+                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-5.jpg" alt="">
+                        </div>
                     </div>
                     <div class="item">
-                        <img src="{{ asset('frontend') }}/assets/images/campas/campus-6.jpg" alt="">
+                        <div class="campus-box">
+                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-6.jpg" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -256,51 +395,60 @@
                     </div>
                 </div>
             </div>
+            <div class="row mb-3">
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="achivement-box common-shadow">
+                        <a href="{{ route('achivement.details') }}">
+                            <div class="achivement-img">
+                                <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
+                                    alt="">
+                            </div>
+                            <div class="achivement-detls">
+                                <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+                                <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum,
+                                    quaerat
+                                    esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo
+                                    culpa
+                                    veritatis harum quos reprehenderit suscipit deleniti.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="achivement-box common-shadow">
+                        <div class="achivement-img">
+                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
+                                alt="">
+                        </div>
+                        <div class="achivement-detls">
+                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
+                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
+                                veritatis harum quos reprehenderit suscipit deleniti.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                    <div class="achivement-box common-shadow">
+                        <div class="achivement-img">
+                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
+                                alt="">
+                        </div>
+                        <div class="achivement-detls">
+                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
+                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
+                                veritatis harum quos reprehenderit suscipit deleniti.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
-                        </div>
-                    </div>
+                <div class="col-md-2 mx-auto">
+                    <a href="{{ route('achivements') }}" class="btn btn-primary">View all achivements</a>
                 </div>
             </div>
         </div>
@@ -317,20 +465,24 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
                     <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
-                        </div>
+                        <a href="{{ route('news.details') }}">
+                            <div class="achivement-img">
+                                <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
+                                    alt="">
+                            </div>
+                            <div class="achivement-detls">
+                                <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+                                <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum,
+                                    quaerat
+                                    esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo
+                                    culpa
+                                    veritatis harum quos reprehenderit suscipit deleniti.</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
@@ -364,7 +516,11 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-md-2 mx-auto">
+                    <a href="{{ route('news') }}" class="btn btn-primary">View all news</a>
+                </div>
+            </div>
         </div>
     </section>
     <!--End Latest News Section-->

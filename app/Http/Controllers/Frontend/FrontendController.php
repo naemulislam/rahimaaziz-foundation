@@ -62,6 +62,42 @@ class FrontendController extends Controller
         $data["groups"] = GroupRepository::query()->where('status', 1)->orderBy('order', 'asc')->get();
         return view('frontend.admission', $data);
     }
+    //Team members method
+    public function teamMember(){
+        return view('frontend.team');
+    }
+    //gallery method
+    public function gallery(){
+        return view('frontend.gallery');
+    }
+    //notice method
+    public function notice(){
+        return view('frontend.notice');
+    }
+    //programs method
+    public function programs(){
+        return view('frontend.programs');
+    }
+    //programDetails method
+    public function programDetails(){
+        return view('frontend.program_details');
+    }
+    //achivements method
+    public function achivements(){
+        return view('frontend.achivement');
+    }
+    //achivementDetails method
+    public function achivementDetails(){
+        return view('frontend.achivement_details');
+    }
+    //news method
+    public function news(){
+        return view('frontend.news');
+    }
+    //newsDetails method
+    public function newsDetails(){
+        return view('frontend.news_details');
+    }
     public function onlineAdmissionStore(OnlineAdmissionRequest $request)
     {
         $student = StudentRepository::onlineAdmissionCreate($request);
