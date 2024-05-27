@@ -114,7 +114,7 @@ class FrontendController extends Controller
             return redirect()->route('teacher.dashboard');
         } elseif (Auth::guard('student')->check()) {
             return redirect()->route('student.dashboard');
-        } elseif (Auth::guard()->check()) {
+        } elseif (Auth::guard()->check()){
             return redirect()->route('dashboard');
         } else {
             return view('frontend.layout.signin.signin');
