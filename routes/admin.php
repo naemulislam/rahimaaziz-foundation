@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\TeacherAttenController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\AllAuthController;
+use App\Http\Controllers\Backend\NoticeController;
 use App\Http\Controllers\Frontend\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -200,6 +201,16 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('/fees/payment/invoice/{id}',[FeesController::class,'feesPaymentInvoice'])->name('fees.payment.invoice');
     });
     Route::post('search/student/result/',[SearchController::class,'studentSearc'])->name('search');
+
+    Route::controller(NoticeController::class)->group(function(){
+        Route::get('/notice/index', 'index')->name('notice.index');
+        Route::get('/notice/create', 'create')->name('notice.create');
+        Route::post('/notice/store', 'store')->name('notice.store');
+        Route::get('/notice/edit/{notice}', 'edit')->name('notice.edit');
+        Route::put('/notice/update/{notice}', 'update')->name('notice.update');
+        Route::get('/notice/destroy/{notice}', 'destroy')->name('notice.destroy');
+        Route::post('/notice/status/{notice}', 'status')->name('notice.status');
+    });
 
     /////////////////////////Default routes////////////////////////////////
 //Get Data ajax
