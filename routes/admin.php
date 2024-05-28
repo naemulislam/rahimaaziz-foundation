@@ -29,6 +29,7 @@ use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\Backend\AchievementController;
 use App\Http\Controllers\Backend\CampusController;
+use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\NoticeController;
 use App\Http\Controllers\Backend\ProgramController;
 use App\Http\Controllers\Frontend\LoginController;
@@ -238,6 +239,15 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::put('/achievement/update/{achievement}', 'update')->name('achievement.update');
         Route::get('/achievement/destroy/{achievement}', 'destroy')->name('achievement.destroy');
         Route::post('/achievement/status/{achievement}', 'status')->name('achievement.status');
+    });
+    Route::controller(NewsController::class)->group(function(){
+        Route::get('/news/index', 'index')->name('news.index');
+        Route::get('/news/create', 'create')->name('news.create');
+        Route::post('/news/store', 'store')->name('news.store');
+        Route::get('/news/edit/{news}', 'edit')->name('news.edit');
+        Route::put('/news/update/{news}', 'update')->name('news.update');
+        Route::get('/news/destroy/{news}', 'destroy')->name('news.destroy');
+        Route::post('/news/status/{news}', 'status')->name('news.status');
     });
 
     /////////////////////////Default routes////////////////////////////////
