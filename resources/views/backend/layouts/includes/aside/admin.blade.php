@@ -603,10 +603,21 @@
 								<!--WebSite management Setting-->
 								<li class="menu-item menu-item-submenu
                                 {{
-                                    $routeName == 'admin.teacher.index' ||
-                                    $routeName == 'admin.teacher.create'||
-                                    $routeName == 'admin.teacher.edit'||
-                                    $routeName == 'admin.teacher.show' ? 'menu-item-open':''}}
+                                    $routeName == 'admin.notice.index' ||
+                                    $routeName == 'admin.notice.create'||
+                                    $routeName == 'admin.notice.edit'||
+                                    $routeName == 'admin.program.index' ||
+                                    $routeName == 'admin.program.create'||
+                                    $routeName == 'admin.program.edit'||
+                                    $routeName == 'admin.campuses.index' ||
+                                    $routeName == 'admin.gallery.index' ||
+                                    $routeName == 'admin.slider.index' ||
+                                    $routeName == 'admin.achievement.index' ||
+                                    $routeName == 'admin.achievement.create'||
+                                    $routeName == 'admin.achievement.edit'||
+                                    $routeName == 'admin.news.index' ||
+                                    $routeName == 'admin.news.create'||
+                                    $routeName == 'admin.news.edit' ? 'menu-item-open':''}}
                                 " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
@@ -631,7 +642,12 @@
 													<span class="menu-text">website</span>
 												</span>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu {{
+                                            $routeName == 'admin.notice.index'||
+                                            $routeName == 'admin.notice.create'||
+                                            $routeName == 'admin.notice.edit'? 'menu-item-active':''
+                                            }}
+                                            " aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{route('admin.notice.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -640,7 +656,13 @@
 													<i class="menu-arrow"></i>
 												</a>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu
+                                            {{
+                                                $routeName == 'admin.program.index'||
+                                                $routeName == 'admin.program.create'||
+                                                $routeName == 'admin.program.edit'? 'menu-item-active':''
+                                                }}
+                                            " aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.program.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -650,7 +672,8 @@
 												</a>
 
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu
+                                            {{$routeName == 'admin.campuses.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.campuses.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -659,7 +682,13 @@
 													<i class="menu-arrow"></i>
 												</a>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu
+                                            {{
+                                                $routeName == 'admin.achievement.index'||
+                                                $routeName == 'admin.achievement.create'||
+                                                $routeName == 'admin.achievement.edit'? 'menu-item-active':''
+                                                }}
+                                            " aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.achievement.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -668,12 +697,38 @@
 													<i class="menu-arrow"></i>
 												</a>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu
+                                            {{
+                                                $routeName == 'admin.news.index'||
+                                                $routeName == 'admin.news.create'||
+                                                $routeName == 'admin.news.edit'? 'menu-item-active':''
+                                                }}
+                                            " aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.news.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
 													<span class="menu-text">Latest News</span>
+													<i class="menu-arrow"></i>
+												</a>
+											</li>
+											<li class="menu-item menu-item-submenu
+                                            {{ $routeName == 'admin.slider.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.slider.index')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Slider</span>
+													<i class="menu-arrow"></i>
+												</a>
+											</li>
+											<li class="menu-item menu-item-submenu
+                                            {{ $routeName == 'admin.gallery.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.gallery.index')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Galleries</span>
 													<i class="menu-arrow"></i>
 												</a>
 											</li>

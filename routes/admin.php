@@ -29,9 +29,11 @@ use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\Backend\AchievementController;
 use App\Http\Controllers\Backend\CampusController;
+use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\NewsController;
 use App\Http\Controllers\Backend\NoticeController;
 use App\Http\Controllers\Backend\ProgramController;
+use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -206,6 +208,14 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
     });
     Route::post('search/student/result/',[SearchController::class,'studentSearc'])->name('search');
 
+    Route::controller(SliderController::class)->group(function(){
+        Route::get('/slider/index', 'index')->name('slider.index');
+        Route::post('/slider/store', 'store')->name('slider.store');
+        Route::post('/slider/update/{slider}', 'update')->name('slider.update');
+        Route::get('/slider/destroy/{slider}', 'destroy')->name('slider.destroy');
+        Route::post('/slider/status/{slider}', 'status')->name('slider.status');
+    });
+
     Route::controller(NoticeController::class)->group(function(){
         Route::get('/notice/index', 'index')->name('notice.index');
         Route::get('/notice/create', 'create')->name('notice.create');
@@ -248,6 +258,13 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::put('/news/update/{news}', 'update')->name('news.update');
         Route::get('/news/destroy/{news}', 'destroy')->name('news.destroy');
         Route::post('/news/status/{news}', 'status')->name('news.status');
+    });
+    Route::controller(GalleryController::class)->group(function(){
+        Route::get('/gallery/index', 'index')->name('gallery.index');
+        Route::post('/gallery/store', 'store')->name('gallery.store');
+        Route::post('/gallery/update/{gallery}', 'update')->name('gallery.update');
+        Route::get('/gallery/destroy/{gallery}', 'destroy')->name('gallery.destroy');
+        Route::post('/gallery/status/{gallery}', 'status')->name('gallery.status');
     });
 
     /////////////////////////Default routes////////////////////////////////
