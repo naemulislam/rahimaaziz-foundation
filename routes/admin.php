@@ -27,7 +27,10 @@ use App\Http\Controllers\Admin\TeacherAttenController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\AllAuthController;
+use App\Http\Controllers\Backend\AchievementController;
+use App\Http\Controllers\Backend\CampusController;
 use App\Http\Controllers\Backend\NoticeController;
+use App\Http\Controllers\Backend\ProgramController;
 use App\Http\Controllers\Frontend\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -210,6 +213,31 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::put('/notice/update/{notice}', 'update')->name('notice.update');
         Route::get('/notice/destroy/{notice}', 'destroy')->name('notice.destroy');
         Route::post('/notice/status/{notice}', 'status')->name('notice.status');
+    });
+    Route::controller(ProgramController::class)->group(function(){
+        Route::get('/program/index', 'index')->name('program.index');
+        Route::get('/program/create', 'create')->name('program.create');
+        Route::post('/program/store', 'store')->name('program.store');
+        Route::get('/program/edit/{program}', 'edit')->name('program.edit');
+        Route::put('/program/update/{program}', 'update')->name('program.update');
+        Route::get('/program/destroy/{program}', 'destroy')->name('program.destroy');
+        Route::post('/program/status/{program}', 'status')->name('program.status');
+    });
+    Route::controller(CampusController::class)->group(function(){
+        Route::get('/campuses/index', 'index')->name('campuses.index');
+        Route::post('/campuses/store', 'store')->name('campuses.store');
+        Route::post('/campuses/update/{campus}', 'update')->name('campuses.update');
+        Route::get('/campuses/destroy/{campus}', 'destroy')->name('campuses.destroy');
+        Route::post('/campuses/status/{campus}', 'status')->name('campuses.status');
+    });
+    Route::controller(AchievementController::class)->group(function(){
+        Route::get('/achievement/index', 'index')->name('achievement.index');
+        Route::get('/achievement/create', 'create')->name('achievement.create');
+        Route::post('/achievement/store', 'store')->name('achievement.store');
+        Route::get('/achievement/edit/{achievement}', 'edit')->name('achievement.edit');
+        Route::put('/achievement/update/{achievement}', 'update')->name('achievement.update');
+        Route::get('/achievement/destroy/{achievement}', 'destroy')->name('achievement.destroy');
+        Route::post('/achievement/status/{achievement}', 'status')->name('achievement.status');
     });
 
     /////////////////////////Default routes////////////////////////////////

@@ -74,7 +74,10 @@
                                         <div class="form-group">
                                             <label>Document</label>
                                             <input type="file" name="document" class="form-control"
-                                                onchange="loadFile(event)" accept="pdf,jpg,jpeg">
+                                                onchange="loadFile(event)" accept=".pdf,.jpg,.jpeg">
+                                                @error('document')
+                                            <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">

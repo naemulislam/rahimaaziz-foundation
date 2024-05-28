@@ -70,6 +70,9 @@
             border: 1px solid #d9d9d9 !important;
             padding: 6px;
         }
+        .previewImage{
+            width: 200px;
+        }
     </style>
 </head>
 <!--end::Head-->

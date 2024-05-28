@@ -633,10 +633,9 @@
 													<span class="menu-text">Notices</span>
 													<i class="menu-arrow"></i>
 												</a>
-
 											</li>
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="" class="menu-link menu-toggle">
+												<a href="{{ route('admin.program.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
@@ -644,6 +643,24 @@
 													<i class="menu-arrow"></i>
 												</a>
 
+											</li>
+											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.campuses.index')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Campuses</span>
+													<i class="menu-arrow"></i>
+												</a>
+											</li>
+											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.achievement.index')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Achievement</span>
+													<i class="menu-arrow"></i>
+												</a>
 											</li>
 										</ul>
 									</div>

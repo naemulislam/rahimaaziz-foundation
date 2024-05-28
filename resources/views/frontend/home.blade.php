@@ -390,7 +390,7 @@
             <div class="row mb-3">
                 <div class="col">
                     <div class="heading-title">
-                        <h3>Our Achivement</h3>
+                        <h3>Our Achievement</h3>
                         <div class="heading-border"></div>
                     </div>
                 </div>
