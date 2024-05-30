@@ -5,21 +5,13 @@
     <section class="mb-4">
         <div class="slider-box">
             <div class="mail-slider owl-carousel owl-theme">
-                <div class="item">
-                    <div class="slider-img">
-                        <img src="{{ asset('frontend/assets/images/slideshow/img1.jpg') }}" alt="">
+                @foreach ($sliders as $slider)
+                    <div class="item">
+                        <div class="slider-img">
+                            <img src="{{ asset($slider->image) }}" alt="">
+                        </div>
                     </div>
-                </div>
-                <div class="item">
-                    <div class="slider-img">
-                        <img src="{{ asset('frontend/assets/images/slideshow/img2.jpg') }}" alt="">
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="slider-img">
-                        <img src="{{ asset('frontend/assets/images/slideshow/img3.jpg') }}" alt="">
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -123,38 +115,15 @@
                 <div class="col-md-8 mx-auto">
                     <div class="notice-box">
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="notice-para">
-                                    <h3>Notice title</h3>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
-                                        voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
-                                    <a href="{{ route('notice') }}" class="btn btn-primary">Read more..</a>
+                            @foreach ($notices as $notice)
+                                <div class="col-md-6 mb-3">
+                                    <div class="notice-para">
+                                        <h3>{{ $notice->title }}</h3>
+                                        <p>{!! $notice->description !!}</p>
+                                        <a href="{{ route('notice') }}" class="btn btn-primary">Read more..</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="notice-para">
-                                    <h3>Notice title</h3>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
-                                        voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
-                                    <a href="#" class="btn btn-primary">Read more..</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="notice-para">
-                                    <h3>Notice title</h3>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
-                                        voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
-                                    <a href="#" class="btn btn-primary">Read more..</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="notice-para">
-                                    <h3>Notice title</h3>
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum accusantium
-                                        voluptates recusandae ipsam a vel tempora ex incidunt aliquid quas.</p>
-                                    <a href="#" class="btn btn-primary">Read more..</a>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -174,155 +143,42 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <div class="image-flip">
-                        <div class="mainflip flip-0">
-                            <div class="frontside">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p><img class=" img-fluid"
-                                                src="{{ asset('frontend/assets/images/others-page/ramdan-img2.jpeg') }}"
-                                                alt="card image"></p>
-                                        <h4 class="card-title">Sunlimetech</h4>
-                                        <p class="card-text">This is basic card with image on top, title, description and
-                                            button.</p>
-                                        <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i
-                                                class="fa fa-plus"></i></a>
+                @foreach ($programs as $program)
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <div class="image-flip">
+                            <div class="mainflip flip-0">
+                                <div class="frontside">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <p><img class=" img-fluid"
+                                                    src="{{ asset($program->document) }}"
+                                                    alt="card image"></p>
+                                            <h4 class="card-title">{{ $program->title }}</h4>
+                                            <p class="card-text">{{ Str::limit($program->description, 20) }}</p>
+                                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="backside">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">Sunlimetech</h4>
-                                        <p class="card-text">This is basic card with image on top, title, description and
-                                            button.This is basic card with image on top, title, description and button.This
-                                            is basic card with image on top, title, description and button.</p>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a class="btn btn-primary text-white"
-                                                    href="{{ route('program.details') }}">
-                                                    Read more
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <div class="image-flip">
-                        <div class="mainflip flip-0">
-                            <div class="frontside">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p><img class=" img-fluid"
-                                                src="{{ asset('frontend/assets/images/others-page/ramdan-img2.jpeg') }}"
-                                                alt="card image"></p>
-                                        <h4 class="card-title">Sunlimetech</h4>
-                                        <p class="card-text">This is basic card with image on top, title, description and
-                                            button.</p>
-                                        <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i
-                                                class="fa fa-plus"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">Sunlimetech</h4>
-                                        <p class="card-text">This is basic card with image on top, title, description and
-                                            button.This is basic card with image on top, title, description and button.This
-                                            is basic card with image on top, title, description and button.</p>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a class="btn btn-primary text-white" href="#">
-                                                    Read more
-                                                </a>
-                                            </li>
-                                        </ul>
+                                <div class="backside">
+                                    <div class="card">
+                                        <div class="card-body text-center mt-4">
+                                            <h4 class="card-title">{{ $program->title }}</h4>
+                                            <p class="card-text">{{ Str::limit($program->description, 40) }}</p>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a class="btn btn-primary text-white"
+                                                        href="{{ route('program.details',$program->slug) }}">
+                                                        Read more
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <div class="image-flip">
-                        <div class="mainflip flip-0">
-                            <div class="frontside">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p><img class=" img-fluid"
-                                                src="{{ asset('frontend/assets/images/others-page/ramdan-img2.jpeg') }}"
-                                                alt="card image"></p>
-                                        <h4 class="card-title">Sunlimetech</h4>
-                                        <p class="card-text">This is basic card with image on top, title, description and
-                                            button.</p>
-                                        <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i
-                                                class="fa fa-plus"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">Sunlimetech</h4>
-                                        <p class="card-text">This is basic card with image on top, title, description and
-                                            button.This is basic card with image on top, title, description and button.This
-                                            is basic card with image on top, title, description and button.</p>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a class="btn btn-primary text-white" href="#">
-                                                    Read more
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <div class="image-flip">
-                        <div class="mainflip flip-0">
-                            <div class="frontside">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p><img class=" img-fluid"
-                                                src="{{ asset('frontend/assets/images/others-page/ramdan-img2.jpeg') }}"
-                                                alt="card image"></p>
-                                        <h4 class="card-title">Sunlimetech</h4>
-                                        <p class="card-text">This is basic card with image on top, title, description and
-                                            button.</p>
-                                        <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i
-                                                class="fa fa-plus"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">Sunlimetech</h4>
-                                        <p class="card-text">This is basic card with image on top, title, description and
-                                            button.This is basic card with image on top, title, description and button.This
-                                            is basic card with image on top, title, description and button.</p>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a class="btn btn-primary text-white" href="#">
-                                                    Read more
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="row">
                 <div class="col-md-2 mx-auto">
@@ -349,36 +205,14 @@
             <!--Second row for Slider-->
             <div class="row">
                 <div class="campus-owl owl-carousel owl-theme">
-                    <div class="item">
-                        <div class="campus-box">
-                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-1.jpg" alt="">
+                    @foreach ($campuses as $campus)
+                        <div class="item">
+                            <div class="campus-box">
+                                <img src="{{ asset($campus->image) }}" alt="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="campus-box">
-                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-2.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="campus-box">
-                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-3.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="campus-box">
-                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-4.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="campus-box">
-                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-5.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="campus-box">
-                            <img src="{{ asset('frontend') }}/assets/images/campas/campus-6.jpg" alt="">
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>
@@ -395,56 +229,28 @@
                     </div>
                 </div>
             </div>
+            @php
+                use Carbon\Carbon;
+            @endphp
             <div class="row mb-3">
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <a href="{{ route('achivement.details') }}">
-                            <div class="achivement-img">
-                                <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                    alt="">
-                            </div>
-                            <div class="achivement-detls">
-                                <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                                <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum,
-                                    quaerat
-                                    esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo
-                                    culpa
-                                    veritatis harum quos reprehenderit suscipit deleniti.</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
+                @foreach ($achievements as $achievement)
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                        <div class="achivement-box common-shadow">
+                            <a href="{{ route('achivement.details',$achievement->slug) }}">
+                                <div class="achivement-img">
+                                    <img src="{{ asset($achievement->document) }}"
+                                        alt="">
+                                </div>
+                                <div class="achivement-detls">
+                                    <h4>{{ $achievement->title }}</h4>
+                                    <span><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        {{ Carbon::parse($achievement->date)->format('l, jS F Y ') }}</span>
+                                    <p>{!! $achievement->description !!}</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="row">
                 <div class="col-md-2 mx-auto">
@@ -466,55 +272,24 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <a href="{{ route('news.details') }}">
-                            <div class="achivement-img">
-                                <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                    alt="">
-                            </div>
-                            <div class="achivement-detls">
-                                <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                                <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum,
-                                    quaerat
-                                    esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo
-                                    culpa
-                                    veritatis harum quos reprehenderit suscipit deleniti.</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
+                @foreach ($newses as $news)
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                        <div class="achivement-box common-shadow">
+                            <a href="{{ route('achivement.details',$news->slug) }}">
+                                <div class="achivement-img">
+                                    <img src="{{ asset($news->document) }}"
+                                        alt="">
+                                </div>
+                                <div class="achivement-detls">
+                                    <h4>{{ $news->title }}</h4>
+                                    <span><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        {{ Carbon::parse($news->date)->format('l, jS F Y ') }}</span>
+                                    <p>{!! $news->description !!}</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="row">
                 <div class="col-md-2 mx-auto">

@@ -37,7 +37,7 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
     Route::put('/profile/document/update/{student}', 'updateDocument')->name('document.update');
 
     Route::get('/edit/password/', 'cPassword')->name('epassword');
-    Route::post('/update/password/', 'upassword')->name('upassword');
+    Route::post('/update/password/{student}', 'updatePassword')->name('password.update');
     // Route::get('/admission/fee/', [StudentController::class, 'admissionFee'])->name('admission.fee');
     Route::post('/admission/fee/store/{student}', 'admissionFeeStore')->name('admission.fee.store');
     });

@@ -10,8 +10,15 @@ use App\Models\Prayer;
 use App\Models\Staff;
 use App\Models\Student;
 use App\Models\User;
+use App\Repositories\AchievementRepository;
+use App\Repositories\CampusRepository;
+use App\Repositories\GalleryRepository;
 use App\Repositories\GroupRepository;
+use App\Repositories\NewsRepository;
+use App\Repositories\NoticeRepository;
 use App\Repositories\OnlineAdmissionRepository;
+use App\Repositories\ProgramRepository;
+use App\Repositories\SliderRepository;
 use App\Repositories\StudentInfoRepository;
 use App\Repositories\StudentRepository;
 use Carbon\Carbon;
@@ -24,7 +31,13 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.home');
+        $data['sliders'] = SliderRepository::query()->where('status', true)->orderBy('order', 'asc')->get();
+        $data['campuses'] = CampusRepository::query()->where('status', true)->orderBy('order', 'asc')->get();
+        $data['notices'] = NoticeRepository::query()->latest()->where('status', true)->take(4)->get();
+        $data['programs'] = ProgramRepository::query()->where('status', true)->latest()->take(4)->get();
+        $data['achievements'] = AchievementRepository::query()->where('status', true)->latest()->take(6)->get();
+        $data['newses'] = NewsRepository::query()->latest()->where('status', true)->take(6)->get();
+        return view('frontend.home',$data);
     }
     //Contact page and contact data store
     public function contact()
@@ -68,35 +81,43 @@ class FrontendController extends Controller
     }
     //gallery method
     public function gallery(){
-        return view('frontend.gallery');
+        $data['galleries'] = GalleryRepository::query()->latest()->where('status', true)->get();
+        return view('frontend.gallery',$data);
     }
     //notice method
     public function notice(){
-        return view('frontend.notice');
+        $data['notices'] = NoticeRepository::query()->latest()->where('status', true)->get();
+        return view('frontend.notice',$data);
     }
     //programs method
     public function programs(){
-        return view('frontend.programs');
+        $data['programs'] = ProgramRepository::query()->where('status', true)->latest()->get();
+        return view('frontend.programs',$data);
     }
     //programDetails method
-    public function programDetails(){
-        return view('frontend.program_details');
+    public function programDetails($slug){
+        $program = ProgramRepository::query()->where('slug',$slug)->first();
+        return view('frontend.program_details',compact('program'));
     }
     //achivements method
     public function achivements(){
-        return view('frontend.achivement');
+        $data['achievements'] = AchievementRepository::query()->where('status', true)->latest()->get();
+        return view('frontend.achivement',$data);
     }
     //achivementDetails method
-    public function achivementDetails(){
-        return view('frontend.achivement_details');
+    public function achivementDetails($slug){
+        $achievement = AchievementRepository::query()->where('slug',$slug)->first();
+        return view('frontend.achivement_details',compact('achievement'));
     }
     //news method
     public function news(){
-        return view('frontend.news');
+        $data['newses'] = NewsRepository::query()->latest()->where('status', true)->get();
+        return view('frontend.news',$data);
     }
     //newsDetails method
-    public function newsDetails(){
-        return view('frontend.news_details');
+    public function newsDetails($slug){
+        $news = NewsRepository::query()->where('slug',$slug)->first();
+        return view('frontend.news_details',compact('news'));
     }
     public function onlineAdmissionStore(OnlineAdmissionRequest $request)
     {

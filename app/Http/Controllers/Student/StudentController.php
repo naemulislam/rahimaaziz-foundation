@@ -25,7 +25,6 @@ class StudentController extends Controller
         StudentRepository::studentPortalProfileUpdate($request, $student);
         StudentInfoRepository::studentPortalProfileUpdate($request, $student->id);
         return back()->with('success', 'Profile is updated successfully!');
-
     }
     public function updateDocument(Request $request, Student $student)
     {
@@ -39,15 +38,15 @@ class StudentController extends Controller
         ]);
         AdmissionRepository::studentPortalDocumentUpdate($request, $student->id);
         return back()->with('success', 'Document is updated successfully!');
-
     }
+    //student portal change password method
 
     public function cPassword()
     {
         return view('backend.student.dashboard.profile.edit-password');
     }
 
-    public function upassword(Request $request)
+    public function updatePassword(Request $request, Student $student)
     {
         $this->validate($request, [
             'current_password' => 'required',
@@ -55,46 +54,42 @@ class StudentController extends Controller
             'password_confirmation' => 'min:8'
         ]);
 
-        if (Auth::attempt(['id' => Auth('student')->user()->id, 'password' => $request->current_password])){
-            $user = Student::find(Auth('student')->user()->id);
-            $user->password = Hash::make($request->new_password);
-            $user->save();
-            $notification = array(
-                'message' => 'Successfully password changed.',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('student.dashboard')->with($notification);
+        if (Auth::attempt(['id' => $student->id, 'password' => $request->current_password])) {
+
+            $student->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+
+            return redirect()->route('student.dashboard')->with('success', 'Successfully password changed.');
         } else {
-            $notification = array(
-                'message' => 'Sorry! Your current password dost not match.',
-                'alert-type' => 'error'
-            );
-            return redirect()->back()->with($notification);
+
+            return redirect()->back()->with('error', 'Sorry! Your current password dost not match.');
         }
     }
     //Admission fee payment method
-    public function admissionFeeStore(Request $request, Student $student){
+    public function admissionFeeStore(Request $request, Student $student)
+    {
         // return $request->all();
         $registratonFee = GroupRepository::query()->where('id', $student->admission->group_id)->first();
 
         $fee_amount = $registratonFee->reg_fee;
 
-         \Stripe\Stripe::setApiKey('sk_test_51KUbT6LEylh30WQ8Mlb1wvxGBMq8Sm8YGm70jQGt7mbxv0zdYrG3wMsT2SrjuJYt3g93MPGQj0DJwnFVBHN3rOdw00wlXBiHEP');
+        \Stripe\Stripe::setApiKey('sk_test_51KUbT6LEylh30WQ8Mlb1wvxGBMq8Sm8YGm70jQGt7mbxv0zdYrG3wMsT2SrjuJYt3g93MPGQj0DJwnFVBHN3rOdw00wlXBiHEP');
 
-            $token = $_POST['stripeToken'];
+        $token = $_POST['stripeToken'];
 
-            $charge = \Stripe\Charge::create([
-                'amount' => $fee_amount * 100,
-                'currency' => 'usd',
-                'description' => 'Payment to Rahima Aziz',
-                'source' => $token,
-                'metadata' => ['order_id' => uniqid()],
-            ]);
-            //innovative it , inspirad solution
-            $pMethod = $charge->payment_method;
-            $balanceTransaction = $charge->balance_transaction;
-            $currency = $charge->currency;
-            $amount= $charge->amount;
+        $charge = \Stripe\Charge::create([
+            'amount' => $fee_amount * 100,
+            'currency' => 'usd',
+            'description' => 'Payment to Rahima Aziz',
+            'source' => $token,
+            'metadata' => ['order_id' => uniqid()],
+        ]);
+        //innovative it , inspirad solution
+        $pMethod = $charge->payment_method;
+        $balanceTransaction = $charge->balance_transaction;
+        $currency = $charge->currency;
+        $amount = $charge->amount;
         $student->admission->update([
             //payment details
             'payment_type' => 'Stripe',

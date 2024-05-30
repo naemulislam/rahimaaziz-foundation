@@ -23,11 +23,11 @@ background: #383737;
             <div class="col-md-10 mx-auto">
                 <div class="details-box">
                     <div class="details-img">
-                        <img src="{{ asset('frontend/assets/images/others-page/after-school-maktab-img1.png')}}" alt="">
+                        <img src="{{ asset($program->document)}}" alt="">
                     </div>
                     <div class="details-content">
-                        <h2>Program Title</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis architecto recusandae accusantium repellendus error iste ea, minus soluta, harum, repellat libero! Libero ducimus rerum similique velit laudantium est qui perferendis ut sequi! Recusandae earum eligendi placeat velit. At praesentium quasi eligendi aspernatur recusandae. Doloremque reprehenderit, quibusdam odit delectus totam libero.</p>
+                        <h2>{{$program->title}}</h2>
+                        <p>{!! $program->description !!}</p>
                     </div>
                 </div>
             </div>

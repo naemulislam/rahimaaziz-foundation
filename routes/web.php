@@ -32,11 +32,11 @@ Route::controller(FrontendController::class)->middleware('web')->group(function 
     Route::get('/gallery','gallery')->name('gallery');
     Route::get('/notice','notice')->name('notice');
     Route::get('/programs','programs')->name('programs');
-    Route::get('/program/details/','programDetails')->name('program.details');
+    Route::get('/program/details/{slug}','programDetails')->name('program.details');
     Route::get('/achivements','achivements')->name('achivements');
-    Route::get('/achivements/details/','achivementDetails')->name('achivement.details');
+    Route::get('/achivements/details/{slug}','achivementDetails')->name('achivement.details');
     Route::get('/news','news')->name('news');
-    Route::get('/news/details/','newsDetails')->name('news.details');
+    Route::get('/news/details/{slug}','newsDetails')->name('news.details');
     Route::get('/online/admission', 'admission')->name('admission');
 
     Route::post('/online/admission/store','onlineAdmissionStore')->name('online.admission.store');
