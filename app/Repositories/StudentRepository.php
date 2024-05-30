@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Requests\AdmissionRequest;
 use App\Http\Requests\OnlineAdmissionRequest;
+use App\Http\Requests\StudentProfileRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -117,5 +118,28 @@ class StudentRepository extends Repository
             'status_type' => 0
         ]);
         return $studentCreate;
+    }
+    //Student portal Profile update method
+    public static function studentPortalProfileUpdate(StudentProfileRequest $request, Student $student)
+    {
+        $slug = Str::Slug($request->name);
+        $file = $request->file('image');
+        $image = null;
+        if ($file) {
+            $extenstion = $file->getClientOriginalExtension();
+            $fileName = $slug . '_' . uniqid() . '.' . $extenstion;
+            $unlinkImage = $student->image;
+            @unlink(public_path($unlinkImage));
+            $file->move(public_path('uploaded/student/image'), $fileName);
+            $image = '/uploaded/student/image/' . $fileName;
+        }
+        $studentUpdate = self::update($student, [
+            'name' => $request->name,
+            'slug' => $slug,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'image' => $image ?? $student->image,
+        ]);
+        return $studentUpdate;
     }
 }

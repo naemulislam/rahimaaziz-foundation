@@ -3,172 +3,42 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StudentProfileRequest;
 use App\Models\Student;
-use App\Models\StudentInfo;
+use App\Repositories\AdmissionRepository;
 use App\Repositories\GroupRepository;
+use App\Repositories\StudentInfoRepository;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
-    public function accountInfo(){
-        return view('backend.student.dashboard.profile.account-info');
-    }
     public function profile()
     {
         return view('backend.student.dashboard.profile.profile');
     }
 
-    public function update(Request $request, $id)
+    public function update(StudentProfileRequest $request, Student $student)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|unique:students,email,' . $id,
-            'phone' => 'required'
-
-        ]);
-
-        $data = Student::find($id);
-
-        $data->name            = $request->name;
-        $data->email            = $request->email;
-        $data->phone            = $request->phone;
-
-        $image = $request->file('image');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->profile_photo_path;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student'), $imageName);
-            $data->profile_photo_path = '/uploaded/student/' . $imageName;
-        }
-
-        $data->save();
-
-        $notification = array(
-            'message' => 'Student updated successfully!',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        StudentRepository::studentPortalProfileUpdate($request, $student);
+        StudentInfoRepository::studentPortalProfileUpdate($request, $student->id);
+        return back()->with('success', 'Profile is updated successfully!');
 
     }
-    public function studenUpdate(Request $request, $id){
-        $studentcount = StudentInfo::wehre('id',$id)->first();
-        $rowcount = StudentInfo::wehre('id',$id)->count();
-
-        if($rowcount == 0){
-
-        $data = new StudentInfo();
-
-        $data->student_id      = $data->id;
-        $data->gender          = $request->gender;
-        $data->date_of_birth   = $request->date_of_birth;
-        $data->category        = $request->category;
-        $data->religion        = $request->religion;
-        $data->admission_date  = $request->admission_date;
-        $data->blood           = $request->blood;
-        $data->height          = $request->height;
-        $data->weight          = $request->weight;
-        $data->c_address       = $request->c_address;
-        $data->p_address       = $request->p_address;
-        $data->father_name     = $request->father_name;
-        $data->father_call     = $request->father_call;
-        $data->father_ocupa    = $request->father_ocupa;
-        $data->father_nid      = $request->father_nid;
-        $data->father_photo    = $request->father_photo;
-        $data->mother_name     = $request->mother_name;
-        $data->mother_call     = $request->mother_call;
-        $data->mother_ocupa    = $request->mother_ocupa;
-        $data->mother_nid      = $request->mother_nid;
-        $data->mother_photo    = $request->mother_photo;
-        $data->g_name          = $request->g_name;
-        $data->g_call          = $request->g_call;
-        $data->g_ocupa         = $request->g_ocupa;
-        $data->e_name          = $request->e_name;
-        $data->shift           = $request->shift;
-
-        $image = $request->file('father_pohto');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->father_photo;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/father'), $imageName);
-            $data->father_photo = '/uploaded/student/father/' . $imageName;
-        }
-        $image = $request->file('mother_photo');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->mother_photo;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/mother'), $imageName);
-            $data->mother_photo = '/uploaded/student/mother/' . $imageName;
-        }
-
-
-        $notification = array(
-            'message' => 'Student updated successfully!',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('student.profile')->with($notification);
-
-        }
-        else{
-            $data = StudentInfo::find($id);
-
-
-        $data->gender          = $request->gender;
-        $data->date_of_birth   = $request->date_of_birth;
-        // $data->category        = $request->category;
-        // $data->religion        = $request->religion;
-        // $data->admission_date  = $request->admission_date;
-        $data->blood           = $request->blood;
-        $data->height          = $request->height;
-        $data->weight          = $request->weight;
-        $data->c_address       = $request->c_address;
-        $data->p_address       = $request->p_address;
-        $data->father_name     = $request->father_name;
-        $data->father_call     = $request->father_call;
-        $data->father_ocupa    = $request->father_ocupa;
-        $data->father_nid      = $request->father_nid;
-        $data->father_photo    = $request->father_photo;
-        $data->mother_name     = $request->mother_name;
-        $data->mother_call     = $request->mother_call;
-        $data->mother_ocupa    = $request->mother_ocupa;
-        $data->mother_nid      = $request->mother_nid;
-        $data->mother_photo    = $request->mother_photo;
-        $data->g_name          = $request->g_name;
-        $data->g_call          = $request->g_call;
-        $data->g_ocupa         = $request->g_ocupa;
-        $data->e_name          = $request->e_name;
-        $data->shift           = $request->shift;
-
-        $image = $request->file('father_pohto');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->father_photo;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/father'), $imageName);
-            $data->father_photo = '/uploaded/student/father/' . $imageName;
-        }
-        $image = $request->file('mother_photo');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image_path = $data->mother_photo;
-            @unlink(public_path($image_path));
-            $image->move(public_path('uploaded/student/mother'), $imageName);
-            $data->mother_photo = '/uploaded/student/mother/' . $imageName;
-        }
-
-
-        $notification = array(
-            'message' => 'Student updated successfully!',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('student.profile')->with($notification);
-
-        }
+    public function updateDocument(Request $request, Student $student)
+    {
+        $request->validate([
+            'b_certificate' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
+            'immu_record' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
+            'proof_address' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
+            'physical_health' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
+            'mrrcfps' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
+            'hsral' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
+        ]);
+        AdmissionRepository::studentPortalDocumentUpdate($request, $student->id);
+        return back()->with('success', 'Document is updated successfully!');
 
     }
 

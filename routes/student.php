@@ -28,15 +28,20 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
     Route::post('/logout', [LoginController::class, 'studentLogout'])->name('logout');
 
 
-    Route::get('/student/profile/', [StudentController::class, 'profile'])->name('profile');
-    Route::get('/student/account-info/', [StudentController::class, 'accountInfo'])->name('account.info');
-    //Route::get('/profile', [StudentController::class, 'getProfile'])->name('profile');
-    Route::post('/student/personal-info/update/{id}', [StudentController::class, 'update'])->name('personal.update');
+    Route::controller(StudentController::class)->group(function(){
 
-    Route::get('/edit/password/', [StudentController::class, 'cPassword'])->name('epassword');
-    Route::post('/update/password/', [StudentController::class, 'upassword'])->name('upassword');
+    Route::get('/profile', 'profile')->name('profile');
+    // Route::get('/account-info', 'accountInfo')->name('account.info');
+    //Route::get('/profile', [StudentController::class, 'getProfile'])->name('profile');
+    Route::put('/profile/update/{student}', 'update')->name('profile.update');
+    Route::put('/profile/document/update/{student}', 'updateDocument')->name('document.update');
+
+    Route::get('/edit/password/', 'cPassword')->name('epassword');
+    Route::post('/update/password/', 'upassword')->name('upassword');
     // Route::get('/admission/fee/', [StudentController::class, 'admissionFee'])->name('admission.fee');
-    Route::post('/admission/fee/store/{student}', [StudentController::class, 'admissionFeeStore'])->name('admission.fee.store');
+    Route::post('/admission/fee/store/{student}', 'admissionFeeStore')->name('admission.fee.store');
+    });
+
 
 
     Route::group(['prefix'=>'/student'],function(){

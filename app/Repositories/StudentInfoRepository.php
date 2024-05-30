@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Requests\AdmissionRequest;
 use App\Http\Requests\OnlineAdmissionRequest;
+use App\Http\Requests\StudentProfileRequest;
 use App\Models\StudentInfo;
 use Illuminate\Http\Request;
 
@@ -91,5 +92,30 @@ class StudentInfoRepository extends Repository
         'mother_langu_spoken' => $request->mother_langu_spoken,
        ]);
        return $studentInfoCreate;
+    }
+    //Student portal Profile update method
+    public static function studentPortalProfileUpdate(StudentProfileRequest $request, $studentId)
+    {
+        $studentInfo = self::query()->where('student_id',$studentId)->first();
+      $studentInfoUpdate =  self::update($studentInfo,[
+        'place_of_birth' => $request->place_of_birth,
+        'blood' => $request->blood,
+        'address' => $request->address,
+        'city' => $request->city,
+        'state' => $request->state,
+        'zip_code' => $request->zip_code,
+        //Guardian info
+        'father_name' => $request->father_name,
+        'father_call' => $request->father_call,
+        'father_email' => $request->father_email,
+        'father_langu_spoken' => $request->father_langu_spoken,
+        'mother_name' => $request->mother_name,
+        'mother_call' => $request->mother_call,
+        'mother_email' => $request->mother_email,
+        'mother_langu_spoken' => $request->mother_langu_spoken,
+        'e_name' => $request->e_name,
+        'e_call' => $request->e_call,
+       ]);
+       return $studentInfoUpdate;
     }
 }
