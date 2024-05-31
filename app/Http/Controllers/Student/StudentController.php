@@ -53,14 +53,14 @@ class StudentController extends Controller
             'new_password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8'
         ]);
-
-        if (Auth::attempt(['id' => $student->id, 'password' => $request->current_password])) {
-
+        $currentPassword = $request->current_password;
+        $isPassword = Hash::check($currentPassword, $student->password);
+        if ($isPassword) {
             $student->update([
                 'password' => Hash::make($request->new_password)
             ]);
 
-            return redirect()->route('student.dashboard')->with('success', 'Successfully password changed.');
+            return redirect()->route('student.dashboard')->with('success', 'Password is updated successfully!');
         } else {
 
             return redirect()->back()->with('error', 'Sorry! Your current password dost not match.');

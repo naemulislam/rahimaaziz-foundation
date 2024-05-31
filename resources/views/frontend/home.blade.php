@@ -119,7 +119,7 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="notice-para">
                                         <h3>{{ $notice->title }}</h3>
-                                        <p>{!! $notice->description !!}</p>
+                                        <p>{!! Str::limit($notice->description, 100, '...') !!}</p>
                                         <a href="{{ route('notice') }}" class="btn btn-primary">Read more..</a>
                                     </div>
                                 </div>
@@ -150,11 +150,15 @@
                                 <div class="frontside">
                                     <div class="card">
                                         <div class="card-body text-center">
-                                            <p><img class=" img-fluid"
-                                                    src="{{ asset($program->document) }}"
+                                            <p><img class=" img-fluid" src="{{ asset($program->document) }}"
                                                     alt="card image"></p>
                                             <h4 class="card-title">{{ $program->title }}</h4>
-                                            <p class="card-text">{{ Str::limit($program->description, 20) }}</p>
+                                            @php
+                                                $description = $program->description;
+                                                $plainTextDescription = strip_tags($description);
+                                            @endphp
+
+                                            <p>{{ Str::limit($plainTextDescription, 100, '...') }}</p>
                                             <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                                         </div>
                                     </div>
@@ -163,11 +167,11 @@
                                     <div class="card">
                                         <div class="card-body text-center mt-4">
                                             <h4 class="card-title">{{ $program->title }}</h4>
-                                            <p class="card-text">{{ Str::limit($program->description, 40) }}</p>
+                                            <p class="card-text">{{ Str::limit($plainTextDescription, 100, '...') }}</p>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <a class="btn btn-primary text-white"
-                                                        href="{{ route('program.details',$program->slug) }}">
+                                                        href="{{ route('program.details', $program->slug) }}">
                                                         Read more
                                                     </a>
                                                 </li>
@@ -236,16 +240,20 @@
                 @foreach ($achievements as $achievement)
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
                         <div class="achivement-box common-shadow">
-                            <a href="{{ route('achivement.details',$achievement->slug) }}">
+                            <a href="{{ route('achivement.details', $achievement->slug) }}">
                                 <div class="achivement-img">
-                                    <img src="{{ asset($achievement->document) }}"
-                                        alt="">
+                                    <img src="{{ asset($achievement->document) }}" alt="">
                                 </div>
                                 <div class="achivement-detls">
                                     <h4>{{ $achievement->title }}</h4>
                                     <span><i class="fa fa-calendar" aria-hidden="true"></i>
                                         {{ Carbon::parse($achievement->date)->format('l, jS F Y ') }}</span>
-                                    <p>{!! $achievement->description !!}</p>
+                                    @php
+                                        $description = $achievement->description;
+                                        $plainTextDescription = strip_tags($description);
+                                    @endphp
+
+                                    <p>{{ Str::limit($plainTextDescription, 150, '...') }}</p>
                                 </div>
                             </a>
                         </div>
@@ -275,16 +283,20 @@
                 @foreach ($newses as $news)
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
                         <div class="achivement-box common-shadow">
-                            <a href="{{ route('achivement.details',$news->slug) }}">
+                            <a href="{{ route('achivement.details', $news->slug) }}">
                                 <div class="achivement-img">
-                                    <img src="{{ asset($news->document) }}"
-                                        alt="">
+                                    <img src="{{ asset($news->document) }}" alt="">
                                 </div>
                                 <div class="achivement-detls">
                                     <h4>{{ $news->title }}</h4>
                                     <span><i class="fa fa-calendar" aria-hidden="true"></i>
                                         {{ Carbon::parse($news->date)->format('l, jS F Y ') }}</span>
-                                    <p>{!! $news->description !!}</p>
+                                    @php
+                                        $description = $news->description;
+                                        $plainTextDescription = strip_tags($description);
+                                    @endphp
+
+                                    <p>{{ Str::limit($plainTextDescription, 150, '...') }}</p>
                                 </div>
                             </a>
                         </div>
