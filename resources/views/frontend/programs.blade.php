@@ -30,7 +30,11 @@
                                                     src="{{ asset($program->document) }}"
                                                     alt="card image"></p>
                                             <h4 class="card-title">{{ $program->title }}</h4>
-                                            <p class="card-text">{{ Str::limit($program->description, 20) }}</p>
+                                            @php
+                                            $description = $program->description;
+                                            $plainTextDescription = strip_tags($description);
+                                        @endphp
+                                            <p>{{ Str::limit($plainTextDescription, 100, '...') }}</p>
                                             <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                                         </div>
                                     </div>
@@ -39,7 +43,7 @@
                                     <div class="card">
                                         <div class="card-body text-center mt-4">
                                             <h4 class="card-title">{{ $program->title }}</h4>
-                                            <p class="card-text">{{ Str::limit($program->description, 40) }}</p>
+                                            <p>{{ Str::limit($plainTextDescription, 100, '...') }}</p>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item">
                                                     <a class="btn btn-primary text-white"

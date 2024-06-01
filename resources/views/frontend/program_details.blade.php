@@ -1,6 +1,11 @@
 @extends('frontend.layout.master')
 @section('title','Program Details')
 @section('content')
+<style>
+    .descrition-text{
+        color: #fff !important;
+    }
+</style>
 <section class="breadcrumb-section">
     <div class="container">
         <div class="row">
@@ -16,7 +21,7 @@
     </div>
 </section>
 <section class="py-4" style="
-background: #383737;
+background: #fff;
 ">
     <div class="container">
         <div class="row">
@@ -27,7 +32,7 @@ background: #383737;
                     </div>
                     <div class="details-content">
                         <h2>{{$program->title}}</h2>
-                        <p>{!! $program->description !!}</p>
+                        <p class="descrition-text">{!! $program->description !!}</p>
                     </div>
                 </div>
             </div>

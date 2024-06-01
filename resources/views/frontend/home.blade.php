@@ -247,7 +247,7 @@
                                 <div class="achivement-detls">
                                     <h4>{{ $achievement->title }}</h4>
                                     <span><i class="fa fa-calendar" aria-hidden="true"></i>
-                                        {{ Carbon::parse($achievement->date)->format('l, jS F Y ') }}</span>
+                                        {{ Carbon::parse($achievement->date)->format(' j F Y ') }}</span>
                                     @php
                                         $description = $achievement->description;
                                         $plainTextDescription = strip_tags($description);
@@ -283,14 +283,14 @@
                 @foreach ($newses as $news)
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
                         <div class="achivement-box common-shadow">
-                            <a href="{{ route('achivement.details', $news->slug) }}">
+                            <a href="{{ route('news.details', $news->slug) }}">
                                 <div class="achivement-img">
                                     <img src="{{ asset($news->document) }}" alt="">
                                 </div>
                                 <div class="achivement-detls">
                                     <h4>{{ $news->title }}</h4>
                                     <span><i class="fa fa-calendar" aria-hidden="true"></i>
-                                        {{ Carbon::parse($news->date)->format('l, jS F Y ') }}</span>
+                                        {{ Carbon::parse($news->date)->format(' j F Y ') }}</span>
                                     @php
                                         $description = $news->description;
                                         $plainTextDescription = strip_tags($description);

@@ -16,18 +16,18 @@
     </div>
 </section>
 <section class="py-4" style="
-background: #383737;
+background: #fff;
 ">
     <div class="container">
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <div class="details-box">
                     <div class="details-img">
-                        <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg" alt="">
+                        <img src="{{ asset($news->document)}}" alt="">
                     </div>
                     <div class="details-content">
-                        <h2>Program Title</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis architecto recusandae accusantium repellendus error iste ea, minus soluta, harum, repellat libero! Libero ducimus rerum similique velit laudantium est qui perferendis ut sequi! Recusandae earum eligendi placeat velit. At praesentium quasi eligendi aspernatur recusandae. Doloremque reprehenderit, quibusdam odit delectus totam libero.</p>
+                        <h2>{{$news->title}}</h2>
+                        <p class="descrition-text">{!! $news->description !!}</p>
                     </div>
                 </div>
             </div>

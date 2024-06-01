@@ -27,7 +27,7 @@
                     </li>
                     <li class="dd-btn1"><a href="{{ route('contact') }}">Contact Us</a></li>
 
-                    <li class="dd-btn1"><a target="_blank" href="{{ route('admission') }}"> Online Admission</a></li>
+                    <li class="dd-btn1"><a href="{{ route('admission') }}"> Online Admission</a></li>
                     @if (auth('admin')->user())
                         <li><a href="{{ route('admin.dashboard') }}"> Dashboard</a></li>
                     @elseif(auth('teacher')->user())

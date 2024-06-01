@@ -19,53 +19,28 @@
     <section class="my-4">
         <div class="container">
             <div class="row mb-3">
+                @foreach ($newses as $news)
                 <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
                     <div class="achivement-box common-shadow">
-                        <a href="{{ route('news.details')}}">
+                        <a href="{{ route('news.details', $news->slug) }}">
                             <div class="achivement-img">
-                                <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                    alt="">
+                                <img src="{{ asset($news->document) }}" alt="">
                             </div>
                             <div class="achivement-detls">
-                                <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                                <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                    esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                    veritatis harum quos reprehenderit suscipit deleniti.</p>
+                                <h4>{{ $news->title }}</h4>
+                                <span><i class="fa fa-calendar" aria-hidden="true"></i>
+                                    {{ \Carbon\Carbon::parse($news->date)->format(' j F Y ') }}</span>
+                                @php
+                                    $description = $news->description;
+                                    $plainTextDescription = strip_tags($description);
+                                @endphp
+
+                                <p>{{ Str::limit($plainTextDescription, 150, '...') }}</p>
                             </div>
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                    <div class="achivement-box common-shadow">
-                        <div class="achivement-img">
-                            <img src="{{ asset('frontend') }}/assets/images/latest-news/newslater-img1.jpg"
-                                alt="">
-                        </div>
-                        <div class="achivement-detls">
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
-                            <span><i class="fa fa-calendar" aria-hidden="true"></i> MAR 2, 2021</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur rerum, quaerat
-                                esse, consequuntur inventore ipsa tempore nihil voluptatem unde deserunt iste, nemo culpa
-                                veritatis harum quos reprehenderit suscipit deleniti.</p>
-                        </div>
-                    </div>
-                </div>
+            @endforeach
             </div>
         </div>
     </section>
