@@ -68,8 +68,8 @@
             <div class="note">
                 <h3 class="align-self-center">Applying for the admission.</h3>
             </div>
-            <div class="row my-3">
-                <div class="col-md-4">
+            <div class="row my-3" id="admission-announcement">
+                {{-- <div class="col-md-4">
                     <div class="announcement">
                         <h4>Registration Fee: $100</h4>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="announcement">
                         <h4>Seats are Available: 20</h4>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <form action="{{ route('online.admission.store') }}" method="POST" id="payment-form"
                 enctype="multipart/form-data">
@@ -96,7 +96,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="">Class Group<span class="text-danger">*</span></label>
-                                        <select name="group_id" class="form-control">
+                                        <select name="group_id" class="form-control" id="groupId">
                                             <option selected disabled>Select class group</option>
                                             @foreach ($groups as $group)
                                                 <option value="{{ $group->id }}">{{ $group->name }}</option>
@@ -473,15 +473,13 @@
                                         <input type="checkbox" class="form-check-input" onClick="toggle(this)" /><span
                                             class="p-2">Select All</span><br />
                                     </div>
-                                    @foreach ($activitys as $activity)
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value=""
                                                 id="defaultCheck1" name="activitis[]">
                                             <label class="form-check-label" for="defaultCheck1">
-                                                {{ $activity->name }}
+                                                alskdf
                                             </label>
                                         </div>
-                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -508,5 +506,18 @@
                 checkboxes[i].checked = source.checked;
             }
         }
+    </script>
+    <script>
+       $(document).on('change', '#groupId', function() {
+            var group_id = $(this).val();
+            $.ajax({
+                type: "get",
+                url: "{{ url('/get/group') }}/" + group_id,
+                dataType: 'html',
+                success: function(res) {
+                    $('#admission-announcement').html(res);
+                }
+            });
+        })
     </script>
 @endpush

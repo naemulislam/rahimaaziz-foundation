@@ -178,10 +178,7 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('activity/delete/{class}/{date}', [StudentActivityController::class,'activity_delete'])->name('activity_delete');
 
     });
-    Route::group(['prefix'=> '/site'],function(){
-        Route::resource('setting',SettingController::class);
-        Route::post('setting/update/{id}',[SettingController::class,'updateid'])->name('setting.update.data');
-    });
+
     Route::group(['prefix'=> '/parent'],function(){
         Route::resource('parent',ParentController::class);
         Route::post('/status/{id}',[ParentController::class,'status'])
@@ -265,6 +262,10 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::post('/gallery/update/{gallery}', 'update')->name('gallery.update');
         Route::get('/gallery/destroy/{gallery}', 'destroy')->name('gallery.destroy');
         Route::post('/gallery/status/{gallery}', 'status')->name('gallery.status');
+    });
+    Route::controller(SettingController::class)->group(function(){
+        Route::get('/website/setting', 'index')->name('setting.index');
+        Route::post('/website/setting/update/{setting?}', 'update')->name('setting.updateSettingData');
     });
 
     /////////////////////////Default routes////////////////////////////////

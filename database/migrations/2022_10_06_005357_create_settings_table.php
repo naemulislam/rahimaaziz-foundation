@@ -17,10 +17,9 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->string('site_name')->nullable();
             $table->string('site_slogan')->nullable();
-            $table->string('admission_fee')->nullable();
-            $table->string('monthly_fees')->nullable();
             $table->string('white_logo')->nullable();
             $table->string('black_logo')->nullable();
+            $table->longText('address')->nullable();
             $table->string('facebook_link')->nullable();
             $table->string('twitter_link')->nullable();
             $table->string('instagram_link')->nullable();

@@ -11,6 +11,7 @@ use App\Models\Staff;
 use App\Models\Student;
 use App\Models\User;
 use App\Repositories\AchievementRepository;
+use App\Repositories\AdmissionRepository;
 use App\Repositories\CampusRepository;
 use App\Repositories\GalleryRepository;
 use App\Repositories\GroupRepository;
@@ -37,7 +38,7 @@ class FrontendController extends Controller
         $data['programs'] = ProgramRepository::query()->where('status', true)->latest()->take(4)->get();
         $data['achievements'] = AchievementRepository::query()->where('status', true)->latest()->take(6)->get();
         $data['newses'] = NewsRepository::query()->latest()->where('status', true)->take(6)->get();
-        return view('frontend.home',$data);
+        return view('frontend.home', $data);
     }
     //Contact page and contact data store
     public function contact()
@@ -75,57 +76,98 @@ class FrontendController extends Controller
         $data["groups"] = GroupRepository::query()->where('status', 1)->orderBy('order', 'asc')->get();
         return view('frontend.admission', $data);
     }
+    // get group ,registration fee ,monthly fee and vacant
+    public function getGroup($id)
+    {
+        $group = GroupRepository::query()->where('id', $id)->where('status', true)->first();
+        $studentAreAdmited = AdmissionRepository::query()->where('group_id', $group->id)->count();
+        $vacant = $group->vacant - $studentAreAdmited;
+        $html = '';
+        $html .= '<div class="col-md-4">
+                    <div class="announcement">
+                        <h4>Registration Fee: $' . $group->reg_fee . '</h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="announcement">
+                        <h4>Monthly Fee: $' . $group->monthly_fee . '</h4>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="announcement">
+                        <h4>Seats are Available: ' . $vacant . '</h4>
+                    </div>
+                </div>';
+        return $html;
+    }
     //Team members method
-    public function teamMember(){
+    public function teamMember()
+    {
         return view('frontend.team');
     }
     //gallery method
-    public function gallery(){
+    public function gallery()
+    {
         $data['galleries'] = GalleryRepository::query()->latest()->where('status', true)->get();
-        return view('frontend.gallery',$data);
+        return view('frontend.gallery', $data);
     }
     //notice method
-    public function notice(){
+    public function notice()
+    {
         $data['notices'] = NoticeRepository::query()->latest()->where('status', true)->get();
-        return view('frontend.notice',$data);
+        return view('frontend.notice', $data);
     }
     //programs method
-    public function programs(){
+    public function programs()
+    {
         $data['programs'] = ProgramRepository::query()->where('status', true)->latest()->get();
-        return view('frontend.programs',$data);
+        return view('frontend.programs', $data);
     }
     //programDetails method
-    public function programDetails($slug){
-        $program = ProgramRepository::query()->where('slug',$slug)->first();
-        return view('frontend.program_details',compact('program'));
+    public function programDetails($slug)
+    {
+        $program = ProgramRepository::query()->where('slug', $slug)->first();
+        return view('frontend.program_details', compact('program'));
     }
     //achivements method
-    public function achivements(){
+    public function achivements()
+    {
         $data['achievements'] = AchievementRepository::query()->where('status', true)->latest()->get();
-        return view('frontend.achivement',$data);
+        return view('frontend.achivement', $data);
     }
     //achivementDetails method
-    public function achivementDetails($slug){
-        $achievement = AchievementRepository::query()->where('slug',$slug)->first();
-        return view('frontend.achivement_details',compact('achievement'));
+    public function achivementDetails($slug)
+    {
+        $achievement = AchievementRepository::query()->where('slug', $slug)->first();
+        return view('frontend.achivement_details', compact('achievement'));
     }
     //news method
-    public function news(){
+    public function news()
+    {
         $data['newses'] = NewsRepository::query()->latest()->where('status', true)->get();
-        return view('frontend.news',$data);
+        return view('frontend.news', $data);
     }
     //newsDetails method
-    public function newsDetails($slug){
-        $news = NewsRepository::query()->where('slug',$slug)->first();
-        return view('frontend.news_details',compact('news'));
+    public function newsDetails($slug)
+    {
+        $news = NewsRepository::query()->where('slug', $slug)->first();
+        return view('frontend.news_details', compact('news'));
     }
+    //Online Admission for student
     public function onlineAdmissionStore(OnlineAdmissionRequest $request)
     {
-        $student = StudentRepository::onlineAdmissionCreate($request);
-        OnlineAdmissionRepository::storeByRequest($request, $student->id);
-        StudentInfoRepository::onlineAdmissionDetails($request, $student->id);
+        $group = GroupRepository::query()->where('id', $request->group_id)->where('status', true)->first();
+        $studentAreAdmited = AdmissionRepository::query()->where('group_id', $group->id)->count();
+        $vacant = $group->vacant - $studentAreAdmited;
+        if ($vacant == 0) {
+            return back()->with('info', 'Admission seat is not vacant');
+        } else {
+            $student = StudentRepository::onlineAdmissionCreate($request);
+            OnlineAdmissionRepository::storeByRequest($request, $student->id);
+            StudentInfoRepository::onlineAdmissionDetails($request, $student->id);
 
-        return redirect()->back()->with('success', 'Admission request is Successfully send.');
+            return back()->with('success', 'Admission request is Successfully send.');
+        }
     }
     public function signinPortal()
     {
@@ -135,7 +177,7 @@ class FrontendController extends Controller
             return redirect()->route('teacher.dashboard');
         } elseif (Auth::guard('student')->check()) {
             return redirect()->route('student.dashboard');
-        } elseif (Auth::guard()->check()){
+        } elseif (Auth::guard()->check()) {
             return redirect()->route('dashboard');
         } else {
             return view('frontend.layout.signin.signin');
