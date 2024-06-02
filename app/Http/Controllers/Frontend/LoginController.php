@@ -19,51 +19,53 @@ class LoginController extends Controller
 
             if (Auth::guard('student')->attempt($request->only('email', 'password'))) {
                 return redirect()->route('student.dashboard')->with('success', 'You are Logged in as Student!');
-            }else{
+            } else {
                 return back()->with('error', 'Oppes! You have entered invalid credentials!');
             }
-
         } elseif ($request->user_role == 'parent') {
 
             if (Auth::attempt($request->only('email', 'password'))) {
                 return redirect()->route('dashboard')->with('success', 'You are Logged in as Parent!');
-            }else{
+            } else {
                 return back()->with('error', 'Oppes! You have entered invalid credentials!');
             }
         } elseif ($request->user_role == 'teacher') {
 
             if (Auth::guard('teacher')->attempt($request->only('email', 'password'))) {
                 return redirect()->route('teacher.dashboard')->with('success', 'You are Logged in as Teacher!');
-            }else{
+            } else {
                 return back()->with('error', 'Oppes! You have entered invalid credentials!');
             }
         } else {
             //Admin
             if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
                 return redirect()->route('admin.dashboard')->with('success', 'You are Logged in as Admin!');
-            }else{
+            } else {
                 return back()->with('error', 'Oppes! You have entered invalid credentials!');
             }
-
         }
     }
     //Student Logout method
-    public function studentLogout(Request $request){
+    public function studentLogout(Request $request)
+    {
         Auth::guard('student')->logout();
         return redirect()->route('signin.portal')->with('success', 'Student has been logged out!');
     }
     //Parent Logout method
-    public function parentLogout(Request $request){
+    public function parentLogout(Request $request)
+    {
         auth()->logout();
         return redirect()->route('signin.portal')->with('success', 'Parent has been logged out!');
     }
     //Teacher Logout method
-    public function teacherLogout(Request $request){
+    public function teacherLogout(Request $request)
+    {
         Auth::guard('teacher')->logout();
         return redirect()->route('signin.portal')->with('success', 'Teacher has been logged out!');
     }
     //Admin Logout method
-    public function AdminLogout(Request $request){
+    public function AdminLogout(Request $request)
+    {
         Auth::guard('admin')->logout();
         return redirect()->route('signin.portal')->with('success', 'Admin has been logged out!');
     }

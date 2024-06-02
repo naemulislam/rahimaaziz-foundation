@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\Frontend\LoginController;
@@ -29,39 +30,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(function () {
-    Route::view('/', 'backend.dashboard.dashboard')->name('dashboard');
+    Route::view('/', 'backend.teacher.dashboard.dashboard')->name('dashboard');
     Route::post('/logout', [LoginController::class, 'teacherLogout'])->name('logout');
 
-    Route::get('/profile', [ProfileController::class, 'getProfile'])->name('profile');
-    Route::get('/teacher/store', [ProfileController::class, 'store'])->name('store');
-    Route::get('/teacher/edit/{id}', [ProfileController::class, 'edit'])->name('edit');
-    Route::post('/teacher/update/{id}', [ProfileController::class, 'update'])->name('update');
-    Route::get('/edit/password/', [ProfileController::class, 'cPassword'])->name('epassword');
-    Route::post('/update/password/', [ProfileController::class, 'upassword'])->name('upassword');
+    Route::controller(ProfileController::class)->group(function(){
+        Route::get('/profile', 'getProfile')->name('profile');
+        Route::post('/profile/update/{teacher}', 'update')->name('profile.update');
+        Route::get('/edit/password/', 'cPassword')->name('epassword');
+        Route::post('/update/password/{teacher}', 'upassword')->name('upassword');
+    });
 
 
 
-    //Category
-    Route::group(['prefix' => '/academic'], function () {
-        Route::resource('category', CategoryController::class);
-        // Route::get('/category/edit/', [CategoryController::class, 'editsms'])->name('category.edit.sms');
-        // Route::post('/category/status/{id}', [CategoryController::class, 'status'])->name('category.status');
-    });
-    // Class route here
-    Route::group(['prefix' => '/academic'], function () {
-        Route::resource('class', ClassController::class);
-        // Route::post('/class/status/{id}', [ClassController::class, 'status'])->name('class.status');
-    });
-    // Section route
-    Route::group(['prefix' => '/academic'], function () {
-        Route::resource('section', SectionController::class);
-        // Route::post('/section/status/{id}', [SectionController::class, 'status'])->name('section.status');
-    });
-    // Section route
-    Route::group(['prefix' => '/academic'], function () {
-        Route::resource('subject', SubjectController::class);
-        // Route::post('/subject/status/{id}', [SubjectController::class, 'status'])->name('subject.status');
-    });
+  // Class route here
+  Route::prefix('/academic')->controller(GroupController::class)->group(function () {
+    Route::get('group/index','index')->name('group.index');
+    Route::post('group/store','store')->name('group.store');
+    Route::put('group/update/{group}','update')->name('group.update');
+    Route::get('group/destroy/{group}','destroy')->name('group.destroy');
+    Route::post('group/status/{group}','status')->name('group.status');
+});
     // Student management route
     Route::group(['prefix' => '/student-info'], function () {
         Route::resource('student', StudentController::class);

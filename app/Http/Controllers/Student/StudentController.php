@@ -60,10 +60,10 @@ class StudentController extends Controller
                 'password' => Hash::make($request->new_password)
             ]);
 
-            return redirect()->route('student.dashboard')->with('success', 'Password is updated successfully!');
+            return back()->with('success', 'Password is updated successfully!');
         } else {
 
-            return redirect()->back()->with('error', 'Sorry! Your current password dost not match.');
+            return back()->with('error', 'Sorry! Your current password dost not match.');
         }
     }
     //Admission fee payment method

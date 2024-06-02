@@ -1,6 +1,15 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.teacher.layouts.master')
 @section('title','Teacher Edit Password')
 @section('content')
+<style>
+    .show-password-btn {
+    cursor: pointer;
+    text-align: right !important;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+</style>
 
 @php
 $prefix = Request::route()->getPrefix();
@@ -8,30 +17,6 @@ $route = Route::current()->getName();
 $url = url()->current();
 @endphp
 
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Mobile Toggle-->
-                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
-                    <span></span>
-                </button>
-                <!--end::Mobile Toggle-->
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Profile</h5>
-                    <!--end::Page Title-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -45,19 +30,22 @@ $url = url()->current();
                         <!--begin::Body-->
                         <div class="card-body pt-4">
                             <!--begin::User-->
-                            <div class="d-flex align-items-center">
+                            <div class="text-center align-items-center">
                                 <div class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
-                                    <div class="symbol-label" style="background-image:url(@if(!empty(Auth('teacher')->user()->profile_photo_path)) {{asset( Auth('teacher')->user()->profile_photo_path ) }} @else {{asset('defaults/avatar/avatar.png')}} @endif)"></div>
+                                    <div class="symbol-label" style="background-image:url(@if(!empty(Auth('teacher')->user()->image)) {{asset( Auth('teacher')->user()->image ) }} @else {{asset('defaults/avatar/avatar.png')}} @endif)"></div>
                                     <i class="symbol-badge bg-success"></i>
                                 </div>
                                 <div>
                                     <a href="#" class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{Auth('teacher')->user()->name}}</a>
-                                    <div class="text-muted">Teacher</div>
                                 </div>
                             </div>
                             <!--end::User-->
                             <!--begin::Contact-->
                             <div class="py-9">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <span class="font-weight-bold mr-2">Id number:</span>
+                                    <a href="#" class="text-muted text-hover-primary">{{Auth('teacher')->user()->id_number}}</a>
+                                </div>
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <span class="font-weight-bold mr-2">Email:</span>
                                     <a href="#" class="text-muted text-hover-primary">{{Auth('teacher')->user()->email}}</a>
@@ -65,10 +53,6 @@ $url = url()->current();
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <span class="font-weight-bold mr-2">Phone:</span>
                                     <span class="text-muted">{{Auth('teacher')->user()->phone}}</span>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="font-weight-bold mr-2">Location:</span>
-                                    <span class="text-muted">{{Auth('teacher')->user()->c_address}}</span>
                                 </div>
                             </div>
                             <!--end::Contact-->
@@ -93,7 +77,7 @@ $url = url()->current();
                                     </a>
                                 </div>
                                 <div class="navi-item mb-2">
-                                    <a href="" class="navi-link py-4 active">
+                                    <a href="{{route('teacher.epassword')}}" class="navi-link py-4 active">
                                         <span class="navi-icon mr-2">
                                             <span class="svg-icon">
                                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Shield-user.svg-->
@@ -122,7 +106,7 @@ $url = url()->current();
                 <!--begin::Content-->
                 <div class="flex-row-fluid ml-lg-8">
                     <!--begin::Card-->
-                    <form class="form" action="{{ route('teacher.upassword')}}" method="post">
+                    <form class="form" action="{{ route('teacher.upassword', auth('teacher')->user()->id)}}" method="post">
                         @csrf
                         <div class="card card-custom card-stretch">
                             <!--begin::Header-->
@@ -169,25 +153,51 @@ $url = url()->current();
                                 </div>
                                 <!--end::Alert-->
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Current Password</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Current
+                                        Password</label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <input type="password" class="form-control form-control-lg form-control-solid mb-2" name="current_password" placeholder="Current password">
-                                        <div style='color:red; padding: 0 5px;'>{{($errors->has('current_password'))?($errors->first('current_password')):''}}</div>
+                                        <div class="d-flex">
+                                            <input type="password"
+                                            class="form-control form-control-lg form-control-solid mb-2"
+                                            name="current_password" placeholder="Current password" id="current-password">
+                                        <span class="toggleCurrent-btn show-password-btn"
+                                            onclick="togglePasswordVisibility()">Show</span>
+                                        </div>
+                                        <div style='color:red; padding: 0 5px;'>
+                                            {{ $errors->has('current_password') ? $errors->first('current_password') : '' }}
+                                        </div>
                                         <a href="#" class="text-sm font-weight-bold">Forgot password ?</a>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-xl-3 col-lg-3 col-form-label text-alert">New Password</label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <input name="new_password" type="password" class="form-control form-control-lg form-control-solid" value="" placeholder="New password">
-                                        <div style='color:red; padding: 0 5px;'>{{($errors->has('new_password'))?($errors->first('new_password')):''}}</div>
+                                        <div class="d-flex">
+                                            <input name="new_password" type="password"
+                                            class="form-control form-control-lg form-control-solid" value=""
+                                            placeholder="New password" id="new-password">
+                                            <span class="toggleNew-btn show-password-btn"
+                                            onclick="toggleNewPassword()">Show</span>
+                                        </div>
+                                        <div style='color:red; padding: 0 5px;'>
+                                            {{ $errors->has('new_password') ? $errors->first('new_password') : '' }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Verify Password</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label text-alert">Verify
+                                        Password</label>
                                     <div class="col-lg-9 col-xl-6">
-                                        <input name="password_confirmation" type="password" class="form-control form-control-lg form-control-solid" value="" placeholder="Verify password">
-                                        <div style='color:red; padding: 0 5px;'>{{($errors->has('password_confirmation'))?($errors->first('password_confirmation')):''}}</div>
+                                        <div class="d-flex">
+                                            <input name="password_confirmation" type="password"
+                                            class="form-control form-control-lg form-control-solid" value=""
+                                            placeholder="Verify password" id="verify-password">
+                                            <span class="toggleVerify-btn show-password-btn"
+                                            onclick="toggleVerifyPassword()">Show</span>
+                                        </div>
+                                        <div style='color:red; padding: 0 5px;'>
+                                            {{ $errors->has('password_confirmation') ? $errors->first('password_confirmation') : '' }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -204,6 +214,48 @@ $url = url()->current();
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
 @endsection
+@push('scripts')
+<script>
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("current-password");
+        var toggleButton = document.querySelector(".toggleCurrent-btn");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleButton.textContent = "Hide";
+        } else {
+            passwordField.type = "password";
+            toggleButton.textContent = "Show";
+        }
+    }
+</script>
+<script>
+    function toggleNewPassword() {
+        var passwordField = document.getElementById("new-password");
+        var toggleButton = document.querySelector(".toggleNew-btn");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleButton.textContent = "Hide";
+        } else {
+            passwordField.type = "password";
+            toggleButton.textContent = "Show";
+        }
+    }
+</script>
+<script>
+    function toggleVerifyPassword() {
+        var passwordField = document.getElementById("verify-password");
+        var toggleButton = document.querySelector(".toggleVerify-btn");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleButton.textContent = "Hide";
+        } else {
+            passwordField.type = "password";
+            toggleButton.textContent = "Show";
+        }
+    }
+</script>
+@endpush

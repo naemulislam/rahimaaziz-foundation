@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function getProfile(){
         return view('backend.dashboard.admin.profile.profile');
     }
@@ -23,7 +18,7 @@ class ProfileController extends Controller
     {
         $data['datas'] = Admin::latest()->get();
         return view('backend.dashboard.admin.profile.index-admin',$data);
-       
+
     }
 
     /**
@@ -92,7 +87,7 @@ class ProfileController extends Controller
     {
         $data = Admin::find($id);
         return view('backend.dashboard.admin.profile.edit-profile',compact('data'));
-       
+
     }
 
     /**
@@ -108,7 +103,7 @@ class ProfileController extends Controller
             'name' => 'required',
             'email' => 'required|unique:admins,email,' . $id,
             'phone' => 'required'
-            
+
         ]);
 
         $data = Admin::find($id);
@@ -124,7 +119,7 @@ class ProfileController extends Controller
         $data->designation      = $request->designation;
         $data->address        = $request->address;
         $data->data_of_joining  = $request->data_of_joining;
-        
+
         $image = $request->file('image');
         if ($image) {
             $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
@@ -135,7 +130,7 @@ class ProfileController extends Controller
         }
 
         $data->save();
-   
+
 
         $notification = array(
             'message' => 'Admin updated successfully!',
@@ -167,7 +162,7 @@ class ProfileController extends Controller
             'new_password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8'
         ]);
-        
+
         if (Auth::attempt(['id' => Auth('admin')->user()->id, 'password' => $request->current_password])){
             $user = Admin::find(Auth('admin')->user()->id);
             $user->password = Hash::make($request->new_password);
