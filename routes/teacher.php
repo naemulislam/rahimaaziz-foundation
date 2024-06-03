@@ -6,15 +6,12 @@ use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Teacher\AdmissionController;
 use App\Http\Controllers\Teacher\AttendanceController;
-use App\Http\Controllers\Teacher\CategoryController;
 use App\Http\Controllers\Teacher\ClassController;
 use App\Http\Controllers\Teacher\HomeworkController;
 use App\Http\Controllers\Teacher\ProfileController;
 use App\Http\Controllers\Teacher\RegisterController;
-use App\Http\Controllers\Teacher\SectionController;
 use App\Http\Controllers\Teacher\StudentActivityController;
 use App\Http\Controllers\Teacher\StudentController;
-use App\Http\Controllers\Teacher\SubjectController;
 use App\Http\Controllers\Teacher\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,12 +40,8 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
 
 
   // Class route here
-  Route::prefix('/academic')->controller(GroupController::class)->group(function () {
+  Route::prefix('/academic')->controller(ClassController::class)->group(function () {
     Route::get('group/index','index')->name('group.index');
-    Route::post('group/store','store')->name('group.store');
-    Route::put('group/update/{group}','update')->name('group.update');
-    Route::get('group/destroy/{group}','destroy')->name('group.destroy');
-    Route::post('group/status/{group}','status')->name('group.status');
 });
     // Student management route
     Route::group(['prefix' => '/student-info'], function () {

@@ -14,7 +14,6 @@
                         <div class="card card-custom card-stretch">
                             <!--begin::Body-->
                             <div class="card-body pt-4">
-
                                 <!--end::Toolbar-->
                                 <!--begin::User-->
                                 <div class="text-center align-items-center">
@@ -126,6 +125,9 @@
                                         <label class="col-xl-3 col-lg-3 col-form-label"> Full Name</label>
                                         <div class="col-lg-9 col-xl-6">
                                             <input class="form-control form-control-lg form-control-solid" type="text" name="name" value="{{Auth('teacher')->user()->name}}" />
+                                            @error('name')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -138,6 +140,9 @@
                                                     </span>
                                                 </div>
                                                 <input type="email" name="email" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->email}}" placeholder="Email" />
+                                                @error('email')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -151,6 +156,9 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" name="phone" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->phone}}" placeholder="Phone" />
+                                                @error('phone')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -168,6 +176,9 @@
                                     <option @if(Auth('teacher')->user()->gender == 'male') selected @endif value="male">Male</option>
                                     <option @if(Auth('teacher')->user()->gender == 'female') selected @endif value="female">Female</option>
                                                 </select>
+                                                @error('gender')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -181,6 +192,7 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->group->name}}" readonly/>
+
                                             </div>
                                         </div>
                                     </div>
@@ -194,6 +206,9 @@
                                                     </span>
                                                 </div>
                                                 <input type="date" name="date_of_birth" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->date_of_birth}}" placeholder="Enter date of birth" />
+                                                @error('date_of_birth')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -208,6 +223,9 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" name="marital_status" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->marital_status}}" placeholder="Enter marital status" />
+                                                @error('marital_status')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -221,6 +239,9 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" name="father_name" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->father_name}}" placeholder="Enter father name" />
+                                                @error('father_name')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -234,6 +255,9 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" name="mother_name" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->mother_name}}" placeholder="Enter mother name" />
+                                                @error('mother_name')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -247,6 +271,9 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" name="qualification" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->qualification}}" placeholder="Enter qualification" />
+                                                @error('qualification')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -260,6 +287,9 @@
                                                     </span>
                                                 </div>
                                                 <input type="text" name="designation" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->designation}}" placeholder="Enter designation" />
+                                                @error('designation')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -272,7 +302,10 @@
                                                         <i class="la la-at"></i>
                                                     </span>
                                                 </div>
-                                                <input type="date" name="date_of_joining" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->date_of_joining}}" placeholder="Enter designation" />
+                                                <input type="date" name="data_of_joining" class="form-control form-control-lg form-control-solid" value="{{Auth('teacher')->user()->data_of_joining}}"/>
+                                                @error('data_of_joining')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -280,6 +313,9 @@
                                         <label class="col-xl-3 col-lg-3 col-form-label">Current Address</label>
                                         <div class="col-lg-9 col-xl-6">
                                             <textarea name="c_address" id="" cols="30" rows="3" placeholder="Enter Address" class="form-control">{{Auth('teacher')->user()->c_address}}</textarea>
+                                            @error('c_address')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
 
                                         </div>
                                     </div>

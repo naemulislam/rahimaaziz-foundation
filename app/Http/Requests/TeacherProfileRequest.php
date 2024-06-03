@@ -28,14 +28,14 @@ class TeacherProfileRequest extends FormRequest
             'email' => 'required|email',
             'phone' => 'required|string',
             'gender' => 'required|string',
-            'date_of_birth' => 'required|string',
-            'marital_status' => 'required|string',
+            'date_of_birth' => 'nullable|string',
+            'marital_status' => 'nullable|string',
             'father_name' => 'nullable|string',
             'mother_name' => 'nullable|string',
             'qualification' => 'nullable|string',
             'designation' => 'nullable|string',
-            'c_address' => 'required|string',
-            'data_of_joining' => 'required|string',
+            'c_address' => 'nullable|string',
+            'data_of_joining' => 'nullable|string',
             'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
         ];
     }
