@@ -26,6 +26,7 @@
 
                     </li>
                     <li class="dd-btn1"><a href="{{ route('contact') }}">Contact Us</a></li>
+                    <li class="dd-btn1"><a href="{{ route('programs') }}">Programs</a></li>
 
                     <li class="dd-btn1"><a href="{{ route('admission') }}"> Online Admission</a></li>
                     @if (auth('admin')->user())
@@ -65,10 +66,10 @@
             </div>
             <div class="menu-box">
                 <div class="menu-link" id="headingTwo">
-                    <a class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseTwo"> About<i
+                    <a class="mmenu-btn" type="button" data-toggle="collapse" data-target="#collapseOne"> About<i
                             class="fa fa-plus"></i></a>
                 </div>
-                <div id="collapseTwo" class="collapse menu-body" aria-labelledby="headingTwo"
+                <div id="collapseOne" class="collapse menu-body" aria-labelledby="headingTwo"
                     data-parent="#accordionExample">
                     <div class="card-body">
                         <ul>
@@ -103,51 +104,49 @@
 
 
             <div class="menu-box">
-                <div class="menu-link" id="headingFive">
-                    <a href="{{ route('contact') }}" class="mmenu-btn" type="button" data-toggle="collapse"
-                        data-target="#collapseFive">Contact Us</a>
+                <div class="menu-link">
+                    <a href="{{ route('contact') }}">Contact Us</a>
                 </div>
 
             </div>
             <div class="menu-box">
-                <div class="menu-link" id="headingSix">
-                    <a href="{{ route('admission') }}" class="mmenu-btn" type="button" data-toggle="collapse"
-                        data-target="#collapseSix"> Admission</a>
+                <div class="menu-link">
+                    <a href="{{ route('programs') }}">Programs</a>
                 </div>
 
+            </div>
+            <div class="menu-box">
+                <div class="menu-link">
+                    <a href="{{ route('admission') }}"> Admission</a>
+                </div>
             </div>
             @if (auth('admin')->user())
                 <div class="menu-box">
                     <div class="menu-link">
-
                         <a href="{{ route('admin.dashboard') }}"> Dashboard</a>
                     </div>
                 </div>
             @elseif(auth('teacher')->user())
                 <div class="menu-box">
                     <div class="menu-link">
-
                         <a href="{{ route('teacher.dashboard') }}">Dashboard</a>
                     </div>
                 </div>
             @elseif(auth('student')->user())
                 <div class="menu-box">
                     <div class="menu-link">
-
                         <a href="{{ route('student.dashboard') }}"> Dashboard</a>
                     </div>
                 </div>
             @elseif(auth()->user())
                 <div class="menu-box">
                     <div class="menu-link">
-
                         <a href="{{ route('dashboard') }}"> Dashboard</a>
                     </div>
                 </div>
             @else
                 <div class="menu-box">
                     <div class="menu-link">
-
                         <a href="{{ route('signin.portal') }}"> School Portal</a>
                     </div>
                 </div>

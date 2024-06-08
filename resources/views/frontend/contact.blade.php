@@ -2,13 +2,13 @@
 @section('title','Contact')
 @section('content')
 <style type="text/css">
-       
+
     </style>
 <style>
  .contact-heading{
     text-align: center;
     margin-top: 100px;
-       
+
 }
 .contact-heading a {
     text-decoration: none;
@@ -59,7 +59,20 @@
         }
 
 </style>
-    <!--End Header Section-->
+<section class="breadcrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mx-auto text-center">
+                <div class="page-breadcrumb">
+                    <span><a href="{{route('home')}}">Home</a> / Contact</span>
+                </div>
+                  <div class="page-title">
+                    <h2>Contact Us</h2>
+                  </div>
+            </div>
+        </div>
+    </div>
+</section>
     <!--Start Contact Section-->
     <section class="contact-section">
         <div class="container-conact">
@@ -81,8 +94,8 @@
                     <div class="col-lg-4">
                         <div class="email">
                             <h4>Email:</h4>
-                            <a target="_blank" href="mailto:{{@$setting->email}}">
-                                <span>{{@$setting->email}}</span>
+                            <a target="_blank" href="mailto:{{$setting->email ?? ''}}">
+                                <span>{{$setting->email ?? ''}}</span>
                             </a>
 
                         </div>
@@ -90,8 +103,8 @@
                     <div class="col-lg-4">
                         <div class="phone">
                             <h4>Phone:</h4>
-                            <a href="tel://{{@$setting->phone}}">
-                                <span>{{@$setting->phone}}</span>
+                            <a href="tel://{{$setting->phone ?? ''}}">
+                                <span>{{$setting->phone ?? ''}}</span>
                             </a>
 
                         </div>
@@ -101,19 +114,19 @@
                     <form action="{{route('contact.store')}}" method="post">
                         @csrf
                         <div class="row mb-3">
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-3">
                                 <input type="text" name="name" class="form-control" placeholder="Enter Name">
                                 <div style="color: red; padding:0 5px;">
                                 {{($errors->has('name'))? ($errors->first('name')):''}}
                             </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-3">
                                 <input type="email" name="email" class="form-control" placeholder="Enter Email">
                                 <div style="color: red; padding:0 5px;">
                                 {{($errors->has('email'))? ($errors->first('email')):''}}
                             </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-3">
                                 <input type="text" name="subject" class="form-control" placeholder="Enter Subject">
                                 <div style="color: red; padding:0 5px;">
                                 {{($errors->has('subject'))? ($errors->first('subject')):''}}
@@ -126,7 +139,7 @@
                                 <div style="color: red; padding:0 5px;">
                                 {{($errors->has('message'))? ($errors->first('message')):''}}
                             </div>
-                                
+
                             </div>
 
                         </div>
@@ -136,7 +149,7 @@
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <div class="wrapper">
-                            <a href="{{@$setting->facebook_link}}" target="_blank">
+                            <a href="{{$setting->facebook_link ?? ''}}" target="_blank" class="mb-3">
                             <div class="button">
                                 <div class="icon">
                                     <i class="fa fa-facebook-f"></i>
@@ -144,7 +157,7 @@
                                 <span>Facebook</span>
                             </div>
                             </a>
-                            <a href="{{@$setting->twitter_link}}" target="_blank">
+                            <a href="{{$setting->twitter_link ?? ''}}" target="_blank" class="mb-3">
                             <div class="button">
                                 <div class="icon">
                                     <i class="fa fa-twitter"></i>
@@ -152,7 +165,7 @@
                                 <span>Twitter</span>
                             </div>
                             </a>
-                            <a href="{{@$setting->instagram_link}}" target="_blank">
+                            <a href="{{$setting->instagram_link ?? ''}}" target="_blank" class="mb-3">
                             <div class="button">
                                 <div class="icon">
                                     <i class="fa fa-instagram"></i>
@@ -160,7 +173,7 @@
                                 <span>Instagram</span>
                             </div>
                             </a>
-                            <a href="{{@$setting->linkedin_link}}" target="_blank">
+                            <a href="{{$setting->linkedin_link ?? ''}}" target="_blank" class="mb-3">
                             <div class="button">
                                 <div class="icon">
                                     <i class="fa fa-linkedin"></i>
@@ -168,7 +181,7 @@
                                 <span>Linkedin</span>
                             </div>
                             </a>
-                            <a href="{{@$setting->youtube_link}}" target="_blank">
+                            <a href="{{$setting->youtube_link ?? ''}}" target="_blank" class="mb-3">
                             <div class="button">
                                 <div class="icon">
                                     <i class="fa fa-youtube"></i>
@@ -180,9 +193,9 @@
                     </div>
                 </div>
             </div>
-            <div class="map-section">
+            {{-- <div class="map-section">
                 <div id="map"></div>
-            </div>
+            </div> --}}
         </div>
     </section>
     <!--end Contact Section-->
@@ -192,26 +205,26 @@
 function initMap() {
     // var myLatLng = {lat: 22.3038945, lng: 70.80215989999999};
     var myLatLng = {lat: 23.7805733, lng: 90.279192};
-  
+
     var map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
       zoom: 13
     });
-  
+
     var marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
           title: 'Hello World!',
           draggable: true
         });
-  
+
      google.maps.event.addListener(marker, 'dragend', function(marker) {
         var latLng = marker.latLng;
         document.getElementById('lat-span').innerHTML = latLng.lat();
         document.getElementById('lon-span').innerHTML = latLng.lng();
      });
 }
-  
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
 @endsection

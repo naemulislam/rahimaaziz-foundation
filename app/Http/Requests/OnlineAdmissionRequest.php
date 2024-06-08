@@ -56,7 +56,9 @@ class OnlineAdmissionRequest extends FormRequest
             'physical_health' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
             'mrrcfps' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
             'hsral' => 'nullable|mimes:jpg,jpeg,pdf|max:5120',
-            'student_image' => 'required|mimes:png,jpg,jpeg|max:2048'
+            'student_image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            // 'terms_conditions*' => 'required|array',
+            // 'terms_conditions.*' => 'required'
         ];
     }
 }

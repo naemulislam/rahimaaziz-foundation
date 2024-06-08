@@ -82,6 +82,9 @@ class FrontendController extends Controller
         $group = GroupRepository::query()->where('id', $id)->where('status', true)->first();
         $studentAreAdmited = AdmissionRepository::query()->where('group_id', $group->id)->count();
         $vacant = $group->vacant - $studentAreAdmited;
+        if($vacant == 0){
+            $vacant = '';
+        }
         $html = '';
         $html .= '<div class="col-md-4">
                     <div class="announcement">
@@ -156,18 +159,15 @@ class FrontendController extends Controller
     //Online Admission for student
     public function onlineAdmissionStore(OnlineAdmissionRequest $request)
     {
-        $group = GroupRepository::query()->where('id', $request->group_id)->where('status', true)->first();
-        $studentAreAdmited = AdmissionRepository::query()->where('group_id', $group->id)->count();
-        $vacant = $group->vacant - $studentAreAdmited;
-        if ($vacant == 0) {
-            return back()->with('info', 'Admission seat is not vacant');
-        } else {
+        // $group = GroupRepository::query()->where('id', $request->group_id)->where('status', true)->first();
+        // $studentAreAdmited = AdmissionRepository::query()->where('group_id', $group->id)->count();
+
             $student = StudentRepository::onlineAdmissionCreate($request);
             OnlineAdmissionRepository::storeByRequest($request, $student->id);
             StudentInfoRepository::onlineAdmissionDetails($request, $student->id);
 
             return back()->with('success', 'Admission request is Successfully send.');
-        }
+
     }
     public function signinPortal()
     {
