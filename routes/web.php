@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Masjid\MasjidController;
 use App\Http\Controllers\User\AttendanceController;
 use App\Http\Controllers\User\HomeworkController;
 use App\Http\Controllers\User\StudentActivityController;
@@ -45,6 +46,10 @@ Route::controller(FrontendController::class)->middleware('web')->group(function 
     Route::post('/signup/portal/store', 'signupStore')->name('signup.store');
     //Ajax request for get group data
     Route::get('/get/group/{id}', 'getGroup');
+});
+//monnap kaji
+Route::controller(MasjidController::class)->middleware('web')->group(function () {
+    Route::get('/masjid-ar-rahman','index')->name('masjid.index');
 });
 //In this route ,admin, teacher, student, parent route
 Route::middleware('web')->group(function () {

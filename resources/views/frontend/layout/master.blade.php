@@ -35,7 +35,7 @@
     <section class="topbar">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="contact-info">
 
                         <li>
@@ -48,7 +48,7 @@
                         </li>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <ul class="social-icons">
                         <li><a target="_blank" href="{{ $setting->facebook_link ?? '' }}"><i
                                     class="fa fa-facebook"></i></a></li>
@@ -59,8 +59,6 @@
                                     class="fa fa-youtube"></i></a></li>
                         <li><a target="_blank" href="{{ $setting->linkedin_link ?? '' }}"><i
                                     class="fa fa-linkedin"></i></a></li>
-                        <li><a target="_blank" href="#" class="text-decoration-none"> Go to maszid ar rahman</a>
-                        </li>
 
                     </ul>
                 </div>
@@ -75,76 +73,15 @@
     <!-- End Header & Navigation Section -->
     @yield('content')
     <!-- Start Footer Section -->
-    <section class="footer-section">
-        <div class="container">
-            <!--Mail Row-->
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="ft-para">
-                        <div class="ft-logo">
-                            <img style="width:126px;" src="{{ asset($setting->black_logo ?? '') }}" alt="">
-                        </div>
-                        <h5>RA FOUNDATION New York For a peaceful and prosperous community, it is vital that we have a
-                            good relationship with people of all faiths and beliefs. We are heavily invested with
-                            keeping up with local interfaith movements as well as taking part in local interfaith
-                            programs.</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="ft-para">
-                        <div class="ft-title">
-                            <h2> Contact Info</h2>
-                        </div>
-                        <ul>
-                            <li>Email:info@rahimaazizfoundation.com</li>
-                            <li>Phone:+65745877444 </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="ft-para">
-                        <div class="ft-title">
-                            <h2> More Info</h2>
-                        </div>
-                        <ul>
-                            <li><a href="#">About Rahima Aziz Foundation</a></li>
-                            <li><a href="#">About Maszid ar Rahman</a></li>
-                            <li><a href="#">Our Programs</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Footer Section -->
-    <!-- Start  Copyright Section -->
-    <section class="copyright-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="copyright-text text-center">
-                        <p>Copyright © <?php echo date('Y'); ?> <a href="#">{{ $setting->site_name ?? '' }}</a>- All
-                            Rights Reserved. Developed by <a href="#">Engr.Naemul Islam</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Copyright Section -->
-
+    @include('frontend.layout.footer')
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
     <script src="{{ asset('frontend') }}/assets/js/jquery.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
-
     <script src="{{ asset('frontend/assets/js/bootstrap_v4.min.js') }}"></script>
     <script src="{{ asset('frontend') }}/assets/js/bootstrap-prettyfile.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/jpreview.js"></script>
-
     <script src="{{ asset('defaults/toastr/toastr.min.js') }}"></script>
     <!-- Owl-carosul js file cdn link -->
     <script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
@@ -152,8 +89,6 @@
     <script src="{{ asset('frontend') }}/assets/js/simple-lightbox.min.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/dataTables.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/dataTables.bootstrap4.js"></script>
-
-
     <!-- Toastr -->
     @if (Session::has('success'))
         <script>

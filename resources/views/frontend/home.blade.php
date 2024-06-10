@@ -16,21 +16,19 @@
         </div>
     </section>
     <!-- End main slider section-->
-
     <!-- Start Text & image Section -->
     <section class="my-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="common-shadow p-3">
+                    <div class="">
                         <div class="row">
                             <div class="col-md-6">
+                               <div class="common-shadow p-3">
                                 <div class="template-image">
                                     <img src="{{ asset('frontend') }}/assets/images/about/about2.png" alt=""
                                         class="img-responsive">
                                 </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="text-section mt-3">
                                     <h3 class="underline"><span style="color:#ffa229;">Welcome to </span>Rahima Aziz
                                         Foundation</h3>
@@ -41,9 +39,41 @@
                                         more. One of the main objectives is to create a bridge between different cultures
                                         and religions as well as give a place to cater to the basic needs of the growing
                                         Muslim community.</p>
-                                    <div>
-                                        <a href="#" class="btn-about">About RA Foundation</a>
-                                        <a href="#" class="btn-about">About MAS JID</a>
+
+                                    <div class="row my-4">
+                                        <div class="col-md-6"><a href="{{ route('home') }}" class="btn-about">About RA
+                                                Foundation</a></div>
+                                        <div class="col-md-6"><a href="{{ route('masjid.index') }}" class="btn-about">About
+                                                MAS JID</a></div>
+                                    </div>
+                                </div>
+                               </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="common-shadow pb-3 mb-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="notice-title">
+                                                <h3>Notice Board</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="notice-board py-3">
+                                                @foreach ($notices as $notice)
+                                                <div class="notice">
+                                                    <h3>{{$notice->title}}</h3>
+                                                    <p class="simple-text">{!! Str::limit($notice->description, 100, '...') !!}</p>
+                                                    <a href="{{ route('notice') }}" class="btn-notice">Read more..</a>
+                                                </div>
+                                                @endforeach
+                                                <div class="">
+                                                    <a href="{{ route('notice') }}" class="btn-notice float-right">All notices <i
+                                                            class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -100,37 +130,6 @@
         </div>
     </section>
     <!--Start Exprience Section-->
-    <!--Start Notice board Section-->
-    <section class="notice-section">
-        <div class="container">
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="heading-title">
-                        <h3 class="text-white">Notice Board</h3>
-                        <div class="heading-border"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 mx-auto">
-                    <div class="notice-box">
-                        <div class="row">
-                            @foreach ($notices as $notice)
-                                <div class="col-md-6 mb-3">
-                                    <div class="notice-para">
-                                        <h3>{{ $notice->title }}</h3>
-                                        <p>{!! Str::limit($notice->description, 100, '...') !!}</p>
-                                        <a href="{{ route('notice') }}" class="btn btn-primary">Read more..</a>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--end Notice board Section-->
     <!--Start our program section-->
     <section class="my-4">
         <div class="container">

@@ -2,6 +2,15 @@
 @section('title', 'Notice')
 @section('content')
     <style>
+        .card-header {
+    background: #000338;
+    padding: 2px 0px;
+    color: #fff;
+}
+.card-header > h3{
+    font-size: 20px;
+    font-family:'Philosopher', sans-serif;
+}
         table>thead>tr>th {
             text-align: center;
         }
