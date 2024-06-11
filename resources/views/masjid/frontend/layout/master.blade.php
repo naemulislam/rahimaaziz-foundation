@@ -94,7 +94,10 @@
     <!-- Owl-carosul js file cdn link -->
     <script src="{{ asset('masjid/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('masjid') }}/assets/js/owl-extra-code.js"></script>
-
+    <script src="{{asset('masjid/assets/js/jquery.hijri.date.js')}}"></script>
+    <script>
+        $('.hijriDate').hijriDate();
+    </script>
 
 
     @stack('scripts')

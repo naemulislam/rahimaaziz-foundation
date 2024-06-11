@@ -5,9 +5,9 @@
 <section class="salah-section">
     <div class="container">
         <div class="row mb-3">
-            <div class="col text-center text-white d-flex justify-content-between">
+            <div class="col text-center text-white d-flex justify-content-between calendar-heading">
                 <h5>Salah Calender</h5>
-                <h5>{{now();}}</h5>
+                <h5><span class="hijriDate"></span>, {{date('d-m-Y');}}</h5>
             </div>
         </div>
         <div class="row">
