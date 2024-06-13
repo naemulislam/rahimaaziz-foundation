@@ -2,31 +2,24 @@
 
 use App\Http\Controllers\Admin\AdmissionController;
 use App\Http\Controllers\Admin\AttendanceController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ClassController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FeesController;
 use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\HomeworkController;
-use App\Http\Controllers\Admin\HrController;
 use App\Http\Controllers\Admin\ImproveStudentsController;
 use App\Http\Controllers\Admin\ImproveTeacherController;
 use App\Http\Controllers\Admin\ParentController;
-use App\Http\Controllers\Admin\PrayerController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SearchController;
-use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StudentActivity;
 use App\Http\Controllers\Admin\StudentActivityController;
 use App\Http\Controllers\Admin\StudentController;
-use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TeacherAttenController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\DefaultController\DefaultController;
-use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\Backend\AchievementController;
 use App\Http\Controllers\Backend\CampusController;
 use App\Http\Controllers\Backend\GalleryController;
@@ -35,6 +28,8 @@ use App\Http\Controllers\Backend\NoticeController;
 use App\Http\Controllers\Backend\ProgramController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\LoginController;
+use App\Http\Controllers\Masjid\PrayerController;
+use App\Http\Controllers\Masjid\SliderController as MasjidSliderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -192,10 +187,7 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::resource('message',ContactController::class);
         Route::post('massage/status/{id}',[ContactController::class,'status'])->name('massage.status');
     });
-    Route::group(['prefix'=>'/daily'],function(){
-        Route::resource('prayer',PrayerController::class);
-        Route::post('prayer/status/{id}',[PrayerController::class,'status'])->name('prayer.status');
-    });
+
     // Student Fees Collection
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('fees',FeesController::class);
@@ -268,6 +260,18 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::post('/website/setting/update/{setting?}', 'update')->name('setting.updateSettingData');
     });
 
+    /////////////////////////Masjid routes////////////////////////////////
+    Route::controller(MasjidSliderController::class)->group(function(){
+        Route::get('/masjid/slider/index', 'index')->name('masjid.slider.index');
+        Route::post('/masjid/slider/store', 'store')->name('masjid.slider.store');
+        Route::post('/masjid/slider/update/{masjidSlider}', 'update')->name('masjid.slider.update');
+        Route::get('/masjid/slider/destroy/{masjidSlider}', 'destroy')->name('masjid.slider.destroy');
+        Route::post('/masjid/slider/status/{masjidSlider}', 'status')->name('masjid.slider.status');
+    });
+    Route::controller(PrayerController::class)->group(function(){
+        Route::get('/masjid/prayer', 'index')->name('prayer.index');
+        Route::post('/masjid/prayer/update/{prayer?}', 'update')->name('prayer.updatePrayerData');
+    });
     /////////////////////////Default routes////////////////////////////////
 //Get Data ajax
 // Route::get('/get/class/{id}', [DefaultController::class,'get_class'])->name('get.class');

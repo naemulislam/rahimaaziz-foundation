@@ -2,14 +2,19 @@
 
 namespace App\Repositories;
 
-use App\Models\Slider;
+use App\Models\MasjidSlider;
 use Illuminate\Http\Request;
 
-class SliderRepository extends Repository
+class MasjidSliderRepository extends Repository
 {
+    /**
+     * base method
+     *
+     * @method model()
+     */
     public static function model()
     {
-        return Slider::class;
+        return MasjidSlider::class;
     }
 
     public static function storeByRequest(Request $request)
@@ -19,8 +24,8 @@ class SliderRepository extends Repository
         if ($file) {
             $extension = $file->getClientOriginalExtension();
             $fileName = 'slider' . '_' . uniqid() . '.' . $extension;
-            $file->move(public_path('uploaded/slider'), $fileName);
-            $document = '/uploaded/slider/' . $fileName;
+            $file->move(public_path('uploaded/masjid/slider'), $fileName);
+            $document = '/uploaded/masjid/slider/' . $fileName;
         }
         $sliderCreate = self::create([
             'order' => $request->order,
@@ -29,19 +34,19 @@ class SliderRepository extends Repository
         ]);
         return $sliderCreate;
     }
-    public static function updateByRequest(Request $request, Slider $slider)
+    public static function updateByRequest(Request $request, MasjidSlider $masjidSlider)
     {
         $file = $request->file('image');
         if ($file) {
             $extension = $file->getClientOriginalExtension();
             $fileName = 'slider' . '_' . uniqid() . '.' . $extension;
-            @unlink(public_path($slider->image));
-            $file->move(public_path('uploaded/slider'), $fileName);
-            $document = '/uploaded/slider/' . $fileName;
+            @unlink(public_path($masjidSlider->image));
+            $file->move(public_path('uploaded/masjid/slider'), $fileName);
+            $document = '/uploaded/masjid/slider/' . $fileName;
         }
-        $sliderUpdate = self::update($slider, [
+        $sliderUpdate = self::update($masjidSlider, [
             'order' => $request->order,
-            'image' => $document ?? $slider->image,
+            'image' => $document ?? $masjidSlider->image,
         ]);
         return $sliderUpdate;
     }

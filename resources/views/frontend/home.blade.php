@@ -24,7 +24,7 @@
                     <div class="">
                         <div class="row">
                             <div class="col-md-6">
-                               <div class="common-shadow p-3">
+                               <div class="common-shadow p-3 wow animate__backInUp">
                                 <div class="template-image">
                                     <img src="{{ asset('frontend') }}/assets/images/about/about2.png" alt=""
                                         class="img-responsive">
@@ -84,14 +84,12 @@
         </div>
     </section>
     <!-- End Text & image Section -->
-
-
     <!--Start Exprience Section-->
     <section class="exprience-seciton py-4">
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-3 col-md-6">
-                    <div class="exprience-content ">
+                    <div class="exprience-content wow slideInLeft" data-wow-duration="1s" data-wow-delay="1s">
                         <i class="fa fa-book" aria-hidden="true"></i>
                         <h3>Education</h3>
                         <p>RAF is based on providing our students with a well-rounded comprehensive edication that will
@@ -101,7 +99,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="exprience-content">
+                    <div class="exprience-content wow animate__backInUp">
                         <i class="fa fa-superpowers" aria-hidden="true"></i>
                         <h3>Spirituality</h3>
                         <p>As Muslims, there is no greater duty upon us then to know Allah SWT and worship Him. Our
@@ -110,7 +108,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="exprience-content">
+                    <div class="exprience-content wow animate__backInUp">
                         <i class="fa fa-book" aria-hidden="true"></i>
                         <h3>Unity</h3>
                         <p>Our objective is to develop, support, and promote an Islamic way of life by ensuring a thriving
@@ -119,7 +117,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="exprience-content">
+                    <div class="exprience-content wow animate__backInUp">
                         <i class="fa fa-product-hunt" aria-hidden="true"></i>
                         <h3>Prosperity</h3>
                         <p>Prosperity both here and in the here hereafter can be achieved by successfully implementing these

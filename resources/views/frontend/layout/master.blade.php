@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.theme.default.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('defaults/toastr/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css') }}">
 
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/simple-lightbox.min.css') }}">
@@ -137,6 +138,10 @@
 
             });
         });
+    </script>
+    <script src="{{ asset('frontend/assets/js/wow.min.js')}}"></script>
+    <script>
+    new WOW().init();
     </script>
 </body>
 

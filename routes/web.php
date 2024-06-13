@@ -47,9 +47,13 @@ Route::controller(FrontendController::class)->middleware('web')->group(function 
     //Ajax request for get group data
     Route::get('/get/group/{id}', 'getGroup');
 });
-//monnap kaji
-Route::controller(MasjidController::class)->middleware('web')->group(function () {
-    Route::get('/masjid-ar-rahman','index')->name('masjid.index');
+//masjid route
+Route::controller(MasjidController::class)->middleware('web')->as('masjid.')->group(function () {
+    Route::get('/masjid-ar-rahman','masjidIndex')->name('index');
+    Route::get('/masjid-ar-rahman/about','masjidAbout')->name('about');
+    Route::get('/masjid-ar-rahman/service','masjidService')->name('service');
+    Route::get('/masjid-ar-rahman/service/details','masjidServiceDetails')->name('service.details');
+    Route::get('/masjid-ar-rahman/gallery','masjidGallery')->name('gallery');
 });
 //In this route ,admin, teacher, student, parent route
 Route::middleware('web')->group(function () {

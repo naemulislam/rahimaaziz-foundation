@@ -186,49 +186,7 @@
 
 <section>
     <div class="container">
-        <div class="row mb-4">
-            <div class="col">
-                <div class="title">
-                    <h2>Masjid <Span style="color: #FF9822;">Ar Rahman</Span></h2>
-                    <div class="title-bb"></div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col">
-                <h4>Daily Prayers</h4>
-                <p>-Prayer Schedule</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-10 mx-auto">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">SL</th>
-                        <th scope="col">Salah</th>
-                        <th scope="col">Start Time</th>
-                        <th scope="col">End Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($prayers as $row)
-                    <tr>
-                        <th>{{ $loop->iteration}}</th>
-                        <td>{{ $row->name}}</td>
-                        <td>{{ date('h:i a',strtotime($row->start_time))}}</td>
-                        <td>{{ date('h:i a', strtotime($row->end_time))}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            </div>
-        </div>
         <div class="">
-
-
             <div class="prayer-box">
                 <div class="px-4">
                     <h4 class="m-0">Marriage/ Nikah</h4>

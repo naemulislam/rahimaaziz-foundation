@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrayersTable extends Migration
+class CreateMasjidSlidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreatePrayersTable extends Migration
      */
     public function up()
     {
-        Schema::create('prayers', function (Blueprint $table) {
+        Schema::create('masjid_sliders', function (Blueprint $table) {
             $table->id();
-            $table->string("fajar");
-            $table->string("dhuhr");
-            $table->string("asr");
-            $table->string("maghrib");
-            $table->string("isha");
-            $table->string("jummah");
+            $table->string('order')->nullable();
+            $table->string('image');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreatePrayersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prayers');
+        Schema::dropIfExists('masjid_sliders');
     }
 }

@@ -65,9 +65,7 @@ class FrontendController extends Controller
     //End contact
     public function aboutUs()
     {
-        $data['staffs'] = Staff::where('status', 1)->latest()->get();
-        $data['prayers'] = Prayer::where('status', 1)->Orderby('order', 'asc')->get();
-        return view('frontend.aboutus', $data);
+        return view('frontend.aboutus');
     }
 
     public function admission()

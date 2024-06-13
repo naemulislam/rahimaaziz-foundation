@@ -1,5 +1,4 @@
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('masjid/assets/css/owl.theme.default.css') }}" />
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="{{ asset('masjid/assets/css/bootstrap_v4.min.css') }}">
-    <!--Social icon css link-->
+    <link rel="stylesheet" href="{{ asset('masjid/assets/css/simple-lightbox.min.css') }}">
     <!-- theme style css -->
     <link rel="stylesheet" href="{{ asset('masjid') }}/assets/css/custome.css">
     <link rel="stylesheet" href="{{ asset('masjid') }}/assets/css/responsive.css">
@@ -27,7 +26,7 @@
     <!--end mobile menu-->
     <!-- End Header -->
     <!-- End Header & Navigation Section -->
-    @yield('content')
+    @yield('masjidContent')
     <!-- Start Footer Section -->
     <section class="footer-section">
         <div class="container">
@@ -93,6 +92,7 @@
     <script src="{{ asset('masjid/assets/js/bootstrap_v4.min.js') }}"></script>
     <!-- Owl-carosul js file cdn link -->
     <script src="{{ asset('masjid/assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('masjid') }}/assets/js/simple-lightbox.min.js"></script>
     <script src="{{ asset('masjid') }}/assets/js/owl-extra-code.js"></script>
     <script src="{{asset('masjid/assets/js/jquery.hijri.date.js')}}"></script>
     <script>

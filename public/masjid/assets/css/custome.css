@@ -76,7 +76,6 @@ header {
     top: 0;
     left: 0;
     z-index: 9999;
-    border-bottom: 1px solid #ddd;
     background: #000338;
     transition: .5s;
 }
@@ -429,24 +428,34 @@ font-family: 'Philosopher', sans-serif;
   background: #016AD9;
   text-decoration: none;
 }
-/* statr Our Program sectoin*/
+/* statr Our service sectoin*/
 
-.program-box {
+.service-box {
     background-color: #fff;
     padding: 20px;
     text-align: center;
-    border: 1px solid #000338;
+    border: 3px solid #ddd;
+    transition: 0.3;
 }
-  .program-box > h2 {
+.service-box:hover{
+    border: 3px solid #000338;
+}
+.service-box > img {
+    width: 60px;
+    margin-bottom: 15px;
+}
+.service-box > h2 {
     font-size: 20px;
     color: #000;
     font-family: var(--lato);
+    text-transform: capitalize;
 }
-  .program-box > p {
+  .service-box > p {
     text-align: justify;
     font-size: 16px;
     color: #3a3737;
 }
+
 /* end Our Program sectoin*/
 
 /*Start Footer Section*/
@@ -503,6 +512,56 @@ font-family: 'Philosopher', sans-serif;
 }.copyright-text a:hover {
     color: #fe4157;
     font-weight: 600;
+}
+/*breadcrumb-section*/
+.breadcrumb-section{
+    background: url('../images/bg/parallax-bg.png') no-repeat;
+    background-position: center center;
+    background-size:cover;
+    padding: 75px 0px;
+}
+.page-breadcrumb > span{
+    color: #d78a11;
+    font-size: 16px;
+}
+.page-breadcrumb > span > a {
+    text-decoration: none;
+    color: #d78a11;
+    font-size: 16px;
+}
+.page-title > h2 {
+    color: #fff;
+    font-size: 40px;
+    margin-bottom: 0;
+    margin-top: 15px;
+    font-family: "Croissant One", serif;
+}
+/*----------------About us page -------------------------------*/
+.image-box > img {
+    width: 100%;
+    border: 3px solid #ff8d00;
+    border-radius: 7px;
+}
+.page-heading > h3 {
+    background: #000338;
+    font-size: 22px;
+    text-align: center;
+    padding: 10px 0px;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.about-text{
+    font-family: var(--lato);
+}
+/*----------------Service Details page -------------------------------*/
+.service-details > p{
+    font-size: 16px;
+    font-family: var(--lato);
+}
+.service-details-img > img{
+    width: 100%;
+
 }
 
 

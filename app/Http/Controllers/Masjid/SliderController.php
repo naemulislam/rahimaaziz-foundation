@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Masjid;
 
 use App\Http\Controllers\Controller;
-use App\Models\Slider;
-use App\Repositories\SliderRepository;
+use App\Models\MasjidSlider;
+use App\Repositories\MasjidSliderRepository;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
     public function index()
     {
-        $sliders = SliderRepository::query()->orderBy('order', 'asc')->get();
-        return view('backend.dashboard.slider.index', compact('sliders'));
+        $masjidSliders = MasjidSliderRepository::query()->orderBy('order', 'asc')->get();
+        return view('backend.dashboard.masjid.slider.index', compact('masjidSliders'));
     }
     public function store(Request $request)
     {
@@ -20,33 +20,33 @@ class SliderController extends Controller
             'order' => 'required|string',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048'
         ]);
-        SliderRepository::storeByRequest($request);
+        MasjidSliderRepository::storeByRequest($request);
         return back()->with('success', 'Slider is created successfully!');
     }
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request, MasjidSlider $masjidSlider)
     {
         $request->validate([
             'order' => 'required|string',
             'image' => 'nullable|mimes:png,jpg,jpeg|max:2048'
         ]);
-        SliderRepository::updateByRequest($request, $slider);
+        MasjidSliderRepository::updateByRequest($request, $masjidSlider);
         return back()->with('success', 'Slider is updated successfully!');
     }
-    public function destroy(Slider $slider)
+    public function destroy(MasjidSlider $masjidSlider)
     {
-        if ($slider->image) {
-            unlink(public_path($slider->image));
+        if ($masjidSlider->image) {
+            unlink(public_path($masjidSlider->image));
         }
-        $slider->delete();
+        $masjidSlider->delete();
         return back()->with('success', 'Slider is deleted successfully!');
     }
-    public function status(Request $request, Slider $slider)
+    public function status(Request $request, MasjidSlider $masjidSlider)
     {
         $status = false;
         if ($request->status == 1) {
             $status = true;
         }
-        $slider->update([
+        $masjidSlider->update([
             'status' => $status
         ]);
         return back()->with('success', 'Status changed successfully!');
