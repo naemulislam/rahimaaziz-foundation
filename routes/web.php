@@ -52,7 +52,7 @@ Route::controller(MasjidController::class)->middleware('web')->as('masjid.')->gr
     Route::get('/masjid-ar-rahman','masjidIndex')->name('index');
     Route::get('/masjid-ar-rahman/about','masjidAbout')->name('about');
     Route::get('/masjid-ar-rahman/service','masjidService')->name('service');
-    Route::get('/masjid-ar-rahman/service/details','masjidServiceDetails')->name('service.details');
+    Route::get('/masjid-ar-rahman/service/details/{slug}','masjidServiceDetails')->name('service.details');
     Route::get('/masjid-ar-rahman/gallery','masjidGallery')->name('gallery');
 });
 //In this route ,admin, teacher, student, parent route

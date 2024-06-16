@@ -20,7 +20,7 @@
                         <h2>FAJR</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>5:00 AM</h4>
+                        <h4>{{ $prayer->fajar ?? ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                         <h2>DHUHR</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>5:00 AM</h4>
+                        <h4>{{ $prayer->dhuhr ?? ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                         <h2>ASR</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>5:00 AM</h4>
+                        <h4>{{ $prayer->asr ?? ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                         <h2>MAGHRIB</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>5:00 AM</h4>
+                        <h4>{{ $prayer->maghrib ?? ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                         <h2>ISHA</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>5:00 AM</h4>
+                        <h4>{{ $prayer->isha ?? ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                         <h2>PRAYER</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>5:00 AM</h4>
+                        <h4>{{ $prayer->jummah ?? ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -161,30 +161,20 @@
                 </div>
             </div>
             <div class="row">
+                @foreach ($services as $service)
                 <div class="col-md-4 mb-3">
                     <div class="service-box common-shadow">
-                        <img src="{{ asset('masjid/assets/images/service/love.png')}}" alt="">
-                        <h2>Weekly Bayaan (Lecture)</h2>
-                        <p>A 15 to 20 mins. lecture every Saturday in which the rulings of Shariah pertaining to different aspects of everyday life including dealings, social life and Islamic ethics are discussed.</p>
-                        <a href="#" class="btn btn-primary">Learn more..</a>
+                        <img src="{{ asset($service->icon)}}" alt="">
+                        <h2>{{ $service->title}}</h2>
+                        @php
+                            $description = $service->description;
+                            $plainText = strip_tags($description);
+                        @endphp
+                        <p> {{ Str::limit($plainText, 100, '....')}}</p>
+                        <a href="{{ route('masjid.service.details', $service->slug)}}" class="btn btn-primary">Learn more..</a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="service-box common-shadow">
-                        <img src="{{ asset('masjid/assets/images/service/love.png')}}" alt="">
-                        <h2>Monthly YOUTH Program</h2>
-                        <p>A program conducted every 1st Saturday of the month. The purpose is to educate our youth about our rich Islamic history, heritage & values. Virtues of the current Islamic month and relevant historical events are also discussed.</p>
-                         <a href="#" class="btn btn-primary">Learn more..</a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="service-box common-shadow">
-                        <img src="{{ asset('masjid/assets/images/service/love.png')}}" alt="">
-                        <h2>FIQH CLASS FOR YOUTH</h2>
-                        <p>A curriculum based Fiqh class for high-school and college students where extensive religious Masa’il are discussed together with the relevant evidences from the Quran and Hadith (Prophetic Traditions).</p>
-                         <a href="#" class="btn btn-primary">Learn more..</a>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

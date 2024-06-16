@@ -18,37 +18,37 @@ class ProgramRepository extends Repository
         $slug = Str::slug($request->title);
         $file = $request->file('document');
         $document = null;
-        if($file){
+        if ($file) {
             $extension = $file->getClientOriginalExtension();
-            $fileName = 'program'.'_'.uniqid(). '.' .$extension;
+            $fileName = 'program' . '_' . uniqid() . '.' . $extension;
             $file->move(public_path('uploaded/program'), $fileName);
-            $document = '/uploaded/program/'. $fileName;
+            $document = '/uploaded/program/' . $fileName;
         }
-       $programCreate = self::create([
-        'title' => $request->title,
-        'slug' => $slug,
-        'description' => $request->description,
-        'document' => $document,
-       ]);
-       return $programCreate;
+        $programCreate = self::create([
+            'title' => $request->title,
+            'slug' => $slug,
+            'description' => $request->description,
+            'document' => $document,
+        ]);
+        return $programCreate;
     }
     public static function updateByRequest(Request $request, Program $program)
     {
         $slug = Str::slug($request->title);
         $file = $request->file('document');
-        if($file){
+        if ($file) {
             $extension = $file->getClientOriginalExtension();
-            $fileName = 'program'.'_'.uniqid(). '.' .$extension;
+            $fileName = 'program' . '_' . uniqid() . '.' . $extension;
             @unlink(public_path($program->document));
             $file->move(public_path('uploaded/program'), $fileName);
-            $document = '/uploaded/program/'. $fileName;
+            $document = '/uploaded/program/' . $fileName;
         }
-       $programUpdate = self::update($program,[
-        'title' => $request->title,
-        'slug' => $slug,
-        'description' => $request->description,
-        'document' => $document ?? $program->document,
-       ]);
-       return $programUpdate;
+        $programUpdate = self::update($program, [
+            'title' => $request->title,
+            'slug' => $slug,
+            'description' => $request->description,
+            'document' => $document ?? $program->document,
+        ]);
+        return $programUpdate;
     }
 }

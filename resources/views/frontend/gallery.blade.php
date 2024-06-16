@@ -26,10 +26,10 @@
         <div class="row">
             <div class="col-md-4 mx-auto text-center">
                 <div class="page-breadcrumb">
-                    <span><a href="{{route('home')}}">Home</a> / gallery</span>
+                    <span><a href="{{route('home')}}">Home</a> / galleries</span>
                 </div>
                   <div class="page-title">
-                    <h2>Gallery</h2>
+                    <h2>Galleries</h2>
                   </div>
             </div>
         </div>
@@ -41,20 +41,15 @@
             <div class="col-md-12">
                 <div class="gallery">
                     <div class="row">
+                        @foreach ($galleries as $gallery)
                         <div class="col-md-3">
                             <div class="gallery-box">
-                                <a href="{{asset('frontend/assets/images/others-page/team1.jpg')}}" class="big">
-                                    <img src="{{asset('frontend/assets/images/others-page/team1.jpg')}}" alt="" title="Beautiful Image"/>
+                                <a href="{{asset($gallery->image)}}" class="big">
+                                    <img src="{{asset($gallery->image)}}" alt="" title="Beautiful Image"/>
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="gallery-box">
-                                <a href="{{asset('frontend/assets/images/others-page/team2.jpg')}}" class="big">
-                                    <img src="{{asset('frontend/assets/images/others-page/team2.jpg')}}" alt="" title="Beautiful Image"/>
-                                </a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="clear"></div>
                 </div>

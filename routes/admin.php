@@ -28,7 +28,9 @@ use App\Http\Controllers\Backend\NoticeController;
 use App\Http\Controllers\Backend\ProgramController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Frontend\LoginController;
+use App\Http\Controllers\Masjid\GalleryController as MasjidGalleryController;
 use App\Http\Controllers\Masjid\PrayerController;
+use App\Http\Controllers\Masjid\ServiceController;
 use App\Http\Controllers\Masjid\SliderController as MasjidSliderController;
 use Illuminate\Support\Facades\Route;
 
@@ -271,6 +273,22 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
     Route::controller(PrayerController::class)->group(function(){
         Route::get('/masjid/prayer', 'index')->name('prayer.index');
         Route::post('/masjid/prayer/update/{prayer?}', 'update')->name('prayer.updatePrayerData');
+    });
+    Route::controller(ServiceController::class)->group(function(){
+        Route::get('/service/index', 'index')->name('service.index');
+        Route::get('/service/create', 'create')->name('service.create');
+        Route::post('/service/store', 'store')->name('service.store');
+        Route::get('/service/edit/{service}', 'edit')->name('service.edit');
+        Route::put('/service/update/{service}', 'update')->name('service.update');
+        Route::get('/service/destroy/{service}', 'destroy')->name('service.destroy');
+        Route::post('/service/status/{service}', 'status')->name('service.status');
+    });
+    Route::controller(MasjidGalleryController::class)->as('masjid.')->group(function(){
+        Route::get('/masjid/gallery/index', 'index')->name('gallery.index');
+        Route::post('/masjid/gallery/store', 'store')->name('gallery.store');
+        Route::post('/masjid/gallery/update/{masjidGallery}', 'update')->name('gallery.update');
+        Route::get('/masjid/gallery/destroy/{masjidGallery}', 'destroy')->name('gallery.destroy');
+        Route::post('/masjid/gallery/status/{masjidGallery}', 'status')->name('gallery.status');
     });
     /////////////////////////Default routes////////////////////////////////
 //Get Data ajax

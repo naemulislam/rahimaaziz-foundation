@@ -20,19 +20,19 @@
         <div class="row mb-3">
             <div class="col">
                 <div class="page-heading">
-                    <h3>Weekly Bayaan Overview</h3>
+                    <h3>{{ $service->title}} Overview</h3>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-10 mb-3">
                 <div class="service-details">
-                    <p>A 15 to 20 mins. lecture every Saturday in which the rulings of Shariah pertaining to different aspects of everyday life including dealings, social life and Islamic ethics are discussed.</p>
+                    <p>{!! $service->description !!}</p>
                 </div>
             </div>
             <div class="col-md-6 mx-auto">
                <div class="service-details-img">
-                <img src="{{ asset('masjid/assets/images/service/love.png')}}" class="img-fluid" alt="">
+                <img src="{{ asset($service->image)}}" class="img-fluid" alt="">
                </div>
             </div>
         </div>
