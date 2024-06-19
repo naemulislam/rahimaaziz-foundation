@@ -97,21 +97,13 @@
     <section class="mb-4">
         <div class="slider-box">
             <div class="mail-slider owl-carousel owl-theme">
+                @foreach ($sliders as $slider)
                 <div class="item">
                     <div class="slider-img">
-                        <img src="{{ asset('frontend/assets/images/slideshow/img1.jpg') }}" alt="">
+                        <img src="{{ asset($slider->image) }}" alt="">
                     </div>
                 </div>
-                <div class="item">
-                    <div class="slider-img">
-                        <img src="{{ asset('frontend/assets/images/slideshow/img2.jpg') }}" alt="">
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="slider-img">
-                        <img src="{{ asset('frontend/assets/images/slideshow/img3.jpg') }}" alt="">
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

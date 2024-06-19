@@ -32,6 +32,11 @@ class StudentInfoRepository extends Repository
         'city' => $request->city,
         'state' => $request->state,
         'zip_code' => $request->zip_code,
+        // previous school details
+        'prev_school_address' => $request->prev_school_address,
+        'prev_school_city' => $request->prev_school_city,
+        'prev_school_state' => $request->prev_school_state,
+        'prev_school_zip_code' => $request->prev_school_zip_code,
         //Guardian info
         'father_name' => $request->father_name,
         'father_call' => $request->father_call,
@@ -58,6 +63,11 @@ class StudentInfoRepository extends Repository
         'city' => $request->city,
         'state' => $request->state,
         'zip_code' => $request->zip_code,
+        // previous school details
+        'prev_school_address' => $request->prev_school_address,
+        'prev_school_city' => $request->prev_school_city,
+        'prev_school_state' => $request->prev_school_state,
+        'prev_school_zip_code' => $request->prev_school_zip_code,
         //Guardian info
         'father_name' => $request->father_name,
         'father_call' => $request->father_call,
@@ -81,6 +91,11 @@ class StudentInfoRepository extends Repository
         'city' => $request->city,
         'state' => $request->state,
         'zip_code' => $request->zip_code,
+        // previous school details
+        'prev_school_address' => $request->prev_school_address,
+        'prev_school_city' => $request->prev_school_city,
+        'prev_school_state' => $request->prev_school_state,
+        'prev_school_zip_code' => $request->prev_school_zip_code,
         //Guardian info
         'father_name' => $request->father_name,
         'father_call' => $request->father_call,
@@ -104,6 +119,11 @@ class StudentInfoRepository extends Repository
         'city' => $request->city,
         'state' => $request->state,
         'zip_code' => $request->zip_code,
+        // previous school details
+        'prev_school_address' => $request->prev_school_address,
+        'prev_school_city' => $request->prev_school_city,
+        'prev_school_state' => $request->prev_school_state,
+        'prev_school_zip_code' => $request->prev_school_zip_code,
         //Guardian info
         'father_name' => $request->father_name,
         'father_call' => $request->father_call,

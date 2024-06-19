@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.theme.default.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('defaults/toastr/toastr.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css')}}/animate.min.css">
 
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/simple-lightbox.min.css') }}">

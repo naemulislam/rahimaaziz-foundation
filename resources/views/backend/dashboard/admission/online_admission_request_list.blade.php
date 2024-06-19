@@ -38,7 +38,7 @@
                                             alt="">
                                     </td>
                                     <td>{{ $row->name }}</td>
-                                    <td>{{$row->admission->group->name}}</td>
+                                    <td>{{$row->admission->group->name ?? ''}}</td>
 
                                     <td>
                                         @if ($row->admission->payment_status == 0)

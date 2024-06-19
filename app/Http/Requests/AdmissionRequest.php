@@ -41,6 +41,16 @@ class AdmissionRequest extends FormRequest
             $immu_record = 'nullable|mimes:jpg,jpeg,pdf|max:5120';
             $proof_address = 'nullable|mimes:jpg,jpeg,pdf|max:5120';
         }
+        $prevSchoolAddress = 'required|string|max:200';
+        $prevSchoolCity = 'required|string|max:50';
+        $prevSchoolState = 'required|string|max:50';
+        $prevSchoolZipCode = 'required|string';
+        if(request()->student_type == 1){
+            $prevSchoolAddress = 'nullable|string|max:200';
+            $prevSchoolCity = 'nullable|string|max:50';
+            $prevSchoolState = 'nullable|string|max:50';
+            $prevSchoolZipCode = 'nullable|string';
+        }
         return [
             'admission_no' => 'required|string',
             'roll' => 'required|integer',
@@ -59,6 +69,11 @@ class AdmissionRequest extends FormRequest
             'city' => 'required',
             'state' => 'required',
             'zip_code' => 'required',
+            //Previous School Details
+            'prev_school_address' => $prevSchoolAddress,
+            'prev_school_city' => $prevSchoolCity,
+            'prev_school_state' => $prevSchoolState,
+            'prev_school_zip_code' => $prevSchoolZipCode,
             'father_name' => 'required',
             'father_call' => 'required',
             'father_email' => 'nullable|email',

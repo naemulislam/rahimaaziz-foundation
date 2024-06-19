@@ -24,7 +24,7 @@
                     <div class="">
                         <div class="row">
                             <div class="col-md-6">
-                               <div class="common-shadow p-3 wow animate__backInUp">
+                               <div class="common-shadow p-3 wow animate__animated animate__backInLeft">
                                 <div class="template-image">
                                     <img src="{{ asset('frontend') }}/assets/images/about/about2.png" alt=""
                                         class="img-responsive">
@@ -41,7 +41,7 @@
                                         Muslim community.</p>
 
                                     <div class="row my-4">
-                                        <div class="col-md-6"><a href="{{ route('home') }}" class="btn-about">About RA
+                                        <div class="col-md-6"><a href="{{ route('about') }}" class="btn-about">About RA
                                                 Foundation</a></div>
                                         <div class="col-md-6"><a href="{{ route('masjid.index') }}" class="btn-about">About
                                                 MAS JID</a></div>
@@ -50,7 +50,7 @@
                                </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="common-shadow pb-3 mb-3">
+                                <div class="common-shadow pb-3 mb-3 wow animate__animated animate__backInRight">
                                     <div class="row">
                                         <div class="col">
                                             <div class="notice-title">
@@ -89,7 +89,7 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-3 col-md-6">
-                    <div class="exprience-content wow slideInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                    <div class="exprience-content wow animate__animated animate__backInUp">
                         <i class="fa fa-book" aria-hidden="true"></i>
                         <h3>Education</h3>
                         <p>RAF is based on providing our students with a well-rounded comprehensive edication that will
@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="exprience-content wow animate__backInUp">
+                    <div class="exprience-content wow animate__animated animate__backInUp">
                         <i class="fa fa-superpowers" aria-hidden="true"></i>
                         <h3>Spirituality</h3>
                         <p>As Muslims, there is no greater duty upon us then to know Allah SWT and worship Him. Our
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="exprience-content wow animate__backInUp">
+                    <div class="exprience-content wow animate__animated animate__backInUp">
                         <i class="fa fa-book" aria-hidden="true"></i>
                         <h3>Unity</h3>
                         <p>Our objective is to develop, support, and promote an Islamic way of life by ensuring a thriving
@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="exprience-content wow animate__backInUp">
+                    <div class="exprience-content wow animate__animated animate__backInUp">
                         <i class="fa fa-product-hunt" aria-hidden="true"></i>
                         <h3>Prosperity</h3>
                         <p>Prosperity both here and in the here hereafter can be achieved by successfully implementing these
@@ -142,7 +142,7 @@
             <div class="row mb-3">
                 @foreach ($programs as $program)
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        <div class="image-flip">
+                        <div class="image-flip  wow animate__animated animate__backInUp">
                             <div class="mainflip flip-0">
                                 <div class="frontside">
                                     <div class="card">
@@ -205,7 +205,7 @@
             </div>
             <!--Second row for Slider-->
             <div class="row">
-                <div class="campus-owl owl-carousel owl-theme">
+                <div class="campus-owl owl-carousel owl-theme  wow animate__animated animate__backInUp">
                     @foreach ($campuses as $campus)
                         <div class="item">
                             <div class="campus-box">
@@ -236,7 +236,7 @@
             <div class="row mb-3">
                 @foreach ($achievements as $achievement)
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                        <div class="achivement-box common-shadow">
+                        <div class="achivement-box common-shadow  wow animate__animated animate__backInUp">
                             <a href="{{ route('achivement.details', $achievement->slug) }}">
                                 <div class="achivement-img">
                                     <img src="{{ asset($achievement->document) }}" alt="">
@@ -279,7 +279,7 @@
             <div class="row mb-3">
                 @foreach ($newses as $news)
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                        <div class="achivement-box common-shadow">
+                        <div class="achivement-box common-shadow  wow animate__animated animate__backInUp">
                             <a href="{{ route('news.details', $news->slug) }}">
                                 <div class="achivement-img">
                                     <img src="{{ asset($news->document) }}" alt="">

@@ -258,7 +258,6 @@
                                                                     <span class="text-danger">{{ $message }}</span>
                                                                 @enderror
                                                             </dd>
-
                                                         </div>
                                                     </div>
                                                 </div>

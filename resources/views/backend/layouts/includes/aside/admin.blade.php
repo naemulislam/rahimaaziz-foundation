@@ -521,7 +521,6 @@
 													<span class="menu-text">Create Activity</span>
 													<i class="menu-arrow"></i>
 												</a>
-
 											</li>
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{route('admin.activity.index')}}" class="menu-link menu-toggle">
@@ -531,7 +530,6 @@
 													<span class="menu-text">Activity List</span>
 													<i class="menu-arrow"></i>
 												</a>
-
 											</li>
 
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
@@ -542,10 +540,7 @@
 													<span class="menu-text">Average Activity</span>
 													<i class="menu-arrow"></i>
 												</a>
-
 											</li>
-
-
 										</ul>
 									</div>
 								</li>
@@ -583,18 +578,6 @@
 													<span class="menu-text">Inbox</span>
 													<i class="menu-arrow"></i>
 												</a>
-
-											</li>
-
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="#" class="menu-link menu-toggle">
-													<i class="menu-bullet menu-bullet-line">
-														<span></span>
-													</i>
-													<span class="menu-text">Blog List</span>
-													<i class="menu-arrow"></i>
-												</a>
-
 											</li>
 										</ul>
 									</div>
@@ -843,7 +826,7 @@
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
-													<span class="menu-text">Setting</span>
+													<span class="menu-text">General Setting</span>
 													<i class="menu-arrow"></i>
 												</a>
 
@@ -885,7 +868,6 @@
 													<span class="menu-text">Parent</span>
 													<i class="menu-arrow"></i>
 												</a>
-
 											</li>
 										</ul>
 									</div>

@@ -79,9 +79,12 @@ class FrontendController extends Controller
     {
         $group = GroupRepository::query()->where('id', $id)->where('status', true)->first();
         $studentAreAdmited = AdmissionRepository::query()->where('group_id', $group->id)->count();
-        $vacant = $group->vacant - $studentAreAdmited;
-        if($vacant == 0){
-            $vacant = '';
+        $vacantAreAvailable = $group->vacant - $studentAreAdmited;
+
+        if ($vacantAreAvailable == 0) {
+            $vacant = '<span class="text-danger">Admission seats are empty!. So, you can request on admission.</span> ';
+        } else {
+            $vacant = 'Seats are Available:' . $vacantAreAvailable;
         }
         $html = '';
         $html .= '<div class="col-md-4">
@@ -96,7 +99,7 @@ class FrontendController extends Controller
                 </div>
                 <div class="col-md-4">
                     <div class="announcement">
-                        <h4>Seats are Available: ' . $vacant . '</h4>
+                        <h4> ' . $vacant . '</h4>
                     </div>
                 </div>';
         return $html;
@@ -157,15 +160,11 @@ class FrontendController extends Controller
     //Online Admission for student
     public function onlineAdmissionStore(OnlineAdmissionRequest $request)
     {
-        // $group = GroupRepository::query()->where('id', $request->group_id)->where('status', true)->first();
-        // $studentAreAdmited = AdmissionRepository::query()->where('group_id', $group->id)->count();
+        $student = StudentRepository::onlineAdmissionCreate($request);
+        OnlineAdmissionRepository::storeByRequest($request, $student->id);
+        StudentInfoRepository::onlineAdmissionDetails($request, $student->id);
 
-            $student = StudentRepository::onlineAdmissionCreate($request);
-            OnlineAdmissionRepository::storeByRequest($request, $student->id);
-            StudentInfoRepository::onlineAdmissionDetails($request, $student->id);
-
-            return back()->with('success', 'Admission request is Successfully send.');
-
+        return back()->with('success', 'Admission request has been Successfully send.');
     }
     public function signinPortal()
     {

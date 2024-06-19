@@ -76,25 +76,8 @@
             <div class="note">
                 <h3 class="align-self-center">Applying for the admission.</h3>
             </div>
-            <div class="row my-3" id="admission-announcement">
-                {{-- <div class="col-md-4">
-                    <div class="announcement">
-                        <h4>Registration Fee: $100</h4>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="announcement">
-                        <h4>Monthly Fee: $200</h4>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="announcement">
-                        <h4>Seats are Available: 20</h4>
-                    </div>
-                </div> --}}
-            </div>
-            <form action="{{ route('online.admission.store') }}" method="POST" id="payment-form"
-                enctype="multipart/form-data">
+            <div class="row my-3" id="admission-announcement"></div>
+            <form action="{{ route('online.admission.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-content">
                     <div class="card mb-3">
@@ -192,7 +175,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Student type<span class="text-danger">*</span></label>
-                                        <select class="form-control" name="student_type">
+                                        <select class="form-control" name="student_type" id="student_type">
                                             <option selected disabled>Select type</option>
                                             <option value="0">New Student</option>
                                             <option value="1">Return Student</option>
@@ -256,7 +239,6 @@
                                 </div>
                             </div>
                             <div class="row">
-
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">City<span class="text-danger">*</span></label>
@@ -288,6 +270,62 @@
                                         @error('zip_code')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="previous-school">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5>Previous School Details</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="">Address<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" placeholder="Enter previous school address"
+                                                name="prev_school_address" value="{{ old('prev_school_address') }}" />
+
+                                            @error('prev_school_address')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">City<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="prev_school_city"
+                                                placeholder="Enter previous school city" value="{{ old('prev_school_city') }}">
+
+                                            @error('prev_school_city')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">State<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="prev_school_state"
+                                                placeholder="Enter previous school state" value="{{ old('prev_school_state') }}">
+
+                                            @error('prev_school_state')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Zip Code<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="prev_school_zip_code"
+                                                placeholder="Enter previous school zip code" value="{{ old('prev_school_zip_code') }}">
+
+                                            @error('prev_school_zip_code')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -649,6 +687,18 @@
                     $('#submitBtn').prop('disabled', true); // Disable submit button
                 }
             });
+        });
+    </script>
+    <script>
+        $('#student_type').on('change', function(){
+            var value = $(this).val();
+            console.log(value);
+            if(value == 1){
+                $('.previous-school').hide();
+
+            }else{
+                $('.previous-school').show();
+            }
         });
     </script>
 @endpush

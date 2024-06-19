@@ -144,8 +144,24 @@
                         <b class="col-sm-3">Zip Code</b>
                         <b class="col-sm-9">
                             {{ $student->studentinfo->zip_code }}
-
                         </b>
+                        <b class="col-sm-3">Previous school address</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->prev_school_address ?? 'N/A' }}
+                        </b>
+                        <b class="col-sm-3">Previous school City</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->prev_school_city ?? 'N/A' }}
+                        </b>
+                        <b class="col-sm-3">Previous school State</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->prev_school_state ?? 'N/A' }}
+                        </b>
+                        <b class="col-sm-3">Previous school Zip code</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->prev_school_zip_code ?? 'N/A' }}
+                        </b>
+
                         <b class="col-sm-3">Father Name</b>
                         <b class="col-sm-9">
                             {{ $student->studentinfo->father_name }}</b>
