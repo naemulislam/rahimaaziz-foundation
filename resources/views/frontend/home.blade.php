@@ -26,19 +26,14 @@
                             <div class="col-md-6">
                                <div class="common-shadow p-3 wow animate__animated animate__backInLeft">
                                 <div class="template-image">
-                                    <img src="{{ asset('frontend') }}/assets/images/about/about2.png" alt=""
+                                    <img src="{{ asset($about->image) }}" alt=""
                                         class="img-responsive">
                                 </div>
                                 <div class="text-section mt-3">
                                     <h3 class="underline"><span style="color:#ffa229;">Welcome to </span>Rahima Aziz
                                         Foundation</h3>
 
-                                    <p class="mb-3">Rahima Aziz Foundation was established in 2021 as a place of prayer,
-                                        education, and community. The foundation offers a safe space to pray, gain religious
-                                        education as well as general education, function as a community center, and many
-                                        more. One of the main objectives is to create a bridge between different cultures
-                                        and religions as well as give a place to cater to the basic needs of the growing
-                                        Muslim community.</p>
+                                    <p class="mb-3">{{Str::limit(strip_tags($about->description), 200, '...')}}</p>
 
                                     <div class="row my-4">
                                         <div class="col-md-6"><a href="{{ route('about') }}" class="btn-about">About RA

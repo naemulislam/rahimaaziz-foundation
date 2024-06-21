@@ -1,4 +1,4 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.layouts.master')
 @section('title','Admin Users')
 @section('content')
 <!--begin::Content-->
@@ -10,9 +10,6 @@
             <div class="d-flex align-items-center flex-wrap mr-1">
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Users</h5>
-                    <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                         <li class="breadcrumb-item text-muted">
@@ -129,31 +126,36 @@
                                 <th>SL</th>
                                 <th>Picture</th>
                                 <th>Name</th>
+                                <th>Role</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($datas as $row)
+                            @foreach($admins as $row)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td><img class="border" src="@if(!empty($row->profile_photo_path)) {{asset($row->profile_photo_path)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="image" width="60"></td>
+                                <td><img class="border" src="@if(!empty($row->image)) {{asset($row->image)}} @else {{asset('defaults/noimage/no_img.jpg')}} @endif" alt="image" width="60"></td>
                                 <td>{{$row->name}}</td>
+                                <td>{{$row->role}}</td>
                                 <td>{{$row->email}}</td>
                                 <td>{{$row->phone}}</td>
 
                                 <td class="text-center">
-                                   @if($row->id == Auth('admin')->user()->id)
-                                   <a href="{{route('admin.edit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3">
+                                   @if($row->role == 'admin')
+                                   <a href="{{auth('admin')->user()->role == 'admin'? route('admin.edit',$row->id):'#' }}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                   @endif
-                                    @if($row->id != Auth('admin')->user()->id)
+                                    @else
+                                    <a href="{{route('admin.edit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
                                     <a id="delete" href="{{route('admin.destroy',$row->id)}}" class="btn btn-icon btn-danger btn-hover-primary btn-xs mx-3">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                     @endif
+
                                 </td>
                             </tr>
                             @endforeach

@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OnlineAdmissionRequest;
 use App\Models\ActivityList;
 use App\Models\Contact;
-use App\Models\Prayer;
-use App\Models\Staff;
 use App\Models\Student;
 use App\Models\User;
+use App\Repositories\AboutRepository;
 use App\Repositories\AchievementRepository;
 use App\Repositories\AdmissionRepository;
 use App\Repositories\CampusRepository;
@@ -22,6 +21,7 @@ use App\Repositories\ProgramRepository;
 use App\Repositories\SliderRepository;
 use App\Repositories\StudentInfoRepository;
 use App\Repositories\StudentRepository;
+use App\Repositories\TeacherRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +33,7 @@ class FrontendController extends Controller
     public function index()
     {
         $data['sliders'] = SliderRepository::query()->where('status', true)->orderBy('order', 'asc')->get();
+        $data['about'] = AboutRepository::query()->latest()->first();
         $data['campuses'] = CampusRepository::query()->where('status', true)->orderBy('order', 'asc')->get();
         $data['notices'] = NoticeRepository::query()->latest()->where('status', true)->take(4)->get();
         $data['programs'] = ProgramRepository::query()->where('status', true)->latest()->take(4)->get();
@@ -65,7 +66,8 @@ class FrontendController extends Controller
     //End contact
     public function aboutUs()
     {
-        return view('frontend.aboutus');
+        $about = AboutRepository::query()->latest()->first();
+        return view('frontend.aboutus', compact('about'));
     }
 
     public function admission()
@@ -87,17 +89,17 @@ class FrontendController extends Controller
             $vacant = 'Seats are Available:' . $vacantAreAvailable;
         }
         $html = '';
-        $html .= '<div class="col-md-4">
+        $html .= '<div class="col-md-4 mb-2">
                     <div class="announcement">
                         <h4>Registration Fee: $' . $group->reg_fee . '</h4>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-2">
                     <div class="announcement">
                         <h4>Monthly Fee: $' . $group->monthly_fee . '</h4>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-2">
                     <div class="announcement">
                         <h4> ' . $vacant . '</h4>
                     </div>
@@ -107,7 +109,8 @@ class FrontendController extends Controller
     //Team members method
     public function teamMember()
     {
-        return view('frontend.team');
+        $ourTeams = TeacherRepository::query()->where('status', true)->get();
+        return view('frontend.team', compact('ourTeams'));
     }
     //gallery method
     public function gallery()

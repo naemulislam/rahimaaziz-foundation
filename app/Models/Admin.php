@@ -18,6 +18,7 @@ class Admin extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    protected $guarded = ['id'];
 
 
 
@@ -27,14 +28,6 @@ class Admin extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-      'name',
-      'email',
-      'phone',
-      'website',
-      'telegram',
-      'password',
-    ];
 
     /**
      * The attributes that should be hidden for arrays.

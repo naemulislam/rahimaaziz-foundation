@@ -118,7 +118,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="about-img">
-                                    <img src="{{ asset('frontend') }}/assets/images/about/about2.png" alt=""
+                                    <img src="{{ asset($about->image) }}" alt=""
                                         class="img-responsive">
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                                 <div class="text-section mt-3">
                                     <h3 class="welcome-text">Welcome to Masjib Ar Rahman</h3>
 
-                                    <p class="mb-3"> Masjid ar Rahman serves as the central hub for the Muslims in the area. We have a thriving and ever-growing community surrounding the Masjid that participates daily in the Masjid activities. Whether you are a new Muslim, a non-Muslim or have always been a Muslim, we invite you to come to the Masjid to participate in the Masjid activities and learn more about Islam.</p>
+                                    <p class="mb-3"> {{Str::limit(strip_tags($about->description), 300, '...')}}</p>
                                     <div class="row mt-4">
                                         <div class="col-md-6"><a href="{{ route('masjid.index')}}" class="btn-about mr-2">About MAS JID</a></div>
                                         <div class="col-md-6"> <a href="{{ route('home')}}" class="btn-about">About RA Foundation</a></div>

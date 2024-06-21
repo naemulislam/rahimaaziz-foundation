@@ -66,9 +66,11 @@ img {
 
 /*Topbar Section*/
 .topbar {
-  background-color: #0F0F41;
-  color: #ffffff;
-  padding: 8px 0 10px 0; }
+    background-color: #0F0F41;
+    color: #ffffff;
+    padding-top: 21px;
+    padding-bottom: 14px;
+}
 .topbar a {
     color: #fff; }
 .topbar a:hover {
@@ -149,7 +151,7 @@ header {
 }
 
 .menu-active {
-    color: brown !important;
+    color: #FD9722 !important;
 }
 
 .dropdown-menu1 {
@@ -686,7 +688,7 @@ font-family: 'Philosopher', sans-serif;
     font-weight: normal;
 }
 .ft-logo {
-    margin-bottom: 55px;
+    margin-bottom: 20px;
 }
 .ft-title h2 {
     font-size: 25px;
@@ -757,53 +759,23 @@ font-family: 'Philosopher', sans-serif;
 }
 
 /*About page section*/
-.heading-txt{
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    margin-top: 180px;
-    text-align: center;
-}
-.abouteus-txt{
-    border-bottom: 2px solid #eee;
-}
-.abouteus-txt h1 {
-    font-size: 35px;
-    font-family: sans-serif;
-    text-align: center;
-}
-
 .welcome-box h1 {
     text-align: center;
     font-size: 25px;
     color: #000338;
     font-weight: 600;
-    margin-bottom: 30px;
 }
 .welcome-box p {
     font-size: 16px;
     margin-bottom: 30px;
 }
-
-.faq-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #000338;
+.about-image > img{
+    width: 100%;
 }
-
-.faq-header h5 {
-  font-size: 15px;
-  font-family: 'Fira sans', sans-serif;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.faq-header>span>.fa {
-  color: #fff;
-  font-size: 26px;
-
+.about-content > p {
+    font-size: 17px;
+    font-family: var(--lato);
+    line-height: 28px;
 }
 /* Start About page desing */
 .our-team {

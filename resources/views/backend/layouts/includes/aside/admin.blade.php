@@ -595,6 +595,7 @@
                                     $routeName == 'admin.campuses.index' ||
                                     $routeName == 'admin.gallery.index' ||
                                     $routeName == 'admin.slider.index' ||
+                                    $routeName == 'admin.about.index' ||
                                     $routeName == 'admin.achievement.index' ||
                                     $routeName == 'admin.achievement.create'||
                                     $routeName == 'admin.achievement.edit'||
@@ -624,6 +625,26 @@
 												<span class="menu-link">
 													<span class="menu-text">website</span>
 												</span>
+											</li>
+                                            <li class="menu-item menu-item-submenu
+                                            {{ $routeName == 'admin.slider.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.slider.index')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Slider</span>
+													<i class="menu-arrow"></i>
+												</a>
+											</li>
+                                            <li class="menu-item menu-item-submenu
+                                            {{ $routeName == 'admin.about.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.about.index')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">About Us</span>
+													<i class="menu-arrow"></i>
+												</a>
 											</li>
 											<li class="menu-item menu-item-submenu {{
                                             $routeName == 'admin.notice.index'||
@@ -695,16 +716,7 @@
 													<i class="menu-arrow"></i>
 												</a>
 											</li>
-											<li class="menu-item menu-item-submenu
-                                            {{ $routeName == 'admin.slider.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="{{ route('admin.slider.index')}}" class="menu-link menu-toggle">
-													<i class="menu-bullet menu-bullet-line">
-														<span></span>
-													</i>
-													<span class="menu-text">Slider</span>
-													<i class="menu-arrow"></i>
-												</a>
-											</li>
+
 											<li class="menu-item menu-item-submenu
                                             {{ $routeName == 'admin.gallery.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.gallery.index')}}" class="menu-link menu-toggle">
@@ -723,6 +735,7 @@
 								<li class="menu-item menu-item-submenu
                                 {{
                                     $routeName == 'admin.masjid.slider.index' ||
+                                    $routeName == 'admin.masjid.about.index' ||
                                     $routeName == 'admin.prayer.index'||
                                     $routeName == 'admin.service.index'||
                                     $routeName == 'admin.service.create'||
@@ -758,6 +771,16 @@
 														<span></span>
 													</i>
 													<span class="menu-text">Slider</span>
+													<i class="menu-arrow"></i>
+												</a>
+											</li>
+                                            <li class="menu-item menu-item-submenu
+                                            {{ $routeName == 'admin.masjid.about.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.masjid.about.index')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">About Us</span>
 													<i class="menu-arrow"></i>
 												</a>
 											</li>

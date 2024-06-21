@@ -1,34 +1,37 @@
+<?php
+$routeName = request()->route()->getName();
+?>
 <header class="header-sec">
     <nav class="navbar">
         <div class="container">
-            <img class="header-logo" src="{{ asset('frontend/assets/images/logo/main-logo.png') }}" alt="">
+            <a href="{{ route('home')}}"><img class="header-logo" src="{{ asset($setting->white_logo) }}" alt=""></a>
             <div class="menu-area ml-auto">
                 <ul>
-                    <li><a href="{{ route('home') }}"><i class="fa fa-home"></i> Home</a></li>
-                    <li class="dd-btn1"><a href="#!"> About <i class="fa fa-angle-down"></i></a>
+                    <li><a href="{{ route('home') }}" class="{{ $routeName == 'home'? 'menu-active':''}}"><i class="fa fa-home"></i> Home</a></li>
+                    <li class="dd-btn1"><a href="#!" class="{{ $routeName == 'about' || $routeName == 'team_member' ?  'menu-active':''}}"> About <i class="fa fa-angle-down"></i></a>
 
                         <div class="dropdown-menu1">
                             <ul>
-                                <li><a href="{{ route('about') }}"><i class="fa fa-long-arrow-right"></i> About Us</a>
+                                <li><a href="{{ route('about') }}" class="{{ $routeName == 'about'? 'menu-active':''}}"><i class="fa fa-long-arrow-right"></i> About Us</a>
                                 </li>
-                                <li><a href="{{ route('team_member')}}"><i class="fa fa-long-arrow-right"></i>Our Team</a></li>
+                                <li><a href="{{ route('team_member')}}" class="{{ $routeName == 'team_member'? 'menu-active':''}}"><i class="fa fa-long-arrow-right"></i>Our Team</a></li>
                                 <li><a href=""><i class="fa fa-long-arrow-right"></i>FAQ</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="dd-btn1"><a href="#!"> Media <i class="fa fa-angle-down"></i></a>
+                    <li class="dd-btn1"><a href="#!" class="{{ $routeName == 'gallery'? 'menu-active':''}}"> Media <i class="fa fa-angle-down"></i></a>
                         <div class="dropdown-menu1">
                             <ul>
-                                <li><a href="{{ route('gallery')}}"><i class="fa fa-long-arrow-right"></i>Gallery</a></li>
+                                <li><a href="{{ route('gallery')}}" class="{{ $routeName == 'gallery'? 'menu-active':''}}"><i class="fa fa-long-arrow-right"></i>Gallery</a></li>
                                 <li><a href=""><i class="fa fa-long-arrow-right"></i> Video</a></li>
                             </ul>
                         </div>
 
                     </li>
-                    <li class="dd-btn1"><a href="{{ route('contact') }}">Contact Us</a></li>
-                    <li class="dd-btn1"><a href="{{ route('programs') }}">Programs</a></li>
+                    <li class="dd-btn1"><a href="{{ route('contact') }}" class="{{ $routeName == 'contact'? 'menu-active':''}}">Contact Us</a></li>
+                    <li class="dd-btn1"><a href="{{ route('programs') }}" class="{{ $routeName == 'programs'? 'menu-active':''}}">Programs</a></li>
 
-                    <li class="dd-btn1"><a href="{{ route('admission') }}"> Online Admission</a></li>
+                    <li class="dd-btn1"><a href="{{ route('admission') }}" class="{{ $routeName == 'admission'? 'menu-active':''}}"> Online Admission</a></li>
                     @if (auth('admin')->user())
                         <li><a href="{{ route('admin.dashboard') }}"> Dashboard</a></li>
                     @elseif(auth('teacher')->user())
@@ -51,7 +54,7 @@
 <div class="mobile-menu">
     <div class="mm-logo" style="background: #fff; padding: 11px 18px;">
         <a href="{{ route('home') }}">
-            {{-- <img style="width: 55px;" src="{{ asset('frontend') }}/assets/images/logo/logo-light1.png" alt="logo"> --}}
+            <img style="width: 55px;" src="{{ asset($setting->white_logo) }}" alt="logo">
         </a>
         <div class="mm-cross-icon">
             <i class="fa fa-times mm-ci"></i>
@@ -96,13 +99,6 @@
                     </div>
                 </div>
             </div>
-            <style>
-                .scroll-div-dist {
-                    background: #ececec !important;
-                }
-            </style>
-
-
             <div class="menu-box">
                 <div class="menu-link">
                     <a href="{{ route('contact') }}">Contact Us</a>

@@ -1,12 +1,6 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.layouts.master')
 @section('title','Admin Edit Password')
 @section('content')
-
-@php
-$prefix = Request::route()->getPrefix();
-$route = Route::current()->getName();
-$url = url()->current();
-@endphp
 
 <!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -45,30 +39,35 @@ $url = url()->current();
                         <!--begin::Body-->
                         <div class="card-body pt-4">
                             <!--begin::User-->
-                            <div class="d-flex align-items-center">
-                                <div class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
-                                    <div class="symbol-label" style="background-image:url(@if(!empty(Auth('admin')->user()->profile_photo_path)) {{asset( Auth('admin')->user()->profile_photo_path ) }} @else {{asset('defaults/avatar/avatar.png')}} @endif)"></div>
+                            <div class="align-items-center text-center">
+                                <div
+                                    class="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
+                                    <div class="symbol-label"
+                                        style="background-image:url(@if (!empty(Auth('admin')->user()->image)) {{ asset(Auth('admin')->user()->image) }} @else {{ asset('defaults/avatar/avatar.png') }} @endif )">
+                                    </div>
                                     <i class="symbol-badge bg-success"></i>
                                 </div>
                                 <div>
-                                    <a href="#" class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{Auth('admin')->user()->name}}</a>
-                                    <div class="text-muted">Admin</div>
+                                    <a href="#"
+                                        class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{ Auth('admin')->user()->name }}</a>
                                 </div>
                             </div>
                             <!--end::User-->
                             <!--begin::Contact-->
                             <div class="py-9">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <span class="font-weight-bold mr-2">Role:</span>
+                                    <a href="#"
+                                        class="text-muted text-hover-primary">{{ Auth('admin')->user()->role }}</a>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
                                     <span class="font-weight-bold mr-2">Email:</span>
-                                    <a href="#" class="text-muted text-hover-primary">{{Auth('admin')->user()->email}}</a>
+                                    <a href="#"
+                                        class="text-muted text-hover-primary">{{ Auth('admin')->user()->email }}</a>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <span class="font-weight-bold mr-2">Phone:</span>
-                                    <span class="text-muted">{{Auth('admin')->user()->phone}}</span>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="font-weight-bold mr-2">Location:</span>
-                                    <span class="text-muted">{{Auth('admin')->user()->address}}</span>
+                                    <span class="text-muted">{{ Auth('admin')->user()->phone }}</span>
                                 </div>
                             </div>
                             <!--end::Contact-->
@@ -122,7 +121,7 @@ $url = url()->current();
                 <!--begin::Content-->
                 <div class="flex-row-fluid ml-lg-8">
                     <!--begin::Card-->
-                    <form class="form" action="{{ route('admin.upassword')}}" method="post">
+                    <form class="form" action="{{ route('admin.upassword', auth('admin')->user()->id)}}" method="post">
                         @csrf
                         <div class="card card-custom card-stretch">
                             <!--begin::Header-->

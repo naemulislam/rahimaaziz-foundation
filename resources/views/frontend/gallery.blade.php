@@ -42,7 +42,7 @@
                 <div class="gallery">
                     <div class="row">
                         @foreach ($galleries as $gallery)
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-3">
                             <div class="gallery-box">
                                 <a href="{{asset($gallery->image)}}" class="big">
                                     <img src="{{asset($gallery->image)}}" alt="" title="Beautiful Image"/>

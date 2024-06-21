@@ -21,14 +21,8 @@ class CreateAdminsTable extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('gender')->nullable();
-            $table->string('date_of_birth')->nullable();
-            $table->string('marital_status')->nullable();
-            $table->string('father_name')->nullable();
-            $table->string('mother_name')->nullable();
-            $table->string('qualification')->nullable();
-            $table->string('designation')->nullable();
+            $table->string('role')->nullable();
             $table->longText('address')->nullable();
-            $table->string('data_of_joining')->nullable();
             $table->string('image', 2048)->nullable();
             $table->rememberToken();
 

@@ -4,12 +4,11 @@
 	<!--end::Subheader-->
 	@php
 	$countadmin = \App\Models\Admin::count();
-	$counthr = \App\Models\Hr::count();
 	$countclass = \App\Models\Group::count();
-	$countaccountant = \App\Models\Accountant::count();
 	$countteacher = \App\Models\Teacher::where('status',1)->count();
-	$countstudent = \App\Models\Studentadmission::where('status',1)->count();
+	$countstudent = \App\Models\Student::where('status',1)->where('admission_status',1)->where('status_type',1)->count();
 	$countuser = \App\Models\User::count();
+    $admissionRequest = \App\Models\Student::where('status', true)->where('admission_status',false)->where('status_type', false)->count();
 	@endphp
 	<!--begin::Entry-->
 	<div class="d-flex flex-column-fluid">
@@ -44,7 +43,7 @@
 											</svg>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="@if(auth('admin')->user()){{ route('admin.index')}}@endif" class="text-warning font-weight-bold font-size-h6">Admin ( {{$countadmin}} )</a>
+										<a href="{{ route('admin.index')}}" class="text-warning font-weight-bold font-size-h6">Admin ( {{$countadmin}} )</a>
 									</div>
 									<div class="col bg-light-primary px-6 py-8 rounded-xl mb-7">
 										<span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
@@ -58,10 +57,8 @@
 											</svg>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="@if(auth('admin')->user())
-										{{route('admin.teacher.index')}} @endif" class="text-primary font-weight-bold font-size-h6 mt-2">Teacher ( {{$countteacher}} )</a>
+										<a href="{{route('admin.teacher.index')}}" class="text-primary font-weight-bold font-size-h6 mt-2">Teacher ( {{$countteacher}} )</a>
 									</div>
-
 								</div>
 								<!--end::Row-->
 								<!--begin::Row-->
@@ -80,7 +77,7 @@
 											</svg>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="#" class="text-warning font-weight-bold font-size-h6">Students ( {{$countstudent}} )</a>
+										<a href="{{ route('admin.admission.index')}}" class="text-warning font-weight-bold font-size-h6">Students ( {{$countstudent}} )</a>
 									</div>
 									<div class="col bg-light-primary px-6 py-8 rounded-xl mb-7">
 										<span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
@@ -94,7 +91,7 @@
 											</svg>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">Accounts ( {{$countaccountant}} )</a>
+										<a href="{{ route('admin.group.index')}}" class="text-primary font-weight-bold font-size-h6 mt-2">Groups ( {{$countclass}} )</a>
 									</div>
 
 								</div>
@@ -113,7 +110,7 @@
 											</svg>
 											<!--end::Svg Icon-->
 										</span>
-										<a href="{{route('admin.group.index')}}" class="text-danger font-weight-bold font-size-h6 mt-2">Groups ( {{$countclass}} )</a>
+										<a href="{{ route('admin.admission.pending')}}" class="text-danger font-weight-bold font-size-h6 mt-2">Online Admission Request ( {{$admissionRequest}} )</a>
 									</div>
 									<div class="col bg-light-success px-6 py-8 rounded-xl">
 										<span class="svg-icon svg-icon-3x svg-icon-success d-block my-2">

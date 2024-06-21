@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Masjid;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\AboutRepository;
 use App\Repositories\MasjidGalleryRepository;
 use App\Repositories\MasjidSliderRepository;
 use App\Repositories\PrayerRepository;
@@ -13,12 +14,14 @@ class MasjidController extends Controller
 {
     public function masjidIndex(){
         $data['sliders'] = MasjidSliderRepository::query()->where('status', true)->orderBy('order', 'asc')->get();
+        $data['about'] = AboutRepository::query()->latest()->first();
         $data['services'] = ServiceRepository::query()->where('status', true)->get();
         $data['prayer'] = PrayerRepository::first();
         return view('masjid.frontend.index',$data);
     }
     public function masjidAbout(){
-        return view('masjid.frontend.about');
+        $data['about'] = AboutRepository::query()->latest()->first();
+        return view('masjid.frontend.about', $data);
     }
     public function masjidService(){
         $data['services'] = ServiceRepository::query()->where('status', true)->get();

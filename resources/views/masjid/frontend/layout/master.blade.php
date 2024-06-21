@@ -37,10 +37,7 @@
                         <div class="ft-logo">
                             <img style="width:126px;" src="{{ asset($setting->black_logo ?? '') }}" alt="">
                         </div>
-                        <h5>RA FOUNDATION New York For a peaceful and prosperous community, it is vital that we have a
-                            good relationship with people of all faiths and beliefs. We are heavily invested with
-                            keeping up with local interfaith movements as well as taking part in local interfaith
-                            programs.</h5>
+                        <h5>{!! $setting->address !!}</h5>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12">
@@ -49,8 +46,8 @@
                             <h2> Contact Info</h2>
                         </div>
                         <ul>
-                            <li>Email:info@rahimaazizfoundation.com</li>
-                            <li>Phone:+65745877444 </li>
+                            <li>Email: {{$setting->email}}</li>
+                            <li>Phone: {{ $setting->phone}} </li>
                         </ul>
                     </div>
                 </div>
@@ -60,9 +57,9 @@
                             <h2> More Info</h2>
                         </div>
                         <ul>
-                            <li><a href="#">About Rahima Aziz Foundation</a></li>
-                            <li><a href="#">About Maszid ar Rahman</a></li>
-                            <li><a href="#">Our Programs</a></li>
+                            <li><a href="{{ route('home')}}">About Rahima Aziz Foundation</a></li>
+                            <li><a href="{{ route('masjid.about')}}">About Maszid ar Rahman</a></li>
+                            <li><a href="{{ route('masjid.service')}}">Our Service</a></li>
                         </ul>
                     </div>
                 </div>
@@ -84,8 +81,6 @@
         </div>
     </section>
     <!-- End Copyright Section -->
-
-
 
     <!-- Optional JavaScript -->
     <script src="{{ asset('masjid') }}/assets/js/jquery.min.js"></script>

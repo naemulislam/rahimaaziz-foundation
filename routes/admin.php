@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\StudentActivityController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherAttenController;
 use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\Backend\AchievementController;
 use App\Http\Controllers\Backend\CampusController;
@@ -52,12 +53,14 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('/admin', 'index')->name('index');
         Route::post('/admin/store', 'store')->name('store');
         Route::get('/create', 'create')->name('create');
+        Route::get('/admin/edit/{admin}', 'edit')->name('edit');
+        Route::put('/admin/update/{admin}', 'update')->name('update');
+        Route::get('/admin/destroy/{admin}', 'destroy')->name('destroy');
+        //Admin update profile route
         Route::get('/profile', 'getProfile')->name('profile');
-        Route::get('/admin/edit/{id}', 'edit')->name('edit');
-        Route::post('/admin/update/{id}', 'update')->name('update');
-        Route::get('/admin/destroy/{id}', 'destroy')->name('destroy');
+        Route::post('/admin/update/{admin}', 'updateProfile')->name('profile.update');
         Route::get('/edit/password/', 'cPassword')->name('epassword');
-        Route::post('/update/password/', 'upassword')->name('upassword');
+        Route::post('/update/password/{admin}', 'upassword')->name('upassword');
     });
 
     Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager.index');
@@ -261,6 +264,10 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('/website/setting', 'index')->name('setting.index');
         Route::post('/website/setting/update/{setting?}', 'update')->name('setting.updateSettingData');
     });
+    Route::controller(AboutController::class)->group(function(){
+        Route::get('/website/about-us', 'index')->name('about.index');
+        Route::post('/website/about-us/update/{aboutMadrasha?}', 'update')->name('about.updateData');
+    });
 
     /////////////////////////Masjid routes////////////////////////////////
     Route::controller(MasjidSliderController::class)->group(function(){
@@ -269,6 +276,10 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::post('/masjid/slider/update/{masjidSlider}', 'update')->name('masjid.slider.update');
         Route::get('/masjid/slider/destroy/{masjidSlider}', 'destroy')->name('masjid.slider.destroy');
         Route::post('/masjid/slider/status/{masjidSlider}', 'status')->name('masjid.slider.status');
+    });
+    Route::controller(AboutController::class)->group(function(){
+        Route::get('/masjid/about-us', 'Masjidindex')->name('masjid.about.index');
+        Route::post('/masjid/about-us/update/{aboutMasjid?}', 'Masjidupdate')->name('masjid.about.updateData');
     });
     Route::controller(PrayerController::class)->group(function(){
         Route::get('/masjid/prayer', 'index')->name('prayer.index');

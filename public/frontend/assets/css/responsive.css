@@ -10,7 +10,7 @@
     .menu-area {
         display: none;
     }
-    
+
     /*Satrt Exprience Section*/
     .exprience-content{
         margin-bottom: 20px;
@@ -30,59 +30,59 @@
     left: 101% !important; }
 
   .tparrows:before {
-    line-height: 25px !important; } 
+    line-height: 25px !important; }
 
-    
+
 }
 
 @media (max-width: 992px) {
-  
+
     /*LOgo Section*/
     .button-section{
         margin-bottom: 30px;
     }
-    
+
     /*text and image section*/
     .template-image{
         margin-bottom: 30px;
     }
     .button-section a {
       margin-top: 15px;
-      
+
     }
     .text-section .btn-about {
-     
+
       padding: 12px 8px;
-      
+
     }
-    
+
       /*Satrt Exprience Section*/
     .exprience-content{
         margin-bottom: 20px;
     }
     /*End Exprience Section*/
-    
+
     /*feature section*/
     .features-text-icon{
         margin-bottom: 30px;
     }
-    
-    
+
+
     /*islamic para section*/
     .col-sec{
     width:50%;
     margin: 0 auto;
     padding: 0 15px;
     margin:20px 0;
-   
+
 }
-    
+
 /*Audio Section*/
 .card-detles{
-       margin-bottom: 30px; 
+       margin-bottom: 30px;
     }
-    
-    
+
+
 }
 @media (max-width: 768px) {
 
@@ -107,39 +107,39 @@
     text-align: center; }
 
 
-    
+
     /*End Top bar Section*/
-    
+
     /*LOgo Section*/
     .button-section{
         margin-bottom: 30px;
     }
-    
+
     /*Slider Sectoin*/
     .nav-slider img{
         width:500px;
     }
     .button-section a {
       margin-top: 12px;
-      
+
     }
     .text-section .btn-about {
-    
+
       padding: 12px 10px;
-     
+
     }
-    
+
     /*Satrt Exprience Section*/
     .exprience-content{
         margin-bottom: 20px;
     }
     /*End Exprience Section*/
-    
+
      /*feature section*/
     .features-text-icon{
         margin-bottom: 30px;
     }
-    
+
     /*Why choose section*/
     .img-text-section{
         margin-bottom: 30px;
@@ -147,7 +147,7 @@
 
 
     .template-image{
-  
+
 margin-bottom: 20px;
 }
 .col-sec{
@@ -155,12 +155,12 @@ margin-bottom: 20px;
     margin: 0 auto;
     padding: 0 15px;
     margin:20px 0;
-   
+
 }
-    
+
     /*Audio Section*/
 .card-detles{
-       margin-bottom: 30px; 
+       margin-bottom: 30px;
     }
 /*Footer Section*/
     .ft-para{
@@ -174,18 +174,30 @@ margin-bottom: 20px;
   width: 4px;
   background-color: #FF9822;
 }
+table {
+    display: block;
+    overflow-y: auto;
+  }
 }
 @media (max-width: 480px) {
   .button-section a {
     margin-top: 12px;
-    
+
   }
   .text-section .btn-about {
-  
+
     padding: 12px 5px;
-    
+
   }
+  .note > h3{
+    font-size: 22px;
+    line-height: 30px;
+}
   }
 @media (max-width: 320px) {
-  
-  }
+    .note > h3{
+        font-size: 22px;
+        line-height: 30px;
+    }
+
+}

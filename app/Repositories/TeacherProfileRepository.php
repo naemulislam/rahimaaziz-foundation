@@ -7,11 +7,6 @@ use App\Models\Teacher;
 
 class TeacherProfileRepository extends Repository
 {
-    /**
-     * base method
-     *
-     * @method model()
-     */
     public static function model()
     {
         return Teacher::class;

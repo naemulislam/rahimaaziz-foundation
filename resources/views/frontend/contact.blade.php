@@ -87,8 +87,7 @@
                     <div class="col-lg-4">
                         <div class="address">
                             <h4>ADDRESS:</h4>
-                            <p>198 West 21th Street, Suite 721</p>
-                            <p>New York NY 10016</p>
+                            <p>{!! $setting->address !!}</p>
                         </div>
                     </div>
                     <div class="col-lg-4">

@@ -3,14 +3,16 @@
 @section('content')
     <style>
         .card-header {
-    background: #000338;
-    padding: 2px 0px;
-    color: #fff;
-}
-.card-header > h3{
-    font-size: 20px;
-    font-family:'Philosopher', sans-serif;
-}
+            background: #000338;
+            padding: 2px 0px;
+            color: #fff;
+        }
+
+        .card-header>h3 {
+            font-size: 20px;
+            font-family: 'Philosopher', sans-serif;
+        }
+
         table>thead>tr>th {
             text-align: center;
         }
@@ -61,7 +63,8 @@
                                             <td>{{ \Carbon\Carbon::parse($notice->date)->format('j F Y ') }}</td>
                                             <td>
                                                 @if ($notice->document)
-                                                    <a href="{{$notice->document}}" download><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                    <a href="{{ $notice->document }}" download><i class="fa fa-download"
+                                                            aria-hidden="true"></i></a>
                                                 @else
                                                     <span class="text-danger">Empty</span>
                                                 @endif

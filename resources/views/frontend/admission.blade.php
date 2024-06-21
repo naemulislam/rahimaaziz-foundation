@@ -71,7 +71,6 @@
     </style>
 
     <div class="container register-form">
-
         <div class="form">
             <div class="note">
                 <h3 class="align-self-center">Applying for the admission.</h3>
@@ -277,7 +276,7 @@
                             <div class="previous-school">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h5>Previous School Details</h5>
+                                        <h5 style="font-size: 17px;">Previous School Details</h5>
                                     </div>
                                 </div>
                                 <div class="row">
