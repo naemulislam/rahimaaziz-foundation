@@ -14,6 +14,22 @@
                         </h3>
                     </div>
                     <div class="card-toolbar">
+                        <div class="dropdown mr-2">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @php
+                                    $requestGroupName = \App\Models\Group::where('id', request()->group_id)->first();
+                                @endphp
+                                {{ $requestGroupName->name ?? 'Select Group' }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{ route('admin.admission.index') }}">All Class</a>
+                                @foreach ($groups as $group)
+                                    <a class="dropdown-item"
+                                        href="{{ route('admin.admission.index', ['group_id' => $group->id]) }}">{{ $group->name }}</a>
+                                @endforeach
+                            </div>
+                        </div>
                         <!--begin::Button-->
                         <a href="{{ route('admin.admission.create')}}" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
@@ -21,8 +37,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24" />
-                                        <circle fill="#000000" cx="9" cy="15" r="6" />
-                                        <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
+                                        <circle fill="#000000" cx="9" cy="15" r="6"/>
+                                        <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3"/>
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
@@ -71,7 +87,7 @@
                                     <a href="#" class="btn label label-lg label-light-danger label-inline" data-toggle="modal" data-target="#row_status_{{$row->id}}"> Panding</a>
                                     @endif
                                 </td>
-                                <td class="d-flex">
+                                <td>
                                     <a href="{{route('admin.admission.show',$row->slug)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
                                     <a href="{{route('admin.admission.edit',$row->slug)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
                                     <a id="delete" href="{{route('admin.admission.destroy',$row->id)}}" class="btn btn-icon btn-info btn-hover-danger btn-xs mx-3"><i class="fa fa-trash"></i></a>

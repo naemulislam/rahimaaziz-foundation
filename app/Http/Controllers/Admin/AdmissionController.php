@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Repositories\AdmissionRepository;
 use App\Repositories\GroupRepository;
 use App\Repositories\StudentInfoRepository;
+use App\Repositories\StudentLogRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 
@@ -15,11 +16,25 @@ class AdmissionController extends Controller
 {
     public function index()
     {
-        $admissionStudent = StudentRepository::query()
-        ->where('status',true)
-        ->where('admission_status',true)
-        ->where('status_type',1)->get();
-        return view('backend.dashboard.admission.student_list', compact('admissionStudent'));
+        $group = request()->group_id;
+        if ($group) {
+            $admissionStudent = StudentRepository::query()
+                ->whereHas('admission', function ($query) use ($group) {
+                    $query->where('group_id', $group);
+                })
+                ->where('status', true)
+                ->where('admission_status', true)
+                ->where('status_type', 1)->get();
+        } else {
+            $admissionStudent = StudentRepository::query()
+                ->where('status', true)
+                ->where('admission_status', true)
+                ->where('status_type', 1)->get();
+        }
+
+
+        $groups = GroupRepository::query()->where('status', true)->get();
+        return view('backend.dashboard.admission.student_list', compact('admissionStudent', 'groups'));
     }
 
     public function create()
@@ -32,17 +47,17 @@ class AdmissionController extends Controller
     {
         $studentId = StudentRepository::storeByRequest($request);
         AdmissionRepository::storeByRequest($request, $studentId->id);
-        StudentInfoRepository::storeByRequest($request,$studentId->id);
+        StudentInfoRepository::storeByRequest($request, $studentId->id);
 
-            //   $get_id = Student::find( $request->student_id);
-            //   $data = array(
-            //     'name' => $get_id->name,
-            //     'email' => $get_id->email
+        //   $get_id = Student::find( $request->student_id);
+        //   $data = array(
+        //     'name' => $get_id->name,
+        //     'email' => $get_id->email
 
-            // );
+        // );
 
-            //Mail::to($data['email'])->send(new StudentMail($data));
-            return redirect()->back()->with('success', 'Admission successfully completed!');
+        //Mail::to($data['email'])->send(new StudentMail($data));
+        return redirect()->back()->with('success', 'Admission successfully completed!');
     }
     public function show($slug)
     {
@@ -60,7 +75,7 @@ class AdmissionController extends Controller
 
     public function update(AdmissionRequest $request, Student $student)
     {
-        if($student->admission_status == 0){
+        if ($student->admission_status == 0) {
             $student->update([
                 'admission_status' => true,
                 'status_type' => true,
@@ -69,42 +84,42 @@ class AdmissionController extends Controller
                 'study_status' => true,
             ]);
         }
-        StudentRepository::updateByRequest($request,$student);
+        StudentRepository::updateByRequest($request, $student);
         AdmissionRepository::updateByRequest($request, $student->id);
-        StudentInfoRepository::updateByRequest($request,$student->id);
+        StudentInfoRepository::updateByRequest($request, $student->id);
 
         return back()->with('success', 'Student is updated successfully!');
     }
 
     public function destroy(Student $student)
     {
-        $studentAdmission = AdmissionRepository::query()->where('student_id',$student->id)->first();
-        if($studentAdmission->b_certificate){
+        $studentAdmission = AdmissionRepository::query()->where('student_id', $student->id)->first();
+        if ($studentAdmission->b_certificate) {
             @unlink(public_path($studentAdmission->b_certificate));
         }
-        if($studentAdmission->immu_record){
+        if ($studentAdmission->immu_record) {
             @unlink(public_path($studentAdmission->immu_record));
         }
-        if($studentAdmission->proof_address){
+        if ($studentAdmission->proof_address) {
             @unlink(public_path($studentAdmission->proof_address));
         }
-        if($studentAdmission->physical_health){
+        if ($studentAdmission->physical_health) {
             @unlink(public_path($studentAdmission->physical_health));
         }
-        if($studentAdmission->mrrcfps){
+        if ($studentAdmission->mrrcfps) {
             @unlink(public_path($studentAdmission->mrrcfps));
         }
-        if($studentAdmission->hsral){
+        if ($studentAdmission->hsral) {
             @unlink(public_path($studentAdmission->hsral));
         }
         $studentAdmission->delete();
-        $studentInfo = StudentInfoRepository::query()->where('student_id',$student->id)->first();
+        $studentInfo = StudentInfoRepository::query()->where('student_id', $student->id)->first();
         $studentInfo->delete();
-        if($student->image){
+        if ($student->image) {
             @unlink(public_path($student->image));
         }
         $student->delete();
-        return back()->with('success','Student is deleted successfully!');
+        return back()->with('success', 'Student is deleted successfully!');
     }
     public function status(Request $request, Student $student)
     {
@@ -121,9 +136,9 @@ class AdmissionController extends Controller
     public function pendingindex()
     {
         $data = StudentRepository::query()
-        ->where('status',true)
-        ->where('admission_status',false)
-        ->where('status_type',0)->get();
+            ->where('status', true)
+            ->where('admission_status', false)
+            ->where('status_type', 0)->get();
         return view('backend.dashboard.admission.online_admission_request_list', compact('data'));
     }
     // public function admissionApproved(Student $student)
@@ -147,5 +162,48 @@ class AdmissionController extends Controller
             'payment_status' => $status
         ]);
         return back()->with('success', 'Status changed successfully!');
+    }
+    //Student promotion methods
+    public function promotionIndex()
+    {
+        $group = request()->group_id;
+        $students = StudentRepository::query()
+            ->whereHas('admission', function ($query) use ($group) {
+                $query->where('group_id', $group);
+            })
+            ->where('status', true)
+            ->where('admission_status', true)
+            ->where('status_type', 1)->get();
+        $groups = GroupRepository::query()->where('status', true)->get();
+        return view('backend.dashboard.promote_student.student_list', compact('students', 'groups'));
+    }
+    public function promoteStore(Request $request)
+    {
+        if ($request->row_id == null) {
+            return back()->with('error', 'Plese select students!');
+        } else {
+            // if ($request->n_roll != null) {
+                foreach ($request->row_id as $key => $value) {
+                    // $request->validate([
+                    //     'n_roll.*' => 'required'
+                    // ]);
+                    $student = StudentRepository::find($value);
+                    $admissionTable = AdmissionRepository::query()->where('student_id', $student->id)->first();
+                    $checkStudentLogs = StudentLogRepository::query()->where('group_id', $request->group_id[$key])->first();
+                    if ($checkStudentLogs) {
+                        $checkStudentLogs->delete();
+                    } else {
+                        StudentLogRepository::storeByRequest($student, $admissionTable);
+                    }
+                    $admissionTable->update([
+                        'roll' => $request->n_roll[$key],
+                        'group_id' => $request->group_id[$key]
+                    ]);
+                }
+                return back()->with('success', 'Students promotion successfully!');
+            // } else {
+            //     return back()->with('error', 'Plese fill out the roll');
+            // }
+        }
     }
 }

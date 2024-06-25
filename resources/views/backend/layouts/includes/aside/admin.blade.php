@@ -73,6 +73,7 @@
                                 $routeName == 'admin.admission.create' ||
                                 $routeName == 'admin.admission.show' ||
                                 $routeName == 'admin.admission.pending' ||
+                                $routeName == 'admin.students.promotion' ||
                                 $routeName == 'admin.admission.edit' ? 'menu-item-open':''}}
                                 " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
@@ -139,6 +140,16 @@
                                                         $onlineRequest = \App\Models\Student::where('admission_status',false)->where('status_type', false)->where('status', true)->count();
                                                     @endphp
 													<span class="menu-text">Admission Request <span class=" ml-3 text-white text-center" style="background-color:red; height:20px; width:20px; border-radius:50%">{{ $onlineRequest}}</span></span>
+													<i class="menu-arrow"></i>
+												</a>
+
+											</li>
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.students.promotion'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.students.promotion')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Student Promotion</span>
 													<i class="menu-arrow"></i>
 												</a>
 

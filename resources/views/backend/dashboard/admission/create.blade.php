@@ -515,7 +515,6 @@
     <script>
         $('#student_type').on('change', function(){
             var value = $(this).val();
-            console.log(value);
             if(value == 1){
                 $('.previous-school').hide();
 
