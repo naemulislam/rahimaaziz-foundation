@@ -197,11 +197,14 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
     });
 
     // Student Fees Collection
-    Route::group(['prefix'=>'/student'],function(){
-        Route::resource('fees',FeesController::class);
-        Route::get('/fees/partial/edit/{id}',[FeesController::class,'partialEdit'])->name('fees.partial.edit');
-        Route::post('/fees/partial/update/{id}',[FeesController::class,'partialUpdate'])->name('fees.partial.update');
-        Route::get('/fees/payment/invoice/{id}',[FeesController::class,'feesPaymentInvoice'])->name('fees.payment.invoice');
+    Route::controller(FeesController::class)->prefix('/student')->group(function(){
+        Route::get('fees/index', 'index')->name('fees.index');
+        Route::get('fees/create', 'create')->name('fees.create');
+        Route::post('fees/store', 'store')->name('fees.store');
+        // Route::resource('fees',FeesController::class);
+        Route::get('/fees/partial/edit/{id}', 'partialEdit')->name('fees.partial.edit');
+        Route::post('/fees/partial/update/{id}', 'partialUpdate')->name('fees.partial.update');
+        Route::get('/fees/payment/invoice/{id}', 'feesPaymentInvoice')->name('fees.payment.invoice');
     });
     Route::post('search/student/result/',[SearchController::class,'studentSearc'])->name('search');
 
@@ -307,10 +310,12 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
     /////////////////////////Default routes////////////////////////////////
 //Get Data ajax
 // Route::get('/get/class/{id}', [DefaultController::class,'get_class'])->name('get.class');
-
-Route::get('/get/studentlist/{id}', [DefaultController::class,'studentGet'])->name('get.student');
-Route::get('/get/student/{id}', [DefaultController::class,'geStudent'])->name('get.student');
+//ajax for student fees
+Route::get('/get/studentlist/{id}', [DefaultController::class,'studentGet']);
+//ajax for student attendance
+Route::get('/get/student/{id}', [DefaultController::class,'geStudent']);
+//ajax for get group data
+Route::get('/get/group/{id}', [DefaultController::class,'getGroup']);
 Route::get('/get/activity/student/{id}', [DefaultController::class,'get_activity']);
-Route::get('/get/attendance/subject/{id}', [DefaultController::class,'get_subject_att']);
 /////////////////////////Default routes////////////////////////////////
 });

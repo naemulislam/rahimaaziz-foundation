@@ -4,7 +4,7 @@ $routeName = request()->route()->getName();
 <header class="header-sec">
     <nav class="navbar">
         <div class="container">
-            <a href="{{ route('home')}}"><img class="header-logo" src="{{ asset($setting->white_logo) }}" alt=""></a>
+            <a href="{{ route('home')}}"><img class="header-logo" src="{{ asset($setting?->white_logo) }}" alt=""></a>
             <div class="menu-area ml-auto">
                 <ul>
                     <li><a href="{{ route('masjid.index') }}" class="{{ $routeName == 'masjid.index'? 'menu-active':''}}"><i class="fa fa-home"></i> Home</a></li>
@@ -35,7 +35,7 @@ $routeName = request()->route()->getName();
 <div class="mobile-menu">
     <div class="mm-logo" style="background: #fff; padding: 11px 18px;">
         <a href="{{ route('masjid.index') }}">
-            <img style="width: 55px;" src="{{ asset($setting->white_logo) }}" alt="logo">
+            <img style="width: 55px;" src="{{ asset($setting?->white_logo) }}" alt="logo">
         </a>
         <div class="mm-cross-icon">
             <i class="fa fa-times mm-ci"></i>

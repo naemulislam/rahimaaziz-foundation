@@ -22,7 +22,7 @@ class CreateFeesTable extends Migration
             $table->string('amount');
             $table->string('blance')->nullable();
             $table->string('discount')->nullable();
-            $table->date('due_date');
+            $table->date('pay_date');
             $table->string('status');
             $table->string('payment_id')->nullable();
             $table->string('payment_type')->nullable();

@@ -100,6 +100,7 @@
                                             <textarea name="address" class="form-control" placeholder="Enter address">{{$admin->address}}</textarea>
                                         </div>
                                     </div>
+                                    <span>(If you want to change the password, enter this password in the input box below.)</span>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">

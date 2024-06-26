@@ -29,10 +29,10 @@
             <div class="col-md-12">
                 <div class="about-box common-shadow">
                     <div class="about-content p-3">
-                        <p> {{ strip_tags($about->description)}}</p>
+                        <p> {{ strip_tags($about?->description)}}</p>
                     </div>
                     <div class="about-image">
-                        <img src="{{asset($about->image)}}" alt="">
+                        <img src="{{asset($about?->image)}}" alt="">
                     </div>
                 </div>
             </div>

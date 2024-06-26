@@ -95,7 +95,7 @@
                                             <td><input type="number" name="c_roll[]" class="form-control"
                                                     value="{{ $row->admission->roll }}" readonly>
                                             </td>
-                                            <td><input type="number" name="n_roll[]" class="form-control">
+                                            <td><input type="number" name="n_roll[]" class="form-control" id="rollCheck">
                                                 @error('n_roll')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -145,8 +145,10 @@
             $(".checkbox").click(function() {
                 if ($(".checkbox:checked").length === $(".checkbox").length) {
                     $("#checkedAll").prop('checked', true);
+                    $('#rollCheck').prop('required', true);
                 } else {
                     $("#checkedAll").prop('checked', false);
+                    $('#rollCheck').prop('required', false);
                 }
             });
         });

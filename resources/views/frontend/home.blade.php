@@ -26,14 +26,14 @@
                             <div class="col-md-6">
                                <div class="common-shadow p-3 wow animate__animated animate__backInLeft">
                                 <div class="template-image">
-                                    <img src="{{ asset($about->image) }}" alt=""
+                                    <img src="{{ asset($about?->image) }}" alt=""
                                         class="img-responsive">
                                 </div>
                                 <div class="text-section mt-3">
                                     <h3 class="underline"><span style="color:#ffa229;">Welcome to </span>Rahima Aziz
                                         Foundation</h3>
 
-                                    <p class="mb-3">{{Str::limit(strip_tags($about->description), 200, '...')}}</p>
+                                    <p class="mb-3">{{Str::limit(strip_tags($about?->description), 200, '...')}}</p>
 
                                     <div class="row my-4">
                                         <div class="col-md-6"><a href="{{ route('about') }}" class="btn-about">About RA

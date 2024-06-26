@@ -7,7 +7,7 @@
                     <div class="ft-logo">
                         <img style="width:126px;" src="{{ asset($setting->white_logo ?? '') }}" alt="">
                     </div>
-                    <h5>{!! $setting->address !!}</h5>
+                    <h5>{!! $setting?->address !!}</h5>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -16,8 +16,8 @@
                         <h2> Contact Info</h2>
                     </div>
                     <ul>
-                        <li>Email: {{ $setting->email}}</li>
-                        <li>Phone: {{ $setting->phone}} </li>
+                        <li>Email: {{ $setting?->email}}</li>
+                        <li>Phone: {{ $setting?->phone}} </li>
                     </ul>
                 </div>
             </div>

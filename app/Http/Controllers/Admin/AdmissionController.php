@@ -32,7 +32,6 @@ class AdmissionController extends Controller
                 ->where('status_type', 1)->get();
         }
 
-
         $groups = GroupRepository::query()->where('status', true)->get();
         return view('backend.dashboard.admission.student_list', compact('admissionStudent', 'groups'));
     }
@@ -182,28 +181,24 @@ class AdmissionController extends Controller
         if ($request->row_id == null) {
             return back()->with('error', 'Plese select students!');
         } else {
-            // if ($request->n_roll != null) {
-                foreach ($request->row_id as $key => $value) {
-                    // $request->validate([
-                    //     'n_roll.*' => 'required'
-                    // ]);
-                    $student = StudentRepository::find($value);
-                    $admissionTable = AdmissionRepository::query()->where('student_id', $student->id)->first();
-                    $checkStudentLogs = StudentLogRepository::query()->where('group_id', $request->group_id[$key])->first();
-                    if ($checkStudentLogs) {
-                        $checkStudentLogs->delete();
-                    } else {
-                        StudentLogRepository::storeByRequest($student, $admissionTable);
-                    }
-                    $admissionTable->update([
-                        'roll' => $request->n_roll[$key],
-                        'group_id' => $request->group_id[$key]
-                    ]);
+            foreach ($request->row_id as $key => $value) {
+                // $request->validate([
+                //     'n_roll.*' => 'required'
+                // ]);
+                $student = StudentRepository::find($value);
+                $admissionTable = AdmissionRepository::query()->where('student_id', $student->id)->first();
+                $checkStudentLogs = StudentLogRepository::query()->where('group_id', $request->group_id[$key])->first();
+                if ($checkStudentLogs) {
+                    $checkStudentLogs->delete();
+                } else {
+                    StudentLogRepository::storeByRequest($student, $admissionTable);
                 }
-                return back()->with('success', 'Students promotion successfully!');
-            // } else {
-            //     return back()->with('error', 'Plese fill out the roll');
-            // }
+                $admissionTable->update([
+                    'roll' => $request->n_roll[$key],
+                    'group_id' => $request->group_id[$key]
+                ]);
+            }
+            return back()->with('success', 'Students promotion successfully!');
         }
     }
 }

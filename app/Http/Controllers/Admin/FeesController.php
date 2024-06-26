@@ -8,6 +8,7 @@ use App\Models\Fees;
 use App\Models\FeesDetails;
 use App\Models\Setting;
 use App\Models\Studentadmission;
+use App\Repositories\GroupRepository;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Carbon;
@@ -17,21 +18,21 @@ class FeesController extends Controller
     //index
     public function index(){
         $data['fees'] = Fees::latest()->get();
-        return view('backend.dashboard.admin.fees.fees',$data);
+        return view('backend.dashboard.fees.fees',$data);
     }
     public function create()
     {
-        $class = Educlass::all();
+        $groups = GroupRepository::query()->where('status', true)->get();
 
-        return view('backend.dashboard.admin.fees.create',compact('class'));
+        return view('backend.dashboard.fees.create',compact('groups'));
     }
     public function feesPaymentInvoice($id)
     {
         $data['fees'] = Fees::find($id);
         $get_id = $data['fees'] ->id;
         $data['feesdetails'] = FeesDetails::where('fees_id',$get_id)->get();
-        
-       
+
+
         // $data = [
         //     'name' => $get_student->student->name,
         //     'email' => $get_student->student->email,
@@ -42,11 +43,11 @@ class FeesController extends Controller
         //     'amount_pay'=>$fees->pay,
         //     'invoice'=> random_int(100, 999),
         // ];
-        
-      
+
+
 
         // $pdf = PDF::loadView('backend.dashboard.admin.fees.invoice', $data);
-    
+
         // return $pdf->download('test_invoice.pdf');
         return view('backend.dashboard.admin.fees.invoice',$data);
     }
@@ -57,14 +58,14 @@ class FeesController extends Controller
             'fees_dollar' => 'required'
         ]);
         //this condition is discount type
-      
+
             $setting = Setting::latest()->first();
             $fees_amount = $setting->monthly_fees;
 
             $monthCount = count($request->month);
             $total_amount = $fees_amount * $monthCount;
             $blans = $total_amount - $request->fees_dollar;
-        
+
 
         $data = new Fees();
         $data->admission_id          = $request->student_id;
@@ -81,9 +82,9 @@ class FeesController extends Controller
         }else{
             $data->status                = 2;
         }
-       
+
         $data->payment_type          = "Hand Cash";
-        
+
         if (!empty($blans)) {
 
             $data->blance                = $blans;

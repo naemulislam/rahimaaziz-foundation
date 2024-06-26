@@ -4,15 +4,13 @@ namespace App\Http\Controllers\DefaultController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Studentadmission;
+use App\Repositories\GroupRepository;
 
 class DefaultController extends Controller
 {
     public function studentGet($id)
     {
-        $data = Studentadmission::where('class_id', $id)
-        ->where('status',1)
-        ->with('class', 'student')
-        ->get();
+        $data = Studentadmission::with('group', 'student')->where('group_id', $id)->where('status', 1)->Orderby('roll','asc')->get();
         return response()->json($data);
     }
 
@@ -70,6 +68,20 @@ class DefaultController extends Controller
                     ';
         }
         return $html;
+    }
+    public function getGroup($id)
+    {
+        $group = GroupRepository::query()->where('id', $id)->where('status', true)->first();
+        return response()->json($group);
+
+        // $html = '';
+        // $html .= '
+        //         <div class="col-md-4 mb-2">
+        //             <div class="announcement">
+        //                 <h4>Monthly Fee: $' . $group->monthly_fee . '</h4>
+        //             </div>
+        //         </div>';
+        // return $html;
     }
     public function get_activity($id)
     {
