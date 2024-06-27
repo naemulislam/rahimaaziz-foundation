@@ -23,13 +23,13 @@ class CreateFeesTable extends Migration
             $table->string('blance')->nullable();
             $table->string('discount')->nullable();
             $table->date('pay_date');
-            $table->string('status');
             $table->string('payment_id')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('balance_transaction')->nullable();
             $table->string('currency')->nullable();
             $table->string('pay_type')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

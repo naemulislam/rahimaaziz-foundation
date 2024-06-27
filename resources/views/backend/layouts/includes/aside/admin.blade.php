@@ -344,7 +344,13 @@
 								</li>
 								<!--End Student Attendance-->
 								<!--Start fees collection-->
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+								<li class="menu-item menu-item-submenu
+                                {{
+                                    $routeName == 'admin.fees.index' ||
+                                    $routeName == 'admin.fees.create'||
+                                    $routeName == 'admin.fees.show'||
+                                    $routeName == 'admin.fees.partial.edit' ? 'menu-item-open':''}}
+                                " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -368,12 +374,22 @@
 													<span class="menu-text">fees</span>
 												</span>
 											</li>
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.fees.index'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('admin.fees.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
 													</i>
 													<span class="menu-text">Student Fees</span>
+													<i class="menu-arrow"></i>
+												</a>
+
+											</li>
+											<li class="menu-item menu-item-submenu {{$routeName == 'admin.fees.create'? 'menu-item-active':''}}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('admin.fees.create')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text"> Fees Create</span>
 													<i class="menu-arrow"></i>
 												</a>
 

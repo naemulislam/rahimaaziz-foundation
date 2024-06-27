@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Fees extends Model
 {
     use HasFactory;
-    public function student(){
-        return $this->belongsTo(Studentadmission::class,'admission_id','id');
+    protected $guarded = ['id'];
+
+    public function admission(){
+        return $this->belongsTo(Studentadmission::class);
     }
-    
-    public function class(){
-        return $this->belongsTo(Educlass::class,'class_id','id');
+    public function group(){
+        return $this->belongsTo(Group::class);
     }
 }

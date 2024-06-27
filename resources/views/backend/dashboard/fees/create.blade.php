@@ -35,7 +35,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label for="">Group<span class="text-danger">*</span></label>
+                                            <label for="">Group <span class="text-danger">*</span></label>
                                             <select name="group_id" class="form-control" id="groupId">
                                                 <option selected disabled>--Select--</option>
                                                 @foreach ($groups as $row)
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label for="">Student<span class="text-danger">*</span></label>
+                                            <label for="">Student <span class="text-danger">*</span></label>
                                             <select name="student_id" class="form-control js-select-result"
                                                 id="adstudent_id" required></select>
                                             <div style='color:red; padding: 0 5px;'>
@@ -77,9 +77,6 @@
 
                                             </select>
 
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('month') ? $errors->first('month') : '' }}
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -97,22 +94,22 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label for="">Due Date</label>
-                                            <input type="date" name="due_date" value="{{ date('Y-m-d') }}"
+                                            <label for="">Pay Date <span class="text-danger">*</span></label>
+                                            <input type="date" name="pay_date" value="{{ date('Y-m-d') }}"
                                                 class="form-control">
                                             <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('due_date') ? $errors->first('due_date') : '' }}</div>
+                                                {{ $errors->has('pay_date') ? $errors->first('pay_date') : '' }}</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="">Amount</label>
+                                        <label for="">Amount <span class="text-danger">*</span></label>
                                         <div class="input-group mb-3">
 
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
 
-                                            <input type="text" name="fees_amount" class="form-control" id="fees_amount">
+                                            <input type="number" name="fees_amount" class="form-control" id="fees_amount">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">.00</span>
                                             </div>
@@ -124,7 +121,7 @@
                                         <div class="form-group">
                                             <label for="">Discount Type</label>
                                             <select name=" discount_type" id="discount_type" class="form-control">
-                                                <option value="">Select Type</option>
+                                                <option selected disabled>Select Type</option>
                                                 <option value="1">U.S Dollar($)</option>
                                                 <option value="2">Percentage (%)</option>
                                             </select>
@@ -146,6 +143,8 @@
                                                 <span class="input-group-text">.00</span>
                                             </div>
                                         </div>
+                                        <div style='color:red; padding: 0 5px;'>
+                                            {{ $errors->has('discount') ? $errors->first('discount') : '' }}</div>
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="">Discount Amount</label>
@@ -163,9 +162,8 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-
                                         <div class="form-group mb-3">
-                                            <label for="">Payment method</label>
+                                            <label for="">Payment method <span class="text-danger">*</span></label>
                                             <select name="pay_type" id="payment_type" class="form-control">
                                                 <option selected disabled>Select Type</option>
                                                 <option value="credit card">Credit Card</option>
@@ -173,6 +171,9 @@
                                                 <option value="zill payment">Zill Payment</option>
                                                 <option value="Others">Others</option>
                                             </select>
+                                            @error('pay_type')
+                                            <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>

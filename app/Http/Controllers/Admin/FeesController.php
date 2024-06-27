@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FeesRequest;
 use App\Models\Educlass;
 use App\Models\Fees;
 use App\Models\FeesDetails;
 use App\Models\Setting;
 use App\Models\Studentadmission;
+use App\Repositories\FeesRepository;
 use App\Repositories\GroupRepository;
 use Illuminate\Http\Request;
 use PDF;
@@ -17,7 +19,7 @@ class FeesController extends Controller
 {
     //index
     public function index(){
-        $data['fees'] = Fees::latest()->get();
+        $data['fees'] = FeesRepository::getAll();
         return view('backend.dashboard.fees.fees',$data);
     }
     public function create()
@@ -51,110 +53,49 @@ class FeesController extends Controller
         // return $pdf->download('test_invoice.pdf');
         return view('backend.dashboard.admin.fees.invoice',$data);
     }
-    public function store(Request $request)
+    public function store(FeesRequest $request)
     {
-        $this->validate($request, [
-            'due_date' => 'required',
-            'fees_dollar' => 'required'
-        ]);
-        //this condition is discount type
+       $fees = FeesRepository::storeByRequest($request);
 
-            $setting = Setting::latest()->first();
-            $fees_amount = $setting->monthly_fees;
-
-            $monthCount = count($request->month);
-            $total_amount = $fees_amount * $monthCount;
-            $blans = $total_amount - $request->fees_dollar;
-
-
-        $data = new Fees();
-        $data->admission_id          = $request->student_id;
-        $data->class_id              = $request->class_id;
-        $data->amount                = $total_amount;
-        if($request->discount){
-            $data->pay                = $request->discount_amount;
-        }else{
-        $data->pay                   = $request->fees_dollar;
-       }
-        $data->due_date              = $request->due_date;
-        if($request->fees_dollar == $total_amount){
-            $data->status                = 1;
-        }else{
-            $data->status                = 2;
-        }
-
-        $data->payment_type          = "Hand Cash";
-
-        if (!empty($blans)) {
-
-            $data->blance                = $blans;
-        } else {
-            $data->blance                = 0.00;
-        }
-        if($request->discount){
-           if($request->discount_type == 1){
-            $data->discount                = $request->discount.'$';
-           }
-           elseif($request->discount_type == 2){
-            $data->discount                = $request->discount.'%';
-           }
-        }else{
-            $data->discount                = 0.00;
-        }
-        $data->pay_type              = $request->pay_type;
-        // return $data;
-        $data->save();
         $month = $request->month;
+
         if (!empty($month)) {
             foreach ($month as $valu) {
                 $mon = new FeesDetails();
-                $mon->fees_id = $data->id;
+                $mon->fees_id = $fees->id;
                 $mon->admission_id = $request->student_id;
                 $mon->month  = $valu;
-                // return $mon;
                 $mon->save();
             }
         }
-
-
-        $notification = array(
-            'message' => 'Fee payment completed!.',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        return redirect()->back()->with('success', 'Fee payment completed!.');
     }
 
-    public function show($id){
-        $data = Fees::find($id);
-        $month = FeesDetails::where('fees_id',$data->id)->get();
-        return view('backend.dashboard.admin.fees.details',compact('data','month'));
+    public function show(Fees $fees){
+        $month = FeesDetails::where('fees_id',$fees->id)->get();
+        return view('backend.dashboard.fees.details',compact('fees','month'));
     }
-    public function partialEdit($id){
-        $data = Fees::find($id);
-        return view('backend.dashboard.admin.fees.partial',compact('data'));
+    public function partialEdit(Fees $fees){
+        return view('backend.dashboard.fees.partial',compact('fees'));
     }
-    public function partialUpdate(Request $request, $id){
+    public function partialUpdate(Request $request, Fees $fees){
         $this->validate($request, [
-            'fees_dollar' => 'required'
+            'fees_amount' => 'required'
         ]);
+        $balance = $fees->blance - $request->fees_amount;
+        $currentAmount = $fees->amount + $request->fees_amount;
 
-        $data = Fees::find($id);
-        $blnc = $data->blance - $request->fees_dollar;
-        $pay = $data->pay + $request->fees_dollar;
 
-        $data->blance  = $blnc;
-        $data->pay  = $pay;
-
-        if($data->amount == $pay){
-            $data->status = 1;
+        if($fees->amount == $currentAmount){
+            $status = 1;
         }else{
-            $data->status = 2;
+            $status = 2;
         }
-        $data->save();
-        $notification = array(
-            'message' => 'Fee payment completed!.',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('admin.fees.index')->with($notification);
+        $fees->update([
+            'blance' => $balance,
+            'amount' => $currentAmount,
+            'status' => $status
+        ]);
+        return redirect()->route('admin.fees.index')->with('success', 'partials fees payment successfully!');
     }
 }

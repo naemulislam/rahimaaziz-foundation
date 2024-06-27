@@ -309,7 +309,7 @@
 </head>
 
 <body>
-    
+
     <header>
         <h1>Invoice</h1>
         <address >
@@ -397,5 +397,4 @@
         }
     </script>
 </body>
-
 </html>

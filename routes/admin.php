@@ -201,10 +201,11 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('fees/index', 'index')->name('fees.index');
         Route::get('fees/create', 'create')->name('fees.create');
         Route::post('fees/store', 'store')->name('fees.store');
+        Route::get('fees/show/{fees}', 'show')->name('fees.show');
         // Route::resource('fees',FeesController::class);
-        Route::get('/fees/partial/edit/{id}', 'partialEdit')->name('fees.partial.edit');
-        Route::post('/fees/partial/update/{id}', 'partialUpdate')->name('fees.partial.update');
-        Route::get('/fees/payment/invoice/{id}', 'feesPaymentInvoice')->name('fees.payment.invoice');
+        Route::get('/fees/partial/edit/{fees}', 'partialEdit')->name('fees.partial.edit');
+        Route::post('/fees/partial/update/{fees}', 'partialUpdate')->name('fees.partial.update');
+        Route::get('/fees/payment/invoice/{fees}', 'feesPaymentInvoice')->name('fees.payment.invoice');
     });
     Route::post('search/student/result/',[SearchController::class,'studentSearc'])->name('search');
 

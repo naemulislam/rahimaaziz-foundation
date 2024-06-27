@@ -32,7 +32,7 @@
                 </div>
                 <div class="card-body">
                     <!--begin: Datatable-->
-                    <table class="table table-separate table-head-custom table-checkable" id="datatable">
+                    <table class="table" id="datatable">
                         <thead>
                             <tr>
                                 <th>SL</th>
@@ -42,7 +42,6 @@
                                 <th>Status</th>
                                 <th>Mode</th>
                                 <th>Amount</th>
-                                <th>Pay</th>
                                 <th>Balance</th>
                                 <th>Discount</th>
                                 <th>Action</th>
@@ -52,9 +51,9 @@
                             @foreach($fees as $row)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$row->student->student->name}}</td>
-                                <td>{{$row->class->class_name}}</td>
-                                <td>{{$row->due_date}}</td>
+                                <td>{{$row->admission->student->name}}</td>
+                                <td>{{$row->group->name}}</td>
+                                <td>{{$row->pay_date}}</td>
                                 <td>
                                     @if($row->status == 1)
                                     <a href="#" class="btn label label-lg label-light-success label-inline"> Paid</a>
@@ -66,13 +65,12 @@
                                 </td>
                                 <td>{{$row->payment_type}}</td>
                                 <td>{{$row->amount}}</td>
-                                <td>{{$row->pay}}</td>
                                 <td>{{$row->blance}}</td>
                                 <td>{{$row->discount}}</td>
 
-                                <td class="d-flex">
+                                <td>
                                     @if($row->status == 2)
-                                    <a href="{{route('admin.fees.partial.edit',$row->id)}}" class="btn btn-secondary btn-hover-secondery btn-xs mx-3">Pay</a>
+                                    <a href="{{route('admin.fees.partial.edit',$row->id)}}" class="btn label label-lg label-light-success label-inline">Pay</a>
                                     <a href="{{route('admin.fees.payment.invoice',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fas fa-file-invoice"></i></a>
                                     @else
                                     <a href="{{route('admin.fees.show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
