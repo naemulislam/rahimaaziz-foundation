@@ -3,189 +3,78 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ParentRequest;
 use App\Models\Children;
-use App\Models\Studentadmission;
 use App\Models\User;
-use Carbon\Carbon;
+use App\Repositories\ParentRepository;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Types\Parent_;
 
 class ParentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data['parents'] = User::latest()->get();
-        return view('backend.dashboard.admin.parent.index', $data);
+        return view('backend.dashboard.parent.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $data['students'] = Studentadmission::where('status', 1)->get();
-        return view('backend.dashboard.admin.parent.create', $data);
+        $data['students'] = StudentRepository::query()->where('status', true)->where('admission_status', true)->where('status_type', true)->get();
+        return view('backend.dashboard.parent.create', $data);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(ParentRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'phone' => 'required',
-            'gender' => 'required',
-            'email' => 'required|email|unique:students,email',
-            'password' => 'required|min:8|required_with:password_confirmation|same:password_confirmation',
-            'password_confirmation' => 'required|min:8'
-        ]);
-        //return $request->student_id;
+       try{
         if (!empty($request->student_id)) {
-            $data = new User();
-            $data->name = $request->name;
-            $data->email = $request->email;
-            $data->email_verified_at = Carbon::now();
-            $data->phone = $request->phone;
-            $data->gender = $request->gender;
-            $data->address = $request->address;
-            $data->password = Hash::make($request->password);
-
-            $image = $request->file('profile_photo_path');
-            if ($image) {
-                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('uploaded/paretn'), $imageName);
-                $data->profile_photo_path = '/uploaded/paretn/' . $imageName;
-            }
-
-            $data->save();
-
+            $parentId = ParentRepository::storeByRequest($request);
             foreach ($request->student_id as $student) {
                 $child = new Children();
                 $child->student_id = $student;
-                $child->parent_id = $data->id;
+                $child->parent_id = $parentId->id;
                 $child->save();
             }
         } else {
-            $notification = array(
-                'message' => 'Please select student!',
-                'alert-type' => 'warning'
-            );
-            return redirect()->back()->with($notification);
+            return back()->with('error', 'Please select students!');
         }
+        return back()->with('success', 'Parent has been created successfully!');
+       }
 
-        $notification = array(
-            'message' => 'Parent has been successfully!',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        catch(\Exception $e){
+            return redirect(route('admin.parent.index'))->with('error', 'Error Adding parent into system!'.$e->getMessage());
+          }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $data = User::find($id);
-        // $child = Children::where('parent_id',$data->id)->get();
-        // return $child;
         return view('backend.dashboard.admin.parent.show',compact('data'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $data['data'] = User::find($id);
-        $data['childs'] = Children::select('student_id')->where('parent_id',$id)->get()->toArray();
+        $data['user'] = $user;
+        $data['childs'] = Children::select('student_id')->where('parent_id',$user->id)->get()->toArray();
         //return $data['childs']->parent_id;
-        $data['students'] = Studentadmission::where('status', 1)->get();
-        return view('backend.dashboard.admin.parent.edit',$data);
+        $data['students'] = StudentRepository::query()->where('status', true)->where('admission_status', true)->where('status_type', true)->get();
+        return view('backend.dashboard.parent.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(ParentRequest $request, User $user)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'gender' => 'required',
-            
-            
-        ]);
-        if($request->password){
-            $this->validate($request, [
-                
-                'password' => 'required|min:8|required_with:password_confirmation|same:password_confirmation',
-                'password_confirmation' => 'required|min:8'
-            ]);
-
-        }
-
-        $data = User::find($id);
-        $data->name                 = $request->name;
-        $data->email                = $request->email;
-        $data->phone                = $request->phone;
-        $data->address                = $request->address;
-        $data->gender               = $request->gender;
-        if(!empty($request->password)){
-
-            $data->password         = Hash::make($request->password);
-        }
-      
-
-        $image = $request->file('image');
-        if ($image) {
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $iamge_path = $data->profile_photo_path;
-            @unlink(public_path($iamge_path));
-            $image->move(public_path('uploaded/parent'), $imageName);
-            $data->profile_photo_path = '/uploaded/parent/' . $imageName;
-        }
-        $data->save();
-
         if(!empty($request->student_id)){
-            $child_delete = Children::where('parent_id',$id);
-            $child_delete->delete();
+            $parentId = ParentRepository::updateByRequest($request, $user);
+            $child_delete = Children::where('parent_id', $user->id)->get();
+            // $child_delete->delete();
+            $childrenData = [];
             foreach ($request->student_id as $student) {
-                $child = new Children();
-                $child->student_id = $student;
-                $child->parent_id = $data->id;
-                $child->save();
+                $childrenData[] = [
+                    'student_id' => $student,
+                    'parent_id' => $user->id
+                ];
+              $child_delete->children->sync($childrenData);
             }
         }
-
-        $notification = array(
-            'message' => 'Parent has been updated!',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('admin.parent.index')->with($notification);
+        return redirect()->route('admin.parent.index')->with('success', 'Parent has been updated successfully!');
     }
 
     /**

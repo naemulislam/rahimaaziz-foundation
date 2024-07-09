@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class TeacherResponsibility extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
     public function teacher(){
-        return $this->belongsTo(Teacher::class,'teacher_id','id');
+        return $this->belongsTo(Teacher::class);
     }
 }

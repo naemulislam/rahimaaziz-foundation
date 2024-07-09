@@ -74,63 +74,59 @@ class TeacherController extends Controller
     public function responsIndex()
     {
         $data['respons'] = TeacherResponsibility::all();
-        return view('backend.dashboard.admin.teacher-respons.index', $data);
+        return view('backend.dashboard.teacher-respons.index', $data);
     }
     public function responsCreate()
     {
-        $data['teachers'] = Teacher::where('status', 1)->get();
-        return view('backend.dashboard.admin.teacher-respons.create', $data);
+        $data['teachers'] = TeacherRepository::query()->where('status', true)->get();
+        return view('backend.dashboard.teacher-respons.create', $data);
     }
     public function responsStore(Request $request)
     {
         $this->validate($request, [
             'teacher_id' => 'required',
-            'respons_date' => 'required',
-            'responsibility' => 'required',
+            'respons_date' => 'required|date',
+            'responsibility' => 'required|string',
         ]);
         $data = new TeacherResponsibility();
         $data->teacher_id = $request->teacher_id;
         $data->respons_date = $request->respons_date;
         $data->responsibility = $request->responsibility;
+        $data->status = 'pending';
         $data->save();
-        $notification = array(
-            'message' => 'Responsibility has been inserted!',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        return back()->with('success', 'Responsibility has been created!');
     }
-    public function responsEdit($id)
+    public function responsEdit(TeacherResponsibility $teacherResponsibility)
     {
-        $data['respons'] = TeacherResponsibility::find($id);
-        $data['teachers'] = Teacher::where('status', 1)->get();
-        return view('backend.dashboard.admin.teacher-respons.edit', $data);
+        $teachers = TeacherRepository::query()->where('status', true)->get();
+        return view('backend.dashboard.teacher-respons.edit', compact('teacherResponsibility', 'teachers'));
     }
-    public function responsUpdate(Request $request, $id)
+    public function responsUpdate(Request $request, TeacherResponsibility $teacherResponsibility)
     {
         $this->validate($request, [
             'teacher_id' => 'required',
             'respons_date' => 'required',
             'responsibility' => 'required',
         ]);
-        $data = TeacherResponsibility::find($id);
-        $data->teacher_id = $request->teacher_id;
-        $data->respons_date = $request->respons_date;
-        $data->responsibility = $request->responsibility;
-        $data->save();
-        $notification = array(
-            'message' => 'Responsibility has been updated!',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $teacherResponsibility->teacher_id = $request->teacher_id;
+        $teacherResponsibility->respons_date = $request->respons_date;
+        $teacherResponsibility->responsibility = $request->responsibility;
+        $teacherResponsibility->save();
+        return back()->with('success', 'Responsibility has been updated!');
     }
-    public function responsDelete($id)
+    public function responsDelete(TeacherResponsibility $teacherResponsibility)
     {
-        $data = TeacherResponsibility::find($id);
-        $data->delete();
-        $notification = array(
-            'message' => 'Responsibility has been deleted!',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        $teacherResponsibility->delete();
+        return redirect()->back()->with('success', 'Responsibility has been deleted!');
+    }
+    public function responsStatus(Request $request, TeacherResponsibility $teacherResponsibility)
+    {
+        $request->validate([
+            'status' => 'required|string'
+        ]);
+        $teacherResponsibility->update([
+            'status' => $request->status
+        ]);
+        return back()->with('success', 'Status changed successfully!');
     }
 }

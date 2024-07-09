@@ -3,31 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Educlass;
 use App\Models\Teacher;
+use App\Repositories\GroupRepository;
+use App\Repositories\TeacherRepository;
 use Illuminate\Http\Request;
 
 class ImproveTeacherController extends Controller
 {
     public function index(){
-        $data = Teacher::latest()->where('status',1)->get();
-        $classs = Educlass::where('status',1)->get();
-        return view('backend.dashboard.admin.improve-teacher.teacher-index',compact('data','classs'));
+        $Teachers = TeacherRepository::query()->latest()->where('status', true)->get();
+        $groups = GroupRepository::query()->where('status',1)->get();
+        return view('backend.dashboard.teacher_promotion.index',compact('Teachers','groups'));
     }
 
-    public function update(Request $request, $id){
+    public function promoteUpdate(Request $request, Teacher $teacher){
         $request->validate([
-            'class_id' =>'required'
+            'group_id' =>'required'
         ]);
-        $data = Teacher::find($id);
-        $data->class_id = $request->class_id;
-        $data->save();
+        $teacher->group_id = $request->group_id;
+        $teacher->save();
+        return back()->with('success', 'Teacher has been promoted');
 
-        $notification = array(
-            'message'=>'Teacher has been improved!',
-            'alert-type' => "success"
-        );
-        return redirect()->back()->with($notification);
- 
     }
 }

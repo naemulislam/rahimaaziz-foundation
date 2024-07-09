@@ -1,33 +1,6 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.layouts.master')
 @section('title','Parents list')
 @section('content')
-
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Parent List</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Breadcrumb-->
-                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                        <li class="breadcrumb-item text-muted">
-                            <a href="javascript:;" class="text-muted">parent</a>
-                        </li>
-                    </ul>
-                    <!--end::Breadcrumb-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -68,14 +41,12 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <th>Status</th>
+                                <th>Children</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($parents as $row)
-
-                           
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{ $row->name }}</td>
@@ -83,50 +54,13 @@
                                 <td>{{ $row->phone }}</td>
                                 <td>{{ $row->address }}</td>
                                 <td>
-                                    @if($row->status == 1)
-                                    <a href="#" class="btn label label-lg label-light-success label-inline" data-toggle="modal" data-target="#row_status_{{$row->id}}"> Active</a>
-                                    @elseif($row->status == 0)
-                                    <a href="#" class="btn label label-lg label-light-danger label-inline" data-toggle="modal" data-target="#row_status_{{$row->id}}"> Inactive</a>
-                                    @endif
+                                    <a href="#" class="btn label label-lg label-light-danger label-inline"> 5</a>
                                 </td>
-                                <td class="d-flex">
+                                <td>
                                     <a href="{{route('admin.parent.edit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
                                     <a href="{{route('admin.parent.show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
-
-                            <!--Row Status -->
-                            <div class="modal fade" id="row_status_{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Status</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="{{ route('admin.parent.status',$row->id)}}" method="post">
-                                            @csrf
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label for="">Status</label>
-                                                    <select name="status" class="form-control">
-                                                        <option value="1" @if( $row->status == 1 ) selected @endif >Active</option>
-                                                        <option value="2" @if( $row->status == 0 ) selected @endif >Inactive</option>
-                                                    </select>
-
-                                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('status'))?($errors->first('status')):''}}</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -138,14 +72,4 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
-
-
-<!-- Add Modal -->
-
-
-@section('customjs')
-
-@endsection
 @endsection

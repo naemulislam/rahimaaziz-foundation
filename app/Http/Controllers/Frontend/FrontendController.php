@@ -60,6 +60,7 @@ class FrontendController extends Controller
         $data->email = $request->email;
         $data->subject = $request->subject;
         $data->message = $request->message;
+        $data->status = false;
         $data->save();
         return back()->with('success', 'Message Send Successfully');
     }

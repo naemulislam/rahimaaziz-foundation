@@ -17,17 +17,17 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    protected $guarded = ['id'];
+
+    public function children(){
+        return $this->belongsToMany(Children::class, 'parent_id');
+    }
 
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
     /**
      * The attributes that should be hidden for serialization.

@@ -7,13 +7,11 @@ use App\Http\Controllers\Admin\FeesController;
 use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\HomeworkController;
-use App\Http\Controllers\Admin\ImproveStudentsController;
 use App\Http\Controllers\Admin\ImproveTeacherController;
 use App\Http\Controllers\Admin\ParentController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StudentActivity;
 use App\Http\Controllers\Admin\StudentActivityController;
 use App\Http\Controllers\Admin\StudentController;
@@ -136,29 +134,21 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         // Route::post('admission/approved/{student}', 'admissionApproved')->name('admission.approved');
         Route::post('admission/payment/status/{student}', 'admissionPaymentStatus')->name('admission.payment.status');
         //Student Promotion route
-        Route::get('promotion/index','promotionIndex')->name('students.promotion');
-        Route::post('promotion/store','promoteStore')->name('student.promotion.store');
+        Route::get('promotion/index', 'promotionIndex')->name('students.promotion');
+        Route::post('promotion/store', 'promoteStore')->name('student.promotion.store');
     });
-    Route::group(['prefix'=>'/student'],function(){
-        Route::resource('improve',ImproveStudentsController::class);
-
-        // Route::get('homework/destroy/{id}',[ImproveStudentsController::class,'homeworkdestroy'])->name('homework.destroy');
-
+    Route::controller(ImproveTeacherController::class)->prefix('/teacher')->group(function(){
+        Route::get('promotion/index', 'index')->name('teacher.promotion');
+        Route::put('promotion/update/{teacher}','promoteUpdate')->name('teacher.promotion.update');
     });
-    Route::group(['prefix'=>'/teacher'],function(){
-        Route::resource('imteacher',ImproveTeacherController::class);
-
-        // Route::get('homework/destroy/{id}',[ImproveStudentsController::class,'homeworkdestroy'])->name('homework.destroy');
-
-    });
-    Route::group(['prefix'=>'/teacher'],function(){
-
-        Route::get('responsibility/index/',[TeacherController::class,'responsIndex'])->name('respons.index');
-        Route::get('responsibility/create/',[TeacherController::class,'responsCreate'])->name('respons.create');
-        Route::post('responsibility/store/',[TeacherController::class,'responsStore'])->name('respons.store');
-        Route::get('responsibility/edit/{id}',[TeacherController::class,'responsEdit'])->name('respons.edit');
-        Route::post('responsibility/update/{id}',[TeacherController::class,'responsUpdate'])->name('respons.update');
-        Route::get('responsibility/delete/{id}',[TeacherController::class,'responsDelete'])->name('respons.delete');
+    Route::controller(TeacherController::class)->prefix('/teacher')->group(function(){
+        Route::get('responsibility/index/','responsIndex')->name('respons.index');
+        Route::get('responsibility/create/','responsCreate')->name('respons.create');
+        Route::post('responsibility/store/','responsStore')->name('respons.store');
+        Route::get('responsibility/edit/{teacherResponsibility}','responsEdit')->name('respons.edit');
+        Route::put('responsibility/update/{teacherResponsibility}','responsUpdate')->name('respons.update');
+        Route::get('responsibility/delete/{teacherResponsibility}','responsDelete')->name('respons.delete');
+        Route::post('responsibility/status/{teacherResponsibility}','responsStatus')->name('respons.status');
 
     });
 //Daily Report route
@@ -182,18 +172,19 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
 
     });
 
-    Route::group(['prefix'=> '/parent'],function(){
-        Route::resource('parent',ParentController::class);
-        Route::post('/status/{id}',[ParentController::class,'status'])
-            ->name('parent.status');
+    Route::controller(ParentController::class)->prefix('/parent')->group(function(){
+        Route::get('/index', 'index')->name('parent.index');
+        Route::get('/create', 'create')->name('parent.create');
+        Route::post('/store', 'store')->name('parent.store');
+        Route::get('/show/{user}', 'show')->name('parent.show');
+        Route::get('/edit/{user}', 'edit')->name('parent.edit');
+        Route::put('/update/{user}', 'update')->name('parent.update');
+        Route::get('/destroy/{user}', 'destroy')->name('parent.destroy');
     });
-    Route::group(['prefix'=> '/about-us'],function(){
-        Route::resource('staff',StaffController::class);
-        Route::post('staff/status/{id}',[StaffController::class,'status'])->name('staff.status');
-    });
-    Route::group(['prefix'=> '/contact'],function(){
-        Route::resource('message',ContactController::class);
-        Route::post('massage/status/{id}',[ContactController::class,'status'])->name('massage.status');
+    Route::controller(ContactController::class)->prefix('/contact-message')->group(function(){
+        Route::get('/index', 'index')->name('message.index');
+        Route::get('/show/{contact}', 'show')->name('message.show');
+        Route::get('/destroy/{contact}', 'destroy')->name('message.destroy');
     });
 
     // Student Fees Collection

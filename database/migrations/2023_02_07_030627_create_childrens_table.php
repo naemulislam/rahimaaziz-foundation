@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Student;
 use App\Models\Studentadmission;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -18,7 +19,7 @@ class CreateChildrensTable extends Migration
         Schema::create('childrens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parent_id')->constrained((new User())->getTable());
-            $table->foreignId('student_id')->constrained((new Studentadmission())->getTable());
+            $table->foreignId('student_id')->constrained((new Student())->getTable());
             $table->timestamps();
         });
     }

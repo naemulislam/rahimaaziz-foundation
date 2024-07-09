@@ -1,30 +1,6 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.layouts.master')
 @section('title', 'Parent Registration')
 @section('content')
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Mobile Toggle-->
-                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
-                    <span></span>
-                </button>
-                <!--end::Mobile Toggle-->
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Parent Registration</h5>
-                    <!--end::Page Title-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -37,54 +13,57 @@
                             <h3 class="card-title">Parent Registration</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
-                                <a href="{{route('admin.parent.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
+                                <a href="{{ route('admin.parent.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
                                     < Back</a>
                                         <!--end::Button-->
                             </div>
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{ route('admin.parent.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('admin.parent.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Name<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Enter student name" name="name" value="">
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('name') ? $errors->first('name') : '' }}
-                                            </div>
+                                            <input type="text" class="form-control" placeholder="Enter student name"
+                                                name="name" value="{{ old('name')}}">
+                                            @error('name')
+                                                <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Email<span class="text-danger">*</span></label>
-                                            <input type="email" class="form-control" name="email" id="" placeholder="Enter student email">
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('email') ? $errors->first('email') : '' }}
-                                            </div>
+                                            <input type="email" class="form-control" name="email"
+                                                placeholder="Enter email">
+                                                @error('email')
+                                                <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Phone<span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" name="phone" value="" placeholder="Enter student phone">
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('phone') ? $errors->first('phone') : '' }}
-                                            </div>
+                                            <input type="number" class="form-control" name="phone" value="{{ old('phone')}}"
+                                                placeholder="Enter phone">
+                                                @error('phone')
+                                                <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="row">
-                                <div class="col-sm-12">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="">Address<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="address" value="" placeholder="Enter address..">
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('address') ? $errors->first('address') : '' }}
-                                            </div>
+                                            <textarea class="form-control" name="address" value="{{ old('address')}}"
+                                                placeholder="Enter address.."></textarea>
+                                                @error('address')
+                                                <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -94,31 +73,33 @@
                                             <label for="">Gender<span class="text-danger">*</span></label>
                                             <select class="form-control" name="gender">
                                                 <option>Select gender</option>
-                                                <option value="1">Mail</option>
-                                                <option value="2">Femail</option>
+                                                <option value="male">Male</option>
+                                                <option value="femail">Female</option>
                                             </select>
-
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('gender') ? $errors->first('gender') : '' }}
-                                            </div>
+                                            @error('gender')
+                                                <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Password<span class="text-danger">*</span></label>
-                                            <input type="password" class="form-control" name="password" value="{{ old('password')}}" placeholder="Enter Password">
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('password') ? $errors->first('password') : '' }}
-                                            </div>
+                                            <input type="password" class="form-control" name="password"
+                                                value="{{ old('password') }}" placeholder="Enter Password">
+                                                @error('password')
+                                                <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="">Confirm Password<span class="text-danger">*</span></label>
-                                            <input type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation')}}" placeholder="Enter confirm password">
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('password_confirmation') ? $errors->first('password_confirmation') : '' }}
-                                            </div>
+                                            <input type="password" class="form-control" name="password_confirmation"
+                                                value="{{ old('password_confirmation') }}"
+                                                placeholder="Enter confirm password">
+                                                @error('password_confirmation')
+                                                <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -127,34 +108,29 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="">Select Students<span class="text-danger">*</span></label>
-                                            <select class="form-control js-example-tokenizer" multiple="multiple" name="student_id[]">
-                                                @foreach($students as $student)
-                                                <option value="{{$student->id}}">{{$student->student->name}}</option>
+                                            <select class="form-control js-example-tokenizer" multiple="multiple"
+                                                name="student_id[]">
+                                                @foreach ($students as $student)
+                                                    <option value="{{ $student->id }}">{{ $student->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
 
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('studetn_id') ? $errors->first('studetn_id') : '' }}
-                                            </div>
+                                            @error('student_id')
+                                                <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label text-right">Student Image</label>
-                                    <div class="col-lg-9 col-xl-6">
-                                        <div class="image-input image-input-outline" id="kt_image_1">
-                                            <div class="image-input-wrapper" style="background-image: url(assets/media/users/100_1.jpg)"></div>
-                                            <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
-                                                <i class="fa fa-pen icon-sm text-muted"></i>
-                                                <input type="file" name="profile_photo_path" accept=".png, .jpg, .jpeg" />
-                                                <input type="hidden" name="profile_avatar_remove" />
-                                            </label>
-                                            <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
-                                                <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                            </span>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="">Parent image</label>
+                                           <input type="file" name="image" class="form-control" accept=".jpg,.png.jpeg">
+                                            @error('image')
+                                                <span class="text-danger">{{ $message}}</span>
+                                            @enderror
                                         </div>
-                                        <span class="form-text text-muted">Allowed file types: png, jpg, jpeg.</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -175,15 +151,12 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
-
-@section('customjs')
-<script>
-    $(".js-example-tokenizer").select2({
-    tags: true,
-    tokenSeparators: [',', ' ']
-})
-</script>
 @endsection
-@endsection
+@push('scripts')
+    <script>
+        $(".js-example-tokenizer").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        })
+    </script>
+@endpush
