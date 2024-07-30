@@ -1,4 +1,4 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.student.layouts.master')
 @section('title', 'Create Payment')
 @section('content')
 <style>
@@ -34,6 +34,14 @@
     }
 
     /*---------------- */
+    .amount-show-box {
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            padding: 38px 26px;
+            text-align: left;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid #04ff00;
+        }
     #debit-card{
         display: none;
     }
@@ -41,30 +49,6 @@
         display: none;
     }
 </style>
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Mobile Toggle-->
-                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
-                    <span></span>
-                </button>
-                <!--end::Mobile Toggle-->
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Create Monthly Payment</h5>
-                    <!--end::Page Title-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -90,73 +74,85 @@
                             id="payment-form">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label for="">Select Months<span class="text-danger">*</span></label>
-                                            <select class="form-control js-month-tokenizer" multiple="multiple" name="month[]" w="100">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="">Select Months <span class="text-danger">*</span></label>
+                                                    <select class="form-control js-month-tokenizer" multiple="multiple" name="month[]" w="100" id="monthSelect">
 
-                                                <option value="January">January</option>
-                                                <option value="February">February</option>
-                                                <option value="March">March</option>
-                                                <option value="April">April</option>
-                                                <option value="May">May</option>
-                                                <option value="June">June</option>
-                                                <option value="July">July</option>
-                                                <option value="August">August</option>
-                                                <option value="September">September</option>
-                                                <option value="October">October</option>
-                                                <option value="November">November</option>
-                                                <option value="December">December</option>
+                                                        <option value="January">January</option>
+                                                        <option value="February">February</option>
+                                                        <option value="March">March</option>
+                                                        <option value="April">April</option>
+                                                        <option value="May">May</option>
+                                                        <option value="June">June</option>
+                                                        <option value="July">July</option>
+                                                        <option value="August">August</option>
+                                                        <option value="September">September</option>
+                                                        <option value="October">October</option>
+                                                        <option value="November">November</option>
+                                                        <option value="December">December</option>
 
-                                            </select>
+                                                    </select>
 
-                                            <div style='color:red; padding: 0 5px;'>
-                                                {{ $errors->has('month') ? $errors->first('month') : '' }}
+                                                    <div style='color:red; padding: 0 5px;'>
+                                                        {{ $errors->has('month') ? $errors->first('month') : '' }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="">Pay Date <span class="text-danger">*</span></label>
+                                                    <input type="date" name="pay_date" value="{{date('Y-m-d')}}" class="form-control">
+                                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('pay_date'))?($errors->first('pay_date')):''}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label for="">Amount <span class="text-danger">*</span></label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">$</span>
+                                                    </div>
+                                                    <input type="text" name="fees_amount" id="fees_amount" class="form-control" value="{{auth('student')->user()->admission->group->monthly_fee}}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">.00</span>
+                                                    </div>
+                                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('fees_amount'))?($errors->first('fees_amount')):''}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group mb-3">
+                                                    <label for="">Payment method <span class="text-danger">*</span></label>
+                                                    <select name="pay_type" id="payment_type" class="form-control">
+                                                        <option selected disabled>Select Type</option>
+                                                        <option value="1">Credit Card</option>
+                                                        <option value="2">Debit Card</option>
+                                                        <option value="3">Others</option>
+                                                    </select>
+                                                    <div style='color:red; padding: 0 5px;'>{{($errors->has('pay_type'))?($errors->first('pay_type')):''}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="amount-show-box">
+                                            <div id="monthly-fees-show">
+                                                <h4>Monthly Fees: $<span id="monthly_fees">{{auth('student')->user()->admission->group->monthly_fee}}</span></h4>
+                                            </div>
+                                            <div>
+                                                <h4 id="subtotal">Subtotal: ${{auth('student')->user()->admission->group->monthly_fee}} * <span id="sublength"></span></h4>
+                                                <h4 id="total">Total: $0</h4>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="">Due Date</label>
-                                            <input type="date" name="due_date" value="{{date('Y-m-d')}}" class="form-control">
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('due_date'))?($errors->first('due_date')):''}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label for="">Dollar</label>
-                                        <div class="input-group mb-3">
-
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
-                                            </div>
-
-                                            <input type="text" name="fees_dollar" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">.00</span>
-                                            </div>
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('fees_dollar'))?($errors->first('fees_dollar')):''}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-
-                                        <div class="form-group mb-3">
-                                            <label for="">Payment method</label>
-                                            <select name="pay_type" id="payment_type" class="form-control">
-                                                <option>Select Type</option>
-                                                <option value="1">Credit Card</option>
-                                                <option value="2">Debit Card</option>
-                                                <option value="3">Others</option>
-                                            </select>
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('pay_type'))?($errors->first('pay_type')):''}}</div>
-                                        </div>
-                                    </div>
-                                </div>
 
 
-                                <div class="card" id="credit-card">
-                                    <div class="card-header"><h2>Payment Details</h2></div>
+                                <div class="card mb-3" id="credit-card">
+                                    <div class="card-header py-2"><h2>Payment Details</h2></div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -164,9 +160,7 @@
                                                     <div class="subs-payment">
                                                         <div class="subs-step">
                                                             <p class="mb-2">Enter your cart number</p>
-
                                                         </div>
-
                                                         <div class="subs-payment-form">
                                                             <div class="form-row">
                                                                 <label for="card-element">
@@ -179,12 +173,8 @@
                                                                 <!-- Used to display form errors. -->
                                                                 <div id="card-errors" role="alert"></div>
                                                             </div>
-
                                                         </div>
-
                                                     </div>
-                                                    <hr>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -197,10 +187,6 @@
                                                 <h3 class="panel-title">Payment Details</h3>
                                             </div>
                                             <div class="panel-body">
-
-
-
-
                                                 <div class='form-row row'>
                                                     <div class='col-sm-6 form-group required'>
                                                         <label class='control-label'>Name on Card</label> <input class='form-control' size='4' type='text'>
@@ -224,14 +210,10 @@
                                                         <label class='control-label'>Expiration Year</label> <input class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text'>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
@@ -250,9 +232,23 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
-@section('customjs')
+    @endsection
+@push('scripts')
+<script>
+    // Calculate the per month fees and total month
+    $("#monthSelect").on('change', function() {
+        var month = $(".js-month-tokenizer").select2('data');
+        var monthly_fees = $('#monthly_fees').text();
+
+        var selectedCount = month.length;
+        var amountPerMonth = monthly_fees;
+        var total = amountPerMonth * selectedCount;
+        $('#fees_amount').val(total);
+
+        document.getElementById('sublength').innerText = selectedCount;
+        document.getElementById('total').innerText = 'Total: $' + total;
+    });
+</script>
 <script>
      $(document).on('change', '#payment_type', function() {
         var pay_type = $(this).val();
@@ -265,7 +261,7 @@
            document.getElementById("debit-card").style.display="block";
         }
     })
-  
+
 </script>
 
 <!-- Below Debit Card  -->
@@ -412,7 +408,4 @@
         tokenSeparators: [',', ' ']
     })
 </script>
-
-@endsection
-
-@endsection
+@endpush

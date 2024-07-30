@@ -8,6 +8,7 @@
     <title>Invoice</title>
     <style>
         /* heading */
+        @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
         h1 {
             font: bold 100% sans-serif;
@@ -57,6 +58,7 @@
             margin: 0 auto;
             padding: 0.5in;
             width: 7.5in;
+            font-family: "Jost", sans-serif !important;
         }
 
         body {
@@ -139,6 +141,9 @@
             position: absolute;
             top: 0;
             width: 100%;
+        }
+        address > p{
+            margin: 0px;
         }
 
         /* article */
@@ -305,96 +310,119 @@
             width: 100px;
             text-align: center;
         }
+        .action-button{
+            display: flex;
+            justify-content: space-between
+        }
+        .action-button>a {
+    padding: 3px 40px;
+    background: #010239;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+}
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Invoice</h1>
-        <address >
-				<h3>Rahima Aziz Foundation</h3>
-			</address>
-        <img alt="it" class="invo-logo" src="{{asset('frontend')}}/assets/images/logo/logo-light1.png">
-    </header>
-    <article>
-        <h1>Recipient</h1>
-        <address class="norm">
-            <h4>{{$fees->student->student->name}}</h4>
-            <p class="m-0"> {{$fees->student->student->email}}</p>
-            <p class="m-0"> {{$fees->student->studentinfo->address}}</p>
-            <p>{{$fees->student->admi_phone}}</p>
-        </address>
+    <section id="printSection">
+        <header>
+            <h1>Invoice</h1>
+            <address >
+                    <h3>{{$data['siteName']}}</h3>
+                </address>
+            <img alt="it" class="invo-logo" src="{{asset($data['logo'])}}">
+        </header>
+        <article>
+            <h1>Recipient</h1>
+            <address class="norm">
+                <h4>{{$data['name']}}</h4>
+                <p class="m-0"> {{$data['email']}}</p>
+                <p class="m-0"> {{$data['address']}}</p>
+                <p>{{$data['phone']}}</p>
+            </address>
 
-        <table class="meta">
-            <tr>
-                <th><span>Invoice #</span></th>
-                <td><span>{{ random_int(100, 999)}}</span></td>
-            </tr>
-            <tr>
-                <th><span>Date</span></th>
-                <td><span>{{ \Carbon\Carbon::parse($fees->due_date)->format('M/d/Y')}}</span></td>
-            </tr>
-            <tr>
-                <th><span>Amount Due</span></th>
-                <td><span id="prefix">$</span><span>
-                    @if($fees->blance)
-                    {{$fees->blance}}
-                    @else
-                    0.00
-                    @endif
-                </span></td>
-            </tr>
-            <tr>
-                <th><span>Amount Pay</span></th>
-                <td><span id="prefix">$</span><span>
-                    {{$fees->pay}}
-                </span></td>
-            </tr>
-        </table>
-        <table class="inventory">
-            <thead>
+            <table class="meta">
                 <tr>
-                    <th><span>S. No</span></th>
-                    <th><span>Month</span></th>
-                    <th><span>Amount</span></th>
+                    <th><span>Invoice</span></th>
+                    <td><span>#{{ $data['invoice']}}</span></td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach($feesdetails as $row)
                 <tr>
-                    <td><span>{{$loop->iteration}}</span></td>
-                    <td><span>{{$row->month}}</span></td>
-                    <td><span data-prefix>$</span><span>{{$setting->monthly_fees}}</span></td>
-
+                    <th><span>Date</span></th>
+                    <td><span>{{ $data['pay_date']}}</span></td>
                 </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <table class="sign">
-            <tr>
-                <td>Signature</td>
-            </tr>
-        </table>
+                <tr>
+                    <th><span>Amount Due</span></th>
+                    <td><span id="prefix">$</span><span>
+                        @if($data['amount_due'])
+                        {{$data['amount_due']}}
+                        @else
+                        0.00
+                        @endif
+                    </span></td>
+                </tr>
+                <tr>
+                    <th><span>Amount Pay</span></th>
+                    <td><span id="prefix">$</span><span>
+                        {{$data['amount']}}
+                    </span></td>
+                </tr>
+                <tr>
+                    <th><span>Discount</span></th>
+                    <td><span id="prefix">$</span><span>
+                        {{$data['discount']}}
+                    </span></td>
+                </tr>
+            </table>
+            <table class="inventory">
+                <thead>
+                    <tr>
+                        <th><span>S. No</span></th>
+                        <th><span>Month</span></th>
+                        <th><span>Amount</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($feesdetails as $row)
+                    <tr>
+                        <td><span>{{$loop->iteration}}</span></td>
+                        <td><span>{{$row->month}}</span></td>
+                        <td><span data-prefix>$</span><span>{{$data['monthlyFees']}}</span></td>
 
-        <table class="balance">
-            @php
-            $count_month = count($feesdetails);
-            $total_amount = $count_month * $setting->monthly_fees;
-            @endphp
-            <tr>
-                <th><span>Total</span></th>
-                <td><span data-prefix>$</span><span>{{$total_amount }}</span></td>
-            </tr>
-        </table>
-    </article>
-    <div>
-        <button onclick="download()">Save to pdf</button>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <table class="sign">
+                <tr>
+                    <td>Signature</td>
+                </tr>
+            </table>
+
+            <table class="balance">
+                @php
+                $count_month = count($feesdetails);
+                $total_amount = $data['monthlyFees'] * $count_month;
+                @endphp
+                <tr>
+                    <th><span>Total</span></th>
+                    <td><span data-prefix>$</span><span>{{$total_amount }}</span></td>
+                </tr>
+            </table>
+        </article>
+    </section>
+    <div class="action-button">
+        <a href="{{ url()->previous() }}" class="back-btn">Back</a>
+        <a href="#" class="print-btn">Print</a>
     </div>
+    <script src="{{ asset('frontend/assets/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('frontend/assets/js/printThis.js')}}"></script>
     <script>
-        function download(){
-            window.print();
-        }
+        $('.print-btn').on('click', function(){
+            $("#printSection").printThis({});
+        });
+
     </script>
 </body>
-
 </html>

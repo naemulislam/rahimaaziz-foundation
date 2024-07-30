@@ -1,4 +1,4 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.student.layouts.master')
 @section('title','Fees')
 @section('content')
 <style>
@@ -33,33 +33,6 @@
         background-color: #fefde5 !important;
     }
 </style>
-
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Monthly Fees</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Breadcrumb-->
-                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                        <li class="breadcrumb-item text-muted">
-                            <a href="javascript:;" class="text-muted">fees</a>
-                        </li>
-                    </ul>
-                    <!--end::Breadcrumb-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -95,23 +68,24 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
+                                <th>Name</th>
                                 <th>Class</th>
                                 <th>Due Date</th>
                                 <th>Status</th>
                                 <th>Mode</th>
                                 <th>Amount</th>
-                                <th>Pay</th>
                                 <th>Balance</th>
                                 <th>Discount</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $row)
+                            @foreach($fees as $row)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$row->class->class_name}}</td>
-                                <td>{{$row->due_date}}</td>
+                                <td>{{$row->admission->student->name}}</td>
+                                <td>{{$row->group->name}}</td>
+                                <td>{{$row->pay_date}}</td>
                                 <td>
                                     @if($row->status == 1)
                                     <a href="#" class="btn label label-lg label-light-success label-inline"> Paid</a>
@@ -123,22 +97,19 @@
                                 </td>
                                 <td>{{$row->payment_type}}</td>
                                 <td>{{$row->amount}}</td>
-                                <td>{{$row->pay}}</td>
                                 <td>{{$row->blance}}</td>
                                 <td>{{$row->discount}}</td>
-
-                                <td class="d-flex">
+                                <td>
                                     @if($row->status == 2)
-                                    <a href="{{route('student.fees.partial.edit',$row->id)}}" class="btn btn-secondary btn-hover-secondery btn-xs mx-3">Pay</a>
-                                    <a href="{{route('student.fees.payment.invoice',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fas fa-file-invoice    "></i></a>
+                                    <a href="{{route('student.fees.partial.edit',$row->id)}}" class="btn label label-lg label-light-success label-inline">Pay</a>
+                                    <a href="{{route('student.fees.payment.invoice',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs"><i class="fas fa-file-invoice"></i></a>
                                     @else
-                                    <a href="{{route('student.fees.show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
-                                    <a href="{{route('student.fees.payment.invoice',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fas fa-file-invoice    "></i></a>
+                                    <a href="{{route('student.fees.show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mr-2"><i class="fa fa-eye"></i></a>
+                                    <a href="{{route('student.fees.payment.invoice',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs"><i class="fas fa-file-invoice"></i></a>
                                     @endif
 
                                 </td>
                             </tr>
-
                             @endforeach
                         </tbody>
                     </table>
@@ -150,13 +121,11 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="" method="post">
-            
+
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Payment Method</h5>
@@ -200,12 +169,11 @@
         </form>
     </div>
 </div>
-@section('customjs')
+@endsection
+@push('scripts')
 <script>
-    $(document).ready(function() {
-        $('#datatable').DataTable();
-    });
+$(document).ready(function() {
+    $('#datatable').DataTable();
+});
 </script>
-
-@endsection
-@endsection
+@endpush

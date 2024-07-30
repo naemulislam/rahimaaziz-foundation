@@ -1,3 +1,6 @@
+@php
+    $routeName = request()->route()->getName();
+@endphp
 <li class="menu-item menu-item-active" aria-haspopup="true">
 									<a href="{{route('student.dashboard')}}" class="menu-link">
 										<span class="svg-icon menu-icon">
@@ -18,7 +21,6 @@
 									<h4 class="menu-text">Menubar</h4>
 									<i class="menu-icon ki ki-bold-more-hor icon-md"></i>
 								</li>
-                                @if (auth('student')->user()->admission->payment_status == 1)
 								<!--Satart Home Work-->
 								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
@@ -146,8 +148,6 @@
 													<span class="menu-text">attendance</span>
 												</span>
 											</li>
-
-
 											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('student.attendance.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
@@ -156,15 +156,20 @@
 													<span class="menu-text">Attendance</span>
 													<i class="menu-arrow"></i>
 												</a>
-
 											</li>
-
 										</ul>
 									</div>
 								</li>
 								<!--End Attendance-->
 								<!--Satart fees-->
-								<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+								<li class="menu-item menu-item-submenu
+                                {{
+                                $routeName == 'student.fees.index' ||
+                                $routeName == 'student.fees.create' ||
+                                $routeName == 'student.fees.show' ||
+                                $routeName == 'student.fees.partial.edit' ||
+                                $routeName == 'student.fees.payment.invoice' ? 'menu-item-open' : '' }}
+                                " aria-haspopup="true" data-menu-toggle="hover">
 									<a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -189,8 +194,9 @@
 												</span>
 											</li>
 
-
-											<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+											<li class="menu-item menu-item-submenu
+                                            {{ $routeName == 'student.fees.index' || $routeName == 'student.fees.show' || $routeName == 'student.partial.edit' ? 'menu-item-active' : '' }}
+                                            " aria-haspopup="true" data-menu-toggle="hover">
 												<a href="{{ route('student.fees.index')}}" class="menu-link menu-toggle">
 													<i class="menu-bullet menu-bullet-line">
 														<span></span>
@@ -200,11 +206,19 @@
 												</a>
 
 											</li>
+											<li class="menu-item menu-item-submenu {{ $routeName == 'student.fees.create' ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+												<a href="{{ route('student.fees.create')}}" class="menu-link menu-toggle">
+													<i class="menu-bullet menu-bullet-line">
+														<span></span>
+													</i>
+													<span class="menu-text">Fees pay</span>
+													<i class="menu-arrow"></i>
+												</a>
 
+											</li>
 										</ul>
 									</div>
 								</li>
 								<!--End fees-->
-						@endif
 
 

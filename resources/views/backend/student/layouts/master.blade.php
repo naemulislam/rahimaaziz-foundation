@@ -15,9 +15,6 @@
     <link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
     <!--end::Page Vendors Styles-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
-    <!--begin::Global Theme Styles(used by all pages)-->
-
     <!-- Select2 css code -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -47,6 +44,22 @@
     <link href="{{ asset('backend') }}/assets/css/filter_multi_select.css" rel="stylesheet" type="text/css" />
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{ asset('frontend') }}/assets/images/logo/favicon-32x32.png" type="image/x-icon">
+    <style>
+        .imageBox>img {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            height: 164px;
+            width: 162px;
+            border: 3px solid #3699ff;
+        }
+
+        b {
+            border: 1px solid #d9d9d9 !important;
+            padding: 6px;
+        }
+        .previewImage{
+            width: 200px;
+        }
+    </style>
 </head>
 <!--end::Head-->
 <!--begin::Body-->

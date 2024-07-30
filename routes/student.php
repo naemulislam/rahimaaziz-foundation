@@ -1,8 +1,6 @@
 <?php
-use App\Http\Controllers\AllAuthController;
 use App\Http\Controllers\DefaultController\DefaultController;
 use App\Http\Controllers\Frontend\LoginController;
-use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Student\ActivityController;
 use App\Http\Controllers\Student\AttendanceController;
 use App\Http\Controllers\Student\DailyReportController;
@@ -10,7 +8,6 @@ use App\Http\Controllers\Student\FeesController;
 use App\Http\Controllers\Student\HomeworkController;
 use App\Http\Controllers\Student\JugController;
 use App\Http\Controllers\Student\StudentController;
-use App\Http\Controllers\Student\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,16 +50,19 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
 
         Route::get('homework/destroy/{id}',[HomeworkController::class,'homeworkdestroy'])->name('homework.destroy');
     });
-    Route::group(['prefix'=>'/student'],function(){
-        Route::resource('attendance',AttendanceController::class);
-
+    Route::controller(AttendanceController::class)->group(function(){
+        Route::get('attendance/index', 'index')->name('attendance.index');
     });
     //Monthly fees payment route
-    Route::group(['prefix'=>'/student'],function(){
-        Route::resource('fees',FeesController::class);
-        Route::get('/fees/payment/invoice/{id}',[FeesController::class,'feesPaymentInvoice'])->name('fees.payment.invoice');
-        Route::get('/fees/partial/edit/{id}',[FeesController::class,'partialEdit'])->name('fees.partial.edit');
-        Route::post('/fees/partial/update/{id}',[FeesController::class,'partialUpdate'])->name('fees.partial.update');
+    Route::controller(FeesController::class)->prefix('/student')->group(function(){
+        Route::get('/fees/index', 'index')->name('fees.index');
+        Route::get('/fees/create', 'create')->name('fees.create');
+        Route::post('fees/store', 'store')->name('fees.store');
+        Route::get('fees/show/{fees}', 'show')->name('fees.show');
+        // Route::resource('fees',FeesController::class);
+        Route::get('/fees/partial/edit/{fees}', 'partialEdit')->name('fees.partial.edit');
+        Route::post('/fees/partial/update/{fees}', 'partialUpdate')->name('fees.partial.update');
+        Route::get('/fees/payment/invoice/{fees}', 'feesPaymentInvoice')->name('fees.payment.invoice');
 
     });
 
@@ -70,8 +70,6 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
         Route::resource('activity',ActivityController::class);
 
         Route::get('/activity/average',[ActivityController::class,'activityCreate'])->name('activity.activityCreate');
-
-
     });
 
     /////////////////////////Default routes////////////////////////////////

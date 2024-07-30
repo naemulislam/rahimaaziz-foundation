@@ -230,8 +230,8 @@
                 dataType: 'json',
                 success: function(data) {
                     var html = '';
-                    html += '<div class="announcement"><h4>Monthly Fee: $' + data.monthly_fee +
-                        '</h4></div>';
+                    html += '<div class="announcement"><h4>Monthly Fee: $<span id="monthly_fees">' + data.monthly_fee +
+                        '</span></h4></div>';
                     $('#monthly-fees-show').html(html);
                     $('#fees_amount').val(data.monthly_fee);
                 }
@@ -242,11 +242,11 @@
         // Calculate the per month fees and total month
         $("#monthSelect").on('change', function() {
             var month = $(".js-month-tokenizer").select2('data');
-            var fees_amount = $('#fees_amount').val();
+            var monthly_fees = $('#monthly_fees').text();
 
             var selectedCount = month.length;
-            var amountPerMonth = fees_amount;
-            var total = selectedCount * amountPerMonth;
+            var amountPerMonth = monthly_fees;
+            var total = amountPerMonth * selectedCount;
             $('#fees_amount').val(total);
 
             document.getElementById('total').innerText = 'Total: $' + total;

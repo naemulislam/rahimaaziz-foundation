@@ -7,6 +7,9 @@ use App\Models\Fees;
 use App\Models\FeesDetails;
 use App\Models\Setting;
 use App\Models\Studentadmission;
+use App\Repositories\FeesRepository;
+use App\Repositories\SettingRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -16,68 +19,62 @@ class FeesController extends Controller
     public function index()
     {
         $getId = Studentadmission::where('student_id', Auth('student')->user()->id)->first();
-        $data = Fees::where('admission_id', $getId->id)->get();
-        return view('backend.dashboard.student.fees.fees', compact('data'));
+        $fees = Fees::where('admission_id', $getId->id)->get();
+        return view('backend.student.dashboard.fees.fees', compact('fees'));
     }
     public function create()
     {
-
-         return view('backend.dashboard.student.fees.create');
+        return view('backend.student.dashboard.fees.create');
     }
-    public function feesPaymentInvoice($id)
+    public function feesPaymentInvoice(Fees $fees)
     {
-        $data['fees'] = Fees::find($id);
-        $get_id = $data['fees']->id;
-        $data['feesdetails'] = FeesDetails::where('fees_id',$get_id)->get();
+        $data['feesdetails'] = FeesDetails::where('fees_id', $fees->id)->get();
+        $settingdata = SettingRepository::query()->latest()->first();
 
-        // $pdf = PDF::loadView('backend.dashboard.student.fees.invoice', $data);
-    
-        // return $pdf->download('fees_invoice.pdf');
-        return view('backend.dashboard.student.fees.invoice',$data);
+        $data['data'] = [
+            'name' => $fees->admission->student->name,
+            'email' => $fees->admission->student->email,
+            'address' => $fees->admission->student->studentinfo->address,
+            'phone' => $fees->admission->student->phone,
+            'pay_date' => Carbon::parse($fees->pay_date)->format('M/d/Y'),
+            'amount_due'=>$fees->blance,
+            'amount'=>$fees->amount,
+            'discount'=>$fees->discount,
+            'siteName'=>$settingdata->site_name,
+            'logo'=>$settingdata->white_logo,
+            'monthlyFees'=>$fees->group->monthly_fee,
+            'invoice'=> random_int(100, 999),
+        ];
+        return view('backend.student.dashboard.fees.invoice', $data);
     }
     public function store(Request $request)
     {
         $this->validate($request, [
-            'due_date' => 'required',
-            'fees_dollar' => 'required',
-            'pay_type' => 'required|in:1,2'
+            'pay_date' => 'required|date',
+            'fees_amount' => 'required',
+            'pay_type' => 'required|in:1,2,3'
         ]);
         //this condition is discount type
-        
-            $setting = Setting::latest()->first();
-            $fees_amount = $setting->monthly_fees;
 
-            $monthCount = count($request->month);
-            $total_amount = $fees_amount * $monthCount;
-            $blans = $total_amount - $request->fees_dollar;
-        
+        if ($request->pay_type == 1) {
+            // Set your secret key. Remember to switch to your live secret key in production.
+            // See your keys here: https://dashboard.stripe.com/apikeys
+            \Stripe\Stripe::setApiKey('sk_test_51KUbT6LEylh30WQ8Mlb1wvxGBMq8Sm8YGm70jQGt7mbxv0zdYrG3wMsT2SrjuJYt3g93MPGQj0DJwnFVBHN3rOdw00wlXBiHEP');
+            $token = $_POST['stripeToken'];
 
-       if($request->pay_type == 1){
-         // Set your secret key. Remember to switch to your live secret key in production.
-        // See your keys here: https://dashboard.stripe.com/apikeys
-        \Stripe\Stripe::setApiKey('sk_test_51KUbT6LEylh30WQ8Mlb1wvxGBMq8Sm8YGm70jQGt7mbxv0zdYrG3wMsT2SrjuJYt3g93MPGQj0DJwnFVBHN3rOdw00wlXBiHEP');
+            $charge = \Stripe\Charge::create([
+                'amount' => $request->fees_amount * 100,
+                'currency' => 'usd',
+                'description' => 'Payment to Rahima Aziz',
+                'source' => $token,
+                'metadata' => ['order_id' => uniqid()],
+            ]);
+        } elseif ($request->pay_type == 2) {
+            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        // Token is created using Checkout or Elements!
-        // Get the payment token ID submitted by the form:
-        $token = $_POST['stripeToken'];
+            $customer = \Stripe\Customer::create(array(
 
-        $charge = \Stripe\Charge::create([
-            'amount' => $request->fees_dollar * 100,
-            'currency' => 'usd',
-            'description' => 'Payment to Rahima Aziz',
-            'source' => $token,
-            'metadata' => ['order_id' => uniqid()],
-        ]);
-       }
-
-        elseif($request->pay_type == 2){
-            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
-  
-
-    $customer = Stripe\Customer::create(array(
-
-            "address" => [
+                "address" => [
 
                     "line1" => "Virani Chowk",
 
@@ -91,111 +88,77 @@ class FeesController extends Controller
 
                 ],
 
-            "email" => "demo@gmail.com",
+                "email" => "demo@gmail.com",
 
-            "name" => "Hardik Savani",
+                "name" => "Hardik Savani",
 
-            "source" => $request->stripeToken
+                "source" => $request->stripeToken
 
-         ));
+            ));
 
-  
 
-    Stripe\Charge::create ([
 
-            "amount" => $request->fees_dollar * 100,
+            $charge = \Stripe\Charge::create([
 
-            "currency" => "usd",
+                "amount" => $request->fees_amount * 100,
 
-            "customer" => $customer->id,
+                "currency" => "usd",
+                "customer" => $customer->id,
+                "description" => "Test payment from itsolutionstuff.com.",
+                "shipping" => [
+                    "name" => "Jenny Rosen",
 
-            "description" => "Test payment from itsolutionstuff.com.",
+                    "address" => [
 
-            "shipping" => [
+                        "line1" => "510 Townsend St",
 
-              "name" => "Jenny Rosen",
+                        "postal_code" => "98140",
 
-              "address" => [
+                        "city" => "San Francisco",
 
-                "line1" => "510 Townsend St",
+                        "state" => "CA",
 
-                "postal_code" => "98140",
+                        "country" => "US",
 
-                "city" => "San Francisco",
+                    ],
 
-                "state" => "CA",
+                ]
 
-                "country" => "US",
-
-              ],
-
-            ]
-
-    ]); 
+            ]);
         }
-        $getId = Studentadmission::where('student_id', Auth('student')->user()->id)->first();
-        $data = new Fees();
-        $data->admission_id          = $getId->id;
-        $data->class_id              = $getId->class_id;
-        $data->amount                = $total_amount;
-        $data->pay                   = $request->fees_dollar;
-        $data->due_date              = $request->due_date;
-        
-            if($request->fees_dollar == $total_amount){
-                $data->status                = 1;
-            }else{
-                $data->status                = 2;
-            }
+        $student = Studentadmission::where('student_id', Auth('student')->user()->id)->first();
 
-        
-        $data->payment_id            = $charge->id;
-        $data->payment_type          = "Stripe";
-        $data->payment_method        = $charge->payment_method;
-        $data->balance_transaction   = $charge->balance_transaction;
-        $data->currency              = $charge->currency;
-        
-        if (!empty($blans)) {
+        $pMethod = $charge->payment_method;
+        $balanceTransaction = $charge->balance_transaction;
+        $currency = $charge->currency;
+        $fees = FeesRepository::studentDashboardFees($request, $student, $pMethod, $balanceTransaction, $currency);
 
-            $data->blance                = $blans;
-        } else {
-            $data->blance                = 0.00;
-        }
-        $data->discount                = 0.00;
-        $data->pay_type              = $request->pay_type;
-        // return $data;
-        $data->save();
         $month = $request->month;
         if (!empty($month)) {
             foreach ($month as $valu) {
                 $mon = new FeesDetails();
-                $mon->fees_id = $data->id;
-                $mon->admission_id = $getId->id;
+                $mon->fees_id = $fees->id;
+                $mon->admission_id = $student->id;
                 $mon->month  = $valu;
-                // return $mon;
                 $mon->save();
             }
         }
-
-
-        $notification = array(
-            'message' => 'Fee payment completed!.',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($notification);
+        return back()->with('success', 'Payment is successfully complete!');
     }
 
-    public function show($id){
-        $data = Fees::find($id);
-        $month = FeesDetails::where('fees_id',$data->id)->get();
-        return view('backend.dashboard.student.fees.details',compact('data','month'));
+    public function show(Fees $fees)
+    {
+        $month = FeesDetails::where('fees_id', $fees->id)->get();
+        return view('backend.student.dashboard.fees.details', compact('fees', 'month'));
     }
-    public function partialEdit($id){
-        $data = Fees::find($id);
-        return view('backend.dashboard.student.fees.partial',compact('data'));
+    public function partialEdit(Fees $fees)
+    {
+        return view('backend.student.dashboard.fees.partial', compact('fees'));
     }
-    public function partialUpdate(Request $request, $id){
+    public function partialUpdate(Request $request, Fees $fees)
+    {
         $this->validate($request, [
-            'fees_dollar' => 'required'
+            'fees_amount' => 'required|string'
         ]);
 
         \Stripe\Stripe::setApiKey('sk_test_51KUbT6LEylh30WQ8Mlb1wvxGBMq8Sm8YGm70jQGt7mbxv0zdYrG3wMsT2SrjuJYt3g93MPGQj0DJwnFVBHN3rOdw00wlXBiHEP');
@@ -205,30 +168,26 @@ class FeesController extends Controller
         $token = $_POST['stripeToken'];
 
         $charge = \Stripe\Charge::create([
-            'amount' => $request->fees_dollar * 100,
+            'amount' => $request->fees_amount * 100,
             'currency' => 'usd',
             'description' => 'Payment to Rahima Aziz',
             'source' => $token,
             'metadata' => ['order_id' => uniqid()],
         ]);
-        
-        $data = Fees::find($id);
-        $blnc = $data->blance - $request->fees_dollar;
-        $pay = $data->pay + $request->fees_dollar;
 
-        $data->blance  = $blnc;
-        $data->pay  = $pay;
+        $balance = $fees->blance - $request->fees_amount;
+        $currentAmount = $fees->amount + $request->fees_amount;
 
-        if($data->amount == $pay){
-            $data->status = 1;
-        }else{
-            $data->status = 2;
+        if ($fees->amount == $currentAmount) {
+            $status = 1;
+        } else {
+            $status = 2;
         }
-        $data->save();
-        $notification = array(
-            'message' => 'Fee payment completed!.',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('student.fees.index')->with($notification);
+        $fees->update([
+            'blance' => $balance,
+            'amount' => $currentAmount,
+            'status' => $status
+        ]);
+        return redirect()->route('student.fees.index')->with('success', 'Partials fees payment successfully!');
     }
 }

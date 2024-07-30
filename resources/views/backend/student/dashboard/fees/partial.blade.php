@@ -1,5 +1,5 @@
-@extends('backend.layouts.dashboard')
-@section('title', 'Create Payment')
+@extends('backend.student.layouts.master')
+@section('title', 'Partial Payment')
 @section('content')
 <style>
       .cart-collapse {
@@ -38,30 +38,6 @@
     }
 
 </style>
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Mobile Toggle-->
-                <button class="burger-icon burger-icon-left mr-4 d-inline-block d-lg-none" id="kt_subheader_mobile_toggle">
-                    <span></span>
-                </button>
-                <!--end::Mobile Toggle-->
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Create Monthly Payment</h5>
-                    <!--end::Page Title-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -71,7 +47,7 @@
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b example example-compact">
                         <div class="card-header">
-                            <h3 class="card-title">Create Payment</h3>
+                            <h3 class="card-title">Partial Payment</h3>
                             <div class="card-toolbar">
                                 <!--begin::Button-->
                                 <a href="{{route('student.fees.index') }}" class="btn btn-primary btn-sm font-weight-bolder">
@@ -81,41 +57,39 @@
                         </div>
                         <!--begin::Form-->
                         <div class="card-body">
-                            <form action="{{route('student.fees.partial.update',$data->id)}}" method="post" id="payment-form">
+                            <form action="{{route('student.fees.partial.update',$fees->id)}}" method="post" id="payment-form">
                                 @csrf
-                                
-                                <div class="row mb-3">
-                                    <div class="col-sm-3">
-                                        <label for="">Your Blance</label>
-                                        <div class="input-group mb-3">
 
+                                <div class="row mb-4">
+                                    <div class="col-sm-4">
+                                        <label for="">Your Balance </label>
+                                        <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
 
-                                            <input type="text" class="form-control" value="{{$data->blance}}" readonly>
+                                            <input type="text" class="form-control" value="{{$fees->blance}}" readonly>
                                             <div class="input-group-append">
                                                 <span class="input-group-text">.00</span>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label for="">Dollar</label>
-                                        <div class="input-group mb-3">
-
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
-                                            </div>
-
-                                            <input type="text" name="fees_dollar" class="form-control" placeholder="Enter amount">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">.00</span>
-                                            </div>
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('fees_dollar'))?($errors->first('fees_dollar')):''}}</div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
+                                        <label for="">Payable Amount</label>
+                                        <div class="input-group mb-3">
 
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+
+                                            <input type="text" name="fees_amount" class="form-control" placeholder="Enter amount" value="{{$fees->blance}}" required>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">.00</span>
+                                            </div>
+                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('fees_amount'))?($errors->first('fees_amount')):''}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
                                         <div class="form-group mb-3">
                                             <label for="">Payment method</label>
                                             <select name="pay_type" id="payment_type" class="form-control">
@@ -128,10 +102,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-
                                 <div class="card mb-3" id="credit-card">
-                                    <div class="card-header"><h2>Payment Details</h2></div>
+                                    <div class="card-header py-2"><h2>Payment Details</h2></div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -139,9 +111,7 @@
                                                     <div class="subs-payment">
                                                         <div class="subs-step">
                                                             <p class="mb-2">Enter your cart number</p>
-
                                                         </div>
-
                                                         <div class="subs-payment-form">
                                                             <div class="form-row">
                                                                 <label for="card-element">
@@ -154,12 +124,8 @@
                                                                 <!-- Used to display form errors. -->
                                                                 <div id="card-errors" role="alert"></div>
                                                             </div>
-
                                                         </div>
-
                                                     </div>
-                                                    <hr>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -172,16 +138,11 @@
                                                 <h3 class="panel-title">Payment Details</h3>
                                             </div>
                                             <div class="panel-body">
-
-
-
-
                                                 <div class='form-row row'>
                                                     <div class='col-sm-6 form-group required'>
                                                         <label class='control-label'>Name on Card</label> <input class='form-control' size='4' type='text'>
                                                     </div>
                                                 </div>
-
                                                 <div class='form-row row'>
                                                     <div class='col-sm-6 form-group required'>
                                                         <label class='control-label'>Card Number</label> <input autocomplete='off' class='form-control card-number' size='20' type='text'>
@@ -199,8 +160,6 @@
                                                         <label class='control-label'>Expiration Year</label> <input class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text'>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -224,10 +183,8 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
-
-@section('customjs')
+@endsection
+@push('scripts')
 <script>
      $(document).on('change', '#payment_type', function() {
         var pay_type = $(this).val();
@@ -240,7 +197,7 @@
            document.getElementById("debit-card").style.display="block";
         }
     })
-  
+
 </script>
 
 <!-- Below Debit Card  -->
@@ -388,6 +345,4 @@
     })
 </script>
 
-@endsection
-
-@endsection
+@endpush
