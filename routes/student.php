@@ -59,16 +59,13 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
         Route::get('/fees/create', 'create')->name('fees.create');
         Route::post('fees/store', 'store')->name('fees.store');
         Route::get('fees/show/{fees}', 'show')->name('fees.show');
-        // Route::resource('fees',FeesController::class);
         Route::get('/fees/partial/edit/{fees}', 'partialEdit')->name('fees.partial.edit');
         Route::post('/fees/partial/update/{fees}', 'partialUpdate')->name('fees.partial.update');
         Route::get('/fees/payment/invoice/{fees}', 'feesPaymentInvoice')->name('fees.payment.invoice');
-
     });
 
     Route::group(['prefix'=>'/student'],function(){
         Route::resource('activity',ActivityController::class);
-
         Route::get('/activity/average',[ActivityController::class,'activityCreate'])->name('activity.activityCreate');
     });
 

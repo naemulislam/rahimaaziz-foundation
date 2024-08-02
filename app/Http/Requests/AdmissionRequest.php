@@ -23,12 +23,18 @@ class AdmissionRequest extends FormRequest
      */
     public function rules()
     {
-        $applicantName = 'required|string';
+        // $applicantName = 'required|string';
+        $f_name = 'required|string|max:30';
+        $m_name = 'required|string|max:30';
+        $l_name = 'required|string|max:30';
         $phone = 'required';
         $email = 'required|email';
         $gender = 'required|in:male,female';
         if(request()->student_id){
-            $applicantName = 'nullable|string';
+            // $applicantName = 'nullable|string';
+            $f_name = 'nullable|string|max:30';
+            $m_name = 'nullable|string|max:30';
+            $l_name = 'nullable|string|max:30';
             $phone = 'nullable';
             $email = 'nullable|email';
             $gender = 'nullable|in:male,female';
@@ -37,6 +43,9 @@ class AdmissionRequest extends FormRequest
         $immu_record = 'required|mimes:jpg,jpeg,pdf|max:5120';
         $proof_address = 'required|mimes:jpg,jpeg,pdf|max:5120';
         if (request()->isMethod('put')) {
+            $f_name = 'nullable|string|max:30';
+            $m_name = 'nullable|string|max:30';
+            $l_name = 'nullable|string|max:30';
             $b_certificate = 'nullable|mimes:jpg,jpeg,pdf|max:5120';
             $immu_record = 'nullable|mimes:jpg,jpeg,pdf|max:5120';
             $proof_address = 'nullable|mimes:jpg,jpeg,pdf|max:5120';
@@ -45,18 +54,23 @@ class AdmissionRequest extends FormRequest
         $prevSchoolCity = 'required|string|max:50';
         $prevSchoolState = 'required|string|max:50';
         $prevSchoolZipCode = 'required|string';
+        $prevSchoolPhone = 'required|string';
         if(request()->student_type == 1){
             $prevSchoolAddress = 'nullable|string|max:200';
             $prevSchoolCity = 'nullable|string|max:50';
             $prevSchoolState = 'nullable|string|max:50';
             $prevSchoolZipCode = 'nullable|string';
+            $prevSchoolPhone = 'nullable|string';
         }
         return [
             'admission_no' => 'required|string',
             'roll' => 'required|integer',
             'registration_no' => 'required|string',
             'group_id' => 'required',
-            'applicant_name' => $applicantName,
+            'class_grade' => 'required|string',
+            'f_name' => $f_name,
+            'm_name' => $m_name,
+            'l_name' => $l_name,
             'phone' => $phone,
             'student_type' => 'required|string|in:0,1',
             'admission_date' => 'required',
@@ -74,6 +88,7 @@ class AdmissionRequest extends FormRequest
             'prev_school_city' => $prevSchoolCity,
             'prev_school_state' => $prevSchoolState,
             'prev_school_zip_code' => $prevSchoolZipCode,
+            'prev_school_phone' => $prevSchoolPhone,
             'father_name' => 'required',
             'father_call' => 'required',
             'father_email' => 'nullable|email',

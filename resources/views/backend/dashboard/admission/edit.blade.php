@@ -75,7 +75,7 @@
                                 <div class="form-group">
                                     <label for="">Admission Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="applicant_name"
-                                        placeholder="Enter admission name" value="{{ $student->name }}">
+                                        placeholder="Enter admission name" value="{{ $student->name }}" required>
                                     @error('applicant_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -174,6 +174,30 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Class Grade<span class="text-danger">*</span></label>
+                                    <select class="form-control" name="class_grade">
+                                        <option selected disabled>Select your grade</option>
+                                        <option {{ $student->admission->class_grade == 'First grade'? 'selected':''}} value="First grade">First Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Second grade'? 'selected':''}} value="Second grade">Second Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Third grade'? 'selected':''}} value="Third grade">Third Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Fourth grade'? 'selected':''}} value="Fourth grade">Fourth Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Fifth grade'? 'selected':''}} value="Fifth grade">Fifth Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Sixth grade'? 'selected':''}} value="Sixth grade">Sixth Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Seventh grade'? 'selected':''}} value="Seventh grade">Seventh Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Eighth grade'? 'selected':''}} value="Eighth grade">Eighth Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Ninth grade'? 'selected':''}} value="Ninth grade">Ninth Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Tenth grade'? 'selected':''}} value="Tenth grade">Tenth Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Eleventh grade'? 'selected':''}} value="Eleventh grade">Eleventh Grade</option>
+                                        <option {{ $student->admission->class_grade == 'Twelfth grade'? 'selected':''}} value="Twelfth grade">Twelfth Grade</option>
+                                    </select>
+                                    @error('class_grade')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
@@ -227,13 +251,24 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="">Address<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" placeholder="Enter previous school address"
                                             name="prev_school_address" value="{{ $student->studentinfo->prev_school_address }}" />
 
                                         @error('prev_school_address')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Phone<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="prev_school_phone"
+                                            placeholder="Enter previous school city" value="{{ $student->studentinfo->prev_school_phone }}">
+
+                                        @error('prev_school_phone')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>

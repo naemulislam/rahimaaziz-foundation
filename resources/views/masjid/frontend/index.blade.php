@@ -20,7 +20,7 @@
                         <h2>FAJR</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>{{ $prayer->fajar ?? ''}}</h4>
+                        <h4>{{ $prayer->fajar ? \Carbon\Carbon::parse($prayer->fajar)->format('g:i A') : ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                         <h2>DHUHR</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>{{ $prayer->dhuhr ?? ''}}</h4>
+                        <h4>{{ $prayer->dhuhr ? \Carbon\Carbon::parse($prayer->dhuhr)->format('g:i A') : ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                         <h2>ASR</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>{{ $prayer->asr ?? ''}}</h4>
+                        <h4>{{ $prayer->asr ? \Carbon\Carbon::parse($prayer->asr)->format('g:i A') : ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                         <h2>MAGHRIB</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>{{ $prayer->maghrib ?? ''}}</h4>
+                        <h4>{{ $prayer->maghrib ? \Carbon\Carbon::parse($prayer->maghrib)->format('g:i A') : ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                         <h2>ISHA</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>{{ $prayer->isha ?? ''}}</h4>
+                        <h4>{{ $prayer->isha ? \Carbon\Carbon::parse($prayer->isha)->format('g:i A') : ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                         <h2>PRAYER</h2>
                     </div>
                     <div class="salah-time">
-                        <h4>{{ $prayer->jummah ?? ''}}</h4>
+                        <h4>{{$prayer->jummah ? \Carbon\Carbon::parse($prayer->jummah)->format('g:i A') : ''}}</h4>
                     </div>
                 </div>
             </div>
@@ -128,8 +128,8 @@
 
                                     <p class="mb-3"> {{Str::limit(strip_tags($about?->description), 300, '...')}}</p>
                                     <div class="row mt-4">
-                                        <div class="col-md-6"><a href="{{ route('masjid.index')}}" class="btn-about mr-2">About MAS JID</a></div>
-                                        <div class="col-md-6"> <a href="{{ route('home')}}" class="btn-about">About RA Foundation</a></div>
+                                        <div class="col-md-6 mb-3"><a href="{{ route('masjid.index')}}" class="btn-about mr-2">About MAS JID</a></div>
+                                        <div class="col-md-6 mb-3"> <a href="{{ route('home')}}" class="btn-about">About RA Foundation</a></div>
                                     </div>
                                 </div>
 

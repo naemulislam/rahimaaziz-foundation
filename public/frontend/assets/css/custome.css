@@ -406,6 +406,7 @@ font-family: 'Philosopher', sans-serif;
     font-family: open-sans;
 }
 .btn-about {
+    display: block;
   background: #000338;
   padding: 12px 25px;
   color: #fff;

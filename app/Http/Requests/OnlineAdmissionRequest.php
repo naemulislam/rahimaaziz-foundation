@@ -27,17 +27,22 @@ class OnlineAdmissionRequest extends FormRequest
         $prevSchoolCity = 'required|string|max:50';
         $prevSchoolState = 'required|string|max:50';
         $prevSchoolZipCode = 'required|string';
+        $prevSchoolPhone = 'required|string';
         if(request()->student_type == 1){
             $prevSchoolAddress = 'nullable|string|max:200';
             $prevSchoolCity = 'nullable|string|max:50';
             $prevSchoolState = 'nullable|string|max:50';
             $prevSchoolZipCode = 'nullable|string';
+            $prevSchoolPhone = 'nullable|string';
         }
 
         return [
             'group_id' => 'required',
-            'applicant_name' => 'required|string|max:30',
+            'f_name' => 'required|string|max:30',
+            'm_name' => 'required|string|max:30',
+            'l_name' => 'required|string|max:30',
             'phone' => 'nullable',
+            'class_grade' => 'required|string',
             'student_type' => 'required|string|in:0,1',
             'admission_date' => 'required|date',
             'date_of_birth' => 'required|date',
@@ -55,6 +60,7 @@ class OnlineAdmissionRequest extends FormRequest
             'prev_school_city' => $prevSchoolCity,
             'prev_school_state' => $prevSchoolState,
             'prev_school_zip_code' => $prevSchoolZipCode,
+            'prev_school_phone' => $prevSchoolPhone,
             'father_name' => 'required|string|max:30',
             'father_call' => 'required',
             'father_langu_spoken' => 'required|string|max:100',

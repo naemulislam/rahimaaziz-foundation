@@ -10,6 +10,7 @@
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap_v4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('defaults/toastr/toastr.min.css') }}">
     <style>
@@ -17,10 +18,17 @@
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
             padding: 18px 32px;
         }
-        .show-password-btn {
+
+        .register-password-show {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
             cursor: pointer;
-            text-align: right !important;
-            font-weight: 700;
         }
     </style>
 
@@ -54,7 +62,7 @@
                                             <option value="parent">Parent</option>
                                         </select>
                                         @error('user_type')
-                                        <span class="text-danger">Please select a user type</span>
+                                            <span class="text-danger">Please select a user type</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -62,30 +70,30 @@
                                     <div class="form-group">
                                         <label>Name <span class="text-danger">*</span></label>
                                         <input type="text" name="name" class="form-control"
-                                            placeholder="Enter your name" value="{{ old('name')}}">
-                                            @error('name')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
+                                            placeholder="Enter your name" value="{{ old('name') }}">
+                                        @error('name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Email <span class="text-danger">*</span></label>
                                         <input type="email" name="email" class="form-control"
-                                            placeholder="Enter your name" value="{{ old('email')}}">
-                                            @error('email')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
+                                            placeholder="Enter your name" value="{{ old('email') }}">
+                                        @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Phone <span class="text-danger">*</span></label>
                                         <input type="number" name="phone" class="form-control"
-                                            placeholder="Enter your name" value="{{ old('phone')}}">
-                                            @error('phone')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
+                                            placeholder="Enter your name" value="{{ old('phone') }}">
+                                        @error('phone')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -97,36 +105,43 @@
                                             <option value="female">Female</option>
                                         </select>
                                         @error('gender')
-                                        <span class="text-danger">{{$message}}</span>
+                                            <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Password <span class="text-danger">*</span></label>
-                                        <input type="password" name="password" class="form-control"
-                                            placeholder="Enter password" id="password">
-                                            @error('password')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
-                                            <span class="toggle-btn show-password-btn" onclick="togglePasswordVisibility()">Show</span>
+                                        <div class="register-password-show">
+                                            <input type="password" name="password" class="form-control"
+                                                placeholder="Enter password">
+                                            <i class="fa fa-eye toggle-password"
+                                                onclick="togglePassword('password')"></i>
+                                        </div>
+                                        @error('password')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Confirm Password <span class="text-danger">*</span></label>
-                                        <input type="password" name="password_confirmation" class="form-control"
-                                            placeholder="Enter confirm password">
-                                            @error('password_confirmation')
-                                            <span class="text-danger">{{$message}}</span>
-                                            @enderror
+                                        <div class="register-password-show">
+                                            <input type="password" name="password_confirmation" class="form-control"
+                                                placeholder="Enter confirm password">
+                                            <i class="fa fa-eye toggle-password"
+                                                onclick="togglePassword('password_confirmation')"></i>
+                                        </div>
+                                        @error('password_confirmation')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-8 mx-auto mt-3">
                                     <button type="submit" class="btn btn-primary w-100">Submit</button>
                                 </div>
                                 <div class="col-md-8 mx-auto mt-3 text-center">
-                                    <p>Already have an account? <a href="{{ route('signin.portal')}}">login</a></p>
+                                    <p>Already have an account? <a href="{{ route('signin.portal') }}">login</a></p>
                                 </div>
                             </div>
                         </form>
@@ -153,16 +168,17 @@
         </script>
     @endif
     <script>
-        function togglePasswordVisibility() {
-            var passwordField = document.getElementById("password");
-            var toggleButton = document.querySelector(".toggle-btn");
-
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleButton.textContent = "Hide";
+        function togglePassword(fieldId) {
+            const field = document.querySelector(`input[name="${fieldId}"]`);
+            const icon = field.nextElementSibling;
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
             } else {
-                passwordField.type = "password";
-                toggleButton.textContent = "Show";
+                field.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
         }
     </script>

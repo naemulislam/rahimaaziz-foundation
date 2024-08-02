@@ -25,6 +25,7 @@ class CreateStudentadmissionsTable extends Migration
             $table->string('roll')->nullable();
             $table->string('registration_no')->nullable();
             $table->foreignId('group_id')->constrained((new Group())->getTable());
+            $table->string('class_grade')->nullable();
             $table->string('b_certificate')->nullable();
             $table->string('immu_record')->nullable();
             $table->string('proof_address')->nullable();

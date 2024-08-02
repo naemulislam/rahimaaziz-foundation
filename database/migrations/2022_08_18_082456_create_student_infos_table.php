@@ -29,6 +29,7 @@ class CreateStudentInfosTable extends Migration
             $table->string('prev_school_city')->nullable();
             $table->string('prev_school_state')->nullable();
             $table->string('prev_school_zip_code')->nullable();
+            $table->string('prev_school_phone')->nullable();
             $table->string('father_name')->nullable();
             $table->string('father_call')->nullable();
             $table->string('father_email')->nullable();

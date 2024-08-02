@@ -57,7 +57,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="">Phone <span class="text-danger">*</span></label>
-                                            <input type="number" name="phone" placeholder="Enter phone number"
+                                            <input type="text" name="phone" placeholder="Enter phone number"
                                                 value="{{ $data?->phone }}" class="form-control">
                                             @error('phone')
                                                 <span class="text-danger">{{ $message }}</span>

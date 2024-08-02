@@ -84,6 +84,7 @@ class AdmissionRepository extends Repository
             'roll' => $request->roll,
             'registration_no' => $request->registration_no,
             'group_id' => $request->group_id,
+            'class_grade' => $request->class_grade,
 
             //Student Documents
             'b_certificate' => $birthCertificat,
@@ -174,6 +175,7 @@ class AdmissionRepository extends Repository
             'roll' => $request->roll,
             'registration_no' => $request->registration_no,
             'group_id' => $request->group_id,
+            'class_grade' => $request->class_grade,
 
             //Student Documents
             'b_certificate' => $birthCertificat ?? $studentAdmission->b_certificate,

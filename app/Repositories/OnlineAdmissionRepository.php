@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 
 class OnlineAdmissionRepository extends Repository
 {
-    /**
-     * base method
-     *
-     * @method model()
-     */
     public static function model()
     {
         return Studentadmission::class;
@@ -81,6 +76,7 @@ class OnlineAdmissionRepository extends Repository
             'id_number' => $generate_id,
             'admission_date' => $request->admission_date,
             'group_id' => $request->group_id,
+            'class_grade' => $request->class_grade,
 
             //Student Documents
             'b_certificate' => $birthCertificat,

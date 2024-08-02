@@ -133,6 +133,8 @@ Route::prefix('dashboard')->middleware('admin')->name('admin.')->group(function 
         Route::get('admission/pending', 'pendingindex')->name('admission.pending');
         // Route::post('admission/approved/{student}', 'admissionApproved')->name('admission.approved');
         Route::post('admission/payment/status/{student}', 'admissionPaymentStatus')->name('admission.payment.status');
+        //Student change password route
+        Route::post('student/change-password/{student}', 'studentChangePassword')->name('student.cp.update');
         //Student Promotion route
         Route::get('promotion/index', 'promotionIndex')->name('students.promotion');
         Route::post('promotion/store', 'promoteStore')->name('student.promotion.store');

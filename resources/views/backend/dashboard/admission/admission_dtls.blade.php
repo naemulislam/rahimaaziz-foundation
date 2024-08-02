@@ -20,6 +20,18 @@
             text-decoration: none;
             font-size: 16px;
         }
+
+        .cp-student-modal {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
     </style>
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
@@ -90,6 +102,8 @@
                         <b class="col-sm-9">{{ $student->admission->registration_no ?? 'N/A' }}</b>
                         <b class="col-sm-3">Class</b>
                         <b class="col-sm-9">{{ $student->admission->group->name }}</b>
+                        <b class="col-sm-3">Class Grade</b>
+                        <b class="col-sm-9">{{ $student->admission->class_grade }}</b>
 
                         <b class="col-sm-3">Phone</b>
                         <b class="col-sm-9">{{ $student->phone ?? 'N/A' }}</b>
@@ -161,7 +175,10 @@
                         <b class="col-sm-9">
                             {{ $student->studentinfo->prev_school_zip_code ?? 'N/A' }}
                         </b>
-
+                        <b class="col-sm-3">Previous school Phone</b>
+                        <b class="col-sm-9">
+                            {{ $student->studentinfo->prev_school_phone ?? 'N/A' }}
+                        </b>
                         <b class="col-sm-3">Father Name</b>
                         <b class="col-sm-9">
                             {{ $student->studentinfo->father_name }}</b>
@@ -203,9 +220,9 @@
                         <b class="col-sm-3">Payment Status</b>
                         <b class="col-sm-9">
                             @if ($student->admission->payment_status == 1)
-                            <span class="btn label label-lg label-light-success label-inline">Paid</span>
+                                <span class="btn label label-lg label-light-success label-inline">Paid</span>
                             @else
-                            <span class="btn label label-lg label-light-danger label-inline">Unpaid</span>
+                                <span class="btn label label-lg label-light-danger label-inline">Unpaid</span>
                             @endif
                         </b>
                         @if ($student->admission_status == 1)
@@ -341,25 +358,25 @@
                         <b class="col-sm-3">Account Status</b>
                         <b class="col-sm-9">
                             @if ($student->status == 1)
-                            <span class="btn label label-lg label-light-success label-inline">Active</span>
+                                <span class="btn label label-lg label-light-success label-inline">Active</span>
                             @else
-                            <span class="btn label label-lg label-light-danger label-inline">Inactive</span>
+                                <span class="btn label label-lg label-light-danger label-inline">Inactive</span>
                             @endif
                         </b>
                         <b class="col-sm-3">Study Status</b>
                         <b class="col-sm-9">
                             @if ($student->admission->study_status == 1)
-                            <span class="btn label label-lg label-light-success label-inline">Study Running</span>
+                                <span class="btn label label-lg label-light-success label-inline">Study Running</span>
                             @else
-                            <span class="btn label label-lg label-light-danger label-inline">Study Pending</span>
+                                <span class="btn label label-lg label-light-danger label-inline">Study Pending</span>
                             @endif
                         </b>
                         <b class="col-sm-3">Course Status</b>
                         <b class="col-sm-9">
                             @if ($student->admission->course_status == 0)
-                            <span class="btn label label-lg label-light-danger label-inline">Pending </span>
+                                <span class="btn label label-lg label-light-danger label-inline">Pending </span>
                             @else
-                            <span class="btn label label-lg label-light-success label-inline"> Complete </span>
+                                <span class="btn label label-lg label-light-success label-inline"> Complete </span>
                             @endif
                         </b>
 
@@ -511,6 +528,61 @@
                             </div>
                         </div>
                     @endif
+                    @if ($student->admission_status == 1)
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Change Password
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="static" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Change Student Account Password
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                    </div>
+                                    <form action="{{ route('admin.student.cp.update',$student->id)}}" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="">New Password</label>
+                                                <div class="cp-student-modal">
+                                                    <input name="new_password" type="password" class="form-control" placeholder="New password">
+                                                    <i class="fas fa-eye toggle-password"
+                                                        onclick="togglePassword('new_password')"></i>
+                                                        @error('new_password')
+                                                        <span class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="">Verify Password</label>
+                                                <div class="cp-student-modal">
+                                                    <input name="password_confirmation" type="password"
+                                                        class="form-control" placeholder="Verify password">
+                                                    <i class="fas fa-eye toggle-password"
+                                                        onclick="togglePassword('password_confirmation')"></i>
+                                                    @error('password_confirmation')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
                 </div>
             </div>
@@ -520,3 +592,20 @@
     </div>
     <!--end::Entry-->
 @endsection
+@push('scripts')
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.querySelector(`input[name="${fieldId}"]`);
+            const icon = field.nextElementSibling;
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
+@endpush

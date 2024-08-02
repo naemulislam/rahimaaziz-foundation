@@ -83,7 +83,7 @@
                         <div class="card-header">Basic Details</div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="">Class Group<span class="text-danger">*</span></label>
                                         <select name="group_id" class="form-control" id="groupId">
@@ -97,24 +97,32 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Name<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="applicant_name"
-                                            placeholder="Enter your admission Name" value="{{ old('applicant_name') }}">
-
-                                        @error('applicant_name')
+                                        <label for="">First Name<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="f_name"
+                                            placeholder="Enter your first name" value="{{ old('f_name') }}">
+                                        @error('f_name')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Phone Number</label>
-                                        <input type="number" class="form-control" placeholder="Enter phone number"
-                                            name="phone" value="{{ old('phone') }}" />
-
-                                        @error('phone')
+                                        <label for="">Middle Name<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="m_name"
+                                            placeholder="Enter your middle name" value="{{ old('m_name') }}">
+                                        @error('m_name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Last Name<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="l_name"
+                                            placeholder="Enter your last name" value="{{ old('l_name') }}">
+                                        @error('l_name')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -157,20 +165,31 @@
                                 </div>
                             </div>
                             <div class="row">
-
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">picture<span class="text-danger">*</span></label><br>
-                                        <input type="file" name="student_image" class="demo1"
-                                            data-jpreview-container="#demo-1-container">
-
-                                        @error('student_image')
+                                        <label for="">Class Grade<span class="text-danger">*</span></label>
+                                        <select class="form-control" name="class_grade">
+                                            <option selected disabled>Select your grade</option>
+                                            <option value="First grade">First Grade</option>
+                                            <option value="Second grade">Second Grade</option>
+                                            <option value="Third grade">Third Grade</option>
+                                            <option value="Fourth grade">Fourth Grade</option>
+                                            <option value="Fifth grade">Fifth Grade</option>
+                                            <option value="Sixth grade">Sixth Grade</option>
+                                            <option value="Seventh grade">Seventh Grade</option>
+                                            <option value="Eighth grade">Eighth Grade</option>
+                                            <option value="Ninth grade">Ninth Grade</option>
+                                            <option value="Tenth grade">Tenth Grade</option>
+                                            <option value="Eleventh grade">Eleventh Grade</option>
+                                            <option value="Twelfth grade">Twelfth Grade</option>
+                                        </select>
+                                        @error('class_grade')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
-                                        <div id="demo-1-container" class="jpreview-container"></div>
 
                                     </div>
                                 </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Student type<span class="text-danger">*</span></label>
@@ -182,8 +201,6 @@
                                         @error('student_type')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
-                                        <div id="demo-1-container" class="jpreview-container"></div>
-
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -222,6 +239,33 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Phone Number</label>
+                                        <input type="number" class="form-control" placeholder="Enter phone number"
+                                            name="phone" value="{{ old('phone') }}" />
+
+                                        @error('phone')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">picture<span class="text-danger">*</span></label><br>
+                                        <input type="file" name="student_image" class="demo1"
+                                            data-jpreview-container="#demo-1-container">
+
+                                        @error('student_image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="demo-1-container" class="jpreview-container"></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -280,13 +324,22 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="">Address<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" placeholder="Enter previous school address"
                                                 name="prev_school_address" value="{{ old('prev_school_address') }}" />
-
                                             @error('prev_school_address')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Phone<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="prev_school_phone"
+                                                placeholder="Enter previous school phone" value="{{ old('prev_school_phone') }}">
+                                            @error('prev_school_phone')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>

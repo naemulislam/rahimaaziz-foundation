@@ -22,10 +22,16 @@
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         }
 
-        .show-password-btn {
+        .signin-pass {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
             cursor: pointer;
-            text-align: right !important;
-            font-weight: 700;
         }
     </style>
 
@@ -64,14 +70,12 @@
                             <!--begin::Form group-->
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">User Role</label>
-                                <select class="form-control form-control-solid h-auto py-6 px-6 rounded-lg"
-                                    name="user_role">
+                                <select class="form-control" name="user_role">
                                     <option selected disabled>Select a user role</option>
                                     <option value="student">Student</option>
                                     <option value="parent">Parent</option>
                                     <option value="teacher">Teacher</option>
                                     <option value="admin">Admin</option>
-                                    {{-- <option>Staff</option> --}}
                                 </select>
                                 @error('user_role')
                                     <span class="text-danger">Please select a user role</span>
@@ -79,8 +83,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
-                                <input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg"
-                                    type="email" name="email" placeholder="Enter your email" />
+                                <input class="form-control py-6 px-6 rounded-lg" type="email" name="email"
+                                    placeholder="Enter your email" />
                                 @error('email')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -94,21 +98,20 @@
                                         class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5"
                                         id="kt_login_forgot">Forgot Password ?</a>
                                 </div>
-                                <input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg"
-                                    type="password" name="password" id="password" placeholder="Enter your password" />
-
+                                <div class="signin-pass">
+                                    <input class="form-control py-6 px-6 rounded-lg" type="password" name="password"
+                                        id="password" placeholder="Enter your password" />
+                                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility()"></i>
+                                </div>
                                 @error('password')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <span class="toggle-btn show-password-btn" onclick="togglePasswordVisibility()">Show</span>
                             <!--end::Form group-->
                             <!--begin::Action-->
                             <div class="pb-lg-0 pb-5">
-                                <button type="submit" id="kt_login_signin_submit"
-                                    class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign
-                                    In</button>
-
+                                <button type="submit"
+                                    class="btn btn-primary font-weight-bolder font-size-h6 w-100">Sign In</button>
                             </div>
                             <!--end::Action-->
                         </form>
@@ -194,14 +197,16 @@
     <script>
         function togglePasswordVisibility() {
             var passwordField = document.getElementById("password");
-            var toggleButton = document.querySelector(".toggle-btn");
+            var toggleButton = document.querySelector(".toggle-password");
 
             if (passwordField.type === "password") {
                 passwordField.type = "text";
-                toggleButton.textContent = "Hide";
+                toggleButton.classList.remove('fa-eye');
+                toggleButton.classList.add('fa-eye-slash');
             } else {
                 passwordField.type = "password";
-                toggleButton.textContent = "Show";
+                toggleButton.classList.remove('fa-eye-slash');
+                toggleButton.classList.add('fa-eye');
             }
         }
     </script>

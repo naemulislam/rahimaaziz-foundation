@@ -24,8 +24,11 @@ class StudentRepository extends Repository
 
     public static function storeByRequest(AdmissionRequest $request)
     {
-
-        $slug = Str::Slug($request->applicant_name);
+        $f_name = $request->f_name;
+        $m_name = $request->m_name;
+        $l_name = $request->l_name;
+        $finalName = $f_name.' '.$m_name.' '. $l_name;
+        $slug = Str::Slug($finalName);
         $file = $request->file('student_image');
         $image = null;
         if ($file) {
@@ -35,7 +38,7 @@ class StudentRepository extends Repository
             $image = '/uploaded/student/image/' . $fileName;
         }
         $studentCreate = self::create([
-            'name' => $request->applicant_name,
+            'name' => $finalName,
             'slug' => $slug,
             'email' => $request->email,
             'password' => Hash::make('student123'),
@@ -96,7 +99,11 @@ class StudentRepository extends Repository
     }
     public static function onlineAdmissionCreate(OnlineAdmissionRequest $request)
     {
-        $slug = Str::Slug($request->applicant_name);
+        $f_name = $request->f_name;
+        $m_name = $request->m_name;
+        $l_name = $request->l_name;
+        $finalName = $f_name.' '.$m_name.' '. $l_name;
+        $slug = Str::Slug($finalName);
         $file = $request->file('student_image');
         $image = null;
         if ($file) {
@@ -106,7 +113,7 @@ class StudentRepository extends Repository
             $image = '/uploaded/student/image/' . $fileName;
         }
         $studentCreate = self::create([
-            'name' => $request->applicant_name,
+            'name' => $finalName,
             'slug' => $slug,
             'email' => $request->email,
             'password' => Hash::make('student123'),

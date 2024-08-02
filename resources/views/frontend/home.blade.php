@@ -36,9 +36,9 @@
                                     <p class="mb-3">{{Str::limit(strip_tags($about?->description), 200, '...')}}</p>
 
                                     <div class="row my-4">
-                                        <div class="col-md-6"><a href="{{ route('about') }}" class="btn-about">About RA
+                                        <div class="col-md-6 mb-3"><a href="{{ route('about') }}" class="btn-about">About RA
                                                 Foundation</a></div>
-                                        <div class="col-md-6"><a href="{{ route('masjid.index') }}" class="btn-about">About
+                                        <div class="col-md-6 mb-3"><a href="{{ route('masjid.index') }}" class="btn-about">About
                                                 MAS JID</a></div>
                                     </div>
                                 </div>

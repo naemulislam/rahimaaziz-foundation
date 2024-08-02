@@ -11,6 +11,7 @@ use App\Repositories\StudentInfoRepository;
 use App\Repositories\StudentLogRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdmissionController extends Controller
 {
@@ -87,7 +88,7 @@ class AdmissionController extends Controller
         AdmissionRepository::updateByRequest($request, $student->id);
         StudentInfoRepository::updateByRequest($request, $student->id);
 
-        return back()->with('success', 'Student is updated successfully!');
+        return redirect()->route('admin.admission.index')->with('success', 'Student is updated successfully!');
     }
 
     public function destroy(Student $student)
@@ -199,6 +200,23 @@ class AdmissionController extends Controller
                 ]);
             }
             return back()->with('success', 'Students promotion successfully!');
+        }
+    }
+//student change password on admin
+    public function studentChangePassword(Request $request, Student $student)
+    {
+        $this->validate($request, [
+            'new_password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:8'
+        ]);
+
+        if ($request->new_password) {
+            $student->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+            return back()->with('success', 'Password has been changed successfully!');
+        } else {
+            return back()->with('error', 'Sorry! something went wrong please try again!');
         }
     }
 }

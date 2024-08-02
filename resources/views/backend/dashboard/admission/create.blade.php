@@ -20,7 +20,6 @@
                 <div class="card-body">
                     <form action="{{ route('admin.admission.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -55,7 +54,37 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">First Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="f_name"
+                                        placeholder="Enter your first name" value="{{ old('f_name') }}">
+                                    @error('f_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Middle Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="m_name"
+                                        placeholder="Enter your middle name" value="{{ old('m_name') }}">
+                                    @error('m_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Last Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="l_name"
+                                        placeholder="Enter your last name" value="{{ old('l_name') }}">
+                                    @error('l_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="">Group<span class="text-danger">*</span></label>
                                     <select name="group_id" class="form-control js-select-result" id="">
@@ -70,13 +99,25 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="">Admission Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="applicant_name"
-                                        placeholder="Enter admission name" value="{{ old('applicant_name') }}">
-                                    @error('applicant_name')
+                                    <label for="">Class Grade<span class="text-danger">*</span></label>
+                                    <select class="form-control" name="class_grade">
+                                        <option selected disabled>Select your grade</option>
+                                        <option value="First grade">First Grade</option>
+                                        <option value="Second grade">Second Grade</option>
+                                        <option value="Third grade">Third Grade</option>
+                                        <option value="Fourth grade">Fourth Grade</option>
+                                        <option value="Fifth grade">Fifth Grade</option>
+                                        <option value="Sixth grade">Sixth Grade</option>
+                                        <option value="Seventh grade">Seventh Grade</option>
+                                        <option value="Eighth grade">Eighth Grade</option>
+                                        <option value="Ninth grade">Ninth Grade</option>
+                                        <option value="Tenth grade">Tenth Grade</option>
+                                        <option value="Eleventh grade">Eleventh Grade</option>
+                                        <option value="Twelfth grade">Twelfth Grade</option>
+                                    </select>
+                                    @error('class_grade')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -89,8 +130,20 @@
                                         <option value="0">New Student</option>
                                         <option value="1">Return Student</option>
                                     </select>
-
                                     @error('student_type')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Gender <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="gender">
+                                        <option selected disabled>Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    @error('gender')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -128,10 +181,8 @@
                                     @enderror
                                 </div>
                             </div>
-
                         </div>
                         <div class="row">
-
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Place of Birth<span class="text-danger">*</span></label>
@@ -162,21 +213,6 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="">Gender <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="gender">
-                                        <option selected disabled>Select gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-                                    @error('gender')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -232,13 +268,24 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="">Address<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" placeholder="Enter previous school address"
                                             name="prev_school_address" value="{{ old('prev_school_address') }}" />
 
                                         @error('prev_school_address')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Phone<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="prev_school_phone"
+                                            placeholder="Enter previous school phone" value="{{ old('prev_school_phone') }}">
+
+                                        @error('prev_school_phone')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
