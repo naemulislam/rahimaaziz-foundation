@@ -59,7 +59,6 @@
 										<a href="
 										{{route('teacher.teacher.index')}}" class="text-primary font-weight-bold font-size-h6 mt-2">Teacher ( {{$countteacher}} )</a>
 									</div>
-
 								</div>
 								<!--end::Row-->
 								<!--begin::Row-->

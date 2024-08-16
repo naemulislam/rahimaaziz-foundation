@@ -3,26 +3,36 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
-use App\Models\Student;
-use App\Models\Studentadmission;
-use App\Models\StudentInfo;
-use Illuminate\Http\Request;
+use App\Repositories\GroupRepository;
+use App\Repositories\StudentRepository;
 
 class StudentController extends Controller
 {
     public function index()
     {
-        $data['students'] = Student::where('status',1)->get();
-        return view('backend.dashboard.teacher.student-info.student-list',$data);
+        $group = request()->group_id;
+        if ($group) {
+            $admissionStudent = StudentRepository::query()
+                ->whereHas('admission', function ($query) use ($group) {
+                    $query->where('group_id', $group);
+                })
+                ->where('status', true)
+                ->where('admission_status', true)
+                ->where('status_type', 1)->get();
+        } else {
+            $admissionStudent = StudentRepository::query()
+                ->where('status', true)
+                ->where('admission_status', true)
+                ->where('status_type', 1)->get();
+        }
+
+        $groups = GroupRepository::query()->where('status', true)->get();
+        return view('backend.teacher.dashboard.student-info.student_list', compact('admissionStudent', 'groups'));
     }
 
     public function show($slug)
     {
-
-        $data['student'] = Student::where('slug',$slug)->first();
-        $id = $data['student']->id;
-        $data['studentinfo'] = StudentInfo::where('student_id',$id)->first();
-        $data['get_admission'] = Studentadmission::where('student_id',$id)->first();
-        return view('backend.dashboard.teacher.student-info.student-dtls',$data);
+        $data['student'] = StudentRepository::query()->where('slug', $slug)->first();
+        return view('backend.teacher.dashboard.student-info.student_dtls', $data);
     }
 }

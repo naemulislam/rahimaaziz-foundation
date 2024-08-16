@@ -318,16 +318,6 @@
                 </a>
 
             </li>
-            {{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-												<a href="" class="menu-link menu-toggle">
-													<i class="menu-bullet menu-bullet-line">
-														<span></span>
-													</i>
-													<span class="menu-text">Export Attendance</span>
-													<i class="menu-arrow"></i>
-												</a>
-
-											</li> --}}
         </ul>
     </div>
 </li>
@@ -622,9 +612,9 @@
 <!--End student activity-->
 <!--Massage-->
 <li class="menu-item menu-item-submenu
- {{ $routeName == 'admin.message.index' ||
-    $routeName == 'admin.message.show'? 'menu-item-open': '' }}
-" aria-haspopup="true" data-menu-toggle="hover">
+ {{ $routeName == 'admin.message.index' || $routeName == 'admin.message.show' ? 'menu-item-open' : '' }}
+"
+    aria-haspopup="true" data-menu-toggle="hover">
     <a href="javascript:;" class="menu-link menu-toggle">
         <span class="svg-icon menu-icon">
             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -655,7 +645,8 @@
                     <span class="menu-text">Massage</span>
                 </span>
             </li>
-            <li class="menu-item menu-item-submenu {{ $routeName == 'admin.message.index' || $routeName == 'admin.message.show' ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+            <li class="menu-item menu-item-submenu {{ $routeName == 'admin.message.index' || $routeName == 'admin.message.show' ? 'menu-item-active' : '' }}"
+                aria-haspopup="true" data-menu-toggle="hover">
                 <a href="{{ route('admin.message.index') }}" class="menu-link menu-toggle">
                     <i class="menu-bullet menu-bullet-line">
                         <span></span>

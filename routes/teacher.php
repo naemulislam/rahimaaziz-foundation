@@ -37,34 +37,35 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
         Route::post('/update/password/{teacher}', 'upassword')->name('upassword');
     });
 
-
-
   // Class route here
   Route::prefix('/academic')->controller(ClassController::class)->group(function () {
     Route::get('group/index','index')->name('group.index');
 });
     // Student management route
-    Route::group(['prefix' => '/student-info'], function () {
-        Route::resource('student', StudentController::class);
+    Route::prefix('/student/info')->controller(StudentController::class)->group(function () {
+        Route::get('/index', 'index')->name('student.index');
+        Route::get('/show/{slug}', 'show')->name('student.show');
         // Route::post('/student/status/{id}', [StudentController::class, 'status'])->name('student.status');
     });
-    // Student management route
-    Route::group(['prefix' => '/teacher-info'], function () {
-        Route::resource('teacher', TeacherController::class);
-        // Route::post('/teacher/status/{id}', [TeacherController::class, 'status'])->name('teacher.status');
+    // teacher management route
+    Route::prefix('/teacher/info')->controller(TeacherController::class)->group(function () {
+        Route::get('index', 'index')->name('teacher.index');
+        Route::get('show/{slug}', 'show')->name('teacher.show');
     });
-    // Student attendance route
-    Route::group(['prefix' => '/student'], function () {
-        Route::resource('attendance', AttendanceController::class);
-        Route::get('attendance/sheet/{class}/{date}', [AttendanceController::class,'atten_show'])->name('atten.show');
-        Route::get('attendance/delete/{class}/{date}', [AttendanceController::class,'atten_delete'])->name('atten.delete');
-        Route::post('attendance/update/', [AttendanceController::class,'atten_update'])->name('attenUpdate');
-    });
+
+// Student attendance route
+Route::controller(AttendanceController::class)->prefix('/student')->group(function () {
+    Route::get('attendance/create', 'create')->name('student.atten.create');
+    Route::get('attendance/index', 'index')->name('student.atten.index');
+    Route::post('attendance/store', 'store')->name('student.atten.store');
+    Route::post('attendance/update', 'update')->name('student.atten.update');
+    Route::get('attendance/show/{group}/{date}', 'show')->name('student.atten.show');
+    Route::get('attendance/destroy/{group}/{date}', 'destroy')->name('student.atten.destroy');
+});
+
     // teacher attendance route
     Route::group(['prefix' => '/teacher'], function () {
-
         Route::get('attendance/sheet/index/', [AttendanceController::class,'myAttenIndex'])->name('my.atten.index');
-
     });
     // admission route
     Route::group(['prefix' => '/student'], function () {

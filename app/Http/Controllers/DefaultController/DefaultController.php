@@ -4,6 +4,7 @@ namespace App\Http\Controllers\DefaultController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Studentadmission;
+use App\Repositories\AdmissionRepository;
 use App\Repositories\GroupRepository;
 
 class DefaultController extends Controller
@@ -16,11 +17,13 @@ class DefaultController extends Controller
 
     public function geStudent($id)
     {
-
         $html = '';
-        $stu['student'] = Studentadmission::with('group', 'student')->where('group_id', $id)->where('status', 1)->Orderby('roll','asc')->get();
+        $students = AdmissionRepository::query()
+            ->whereHas('student', function ($query) {
+                $query->where('status', true)->where('admission_status', true)->where('status_type', 1);
+            })->where('group_id', $id)->Orderby('roll', 'asc')->get();
 
-        foreach ($stu['student'] as $key => $data) {
+        foreach ($students as $key => $data) {
             $sl_num = $key + 1;
             $html .= '<tr>
                     <input type="hidden" name="admission_id" value= "  ' . $data->id . '" >

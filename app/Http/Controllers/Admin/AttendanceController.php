@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Studentadmission;
+use App\Repositories\AdmissionRepository;
 use App\Repositories\GroupRepository;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,10 @@ class AttendanceController extends Controller
     {
         if (!empty($request->attendance)) {
 
-            $countStudent = Studentadmission::where('status', true)->where('group_id', $request->group_id)->count();
+            $countStudent = AdmissionRepository::query()
+            ->whereHas('student', function ($query) {
+                $query->where('status', true)->where('admission_status', true)->where('status_type', 1);
+            })->where('group_id', Auth('teacher')->user()->group_id)->count();
 
             $countAtten = count($request->attendance);
 
