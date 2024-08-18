@@ -324,12 +324,11 @@
 <!--End Teacher Attendance-->
 <!--Student Attendance-->
 <li class="menu-item menu-item-submenu
-                                {{ $routeName == 'admin.student.atten.index' ||
-                                $routeName == 'admin.student.atten.create' ||
-                                $routeName == 'admin.student.atten.show'
-                                    ? 'menu-item-open'
-                                    : '' }}
-                                "
+    {{ $routeName == 'admin.student.atten.index' ||
+    $routeName == 'admin.student.atten.create' ||
+    $routeName == 'admin.student.atten.show'
+        ? 'menu-item-open'
+        : '' }}"
     aria-haspopup="true" data-menu-toggle="hover">
     <a href="javascript:;" class="menu-link menu-toggle">
         <span class="svg-icon menu-icon">
@@ -551,7 +550,7 @@
 </li>
 <!--End Teacher Responsibility-->
 <!--Student Activity-->
-<li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+{{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
     <a href="javascript:;" class="menu-link menu-toggle">
         <span class="svg-icon menu-icon">
             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -608,7 +607,7 @@
             </li>
         </ul>
     </div>
-</li>
+</li> --}}
 <!--End student activity-->
 <!--Massage-->
 <li class="menu-item menu-item-submenu

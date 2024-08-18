@@ -48,9 +48,11 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
         // Route::post('/student/status/{id}', [StudentController::class, 'status'])->name('student.status');
     });
     // teacher management route
-    Route::prefix('/teacher/info')->controller(TeacherController::class)->group(function () {
-        Route::get('index', 'index')->name('teacher.index');
-        Route::get('show/{slug}', 'show')->name('teacher.show');
+    Route::prefix('/teacher')->controller(TeacherController::class)->group(function () {
+        Route::get('/info/index', 'index')->name('teacher.index');
+        Route::get('/info/show/{slug}', 'show')->name('teacher.show');
+        Route::get('responsibility/index/','responsIndex')->name('respons.index');
+        Route::post('responsibility/status/{teacherResponsibility}','responsStatus')->name('respons.status');
     });
 
 // Student attendance route
@@ -65,17 +67,9 @@ Route::controller(AttendanceController::class)->prefix('/student')->group(functi
 
     // teacher attendance route
     Route::group(['prefix' => '/teacher'], function () {
-        Route::get('attendance/sheet/index/', [AttendanceController::class,'myAttenIndex'])->name('my.atten.index');
+        Route::get('/attendance/sheet/index/', [AttendanceController::class,'myAttenIndex'])->name('my.atten.index');
     });
-    // admission route
-    Route::group(['prefix' => '/student'], function () {
-        Route::resource('admission', AdmissionController::class);
-        // Route::post('/admission/status/{id}', [AdmissionController::class, 'status'])->name('admission.status');
-    });
-    Route::group(['prefix' => '/admission'], function () {
-        Route::get('/panding', [AdmissionController::class, 'pandingindex'])->name('panding.admission');
-        Route::post('/status/{id}', [AdmissionController::class, 'status'])->name('admission.status');
-    });
+
     Route::group(['prefix'=>'/student'],function(){
         // Route::resource('homework',HomeworkController::class);
 
@@ -95,14 +89,6 @@ Route::controller(AttendanceController::class)->prefix('/student')->group(functi
 
         Route::get('activity/sheet/{class}/{date}', [StudentActivityController::class,'activity_show'])->name('activity_show');
         Route::get('activity/delete/{class}/{date}', [StudentActivityController::class,'activity_delete'])->name('activity_delete');
-
-    });
-
-    Route::group(['prefix'=>'/teacher'],function(){
-
-        Route::get('responsibility/index/',[TeacherController::class,'responsIndex'])->name('respons.index');
-        Route::get('responsibility/create/',[TeacherController::class,'responsCreate'])->name('respons.create');
-
 
     });
 

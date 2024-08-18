@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use App\Models\TeacherResponsibility;
 use App\Repositories\TeacherRepository;
+use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
@@ -24,7 +25,17 @@ class TeacherController extends Controller
     {
 
         $data['respons'] = TeacherResponsibility::where('teacher_id',Auth('teacher')->user()->id)->get();
-        return view('backend.dashboard.teacher.respons.index',$data);
+        return view('backend.teacher.dashboard.respons.index',$data);
+    }
+    public function responsStatus(Request $request, TeacherResponsibility $teacherResponsibility)
+    {
+        $request->validate([
+            'status' => 'required|string'
+        ]);
+        $teacherResponsibility->update([
+            'status' => $request->status
+        ]);
+        return back()->with('success', 'Status changed successfully!');
     }
 
 

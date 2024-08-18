@@ -1,28 +1,6 @@
-@extends('backend.layouts.dashboard')
+@extends('backend.teacher.layouts.master')
 @section('title','All Attendance')
 @section('content')
-
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Attendance</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Breadcrumb-->
-                    <!--end::Breadcrumb-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -73,11 +51,7 @@
                             <!--end::Dropdown Menu-->
                         </div>
                         <!--end::Dropdown-->
-                        <!--begin::Button-->
-
-                        <!--end::Button-->
                     </div>
-
                 </div>
                 <div class="card-body" id="cardbody">
                     <div class="row m-0">
@@ -95,7 +69,7 @@
                                 </svg>
                                 <!--end::Svg Icon-->
                             </span>
-                            <a href="#" class="text-warning font-weight-bold font-size-h6">Attendance Count: {{@$class_count}}</a>
+                            <a href="#" class="text-warning font-weight-bold font-size-h6">Attendance Count: {{$class_count ?? 0}}</a>
                         </div>
                         <div class="col bg-light-primary px-6 py-8 rounded-xl mb-7 mr-7">
                             <span class="svg-icon svg-icon-3x svg-icon-warning d-block my-2">
@@ -111,7 +85,7 @@
                                 </svg>
                                 <!--end::Svg Icon-->
                             </span>
-                            <a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">Present: {{@$present}}</a>
+                            <a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">Present: {{$present ?? 0}}</a>
                         </div>
                         <div class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
                             <span class="svg-icon svg-icon-3x svg-icon-warning d-block my-2">
@@ -127,7 +101,7 @@
                                 </svg>
                                 <!--end::Svg Icon-->
                             </span>
-                            <a href="#" class="text-warning font-weight-bold font-size-h6">Absent: {{@$absent}}</a>
+                            <a href="#" class="text-warning font-weight-bold font-size-h6">Absent: {{$absent ?? 0}}</a>
                         </div>
                         <div class="col bg-light-primary px-6 py-8 rounded-xl mb-7 mr-7">
                             <span class="svg-icon svg-icon-3x svg-icon-warning d-block my-2">
@@ -143,7 +117,7 @@
                                 </svg>
                                 <!--end::Svg Icon-->
                             </span>
-                            <a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">Late: {{@$late}}</a>
+                            <a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">Late: {{$late ?? 0}}</a>
                         </div>
                         <div class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
                             <span class="svg-icon svg-icon-3x svg-icon-warning d-block my-2">
@@ -159,7 +133,7 @@
                                 </svg>
                                 <!--end::Svg Icon-->
                             </span>
-                            <a href="#" class="text-warning font-weight-bold font-size-h6">Sick: {{@$sick}}</a>
+                            <a href="#" class="text-warning font-weight-bold font-size-h6">Sick: {{$sick ?? 0}}</a>
                         </div>
 
                     </div>
@@ -170,18 +144,14 @@
                                 <th>SL</th>
                                 <th>Date</th>
                                 <th>Present/Absent/Late/Sick</th>
-                                <th>Date</th>
+                                <th>Time</th>
                             </tr>
                         </thead>
                         <tbody>
-
-
                             @foreach($getAtten as $row)
-
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$row->attendance_date}}</td>
-
                                 <td>
                                     @if($row->attendence_status == 1)
                                     <a href="#" class="btn label label-lg label-light-success label-inline">Present</a>
@@ -192,7 +162,6 @@
                                     @elseif($row->attendence_status == 3)
                                     <a href="#" class="btn label label-lg label-light-warning label-inline">Sick</a>
                                     @endif
-
                                 </td>
                                 <td>
                                     {{ date('h:i a', strtotime($row->attendance_time))}}
@@ -209,14 +178,4 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
-@section('customjs')
-<script>
-    //var card = document.getElementById("cardbody");
-    function printwindow() {
-        $("cardbody").print();
-    }
-</script>
-@endsection
 @endsection

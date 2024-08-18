@@ -119,6 +119,6 @@ class AttendanceController extends Controller
         $data['late'] = TeacherAttendance::where('teacher_id', $getId->id)->where('attendence_status', 2)->count();
         $data['sick'] = TeacherAttendance::where('teacher_id', $getId->id)->where('attendence_status', 3)->count();
 
-        return view('backend.dashboard.teacher.my-attendance.attendance', $data);
+        return view('backend.teacher.dashboard.my-attendance.attendance', $data);
     }
 }

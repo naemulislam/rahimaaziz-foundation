@@ -21,8 +21,8 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Photo</th>
                                 <th>Name</th>
+                                <th>Date</th>
                                 <th>Group</th>
                                 <th>Responsibility</th>
                                 <th>Status</th>
@@ -33,12 +33,8 @@
                             @foreach ($respons as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        <img style="width:70px ;"
-                                            src="@if (!empty($row->teacher->image)) {{ asset($row->teacher->image) }} @else {{ asset('defaults/noimage/no_img.jpg') }} @endif"
-                                            alt="">
-                                    </td>
                                     <td>{{ $row->teacher->name }}</td>
+                                    <td>{{ $row->respons_date}}</td>
                                     <td>{{ $row->teacher->group->name }}</td>
                                     <td>
                                         @if ($row->status == 'pending')

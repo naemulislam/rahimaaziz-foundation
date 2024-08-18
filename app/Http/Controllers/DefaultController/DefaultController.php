@@ -9,11 +9,11 @@ use App\Repositories\GroupRepository;
 
 class DefaultController extends Controller
 {
-    public function studentGet($id)
-    {
-        $data = Studentadmission::with('group', 'student')->where('group_id', $id)->where('status', 1)->Orderby('roll','asc')->get();
-        return response()->json($data);
-    }
+    // public function studentGet($id)
+    // {
+    //     $data = Studentadmission::with('group', 'student')->where('group_id', $id)->where('status', 1)->Orderby('roll','asc')->get();
+    //     return response()->json($data);
+    // }
 
     public function geStudent($id)
     {
