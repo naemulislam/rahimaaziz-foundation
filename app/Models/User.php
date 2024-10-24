@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $guarded = ['id'];
 
     public function children(){
-        return $this->belongsToMany(Children::class, 'parent_id');
+        return $this->belongsToMany(Children::class,'childrens', 'parent_id','student_id');
     }
 
     /**

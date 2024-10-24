@@ -47,6 +47,10 @@
                         </thead>
                         <tbody>
                             @foreach($parents as $row)
+                            @php
+                                $childrens = \App\Models\Children::select('student_id')->where('parent_id', $row->id)->get()->count();
+                            @endphp
+                            {{-- @dd($childrens) --}}
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{ $row->name }}</td>
@@ -54,7 +58,7 @@
                                 <td>{{ $row->phone }}</td>
                                 <td>{{ $row->address }}</td>
                                 <td>
-                                    <a href="#" class="btn label label-lg label-light-danger label-inline"> 5</a>
+                                    <a href="javascript:void(0);" class="btn label label-lg label-light-danger label-inline">{{$childrens}}</a>
                                 </td>
                                 <td>
                                     <a href="{{route('admin.parent.edit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>

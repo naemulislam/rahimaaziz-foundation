@@ -91,7 +91,7 @@
 		<!--begin::Page-->
 		<div class="d-flex flex-row flex-column-fluid page">
 			<!--begin::Aside-->
-			@include('backend.layouts.includes.dashboard.aside')
+			@include('backend.layouts.includes.aside')
 			<!--end::Aside-->
 			<!--begin::Wrapper-->
 			<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
@@ -183,78 +183,21 @@
 							<div class="topbar-item">
 								<div class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
 									<span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-									@if(auth('admin')->user())
-									<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{auth('admin')->user()->name}}</span>
-									@elseif(auth('teacher')->user())
-									<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{auth('teacher')->user()->name}}</span>
-									@elseif(auth('principle')->user())
-									<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{auth('principle')->user()->name}}</span>
-									@elseif(auth('hr')->user())
-									<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{auth('hr')->user()->name}}</span>
-									@elseif(auth('student')->user())
-									<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{auth('student')->user()->name}}</span>
-									@elseif(auth('accountant')->user())
-									<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{auth('accountant')->user()->name}}</span>
-									@elseif(auth()->user())
+									@if(auth()->user())
 									<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{auth()->user()->name}}</span>
 									@endif
-
 									<?php
 
 use Illuminate\Support\Facades\Auth;
-
-
 ?>
-
-
 									<span class="symbol symbol-lg-35 symbol-25">
 										<span class="symbol-label font-size-h1 font-weight-bold">
-										@if(auth('admin')->user())
-											<?php
-											$get_admin = Auth('admin')->user()->name;
-											$admin = mb_substr($get_admin, 0, 1);
-											?>
-
-											{{$admin}}
-
-											@elseif(auth('teacher')->user())
-											<?php
-											$get_teacher = Auth('teacher')->user()->name;
-											$teacher = mb_substr($get_teacher, 0, 1);
-											?>
-											{{$teacher}}
-											@elseif(auth('student')->user())
-											<?php
-											$get_student = Auth('student')->user()->name;
-											$student = mb_substr($get_student, 0, 1);
-											?>
-											{{$student}}
-
-											@elseif(auth('principle')->user())
-											<?php
-											$get_principle = Auth('principle')->user()->name;
-											$principle = mb_substr($get_principle, 0, 1);
-											?>
-											{{$principle}}
-											@elseif(auth('hr')->user())
-											<?php
-											$get_hr = Auth('hr')->user()->name;
-											$hr = mb_substr($get_hr, 0, 1);
-											?>
-											{{$hr}}
-											@elseif(auth('accountant')->user())
-											<?php
-											$get_account = Auth('accountant')->user()->name;
-											$account = mb_substr($get_account, 0, 1);
-											?>
-											{{$account}}
-											@elseif(Auth::user())
+											@if(Auth::user())
 											<?php
 											$get_parent = Auth::user()->name;
 											$parent = mb_substr($get_parent, 0, 1);
 											?>
 											{{$parent}}
-
 											@endif
 										</span>
 									</span>
@@ -315,56 +258,13 @@ use Illuminate\Support\Facades\Auth;
 			<!--begin::Header-->
 			<div class="d-flex align-items-center mt-5">
 				<div class="symbol symbol-100 mr-5">
-
-				@if(auth('admin')->user())
-				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('admin')->user()->profile_photo_path)) {{ asset(Auth('admin')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
-				@elseif(auth('teacher')->user())
-				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('teacher')->user()->profile_photo_path)) {{ asset(Auth('teacher')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
-				@elseif(auth('principle')->user())
-				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('principle')->user()->profile_photo_path)) {{ asset(Auth('principle')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
-				@elseif(auth('hr')->user())
-				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('hr')->user()->profile_photo_path)) {{ asset(Auth('hr')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
-				@elseif(auth('student')->user())
-				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('student')->user()->profile_photo_path)) {{ asset(Auth('student')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
-				@elseif(auth('accountant')->user())
-				<div class="symbol-label" style="background-image:url(@if(!empty(Auth('accountant')->user()->profile_photo_path)) {{ asset(Auth('accountant')->user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
-
-				@elseif(Auth::user())
-
-				<div class="symbol-label" style="background-image:url(@if(!empty(Auth::user()->profile_photo_path)) {{ asset(Auth::user()->profile_photo_path)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
-
+				@if(Auth::user())
+				<div class="symbol-label" style="background-image:url(@if(!empty(Auth::user()->image)) {{ asset(Auth::user()->image)}} @else {{ asset('defaults/avatar/avatar.png') }} @endif)"></div>
 				@endif
 					<i class="symbol-badge bg-success"></i>
 				</div>
 				<div class="d-flex flex-column">
-
-
-					@if(auth('admin')->user())
-
-					<a href="{{ route('admin.profile')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth('admin')->user()->name}}</a>
-					<div class="text-muted mt-1">Super Admin</div>
-
-					@elseif(auth('teacher')->user())
-					<a href="{{ route('teacher.profile')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth('teacher')->user()->name}}</a>
-					<div class="text-muted mt-1">Teacher</div>
-
-					@elseif(auth('principle')->user())
-					<a href="{{ route('principle.profile')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth('principle')->user()->name}}</a>
-					<div class="text-muted mt-1">Principle</div>
-
-					@elseif(auth('hr')->user())
-					<a href="{{ route('hr.profile')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth('hr')->user()->name}}</a>
-					<div class="text-muted mt-1">Hr</div>
-
-					@elseif(auth('student')->user())
-					<a href="{{ route('student.dashboard')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth('student')->user()->name}}</a>
-					<div class="text-muted mt-1">Student</div>
-
-					@elseif(auth('accountant')->user())
-					<a href="{{ route('accountant.profile')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth('accountant')->user()->name}}</a>
-					<div class="text-muted mt-1">Accountant</div>
-
-					@elseif(Auth::user())
+					@if(Auth::user())
 					<a href="{{ route('dashboard')}}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth()->user()->name}}</a>
 					<div class="text-muted mt-1">Parent</div>
 					@endif
@@ -385,34 +285,12 @@ use Illuminate\Support\Facades\Auth;
 									</span>
 								</span>
 
-
-								@if(auth('admin')->user())
-								<span class="navi-text text-muted text-hover-primary">{{Auth('admin')->user()->email}}</span>
-
-								@elseif(auth('teacher')->user())
-								<span class="navi-text text-muted text-hover-primary">{{Auth('teacher')->user()->email}}</span>
-
-								@elseif(auth('principle')->user())
-								<span class="navi-text text-muted text-hover-primary">{{Auth('principle')->user()->email}}</span>
-
-								@elseif(auth('hr')->user())
-								<span class="navi-text text-muted text-hover-primary">{{Auth('hr')->user()->email}}</span>
-
-								@elseif(auth('student')->user())
-								<span class="navi-text text-muted text-hover-primary">{{Auth('student')->user()->email}}</span>
-
-								@elseif(auth('accountant')->user())
-								<span class="navi-text text-muted text-hover-primary">{{Auth('accountant')->user()->email}}</span>
-
-								@elseif(auth()->user())
+								@if(auth()->user())
 								<span class="navi-text text-muted text-hover-primary">{{Auth()->user()->email}}</span>
 								@endif
-
-
-
 							</span>
 						</a>
-						@include('backend.layouts.includes.dashboard.menu.logout')
+						@include('backend.layouts.includes.menu.logout')
 					</div>
 				</div>
 			</div>
@@ -423,21 +301,8 @@ use Illuminate\Support\Facades\Auth;
 			<!--begin::Nav-->
 			<div class="navi navi-spacer-x-0 p-0">
 				<!--begin::Item-->
-				<a href="@if(auth('admin')->user())
-				{{ route('admin.profile')}}
-				@elseif(auth('principle')->user())
-				{{ route('principle.profile')}}
-				@elseif(auth('teacher')->user())
-				{{ route('teacher.profile')}}
-				@elseif(auth('student')->user())
-				{{ route('student.dashboard')}}
-				@elseif(auth('hr')->user())
-				{{ route('hr.profile')}}
-				@elseif(auth('accountant')->user())
-				{{ route('accountant.profile')}}
-				@elseif(auth()->user())
+				<a href="
 				{{ route('dashboard')}}
-				@endif
 				" class="navi-item">
 					<div class="navi-link">
 						<div class="symbol symbol-40 bg-light mr-3">
@@ -463,21 +328,8 @@ use Illuminate\Support\Facades\Auth;
 				</a>
 				<!--end:Item-->
 				<!--begin::Item-->
-				<a href="@if(auth('admin')->user())
-				{{ route('admin.epassword')}}
-				@elseif(auth('principle')->user())
-				{{ route('principle.epassword')}}
-				@elseif(auth('teacher')->user())
-				{{ route('teacher.epassword')}}
-				@elseif(auth('student')->user())
-				{{ route('student.epassword')}}
-				@elseif(auth('hr')->user())
-				{{ route('hr.epassword')}}
-				@elseif(auth('accountant')->user())
-				{{ route('accountant.epassword')}}
-				@elseif(auth()->user())
+				<a href="
 				{{ route('user.epassword')}}
-				@endif
 				" class="navi-item">
 					<div class="navi-link">
 						<div class="symbol symbol-40 bg-light mr-3">

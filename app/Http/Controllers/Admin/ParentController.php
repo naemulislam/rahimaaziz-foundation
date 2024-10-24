@@ -25,57 +25,49 @@ class ParentController extends Controller
     }
     public function store(ParentRequest $request)
     {
-       try{
-        if (!empty($request->student_id)) {
-            $parentId = ParentRepository::storeByRequest($request);
-            foreach ($request->student_id as $student) {
-                $child = new Children();
-                $child->student_id = $student;
-                $child->parent_id = $parentId->id;
-                $child->save();
-            }
-        } else {
-            return back()->with('error', 'Please select students!');
-        }
-        return back()->with('success', 'Parent has been created successfully!');
-       }
+        try {
+            // Check if there are students selected
+            if (!empty($request->student_id)) {
+                // Store the parent data
+                $parent = ParentRepository::storeByRequest($request);
+                // Sync the student IDs with the parent using the pivot table
+                // The $parent->children() is the relationship defined in the User model
+                $parent->children()->sync($request->student_id);
 
-        catch(\Exception $e){
-            return redirect(route('admin.parent.index'))->with('error', 'Error Adding parent into system!'.$e->getMessage());
-          }
+                return back()->with('success', 'Parent has been created successfully!');
+            } else {
+                return back()->with('error', 'Please select students!');
+            }
+        } catch (\Exception $e) {
+            return redirect(route('admin.parent.index'))->with('error', 'Error adding parent to the system: ' . $e->getMessage());
+        }
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        $data = User::find($id);
-        return view('backend.dashboard.admin.parent.show',compact('data'));
+        return view('backend.dashboard.parent.show', compact('user'));
     }
     public function edit(User $user)
     {
         $data['user'] = $user;
-        $data['childs'] = Children::select('student_id')->where('parent_id',$user->id)->get()->toArray();
-        //return $data['childs']->parent_id;
+        $data['childs'] = Children::select('student_id')->where('parent_id', $user->id)->get()->toArray();
         $data['students'] = StudentRepository::query()->where('status', true)->where('admission_status', true)->where('status_type', true)->get();
         return view('backend.dashboard.parent.edit', $data);
     }
 
     public function update(ParentRequest $request, User $user)
     {
-        if(!empty($request->student_id)){
-            $parentId = ParentRepository::updateByRequest($request, $user);
-            $child_delete = Children::where('parent_id', $user->id)->get();
-            // $child_delete->delete();
-            $childrenData = [];
-            foreach ($request->student_id as $student) {
-                $childrenData[] = [
-                    'student_id' => $student,
-                    'parent_id' => $user->id
-                ];
-              $child_delete->children->sync($childrenData);
-            }
+        if (!empty($request->student_id)) {
+            ParentRepository::updateByRequest($request, $user);
+            //update the children pivot table
+            $childrenData = $request->student_id;
+            $user->children()->sync($childrenData);
         }
+
         return redirect()->route('admin.parent.index')->with('success', 'Parent has been updated successfully!');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

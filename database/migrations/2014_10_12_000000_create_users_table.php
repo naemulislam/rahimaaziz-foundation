@@ -24,6 +24,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('image', 2048)->nullable();
             $table->longText('address')->nullable();
+            $table->boolean('status')->define(true);
             $table->timestamps();
 
 

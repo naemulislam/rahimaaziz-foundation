@@ -1,9 +1,6 @@
 @extends('frontend.layout.master')
 @section('title','Contact')
 @section('content')
-<style type="text/css">
-
-    </style>
 <style>
  .contact-heading{
     text-align: center;
