@@ -42,13 +42,17 @@ Route::prefix('dashboard')->middleware('student')->name('student.')->group(funct
 
 
     Route::group(['prefix'=>'/student'],function(){
-        Route::resource('report',DailyReportController::class);
-        Route::get('/report/delete/{id}',[DailyReportController::class,'reportDelete'])->name('report.destroy');
-        Route::get('/jug/index',[JugController::class,'jugIndex'])->name('jug.index');
+        // Route::resource('report',DailyReportController::class);
+        Route::get('/report/index',[DailyReportController::class,'index'])->name('report.index');
+        Route::get('/report/create',[DailyReportController::class,'create'])->name('report.create');
+        Route::post('/report/store',[DailyReportController::class,'store'])->name('report.store');
+        Route::get('/report/edit/{dailyReport}',[DailyReportController::class,'edit'])->name('report.edit');
+        Route::put('/report/update/{dailyReport}',[DailyReportController::class,'update'])->name('report.update');
+        Route::get('/report/show/{dailyReport}',[DailyReportController::class,'show'])->name('report.show');
+        Route::get('/report/delete/{dailyReport}',[DailyReportController::class,'reportDelete'])->name('report.destroy');
+        Route::get('/report/juz/index',[DailyReportController::class,'completeIndex'])->name('report.juz.index');
 
-        Route::get('/report/complete/index',[JugController::class,'completeIndex'])->name('complete.index');
 
-        Route::get('homework/destroy/{id}',[HomeworkController::class,'homeworkdestroy'])->name('homework.destroy');
     });
     Route::controller(AttendanceController::class)->group(function(){
         Route::get('attendance/index', 'index')->name('attendance.index');

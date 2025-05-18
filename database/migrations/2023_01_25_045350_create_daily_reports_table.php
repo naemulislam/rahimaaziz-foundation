@@ -19,12 +19,13 @@ class CreateDailyReportsTable extends Migration
             $table->id();
             $table->foreignId('admission_id')->constrained((new Studentadmission())->getTable());
             $table->foreignId('group_id')->constrained((new Group())->getTable());
-            $table->string('subject_name');
+            $table->string('report_name');
+            $table->string('juz_number');
             $table->string('page');
-            $table->string('para');
+            $table->string('line_number');
             $table->longText('description')->nullable();
-            $table->string('teacher_review')->default(0)->comment('1=done,0=report');
-            $table->string('report')->default(0)->comment('1=report,0=done');
+            $table->string('teacher_review')->default(0);
+            $table->string('report_status')->default(0);
             $table->string('report_date')->nullable();
             $table->string('image')->nullable();
             $table->string('report_type')->nullable();

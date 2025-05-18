@@ -1,33 +1,6 @@
-@extends('backend.layouts.dashboard')
-@section('title','All Reports')
+@extends('backend.student.layouts.master')
+@section('title', 'All Reports')
 @section('content')
-
-<!--begin::Content-->
-<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
-    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-1">
-                <!--begin::Page Heading-->
-                <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">Daily Report List</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Breadcrumb-->
-                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                        <li class="breadcrumb-item text-muted">
-                            <a href="javascript:;" class="text-muted">report List</a>
-                        </li>
-                    </ul>
-                    <!--end::Breadcrumb-->
-                </div>
-                <!--end::Page Heading-->
-            </div>
-            <!--end::Info-->
-        </div>
-    </div>
-    <!--end::Subheader-->
     <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -42,14 +15,17 @@
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Button-->
-                        <a href="{{ route('student.report.create')}}" class="btn btn-primary font-weight-bolder">
+                        <a href="{{ route('student.report.create') }}" class="btn btn-primary font-weight-bolder">
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24" />
                                         <circle fill="#000000" cx="9" cy="15" r="6" />
-                                        <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
+                                        <path
+                                            d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
+                                            fill="#000000" opacity="0.3" />
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
@@ -63,74 +39,70 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Subject Name</th>
+                                <th>Report Name</th>
                                 <th>Date</th>
+                                <th>Juz</th>
                                 <th>Page</th>
-                                <th>Jug</th>
+                                <th>Line</th>
                                 <th>Type</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
-
-                            @foreach($reports as $row)
-                            
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$row->subject_name}}</td>
-                                <td>{{$row->report_date}}</td>
-                                <td>{{$row->page}}</td>
-                                <td>{{$row->para}}</td>
-                                <td>
-                                    @if($row->report_type == 1)
-                                    Running Tilawat.
-                                    @elseif($row->report_type == 2)
-                                    Daor Review.
-                                    @elseif($row->report_type == 3)
-                                    Daor Amokta.
-                                    @else
-                                    Null.
-                                    @endif
-
-                                </td>
-                                <td>
-                                    @if($row->teacher_review == 0)
-                                    <a href="#" class="btn label label-lg label-light-danger label-inline">pending</a>
-                                    @elseif($row->teacher_review == 1)
-                                    <a href="#" class="btn label label-lg label-light-success label-inline">Completed</a>
-                                    @elseif($row->teacher_review == 2)
-                                    <a href="#" class="btn label label-lg label-light-info label-inline">Incomplete</a>
-                                    @elseif($row->teacher_review == 3)
-                                    <a href="#" class="btn label label-lg label-light-warning label-inline">Rejected</a>
-                                    @endif
-
-                                </td>
-
-                                <td class="d-flex">
-                                    <a href="{{ route('student.report.show',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ route('student.report.edit',$row->id)}}" class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i class="fa fa-edit"></i></a>
 
 
-                                    @php
-                                    $check1 = 0;
+                            @foreach ($reports as $row)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $row->report_name }}</td>
+                                    <td>{{ $row->report_date }}</td>
+                                    <td>{{ $row->juz_number }}</td>
+                                    <td>{{ $row->page }}</td>
+                                    <td>{{ $row->line_number }}</td>
+                                    <td>
+                                        @if ($row->report_type == 1)
+                                            Running Tilawat.
+                                        @elseif($row->report_type == 2)
+                                            Daor Review.
+                                        @elseif($row->report_type == 3)
+                                            Daor Amokta.
+                                        @else
+                                            Null.
+                                        @endif
 
-                                    $check2 = 0;
-                                    @endphp
+                                    </td>
+                                    <td>
+                                        @if ($row->teacher_review == 0)
+                                            <a href="#"
+                                                class="btn label label-lg label-light-danger label-inline">pending</a>
+                                        @elseif($row->teacher_review == 1)
+                                            <a href="#"
+                                                class="btn label label-lg label-light-success label-inline">Completed</a>
+                                        @elseif($row->teacher_review == 2)
+                                            <a href="#"
+                                                class="btn label label-lg label-light-info label-inline">Incomplete</a>
+                                        @elseif($row->teacher_review == 3)
+                                            <a href="#"
+                                                class="btn label label-lg label-light-warning label-inline">Rejected</a>
+                                        @endif
 
-                                    @if( $check1 > 0 || $check2 > 0)
-                                    <button type="button" class="btn btn-icon btn-warning btn-hover-primary btn-xs mx-3 delcheck"><i class="fa fa-trash"></i></button>
-                                    @else
+                                    </td>
 
-                                    <a id="delete" href="{{route('student.report.destroy',$row->id)}}" class="btn btn-icon btn-danger btn-hover-primary btn-xs mx-3">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    <td>
+                                        <a href="{{ route('student.report.show', $row->id) }}"
+                                            class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i
+                                                class="fa fa-eye"></i></a>
+                                        <a href="{{ route('student.report.edit', $row->id) }}"
+                                            class="btn btn-icon btn-info btn-hover-primary btn-xs mx-3"><i
+                                                class="fa fa-edit"></i></a>
+                                            <a id="delete" href="{{ route('student.report.destroy', $row->id) }}"
+                                                class="btn btn-icon btn-danger btn-hover-primary btn-xs mx-3">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
 
-                                    @endif
-
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -142,7 +114,5 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-</div>
-<!--end::Content-->
 
 @endsection

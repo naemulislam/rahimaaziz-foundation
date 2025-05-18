@@ -47,6 +47,17 @@ Route::prefix('dashboard')->middleware('teacher')->name('teacher.')->group(funct
         Route::get('/show/{slug}', 'show')->name('student.show');
         // Route::post('/student/status/{id}', [StudentController::class, 'status'])->name('student.status');
     });
+    // Student report route
+    Route::prefix('/student/report')->controller(StudentController::class)->group(function () {
+        Route::get('/all', 'allReports')->name('student_report.index');
+        Route::get('/pending', 'pending')->name('student_report.pending');
+        Route::get('/complete', 'complete')->name('student_report.complete');
+        Route::get('/incomplete', 'incomplete')->name('student_report.incomplete');
+        Route::get('/rejected', 'rejected')->name('student_report.rejected');
+        Route::get('/status/{dailyReport}', 'status')->name('student_report.status');
+        Route::get('/show/{dailyReport}', 'showReport')->name('student_report.show');
+        // Route::post('/student/status/{id}', [StudentController::class, 'status'])->name('student.status');
+    });
     // teacher management route
     Route::prefix('/teacher')->controller(TeacherController::class)->group(function () {
         Route::get('/info/index', 'index')->name('teacher.index');

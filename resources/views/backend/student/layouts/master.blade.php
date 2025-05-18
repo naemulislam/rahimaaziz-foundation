@@ -44,6 +44,7 @@
     <link href="{{ asset('backend') }}/assets/css/filter_multi_select.css" rel="stylesheet" type="text/css" />
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{ asset('frontend') }}/assets/images/logo/favicon-32x32.png" type="image/x-icon">
+    
     <style>
         .imageBox>img {
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
